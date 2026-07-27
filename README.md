@@ -9,13 +9,13 @@ Regroupement des applications et sites **Lovable** (CH/FR) dans un seul dépôt 
 
 ```
 sites/
-  vague-business/     # 14 sites « vague business »
+  vague-business/     # 13 sites « vague business »
   apps/               # Applications standalone
 ```
 
 Chaque sous-dossier contient une copie du code (sans historique `.git`) clonée depuis le dépôt GitHub du même slug lorsque disponible.
 
-## Catalogue — Vague business (14 sites)
+## Catalogue — Vague business (13 sites)
 
 | Produit | URL live | Dossier | Dépôt GitHub source |
 |---------|----------|---------|---------------------|
@@ -31,7 +31,6 @@ Chaque sous-dossier contient une copie du code (sans historique `.git`) clonée 
 | VitrineFlash | https://vitrineflash.lovable.app | `sites/vague-business/vitrineflash/` | [tchal25-IA/vitrineflash](https://github.com/tchal25-IA/vitrineflash) |
 | AutoFlux | https://autoflux.lovable.app | `sites/vague-business/autoflux/` | [tchal25-IA/autoflux](https://github.com/tchal25-IA/autoflux) |
 | RelancePro | https://relancepro-setup.lovable.app | `sites/vague-business/relancepro-setup/` | [tchal25-IA/relancepro-setup](https://github.com/tchal25-IA/relancepro-setup) |
-| CRMChantier | https://crmchantier.lovable.app | `sites/vague-business/crmchantier/` | *(non publié — voir README local)* |
 | SiteConforme | https://siteconforme.lovable.app | `sites/vague-business/siteconforme/` | [tchal25-IA/siteconforme](https://github.com/tchal25-IA/siteconforme) |
 
 Métadonnées Lovable (IDs, éditeur) : `sites/vague-business/sites.json`.
@@ -39,7 +38,6 @@ Métadonnées Lovable (IDs, éditeur) : `sites/vague-business/sites.json`.
 ### Cross-sells
 
 - FactuFront ↔ RelancePro
-- ArtisanPipe ↔ CRMChantier
 - Conformia ↔ SiteConforme
 
 ## Catalogue — Applications
@@ -49,7 +47,7 @@ Métadonnées Lovable (IDs, éditeur) : `sites/vague-business/sites.json`.
 | Quotidien IA | https://votre-quotidien-ia.lovable.app | `sites/apps/quotidien-ia/` | [tchal25-IA/votre-quotidien-ia](https://github.com/tchal25-IA/votre-quotidien-ia) |
 | Finzy | https://finzy-v3.lovable.app | `sites/apps/finzy/` | [tchal25-IA/finzy-v3](https://github.com/tchal25-IA/finzy-v3) |
 | My Teacher's Journal | https://cahier-de-bord.lovable.app | `sites/apps/teacher-journal/` | [tchal25-IA/cahier-de-bord](https://github.com/tchal25-IA/cahier-de-bord) |
-| Paperasse | https://paperasse.lovable.app | `sites/apps/paperasse/` | *(non publié — voir README local)* |
+| Fusion Fit | https://fusion-intiative.lovable.app | `sites/apps/fusion-fit/` | [tchal25-IA/fusionfit-initiative](https://github.com/tchal25-IA/fusionfit-initiative) |
 
 ## Stack (typique)
 
@@ -80,17 +78,8 @@ Dépôts détectés accessibles via `git` (liste non exhaustive sans `gh auth lo
 |-------|-----|
 | Projets-IT-T-S- | https://github.com/tchal25-IA/Projets-IT-T-S- |
 | Tdb-Projets | https://github.com/tchal25-IA/Tdb-Projets |
-| + 16 dépôts Lovable listés dans les tableaux ci-dessus | |
+| + 17 dépôts Lovable listés dans les tableaux ci-dessus | |
 
 ---
 
 Dernière organisation automatisée : juillet 2026.
-
-## Projets en attente (code non synchronisé)
-
-| Produit | Live | ID Lovable | Action |
-|---------|------|------------|--------|
-| CRMChantier | https://crmchantier.lovable.app | `4d11697f-cd25-4d29-8765-feacc1a1b709` | Publier vers GitHub puis resync |
-| Paperasse | https://paperasse.lovable.app | `0a121325-83ca-4402-a145-67e221c5c469` | Publier vers GitHub puis resync |
-
-Dépôts GitHub testés sans succès : voir README dans chaque dossier placeholder.

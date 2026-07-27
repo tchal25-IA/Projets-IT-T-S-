@@ -2,19 +2,109 @@
   "generated": "2026-07-26",
   "workspace": "monstre's Lovable",
   "sites": [
-    {"idea": 1, "name": "NetFrontalier", "slug": "netfrontalier", "live": "https://netfrontalier.lovable.app", "project_id": "cfaee645-2a66-4e2c-8d05-42f461e295b0", "editor": "https://lovable.dev/projects/cfaee645-2a66-4e2c-8d05-42f461e295b0"},
-    {"idea": 2, "name": "AssoPV", "slug": "assopv", "live": "https://assopv.lovable.app", "project_id": "000c6048-d329-4eda-9beb-a9195ca3b27a", "editor": "https://lovable.dev/projects/000c6048-d329-4eda-9beb-a9195ca3b27a"},
-    {"idea": 22, "name": "FactuFront", "slug": "factufront", "live": "https://factufront.lovable.app", "project_id": "d192e6e1-4b7a-40ac-b648-5981c1b60a69", "editor": "https://lovable.dev/projects/d192e6e1-4b7a-40ac-b648-5981c1b60a69"},
-    {"idea": 26, "name": "Adhezia", "slug": "adhezia", "live": "https://adhezia.lovable.app", "project_id": "9917d06e-6dc7-40e7-a611-f8cf77309786", "editor": "https://lovable.dev/projects/9917d06e-6dc7-40e7-a611-f8cf77309786"},
-    {"idea": 24, "name": "ArtisanPipe", "slug": "artisanpipe", "live": "https://artisanpipe.lovable.app", "project_id": "d93568e0-4d6d-4e8c-a04b-6692f84ba7e0", "editor": "https://lovable.dev/projects/d93568e0-4d6d-4e8c-a04b-6692f84ba7e0"},
-    {"idea": 27, "name": "Conformia", "slug": "conformia-audit", "live": "https://conformia-audit.lovable.app", "project_id": "8c07cb98-2f1c-442a-9521-66f9ab8c3d31", "editor": "https://lovable.dev/projects/8c07cb98-2f1c-442a-9521-66f9ab8c3d31"},
-    {"idea": 78, "name": "FrontBudget", "slug": "frontbudget", "live": "https://frontbudget.lovable.app", "project_id": "a374c415-88f9-48b8-a7b1-1ca1772e029f", "editor": "https://lovable.dev/projects/a374c415-88f9-48b8-a7b1-1ca1772e029f"},
-    {"idea": 30, "name": "TipShare", "slug": "tipshare-ch", "live": "https://tipshare-ch.lovable.app", "project_id": "178b94d3-66bc-41c9-904c-d2988b7c6dde", "editor": "https://lovable.dev/projects/178b94d3-66bc-41c9-904c-d2988b7c6dde"},
-    {"idea": 7, "name": "FiduciaFind", "slug": "fiduciafind", "live": "https://fiduciafind.lovable.app", "project_id": "06ed118c-a23e-4f28-bd2e-35f82edd6a8f", "editor": "https://lovable.dev/projects/06ed118c-a23e-4f28-bd2e-35f82edd6a8f"},
-    {"idea": 53, "name": "VitrineFlash", "slug": "vitrineflash", "live": "https://vitrineflash.lovable.app", "project_id": "7fb5e31d-f2ca-4b13-afca-2a5fafdd5c29", "editor": "https://lovable.dev/projects/7fb5e31d-f2ca-4b13-afca-2a5fafdd5c29"},
-    {"idea": 51, "name": "AutoFlux", "slug": "autoflux", "live": "https://autoflux.lovable.app", "project_id": "bffdcb7f-531a-40f7-af55-54fa12d1fde6", "editor": "https://lovable.dev/projects/bffdcb7f-531a-40f7-af55-54fa12d1fde6"},
-    {"idea": 57, "name": "RelancePro", "slug": "relancepro-setup", "live": "https://relancepro-setup.lovable.app", "project_id": "a07f4642-28e5-4bad-b01d-c675d9d40661", "editor": "https://lovable.dev/projects/a07f4642-28e5-4bad-b01d-c675d9d40661"},
-    {"idea": 58, "name": "CRMChantier", "slug": "crmchantier", "live": "https://crmchantier.lovable.app", "project_id": "4d11697f-cd25-4d29-8765-feacc1a1b709", "editor": "https://lovable.dev/projects/4d11697f-cd25-4d29-8765-feacc1a1b709"},
-    {"idea": 99, "name": "SiteConforme", "slug": "siteconforme", "live": "https://siteconforme.lovable.app", "project_id": "093b96ac-a4cd-4d3c-8c46-cd8b143f7a22", "editor": "https://lovable.dev/projects/093b96ac-a4cd-4d3c-8c46-cd8b143f7a22"}
+    {
+      "idea": 1,
+      "name": "NetFrontalier",
+      "slug": "netfrontalier",
+      "live": "https://netfrontalier.lovable.app",
+      "project_id": "cfaee645-2a66-4e2c-8d05-42f461e295b0",
+      "editor": "https://lovable.dev/projects/cfaee645-2a66-4e2c-8d05-42f461e295b0"
+    },
+    {
+      "idea": 2,
+      "name": "AssoPV",
+      "slug": "assopv",
+      "live": "https://assopv.lovable.app",
+      "project_id": "000c6048-d329-4eda-9beb-a9195ca3b27a",
+      "editor": "https://lovable.dev/projects/000c6048-d329-4eda-9beb-a9195ca3b27a"
+    },
+    {
+      "idea": 22,
+      "name": "FactuFront",
+      "slug": "factufront",
+      "live": "https://factufront.lovable.app",
+      "project_id": "d192e6e1-4b7a-40ac-b648-5981c1b60a69",
+      "editor": "https://lovable.dev/projects/d192e6e1-4b7a-40ac-b648-5981c1b60a69"
+    },
+    {
+      "idea": 26,
+      "name": "Adhezia",
+      "slug": "adhezia",
+      "live": "https://adhezia.lovable.app",
+      "project_id": "9917d06e-6dc7-40e7-a611-f8cf77309786",
+      "editor": "https://lovable.dev/projects/9917d06e-6dc7-40e7-a611-f8cf77309786"
+    },
+    {
+      "idea": 24,
+      "name": "ArtisanPipe",
+      "slug": "artisanpipe",
+      "live": "https://artisanpipe.lovable.app",
+      "project_id": "d93568e0-4d6d-4e8c-a04b-6692f84ba7e0",
+      "editor": "https://lovable.dev/projects/d93568e0-4d6d-4e8c-a04b-6692f84ba7e0"
+    },
+    {
+      "idea": 27,
+      "name": "Conformia",
+      "slug": "conformia-audit",
+      "live": "https://conformia-audit.lovable.app",
+      "project_id": "8c07cb98-2f1c-442a-9521-66f9ab8c3d31",
+      "editor": "https://lovable.dev/projects/8c07cb98-2f1c-442a-9521-66f9ab8c3d31"
+    },
+    {
+      "idea": 78,
+      "name": "FrontBudget",
+      "slug": "frontbudget",
+      "live": "https://frontbudget.lovable.app",
+      "project_id": "a374c415-88f9-48b8-a7b1-1ca1772e029f",
+      "editor": "https://lovable.dev/projects/a374c415-88f9-48b8-a7b1-1ca1772e029f"
+    },
+    {
+      "idea": 30,
+      "name": "TipShare",
+      "slug": "tipshare-ch",
+      "live": "https://tipshare-ch.lovable.app",
+      "project_id": "178b94d3-66bc-41c9-904c-d2988b7c6dde",
+      "editor": "https://lovable.dev/projects/178b94d3-66bc-41c9-904c-d2988b7c6dde"
+    },
+    {
+      "idea": 7,
+      "name": "FiduciaFind",
+      "slug": "fiduciafind",
+      "live": "https://fiduciafind.lovable.app",
+      "project_id": "06ed118c-a23e-4f28-bd2e-35f82edd6a8f",
+      "editor": "https://lovable.dev/projects/06ed118c-a23e-4f28-bd2e-35f82edd6a8f"
+    },
+    {
+      "idea": 53,
+      "name": "VitrineFlash",
+      "slug": "vitrineflash",
+      "live": "https://vitrineflash.lovable.app",
+      "project_id": "7fb5e31d-f2ca-4b13-afca-2a5fafdd5c29",
+      "editor": "https://lovable.dev/projects/7fb5e31d-f2ca-4b13-afca-2a5fafdd5c29"
+    },
+    {
+      "idea": 51,
+      "name": "AutoFlux",
+      "slug": "autoflux",
+      "live": "https://autoflux.lovable.app",
+      "project_id": "bffdcb7f-531a-40f7-af55-54fa12d1fde6",
+      "editor": "https://lovable.dev/projects/bffdcb7f-531a-40f7-af55-54fa12d1fde6"
+    },
+    {
+      "idea": 57,
+      "name": "RelancePro",
+      "slug": "relancepro-setup",
+      "live": "https://relancepro-setup.lovable.app",
+      "project_id": "a07f4642-28e5-4bad-b01d-c675d9d40661",
+      "editor": "https://lovable.dev/projects/a07f4642-28e5-4bad-b01d-c675d9d40661"
+    },
+    {
+      "idea": 99,
+      "name": "SiteConforme",
+      "slug": "siteconforme",
+      "live": "https://siteconforme.lovable.app",
+      "project_id": "093b96ac-a4cd-4d3c-8c46-cd8b143f7a22",
+      "editor": "https://lovable.dev/projects/093b96ac-a4cd-4d3c-8c46-cd8b143f7a22"
+    }
   ]
 }

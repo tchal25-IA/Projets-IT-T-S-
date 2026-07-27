@@ -1,0 +1,196 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ember: var(--ember);
+  --color-ember-foreground: var(--ember-foreground);
+  --color-serenity: var(--serenity);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-glow: 0 0 32px -8px var(--primary);
+  --shadow-ember: 0 0 32px -8px var(--ember);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Dark high-tech: deep navy/black base, cyan primary, ember accent */
+  --background: oklch(0.16 0.018 240);
+  --foreground: oklch(0.96 0.01 210);
+
+  --card: oklch(0.21 0.022 240);
+  --card-foreground: oklch(0.96 0.01 210);
+
+  --popover: oklch(0.19 0.02 240);
+  --popover-foreground: oklch(0.96 0.01 210);
+
+  --primary: oklch(0.82 0.16 200);            /* cyan electric */
+  --primary-foreground: oklch(0.16 0.02 240);
+
+  --secondary: oklch(0.28 0.025 240);
+  --secondary-foreground: oklch(0.96 0.01 210);
+
+  --muted: oklch(0.24 0.02 240);
+  --muted-foreground: oklch(0.68 0.02 230);
+
+  --accent: oklch(0.32 0.04 220);
+  --accent-foreground: oklch(0.96 0.01 210);
+
+  --ember: oklch(0.74 0.18 50);               /* orange braise */
+  --ember-foreground: oklch(0.16 0.02 240);
+
+  --serenity: oklch(0.78 0.13 165);           /* mint serenity */
+
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.3 0.025 235 / 60%);
+  --input: oklch(0.28 0.025 240);
+  --ring: oklch(0.82 0.16 200);
+
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.32 0.08 220 / 0.6), transparent 60%),
+                   linear-gradient(180deg, oklch(0.16 0.018 240), oklch(0.13 0.02 245));
+  --gradient-primary: linear-gradient(135deg, oklch(0.82 0.16 200), oklch(0.7 0.14 220));
+  --gradient-ember: linear-gradient(135deg, oklch(0.78 0.18 55), oklch(0.65 0.2 35));
+  --grid-line: oklch(0.3 0.03 230 / 0.15);
+}
+
+.dark {
+  --background: oklch(0.16 0.018 240);
+  --foreground: oklch(0.96 0.01 210);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .font-mono { font-family: var(--font-mono); }
+  .bg-gradient-hero { background-image: var(--gradient-hero); }
+  .bg-gradient-primary { background-image: var(--gradient-primary); }
+  .bg-gradient-ember { background-image: var(--gradient-ember); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-ember { box-shadow: var(--shadow-ember); }
+  .text-glow { text-shadow: 0 0 24px color-mix(in oklab, var(--primary) 60%, transparent); }
+  .scanline::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      oklch(1 0 0 / 0.02) 3px,
+      oklch(1 0 0 / 0.02) 4px
+    );
+    pointer-events: none;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 40%, transparent); }
+    50% { box-shadow: 0 0 0 12px color-mix(in oklab, var(--primary) 0%, transparent); }
+  }
+  .animate-pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+}
+
+/* ── FusionFit Initiative — Design System (DARK = défaut) ──────── */
+:root {
+  --ff-bg: oklch(0.07 0.025 265);
+  --ff-surface: oklch(0.11 0.028 265);
+  --ff-surface-2: oklch(0.15 0.030 265);
+  --ff-border: oklch(0.28 0.04 220 / 60%);
+  --ff-cyan: oklch(0.78 0.16 198);
+  --ff-cyan-dim: oklch(0.55 0.12 198);
+  --ff-amber: oklch(0.78 0.18 55);
+  --ff-red: oklch(0.65 0.20 22);
+  --ff-green: oklch(0.68 0.16 155);
+  --ff-text: oklch(0.95 0.008 265);
+  --ff-text-muted: oklch(0.60 0.025 265);
+  --ff-glow-cyan: 0 0 16px oklch(0.78 0.16 198 / 35%);
+  --ff-glow-amber: 0 0 16px oklch(0.78 0.18 55 / 35%);
+}
+
+/* Mode clair — identité Initiative préservée, contraste inversé */
+:root.light {
+  --ff-bg: oklch(0.97 0.005 240);
+  --ff-surface: oklch(1 0 0);
+  --ff-surface-2: oklch(0.94 0.008 240);
+  --ff-border: oklch(0.78 0.02 230 / 70%);
+  --ff-cyan: oklch(0.55 0.18 210);
+  --ff-cyan-dim: oklch(0.70 0.12 210);
+  --ff-amber: oklch(0.62 0.18 50);
+  --ff-red: oklch(0.55 0.22 22);
+  --ff-green: oklch(0.55 0.16 155);
+  --ff-text: oklch(0.18 0.02 250);
+  --ff-text-muted: oklch(0.45 0.02 250);
+  --ff-glow-cyan: 0 0 16px oklch(0.55 0.18 210 / 25%);
+  --ff-glow-amber: 0 0 16px oklch(0.62 0.18 50 / 25%);
+}
+
+@theme inline {
+  --color-ff-bg: var(--ff-bg);
+  --color-ff-surface: var(--ff-surface);
+  --color-ff-surface-2: var(--ff-surface-2);
+  --color-ff-border: var(--ff-border);
+  --color-ff-cyan: var(--ff-cyan);
+  --color-ff-cyan-dim: var(--ff-cyan-dim);
+  --color-ff-amber: var(--ff-amber);
+  --color-ff-red: var(--ff-red);
+  --color-ff-green: var(--ff-green);
+  --color-ff-text: var(--ff-text);
+  --color-ff-text-muted: var(--ff-text-muted);
+}
+
+.ff-glow-cyan { box-shadow: var(--ff-glow-cyan); }
+.ff-glow-amber { box-shadow: var(--ff-glow-amber); }
+.ff-scanline {
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    oklch(0 0 0 / 8%) 2px, oklch(0 0 0 / 8%) 4px
+  );
+}

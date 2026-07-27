@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS public.check_ins_user_date_uniq;
