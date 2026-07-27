@@ -85,3 +85,12 @@ Dépôts détectés accessibles via `git` (liste non exhaustive sans `gh auth lo
 ---
 
 Dernière organisation automatisée : juillet 2026.
+
+## Projets en attente (code non synchronisé)
+
+| Produit | Live | ID Lovable | Action |
+|---------|------|------------|--------|
+| CRMChantier | https://crmchantier.lovable.app | `4d11697f-cd25-4d29-8765-feacc1a1b709` | Publier vers GitHub puis resync |
+| Paperasse | https://paperasse.lovable.app | `0a121325-83ca-4402-a145-67e221c5c469` | Publier vers GitHub puis resync |
+
+Dépôts GitHub testés sans succès : voir README dans chaque dossier placeholder.
