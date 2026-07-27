@@ -1,0 +1,22 @@
+# Secrets serveur (Cloudflare Workers / TanStack Start SSR).
+# Copier ce fichier en .dev.vars et renseigner toutes les valeurs.
+# NE JAMAIS committer .dev.vars dans git.
+
+# Supabase
+SUPABASE_URL=https://xxxxxxxxxxxxxxxxxxxx.supabase.co
+SUPABASE_PUBLISHABLE_KEY=eyJ...          # clé anon (publique)
+SUPABASE_SERVICE_ROLE_KEY=eyJ...         # clé service role (secrète)
+
+# IA (Google Gemini)
+LOVABLE_API_KEY=...
+
+# SSO inter-apps
+# Générer avec : openssl rand -hex 32
+SSO_SECRET_FINZY=...          # partagé avec le projet Finzy (même valeur des deux côtés)
+SSO_SECRET_PAPERASSE=...      # partagé avec le projet Paperasse (même valeur des deux côtés)
+FINZY_URL=https://finzy-v3.lovable.app
+PAPERASSE_URL=https://paperasse.lovable.app
+
+# Vérification de droits service-à-service (Finzy/Paperasse → Quotidien IA)
+# Générer avec : openssl rand -hex 32
+SERVICE_SHARED_SECRET=...

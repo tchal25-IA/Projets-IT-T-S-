@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cahier de bord — Classe</title>
+<style>
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --surface-2:#eef1f6; --border:#dde2ea;
+  --text:#232a35; --text-muted:#6b7686; --primary:#3d6bf0; --primary-dark:#2c52c9;
+  --accent:#0fae8a; --danger:#e0503c; --warn:#e0a13c;
+  --radius:10px; --shadow:0 1px 3px rgba(20,30,60,.08), 0 1px 2px rgba(20,30,60,.06);
+  --font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;font-family:var(--font);background:var(--bg);color:var(--text);}
+body{display:flex;min-height:100vh;font-size:14px;}
+a{color:var(--primary);}
+button{font-family:inherit;cursor:pointer;}
+input,select,textarea{font-family:inherit;font-size:14px;}
+.hidden{display:none !important;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:#c6cedb;border-radius:6px;}
+
+/* ---------- Gate ---------- */
+#gate{position:fixed;inset:0;background:linear-gradient(135deg,#3d6bf0,#0fae8a);display:flex;align-items:center;justify-content:center;z-index:9999;}
+#gate .card{background:#fff;border-radius:16px;padding:36px 32px;width:340px;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center;}
+#gate h1{font-size:20px;margin:0 0 4px;}
+#gate p{color:var(--text-muted);font-size:13px;margin:0 0 20px;}
+#gate input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px;}
+#gate button{width:100%;padding:10px;border:none;border-radius:8px;background:var(--primary);color:#fff;font-weight:600;}
+#gate .err{color:var(--danger);font-size:12px;min-height:16px;margin-bottom:8px;}
+#gate .small{font-size:11px;color:var(--text-muted);margin-top:14px;}
+
+/* ---------- Shell ---------- */
+#sidebar{width:220px;flex:none;background:#1c2333;color:#cdd6e8;display:flex;flex-direction:column;padding:16px 0;}
+#sidebar .brand{padding:0 18px 16px;font-weight:700;font-size:16px;color:#fff;border-bottom:1px solid #2c3550;margin-bottom:10px;}
+#sidebar .brand small{display:block;font-weight:400;font-size:11px;color:#8b96b3;margin-top:2px;}
+#sidebar nav{flex:1;overflow-y:auto;}
+#sidebar a{display:flex;align-items:center;gap:10px;padding:10px 18px;color:#aab4cc;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+#sidebar a:hover{background:#242c42;color:#fff;}
+#sidebar a.active{background:#242c42;color:#fff;border-left-color:var(--accent);font-weight:600;}
+#sidebar .foot{padding:10px 18px;border-top:1px solid #2c3550;display:flex;flex-direction:column;gap:6px;}
+#sidebar .foot button{background:none;border:1px solid #3a4361;color:#aab4cc;border-radius:6px;padding:6px 8px;font-size:11.5px;}
+#sidebar .foot button:hover{color:#fff;border-color:#5a6690;}
+
+#main{flex:1;display:flex;flex-direction:column;min-width:0;}
+#topbar{height:56px;flex:none;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;}
+#topbar h2{font-size:16px;margin:0;}
+#topbar .actions{display:flex;gap:8px;}
+#content{flex:1;overflow-y:auto;padding:22px;}
+
+.btn{border:1px solid var(--border);background:var(--surface);padding:7px 12px;border-radius:8px;font-size:13px;color:var(--text);display:inline-flex;align-items:center;gap:6px;}
+.btn:hover{background:var(--surface-2);}
+.btn-primary{background:var(--primary);border-color:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-danger{color:var(--danger);border-color:#f0c4bc;}
+.btn-danger:hover{background:#fdf1ee;}
+.btn-sm{padding:4px 8px;font-size:12px;border-radius:6px;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.card-pad{padding:16px;}
+.grid{display:grid;gap:14px;}
+.row{display:flex;gap:10px;align-items:center;}
+.spacer{flex:1;}
+label{font-size:12px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;}
+input[type=text],input[type=date],input[type=time],input[type=number],input[type=password],select,textarea{
+  width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:#fff;color:var(--text);
+}
+textarea{resize:vertical;}
+.field{margin-bottom:12px;}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:600;}
+.badge-fait{background:#e3f7ef;color:#0f8a63;}
+.badge-afaire{background:#fdeee0;color:#c9701a;}
+
+/* Dashboard */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:18px;}
+.kpi{padding:16px;}
+.kpi .num{font-size:26px;font-weight:700;}
+.kpi .lbl{font-size:12px;color:var(--text-muted);}
+
+/* Emploi du temps grid */
+.edt-grid{display:grid;grid-template-columns:70px repeat(5,1fr);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface);}
+.edt-grid .hcell{background:var(--surface-2);font-weight:700;font-size:12.5px;padding:8px;text-align:center;border-bottom:1px solid var(--border);border-left:1px solid var(--border);}
+.edt-grid .hcell:first-child{border-left:none;}
+.edt-time{padding:6px;font-size:11px;color:var(--text-muted);text-align:right;border-top:1px solid var(--border);}
+.edt-cell{min-height:30px;border-top:1px solid var(--border);border-left:1px solid var(--border);position:relative;padding:2px;}
+.edt-slot{border-radius:6px;padding:5px 7px;font-size:11.5px;font-weight:600;color:#fff;cursor:pointer;margin-bottom:2px;line-height:1.25;}
+.edt-slot small{display:block;font-weight:400;opacity:.9;font-size:10px;}
+.edt-add{width:100%;height:100%;min-height:26px;background:transparent;border:1px dashed transparent;color:var(--text-muted);font-size:16px;border-radius:6px;}
+.edt-cell:hover .edt-add{border-color:#c6cedb;}
+
+/* Cahier journal */
+.journal-week{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.journal-day{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);min-height:200px;display:flex;flex-direction:column;}
+.journal-day .dhead{padding:9px 12px;border-bottom:1px solid var(--border);font-weight:700;font-size:13px;background:var(--surface-2);border-radius:var(--radius) var(--radius) 0 0;display:flex;justify-content:space-between;align-items:center;}
+.journal-day .dhead span.date{font-weight:400;color:var(--text-muted);font-size:11.5px;}
+.journal-day .dbody{padding:8px;flex:1;display:flex;flex-direction:column;gap:7px;}
+.seance-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--primary);border-radius:8px;padding:7px 9px;cursor:grab;}
+.seance-card.done{opacity:.65;}
+.seance-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;}
+.seance-card .mat{font-weight:700;font-size:12.5px;}
+.seance-card .dom{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.seance-card .actions{display:flex;gap:3px;margin-top:5px;}
+.seance-card .actions button{border:none;background:none;color:var(--text-muted);font-size:11px;padding:2px 4px;border-radius:4px;}
+.seance-card .actions button:hover{background:var(--surface-2);color:var(--text);}
+.dbody.dragover{background:#eef3ff;}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,25,40,.45);display:flex;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;z-index:500;}
+.modal{background:var(--surface);border-radius:12px;width:100%;max-width:680px;box-shadow:0 20px 60px rgba(0,0,0,.3);margin-bottom:40px;}
+.modal .mhead{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.modal .mhead h3{margin:0;font-size:16px;}
+.modal .mbody{padding:20px;max-height:70vh;overflow-y:auto;}
+.modal .mfoot{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;}
+.mclose{background:none;border:none;font-size:20px;color:var(--text-muted);line-height:1;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+.richbar{display:flex;gap:4px;border:1px solid var(--border);border-bottom:none;border-radius:7px 7px 0 0;background:var(--surface-2);padding:4px;}
+.richbar button{border:none;background:none;padding:4px 8px;border-radius:5px;font-size:12px;font-weight:700;}
+.richbar button:hover{background:#fff;}
+.rich{min-height:90px;border:1px solid var(--border);border-radius:0 0 7px 7px;padding:8px 10px;background:#fff;overflow-y:auto;}
+.rich:focus{outline:2px solid var(--primary);outline-offset:-1px;}
+
+.atelier-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;padding:8px;background:var(--surface-2);border-radius:8px;}
+.phase-row{display:grid;grid-template-columns:1fr 90px auto;gap:8px;margin-bottom:8px;}
+.phase-row textarea{grid-column:1/3;}
+
+table.tbl{width:100%;border-collapse:collapse;background:var(--surface);}
+table.tbl th,table.tbl td{border:1px solid var(--border);padding:8px 10px;font-size:12.5px;text-align:left;}
+table.tbl th{background:var(--surface-2);font-weight:700;}
+table.tbl tr:hover td{background:#fafbfd;}
+
+.empty{padding:40px;text-align:center;color:var(--text-muted);}
+.empty .big{font-size:30px;margin-bottom:6px;}
+
+.list-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border);}
+.list-item:last-child{border-bottom:none;}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;object-fit:cover;}
+.trombi{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px;}
+.trombi .tcard{text-align:center;padding:12px 8px;}
+.trombi .avatar{width:56px;height:56px;font-size:18px;margin:0 auto 8px;}
+
+.tag-cycle{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;background:#e6ecff;color:var(--primary-dark);}
+
+/* Print */
+#print-area{display:none;}
+@media print{
+  #sidebar,#topbar,.no-print{display:none !important;}
+  #content{display:none !important;}
+  #print-area{display:block !important;padding:0;margin:0;}
+  body{background:#fff;}
+  @page{margin:12mm;}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="card">
+    <h1>📘 Cahier de bord</h1>
+    <p id="gate-sub">Application personnelle — accès protégé</p>
+    <div id="gate-err" class="err"></div>
+    <input type="password" id="gate-pass" placeholder="Mot de passe" autocomplete="current-password">
+    <button id="gate-btn">Déverrouiller</button>
+    <div class="small" id="gate-hint"></div>
+  </div>
+</div>
+
+<div id="sidebar" class="hidden">
+  <div class="brand">📘 Cahier de bord<small id="brand-sub">Classe</small></div>
+  <nav id="nav"></nav>
+  <div class="foot">
+    <button id="btn-export-json">💾 Exporter (JSON)</button>
+    <button id="btn-import-json">📂 Importer</button>
+    <button id="btn-lock">🔒 Verrouiller</button>
+  </div>
+</div>
+
+<div id="main" class="hidden">
+  <div id="topbar">
+    <h2 id="page-title">Accueil</h2>
+    <div class="actions" id="page-actions"></div>
+  </div>
+  <div id="content"></div>
+</div>
+
+<div id="print-area"></div>
+<input type="file" id="file-import" accept="application/json" class="hidden">
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================
+   UTILS
+   ========================================================= */
+const $ = (sel,root)=> (root||document).querySelector(sel);
+const $$ = (sel,root)=> Array.from((root||document).querySelectorAll(sel));
+const uid = ()=> 'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const DAYS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi'];
+function isoDate(d){ const z = new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
+function startOfWeek(d){ const dt=new Date(d); const day=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-day); dt.setHours(0,0,0,0); return dt; }
+function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt; }
+function fmtFR(d){ return d.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long'}); }
+function fmtShort(d){ return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+async function sha256(text){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+const MATIERE_COLORS = {
+  'Français':'#3d6bf0','Mathématiques':'#e0503c','EPS':'#0fae8a','Arts plastiques':'#c04ec2',
+  'Éducation musicale':'#a24ec2','Sciences':'#2c9e5e','Histoire-Géographie':'#b8862f','EMC':'#5c6bc0',
+  'Langues vivantes':'#26a0a0','Questionner le monde':'#2c9e5e','Récréation':'#9aa5b8','Cantine':'#9aa5b8',
+  'APC':'#7a8599','Autre':'#6b7686'
+};
+function colorFor(mat){ return MATIERE_COLORS[mat] || '#4a5a8a'; }
+
+/* =========================================================
+   REFERENTIEL PROGRAMMES OFFICIELS (FR) — cycles 1/2/3
+   Structure: REFERENTIEL[cycle][matiere][domaine] = { sousDomaines: {nom: [objectifs]} }
+   ========================================================= */
+function bloc(sousDomaines){ return { sousDomaines }; }
+const REFERENTIEL = {
+  "Cycle 1 (PS-MS-GS)": {
+    "Mobiliser le langage": {
+      "Oral": bloc({ "Échanger, s'exprimer": ["Oser entrer en communication","Comprendre et apprendre du vocabulaire nouveau","Pratiquer divers usages du langage oral (raconter, décrire, expliquer)"] , "Commencer à réfléchir sur la langue": ["Percevoir les similarités et différences de sons","Manipuler des syllabes"] }),
+      "Écrit": bloc({ "Découvrir l'écrit": ["Écouter de l'écrit et comprendre","Découvrir la fonction de l'écrit"], "Premiers essais d'écriture": ["Copier en écriture cursive","Reconnaître les lettres de l'alphabet"] })
+    },
+    "Agir, s'exprimer, comprendre à travers l'activité physique": bloc({
+      "Agir dans l'espace, la durée et sur les objets": ["Courir, sauter, lancer de différentes façons","Se déplacer dans des environnements variés"],
+      "Adapter ses équilibres et déplacements": ["Coopérer et s'opposer dans des jeux collectifs"]
+    }),
+    "Agir, s'exprimer, comprendre à travers les activités artistiques": bloc({
+      "Les productions plastiques et visuelles": ["Dessiner, peindre, réaliser des compositions"],
+      "Univers sonores": ["Chanter, explorer des instruments"],
+      "Le spectacle vivant": ["Danser, mimer, exprimer des sentiments"]
+    }),
+    "Construire les premiers outils pour structurer sa pensée": bloc({
+      "Découvrir les nombres et leurs utilisations": ["Utiliser les nombres pour désigner une position","Construire le nombre pour exprimer des quantités","Dénombrer une quantité"],
+      "Explorer des formes, grandeurs, suites organisées": ["Classer, ordonner, catégoriser des objets","Reproduire des algorithmes"]
+    }),
+    "Explorer le monde": bloc({
+      "Se repérer dans le temps et l'espace": ["Se repérer dans le temps","Se repérer dans l'espace"],
+      "Explorer le monde du vivant, des objets et de la matière": ["Reconnaître le vivant du non-vivant","Prendre soin des animaux et végétaux"]
+    })
+  },
+  "Cycle 2 (CP-CE1-CE2)": {
+    "Français": {
+      "Langage oral": bloc({ "Écouter et comprendre": ["Écouter un texte lu par l'adulte"], "Dire": ["Réciter des textes","Participer à des échanges"] }),
+      "Lecture et compréhension de l'écrit": bloc({ "Identification des mots": ["Automatiser le décodage","Reconnaître les mots fréquents"], "Compréhension": ["Comprendre un texte littéraire ou documentaire"] }),
+      "Écriture": bloc({ "Copie": ["Copier de manière experte"], "Production d'écrits": ["Rédiger un texte court"] }),
+      "Étude de la langue": bloc({ "Grammaire": ["Identifier les classes de mots","Identifier les fonctions"], "Orthographe": ["Mémoriser l'orthographe des mots fréquents"], "Vocabulaire": ["Utiliser des mots précis"] })
+    },
+    "Mathématiques": {
+      "Nombres et calculs": bloc({ "Nombres entiers": ["Dénombrer, comparer, ranger des nombres"], "Calcul": ["Calcul mental, en ligne, posé"], "Problèmes": ["Résoudre des problèmes additifs, soustractifs, multiplicatifs"] }),
+      "Grandeurs et mesures": bloc({ "Longueurs, masses, contenances, durées": ["Comparer, estimer, mesurer des grandeurs"], "Monnaie": ["Utiliser la monnaie"] }),
+      "Espace et géométrie": bloc({ "Repérage": ["Se repérer, coder un déplacement"], "Figures et solides": ["Reconnaître, décrire des figures planes et solides"] })
+    },
+    "EPS": {
+      "Activités physiques": bloc({ "Adapter ses déplacements": ["Courir, sauter, lancer, nager"], "Jeux et sports collectifs": ["Coopérer et s'opposer individuellement ou collectivement"], "Activités artistiques": ["S'exprimer devant les autres"] })
+    },
+    "Sciences": {
+      "Questionner le monde": bloc({ "Le vivant": ["Le fonctionnement du vivant","Le corps humain et la santé"], "Matière et objets": ["Matériaux et objets techniques"], "Espace et temps": ["Repères spatiaux et temporels"] })
+    },
+    "Histoire-Géographie": {
+      "Questionner le monde": bloc({ "Se repérer dans le temps": ["Construire des repères temporels"], "Se repérer dans l'espace": ["Se repérer et représenter l'espace"] })
+    },
+    "Arts plastiques": { "Pratique plastique": bloc({ "Expérimenter, produire, créer": ["S'exprimer par la pratique plastique"] }) },
+    "Éducation musicale": { "Pratique musicale": bloc({ "Chanter et écouter": ["Chanter une mélodie simple","Écouter, comparer des œuvres musicales"] }) },
+    "EMC": { "Culture morale et civique": bloc({ "La sensibilité": ["Identifier et exprimer ses émotions"], "La règle et le droit": ["Comprendre les règles de la classe"] }) },
+    "Langues vivantes": { "Communication": bloc({ "Comprendre et s'exprimer à l'oral": ["Suivre des instructions courtes et simples"] }) }
+  },
+  "Cycle 3 (CM1-CM2-6e)": {
+    "Français": {
+      "Langage oral": bloc({ "Comprendre, s'exprimer": ["Écouter pour comprendre un message oral","Participer à des échanges dans des situations diverses"] }),
+      "Lecture et compréhension de l'écrit": bloc({ "Compréhension": ["Lire et comprendre des textes variés"], "Lecture littéraire": ["Élaborer une interprétation de textes littéraires"] }),
+      "Écriture": bloc({ "Production d'écrits": ["Écrire un texte d'une à deux pages"], "Révision": ["Réécrire à partir de nouvelles consignes"] }),
+      "Étude de la langue": bloc({ "Grammaire": ["Maîtriser les accords","Identifier les classes et fonctions"], "Orthographe": ["Maîtriser l'orthographe grammaticale"], "Vocabulaire": ["Maîtriser le sens des mots"] })
+    },
+    "Mathématiques": {
+      "Nombres et calculs": bloc({ "Nombres entiers et décimaux": ["Utiliser et représenter les grands nombres, fractions, décimaux"], "Calcul": ["Calculer avec des nombres entiers et décimaux"], "Problèmes": ["Résoudre des problèmes à plusieurs étapes"] }),
+      "Grandeurs et mesures": bloc({ "Longueurs, aires, volumes, angles": ["Comparer, estimer, mesurer, calculer des grandeurs"] }),
+      "Espace et géométrie": bloc({ "Figures et solides": ["Reconnaître, décrire, nommer des figures et solides"], "Se repérer": ["Se repérer et déplacer en utilisant des plans"] })
+    },
+    "EPS": { "Activités physiques": bloc({ "Produire une performance": ["Réaliser une performance mesurée"], "Sports collectifs": ["S'affronter individuellement ou collectivement"], "S'exprimer": ["Réaliser une prestation artistique"] }) },
+    "Sciences": { "Sciences et technologie": bloc({ "Le vivant, sa diversité": ["Classer les organismes vivants"], "Matière, mouvement, énergie": ["Décrire les états et la constitution de la matière"], "Objets techniques": ["Identifier les principales familles de matériaux"] }) },
+    "Histoire-Géographie": {
+      "Histoire": bloc({ "Repères historiques": ["Comprendre les grandes périodes de l'histoire"] }),
+      "Géographie": bloc({ "Repères géographiques": ["Se repérer dans l'espace mondial, européen et français"] })
+    },
+    "Arts plastiques": { "Pratique plastique": bloc({ "Expérimenter, produire, créer": ["Choisir, mobiliser des techniques au service d'une intention"] }) },
+    "Éducation musicale": { "Pratique musicale": bloc({ "Chanter, écouter, échanger": ["Interpréter un répertoire varié","Décrire et comparer des éléments musicaux"] }) },
+    "EMC": { "Culture morale et civique": bloc({ "Le jugement": ["Développer les aptitudes à la réflexion critique"], "L'engagement": ["S'engager et assumer des responsabilités dans l'école"] }) },
+    "Langues vivantes": { "Communication": bloc({ "Comprendre, s'exprimer, écrire": ["Comprendre à l'oral un message simple","Prendre part à une conversation"] }) }
+  }
+};
+const CYCLES = Object.keys(REFERENTIEL);
+function matieresFor(cycle){ return cycle ? Object.keys(REFERENTIEL[cycle]||{}) : []; }
+function domainesFor(cycle,mat){ return cycle&&mat ? Object.keys((REFERENTIEL[cycle]||{})[mat]||{}) : []; }
+function sousDomainesFor(cycle,mat,dom){ const d=((REFERENTIEL[cycle]||{})[mat]||{})[dom]; return d? Object.keys(d.sousDomaines):[]; }
+function objectifsFor(cycle,mat,dom,sdom){ const d=((REFERENTIEL[cycle]||{})[mat]||{})[dom]; return d? (d.sousDomaines[sdom]||[]):[]; }
+
+/* =========================================================
+   STORE — persistence, backups, import/export
+   ========================================================= */
+const LS_KEY = 'cahierbord.v1';
+const LS_BACKUP_PREFIX = 'cahierbord.backup.';
+const LS_AUTH = 'cahierbord.auth';
+
+function defaultData(){
+  return {
+    schema: 1,
+    config: { classeNom: 'Ma classe', niveaux: ['CE1','CE2'], passwordHash: null },
+    classes: [{ id: uid(), nom:'Ma classe', niveaux:['CE1','CE2'] }],
+    eleves: [],
+    creneaux: [],
+    seances: [],
+    programmations: [],
+    fiches: [],
+    presences: []
+  };
+}
+
+const STORE = { data: null };
+
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    STORE.data = raw ? JSON.parse(raw) : defaultData();
+  }catch(e){
+    console.error('Erreur de lecture des données, réinitialisation.', e);
+    STORE.data = defaultData();
+  }
+}
+function rotateBackups(){
+  try{
+    const keys = [];
+    for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.startsWith(LS_BACKUP_PREFIX)) keys.push(k); }
+    keys.sort();
+    while(keys.length >= 6){ localStorage.removeItem(keys.shift()); }
+    localStorage.setItem(LS_BACKUP_PREFIX+Date.now(), localStorage.getItem(LS_KEY)||'');
+  }catch(e){ /* stockage plein: on ignore la sauvegarde de secours */ }
+}
+const persist = debounce(function(){
+  localStorage.setItem(LS_KEY, JSON.stringify(STORE.data));
+  rotateBackups();
+}, 400);
+function save(){ persist(); }
+
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(STORE.data,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'cahier-de-bord-'+isoDate(new Date())+'.json';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function importJSON(file){
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(!parsed || typeof parsed!=='object') throw new Error('format invalide');
+      STORE.data = Object.assign(defaultData(), parsed);
+      localStorage.setItem(LS_KEY, JSON.stringify(STORE.data));
+      rotateBackups();
+      alert('Import réussi.');
+      render();
+    }catch(e){ alert('Fichier invalide : '+e.message); }
+  };
+  reader.readAsText(file);
+}
+
+/* =========================================================
+   AUTH GATE
+   ========================================================= */
+async function initGate(){
+  const hasPass = !!STORE.data.config.passwordHash;
+  const unlockedThisSession = sessionStorage.getItem(LS_AUTH)==='1';
+  if(unlockedThisSession){ showApp(); return; }
+  if(!hasPass){
+    $('#gate-sub').textContent = 'Première utilisation — choisis un mot de passe pour protéger les données.';
+    $('#gate-hint').textContent = "Les données restent uniquement sur cet ordinateur.";
+  }
+  $('#gate-btn').addEventListener('click', onGateSubmit);
+  $('#gate-pass').addEventListener('keydown', e=>{ if(e.key==='Enter') onGateSubmit(); });
+}
+async function onGateSubmit(){
+  const val = $('#gate-pass').value;
+  const hasPass = !!STORE.data.config.passwordHash;
+  const errEl = $('#gate-err');
+  if(!hasPass){
+    if(val.length < 4){ errEl.textContent = 'Choisis un mot de passe d\'au moins 4 caractères.'; return; }
+    STORE.data.config.passwordHash = await sha256(val);
+    save();
+    sessionStorage.setItem(LS_AUTH,'1');
+    showApp();
+    return;
+  }
+  const h = await sha256(val);
+  if(h === STORE.data.config.passwordHash){
+    sessionStorage.setItem(LS_AUTH,'1');
+    errEl.textContent='';
+    showApp();
+  }else{
+    errEl.textContent = 'Mot de passe incorrect.';
+  }
+}
+function showApp(){
+  $('#gate').classList.add('hidden');
+  $('#sidebar').classList.remove('hidden');
+  $('#main').classList.remove('hidden');
+  render();
+}
+function lock(){
+  sessionStorage.removeItem(LS_AUTH);
+  $('#gate-pass').value='';
+  $('#gate-err').textContent='';
+  $('#sidebar').classList.add('hidden');
+  $('#main').classList.add('hidden');
+  $('#gate').classList.remove('hidden');
+}
+
+/* =========================================================
+   ROUTER
+   ========================================================= */
+const ROUTES = [
+  { id:'dashboard', label:'Accueil', icon:'🏠' },
+  { id:'edt', label:'Emploi du temps', icon:'🗓️' },
+  { id:'journal', label:'Cahier journal', icon:'📒' },
+  { id:'programmations', label:'Programmations', icon:'📈' },
+  { id:'fiches', label:'Fiches de préparation', icon:'📝' },
+  { id:'eleves', label:'Élèves', icon:'🧒' },
+];
+function currentRoute(){ return (location.hash||'#dashboard').replace('#',''); }
+window.addEventListener('hashchange', render);
+
+function renderNav(){
+  const cur = currentRoute();
+  $('#nav').innerHTML = ROUTES.map(r=>`<a href="#${r.id}" class="${r.id===cur?'active':''}">${r.icon} ${r.label}</a>`).join('');
+  $('#brand-sub').textContent = STORE.data.config.classeNom || 'Classe';
+}
+
+function render(){
+  renderNav();
+  const cur = currentRoute();
+  const route = ROUTES.find(r=>r.id===cur) || ROUTES[0];
+  $('#page-title').textContent = route.label;
+  $('#page-actions').innerHTML = '';
+  const content = $('#content');
+  content.innerHTML = '';
+  const map = { dashboard: renderDashboard, edt: renderEDT, journal: renderJournal, programmations: renderProgrammations, fiches: renderFiches, eleves: renderEleves };
+  (map[cur]||renderDashboard)(content);
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+function renderDashboard(root){
+  const today = new Date();
+  const wk = startOfWeek(today);
+  const weekSeances = STORE.data.seances.filter(s=>{
+    const d = new Date(s.date); return d>=wk && d < addDays(wk,5);
+  });
+  const done = weekSeances.filter(s=>s.statut==='fait').length;
+  const nbEleves = STORE.data.eleves.length;
+  const nbCreneaux = STORE.data.creneaux.length;
+
+  root.innerHTML = `
+    <div class="kpis">
+      <div class="card kpi"><div class="num">${weekSeances.length}</div><div class="lbl">Séances cette semaine</div></div>
+      <div class="card kpi"><div class="num">${done}/${weekSeances.length}</div><div class="lbl">Séances faites</div></div>
+      <div class="card kpi"><div class="num">${nbEleves}</div><div class="lbl">Élèves</div></div>
+      <div class="card kpi"><div class="num">${nbCreneaux}</div><div class="lbl">Créneaux à l'EDT</div></div>
+    </div>
+    <div class="card card-pad" style="margin-bottom:16px;">
+      <div class="row" style="margin-bottom:10px;"><strong>Semaine du ${fmtShort(wk)}</strong><span class="spacer"></span><a href="#journal" class="btn btn-sm">Ouvrir le cahier journal →</a></div>
+      <div id="dash-days" class="journal-week"></div>
+    </div>
+  `;
+  const daysEl = $('#dash-days', root);
+  daysEl.innerHTML = DAYS.map((d,i)=>{
+    const date = addDays(wk,i);
+    const iso = isoDate(date);
+    const list = STORE.data.seances.filter(s=>s.date===iso).sort((a,b)=>(a.creneauId||'').localeCompare(b.creneauId||''));
+    return `<div class="journal-day">
+      <div class="dhead">${d} <span class="date">${fmtShort(date)}</span></div>
+      <div class="dbody">${list.length? list.map(s=>seanceCardHTML(s)).join('') : '<div style="color:var(--text-muted);font-size:12px;padding:6px;">Aucune séance</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================
+   EMPLOI DU TEMPS
+   ========================================================= */
+const SLOT_START = 8*60+30, SLOT_END = 16*60+30, SLOT_STEP = 30; // minutes
+function minsToLabel(m){ return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+
+function renderEDT(root){
+  $('#page-actions').innerHTML = `<button class="btn" id="btn-print-edt">🖨️ Export PDF</button>`;
+  const rows = [];
+  for(let m=SLOT_START; m<SLOT_END; m+=SLOT_STEP) rows.push(m);
+
+  root.innerHTML = `<div class="card card-pad" style="margin-bottom:14px;">
+      <div class="row"><span style="font-size:12.5px;color:var(--text-muted);">Clique sur un créneau vide pour l'ajouter, clique sur un créneau existant pour le modifier.</span></div>
+    </div>
+    <div class="edt-grid" id="edt-grid">
+      <div class="hcell"></div>
+      ${DAYS.map(d=>`<div class="hcell">${d}</div>`).join('')}
+    </div>`;
+  const grid = $('#edt-grid', root);
+  rows.forEach(m=>{
+    const timeCell = document.createElement('div');
+    timeCell.className='edt-time'; timeCell.textContent = minsToLabel(m);
+    grid.appendChild(timeCell);
+    DAYS.forEach((d,dayIdx)=>{
+      const cell = document.createElement('div');
+      cell.className='edt-cell';
+      const slot = STORE.data.creneaux.find(c=> c.jour===dayIdx && toMin(c.heureDebut)===m);
+      if(slot){
+        const dur = toMin(slot.heureFin)-toMin(slot.heureDebut);
+        const rowspan = Math.max(1, Math.round(dur/SLOT_STEP));
+        cell.style.gridRow = 'span '+rowspan;
+        cell.innerHTML = `<div class="edt-slot" style="background:${colorFor(slot.matiere)}">${esc(slot.matiere)}<small>${slot.heureDebut}–${slot.heureFin}</small></div>`;
+        cell.querySelector('.edt-slot').addEventListener('click', ()=>openCreneauModal(slot));
+      }else{
+        const overlapped = STORE.data.creneaux.some(c=> c.jour===dayIdx && toMin(c.heureDebut) < m && toMin(c.heureFin) > m);
+        if(overlapped){ cell.style.display='none'; }
+        else{
+          cell.innerHTML = `<button class="edt-add">+</button>`;
+          cell.querySelector('.edt-add').addEventListener('click', ()=>openCreneauModal(null, dayIdx, minsToLabel(m)));
+        }
+      }
+      grid.appendChild(cell);
+    });
+  });
+  $('#btn-print-edt').addEventListener('click', printEDT);
+}
+function toMin(hhmm){ const [h,m] = hhmm.split(':').map(Number); return h*60+m; }
+
+function openCreneauModal(slot, dayIdx, startLabel){
+  const isEdit = !!slot;
+  const matieres = Object.keys(MATIERE_COLORS);
+  const body = `
+    <div class="two-col">
+      <div class="field"><label>Jour</label><select id="c-jour">${DAYS.map((d,i)=>`<option value="${i}" ${((slot?slot.jour:dayIdx)===i)?'selected':''}>${d}</option>`).join('')}</select></div>
+      <div class="field"><label>Matière</label>
+        <select id="c-mat">${matieres.map(m=>`<option ${slot&&slot.matiere===m?'selected':''}>${m}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>Heure de début</label><input type="time" id="c-debut" value="${slot?slot.heureDebut:(startLabel||'08:30')}"></div>
+      <div class="field"><label>Heure de fin</label><input type="time" id="c-fin" value="${slot?slot.heureFin:addMinLabel(startLabel||'08:30',30)}"></div>
+    </div>
+    <div class="field"><label>Libellé (optionnel)</label><input type="text" id="c-label" value="${esc(slot&&slot.label||'')}" placeholder="ex : Rituels, Ateliers..."></div>
+  `;
+  const footExtra = isEdit ? `<button class="btn btn-danger" id="c-del">Supprimer</button>` : '';
+  openModal('Créneau', body, footExtra, ()=>{
+    const jour = Number($('#c-jour').value);
+    const heureDebut = $('#c-debut').value, heureFin = $('#c-fin').value;
+    if(toMin(heureFin) <= toMin(heureDebut)){ alert("L'heure de fin doit être après l'heure de début."); return false; }
+    const payload = { jour, matiere: $('#c-mat').value, heureDebut, heureFin, label: $('#c-label').value, couleur: colorFor($('#c-mat').value) };
+    if(isEdit){ Object.assign(slot, payload); }
+    else{ STORE.data.creneaux.push(Object.assign({id:uid()}, payload)); }
+    save(); render();
+    return true;
+  }, isEdit ? ()=>{
+    if(confirm('Supprimer ce créneau ?')){
+      STORE.data.creneaux = STORE.data.creneaux.filter(c=>c.id!==slot.id);
+      save(); closeModal(); render();
+    }
+  } : null, 'c-del');
+}
+function addMinLabel(hhmm, add){ let m = toMin(hhmm)+add; return minsToLabel(Math.min(m, 23*60+30)); }
+
+/* =========================================================
+   MODAL helpers
+   ========================================================= */
+function openModal(title, bodyHTML, footExtraHTML, onSave, onExtraClick, extraId){
+  closeModal();
+  const wrap = document.createElement('div');
+  wrap.className='modal-backdrop'; wrap.id='modal-backdrop';
+  wrap.innerHTML = `<div class="modal">
+    <div class="mhead"><h3>${esc(title)}</h3><button class="mclose" id="modal-close">×</button></div>
+    <div class="mbody">${bodyHTML}</div>
+    <div class="mfoot">${footExtraHTML||''}<button class="btn" id="modal-cancel">Annuler</button><button class="btn btn-primary" id="modal-save">Enregistrer</button></div>
+  </div>`;
+  document.body.appendChild(wrap);
+  $('#modal-close').addEventListener('click', closeModal);
+  $('#modal-cancel').addEventListener('click', closeModal);
+  $('#modal-save').addEventListener('click', ()=>{ const ok = onSave(); if(ok!==false) closeModal(); });
+  if(extraId && onExtraClick){ const el = document.getElementById(extraId); if(el) el.addEventListener('click', onExtraClick); }
+  wrap.addEventListener('mousedown', e=>{ if(e.target===wrap) closeModal(); });
+}
+function closeModal(){ const el = $('#modal-backdrop'); if(el) el.remove(); }
+
+/* =========================================================
+   CAHIER JOURNAL
+   ========================================================= */
+let journalWeekStart = startOfWeek(new Date());
+
+function renderJournal(root){
+  $('#page-actions').innerHTML = `<button class="btn" id="btn-gen-week">🔄 Générer depuis l'EDT</button><button class="btn" id="btn-print-journal">🖨️ Export PDF</button>`;
+  root.innerHTML = `
+    <div class="row" style="margin-bottom:14px;">
+      <button class="btn btn-sm" id="wk-prev">← Semaine préc.</button>
+      <strong id="wk-label" style="min-width:220px;text-align:center;"></strong>
+      <button class="btn btn-sm" id="wk-next">Semaine suiv. →</button>
+      <span class="spacer"></span>
+      <button class="btn btn-sm" id="wk-dup">📋 Dupliquer la semaine →</button>
+    </div>
+    <div class="journal-week" id="journal-week"></div>
+  `;
+  $('#wk-label').textContent = 'Semaine du ' + fmtShort(journalWeekStart);
+  $('#wk-prev').addEventListener('click', ()=>{ journalWeekStart = addDays(journalWeekStart,-7); renderJournal(root); });
+  $('#wk-next').addEventListener('click', ()=>{ journalWeekStart = addDays(journalWeekStart,7); renderJournal(root); });
+  $('#btn-gen-week').addEventListener('click', ()=>{ generateWeekFromEDT(journalWeekStart); renderJournal(root); });
+  $('#btn-print-journal').addEventListener('click', ()=>printJournal(journalWeekStart));
+  $('#wk-dup').addEventListener('click', ()=>{
+    duplicateWeek(journalWeekStart, addDays(journalWeekStart,7));
+    journalWeekStart = addDays(journalWeekStart,7);
+    renderJournal(root);
+  });
+
+  const weekEl = $('#journal-week', root);
+  weekEl.innerHTML = DAYS.map((d,i)=>{
+    const date = addDays(journalWeekStart,i);
+    const iso = isoDate(date);
+    return `<div class="journal-day" data-date="${iso}">
+      <div class="dhead">${d} <span class="date">${fmtShort(date)}</span>
+        <button class="btn btn-sm" data-add="${iso}" title="Ajouter une séance">+</button>
+      </div>
+      <div class="dbody" data-drop="${iso}"></div>
+    </div>`;
+  }).join('');
+
+  $$('.journal-day', weekEl).forEach(dayEl=>{
+    const iso = dayEl.dataset.date;
+    const body = $('.dbody', dayEl);
+    const list = STORE.data.seances.filter(s=>s.date===iso).sort((a,b)=>seanceSort(a,b));
+    body.innerHTML = list.length? list.map(s=>seanceCardHTML(s)).join('') : '';
+    $$('.seance-card', body).forEach(card=>{
+      const id = card.dataset.id;
+      card.addEventListener('click', (e)=>{ if(e.target.closest('button')) return; openSeanceModal(STORE.data.seances.find(s=>s.id===id)); });
+      card.addEventListener('dragstart', e=>{ e.dataTransfer.setData('text/plain', id); });
+      $('[data-dup]', card)?.addEventListener('click', e=>{ e.stopPropagation(); duplicateSeance(id); renderJournal(root); });
+      $('[data-toggle]', card)?.addEventListener('click', e=>{ e.stopPropagation(); toggleSeanceStatut(id); renderJournal(root); });
+      $('[data-del]', card)?.addEventListener('click', e=>{ e.stopPropagation(); if(confirm('Supprimer cette séance ?')){ STORE.data.seances = STORE.data.seances.filter(s=>s.id!==id); save(); renderJournal(root);} });
+    });
+    body.addEventListener('dragover', e=>{ e.preventDefault(); body.classList.add('dragover'); });
+    body.addEventListener('dragleave', ()=> body.classList.remove('dragover'));
+    body.addEventListener('drop', e=>{
+      e.preventDefault(); body.classList.remove('dragover');
+      const id = e.dataTransfer.getData('text/plain');
+      const s = STORE.data.seances.find(x=>x.id===id);
+      if(s){ s.date = iso; save(); renderJournal(root); }
+    });
+    $('[data-add]', dayEl).addEventListener('click', ()=> openSeanceModal(null, iso));
+  });
+}
+function seanceSort(a,b){
+  const ca = STORE.data.creneaux.find(c=>c.id===a.creneauId), cb = STORE.data.creneaux.find(c=>c.id===b.creneauId);
+  const ta = ca? toMin(ca.heureDebut) : 999, tb = cb? toMin(cb.heureDebut):999;
+  return ta-tb;
+}
+function seanceCardHTML(s){
+  const badge = s.statut==='fait' ? '<span class="chip badge-fait">✓ Fait</span>' : '<span class="chip badge-afaire">À faire</span>';
+  return `<div class="seance-card ${s.statut==='fait'?'done':''}" draggable="true" data-id="${s.id}" style="border-left-color:${colorFor(s.matiere)}">
+    <div class="top"><div><div class="mat">${esc(s.matiere)}</div><div class="dom">${esc(s.domaine||'')}${s.sousDomaine?' · '+esc(s.sousDomaine):''}</div></div>${badge}</div>
+    <div class="actions">
+      <button data-toggle title="Marquer fait/à faire">✓</button>
+      <button data-dup title="Dupliquer">⧉</button>
+      <button data-del title="Supprimer">🗑</button>
+    </div>
+  </div>`;
+}
+function toggleSeanceStatut(id){ const s = STORE.data.seances.find(x=>x.id===id); if(s){ s.statut = s.statut==='fait'?'a_faire':'fait'; save(); } }
+function duplicateSeance(id, newDate){
+  const s = STORE.data.seances.find(x=>x.id===id);
+  if(!s) return;
+  const copy = JSON.parse(JSON.stringify(s));
+  copy.id = uid(); copy.statut='a_faire'; if(newDate) copy.date=newDate;
+  STORE.data.seances.push(copy); save();
+  return copy;
+}
+function duplicateWeek(fromStart, toStart){
+  const fromISO = [...Array(5)].map((_,i)=>isoDate(addDays(fromStart,i)));
+  fromISO.forEach((iso,i)=>{
+    const toISO = isoDate(addDays(toStart,i));
+    STORE.data.seances.filter(s=>s.date===iso).forEach(s=>duplicateSeance(s.id, toISO));
+  });
+}
+function generateWeekFromEDT(weekStart){
+  DAYS.forEach((d,dayIdx)=>{
+    const iso = isoDate(addDays(weekStart,dayIdx));
+    const slots = STORE.data.creneaux.filter(c=>c.jour===dayIdx && !['Récréation','Cantine'].includes(c.matiere));
+    slots.forEach(slot=>{
+      const exists = STORE.data.seances.some(s=>s.date===iso && s.creneauId===slot.id);
+      if(!exists){
+        STORE.data.seances.push({
+          id: uid(), date: iso, creneauId: slot.id, matiere: slot.matiere,
+          domaine:'', sousDomaine:'', objectifs:[], description:'', deroulement:'',
+          niveauCible:'commun', ateliers:[], statut:'a_faire', pieces:[]
+        });
+      }
+    });
+  });
+  save();
+}
+
+function openSeanceModal(seance, dateForNew){
+  const isEdit = !!seance;
+  const s = seance || { id:null, date:dateForNew, matiere:Object.keys(MATIERE_COLORS)[0], domaine:'', sousDomaine:'', objectifs:[], description:'', deroulement:'', niveauCible:'commun', ateliers:[], statut:'a_faire', pieces:[] };
+  const cycleGuess = CYCLES[1];
+  const body = `
+    <div class="two-col">
+      <div class="field"><label>Date</label><input type="date" id="s-date" value="${s.date}"></div>
+      <div class="field"><label>Cycle (référentiel)</label><select id="s-cycle">${CYCLES.map(c=>`<option ${c===cycleGuess?'selected':''}>${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="three-col">
+      <div class="field"><label>Matière</label><select id="s-mat"></select></div>
+      <div class="field"><label>Domaine</label><select id="s-dom"></select></div>
+      <div class="field"><label>Sous-domaine</label><select id="s-sdom"></select></div>
+    </div>
+    <div class="field"><label>Objectifs (référentiel — coche ceux visés)</label><div id="s-objs" style="max-height:120px;overflow-y:auto;border:1px solid var(--border);border-radius:7px;padding:8px;"></div></div>
+    <div class="field"><label>Description / déroulement</label>
+      <div class="richbar">
+        <button type="button" data-cmd="bold"><b>G</b></button>
+        <button type="button" data-cmd="italic"><i>I</i></button>
+        <button type="button" data-cmd="underline"><u>S</u></button>
+        <button type="button" data-cmd="insertUnorderedList">• Liste</button>
+      </div>
+      <div class="rich" id="s-desc" contenteditable="true">${s.description||''}</div>
+    </div>
+    <div class="field"><label>Niveau ciblé</label>
+      <select id="s-niveau"><option value="commun" ${s.niveauCible==='commun'?'selected':''}>Commun à la classe</option>${STORE.data.config.niveaux.map(n=>`<option value="${n}" ${s.niveauCible===n?'selected':''}>${n} uniquement</option>`).join('')}</select>
+    </div>
+    <div class="field"><label>Ateliers (maternelle / différenciation)</label>
+      <div id="s-ateliers"></div>
+      <button type="button" class="btn btn-sm" id="s-add-atelier">+ Ajouter un atelier</button>
+    </div>
+    <div class="field"><label>Pièces jointes (liens)</label>
+      <div id="s-pieces"></div>
+      <button type="button" class="btn btn-sm" id="s-add-piece">+ Ajouter un lien</button>
+    </div>
+    <div class="field"><label><input type="checkbox" id="s-statut" ${s.statut==='fait'?'checked':''} style="width:auto;margin-right:6px;">Séance faite</label></div>
+  `;
+  const footExtra = isEdit ? `<button class="btn btn-danger" id="s-del">Supprimer</button><button class="btn" id="s-dup">Dupliquer</button>` : '';
+  openModal(isEdit?'Séance':'Nouvelle séance', body, footExtra, ()=>{
+    const desc = $('#s-desc').innerHTML;
+    const payload = {
+      date: $('#s-date').value, matiere: $('#s-mat').value, domaine: $('#s-dom').value||'', sousDomaine: $('#s-sdom').value||'',
+      objectifs: $$('#s-objs input:checked').map(i=>i.value),
+      description: desc, niveauCible: $('#s-niveau').value,
+      ateliers: readAteliers(), pieces: readPieces(),
+      statut: $('#s-statut').checked ? 'fait':'a_faire'
+    };
+    if(isEdit) Object.assign(seance, payload);
+    else STORE.data.seances.push(Object.assign({id:uid(), creneauId:null}, payload));
+    save();
+    if(currentRoute()==='journal') render();
+    return true;
+  }, isEdit ? ()=>{ if(confirm('Supprimer cette séance ?')){ STORE.data.seances = STORE.data.seances.filter(x=>x.id!==seance.id); save(); closeModal(); render(); } } : null, 's-del');
+
+  $$('[data-cmd]').forEach(b=> b.addEventListener('click', ()=> document.execCommand(b.dataset.cmd,false,null)));
+  const matSel = $('#s-mat'), domSel = $('#s-dom'), sdomSel = $('#s-sdom'), cycleSel = $('#s-cycle');
+  function refreshMat(){ matSel.innerHTML = matieresFor(cycleSel.value).map(m=>`<option ${m===s.matiere?'selected':''}>${m}</option>`).join(''); refreshDom(); }
+  function refreshDom(){ domSel.innerHTML = domainesFor(cycleSel.value, matSel.value).map(d=>`<option ${d===s.domaine?'selected':''}>${d}</option>`).join(''); refreshSdom(); }
+  function refreshSdom(){ sdomSel.innerHTML = sousDomainesFor(cycleSel.value, matSel.value, domSel.value).map(d=>`<option ${d===s.sousDomaine?'selected':''}>${d}</option>`).join(''); refreshObjs(); }
+  function refreshObjs(){
+    const objs = objectifsFor(cycleSel.value, matSel.value, domSel.value, sdomSel.value);
+    $('#s-objs').innerHTML = objs.length? objs.map(o=>`<label style="display:block;font-size:12.5px;font-weight:400;margin-bottom:4px;"><input type="checkbox" value="${esc(o)}" ${s.objectifs&&s.objectifs.includes(o)?'checked':''} style="width:auto;margin-right:6px;">${esc(o)}</label>`).join('') : '<div style="color:var(--text-muted);font-size:12px;">Aucun objectif référencé pour cette sélection.</div>';
+  }
+  cycleSel.addEventListener('change', refreshMat);
+  matSel.addEventListener('change', refreshDom);
+  domSel.addEventListener('change', refreshSdom);
+  sdomSel.addEventListener('change', refreshObjs);
+  refreshMat();
+
+  function ateliersRow(a){
+    a = a || {nom:'',type:'dirigé',groupe:'',rotation:''};
+    return `<div class="atelier-row">
+      <div><label>Nom</label><input type="text" class="at-nom" value="${esc(a.nom)}"></div>
+      <div><label>Type</label><select class="at-type"><option ${a.type==='dirigé'?'selected':''}>dirigé</option><option ${a.type==='semi-dirigé'?'selected':''}>semi-dirigé</option><option ${a.type==='autonome'?'selected':''}>autonome</option></select></div>
+      <div><label>Groupe / rotation</label><input type="text" class="at-groupe" value="${esc(a.groupe)}" placeholder="ex : groupe rouge, 10 min"></div>
+      <button type="button" class="btn btn-sm btn-danger" data-rm-atelier>✕</button>
+    </div>`;
+  }
+  const ateliersWrap = $('#s-ateliers');
+  (s.ateliers&&s.ateliers.length? s.ateliers : []).forEach(a=> ateliersWrap.insertAdjacentHTML('beforeend', ateliersRow(a)));
+  $('#s-add-atelier').addEventListener('click', ()=> ateliersWrap.insertAdjacentHTML('beforeend', ateliersRow()));
+  ateliersWrap.addEventListener('click', e=>{ if(e.target.matches('[data-rm-atelier]')) e.target.closest('.atelier-row').remove(); });
+  function readAteliers(){ return $$('.atelier-row', ateliersWrap).map(r=>({ nom:$('.at-nom',r).value, type:$('.at-type',r).value, groupe:$('.at-groupe',r).value })); }
+
+  function pieceRow(p){ p = p||{label:'',url:''}; return `<div class="row" style="margin-bottom:6px;"><input type="text" class="pi-label" placeholder="Libellé" value="${esc(p.label)}" style="flex:1;"><input type="text" class="pi-url" placeholder="Lien (URL)" value="${esc(p.url)}" style="flex:2;"><button type="button" class="btn btn-sm btn-danger" data-rm-piece>✕</button></div>`; }
+  const piecesWrap = $('#s-pieces');
+  (s.pieces||[]).forEach(p=> piecesWrap.insertAdjacentHTML('beforeend', pieceRow(p)));
+  $('#s-add-piece').addEventListener('click', ()=> piecesWrap.insertAdjacentHTML('beforeend', pieceRow()));
+  piecesWrap.addEventListener('click', e=>{ if(e.target.matches('[data-rm-piece]')) e.target.closest('.row').remove(); });
+  function readPieces(){ return $$('.row', piecesWrap).filter(r=>$('.pi-label',r)).map(r=>({label:$('.pi-label',r).value, url:$('.pi-url',r).value})).filter(p=>p.label||p.url); }
+
+  if(isEdit){ const dup = document.getElementById('s-dup'); if(dup) dup.addEventListener('click', ()=>{ duplicateSeance(seance.id); closeModal(); render(); }); }
+}
+
+/* =========================================================
+   PROGRAMMATIONS
+   ========================================================= */
+const PERIODES = ['Période 1','Période 2','Période 3','Période 4','Période 5'];
+function renderProgrammations(root){
+  $('#page-actions').innerHTML = `<button class="btn btn-primary" id="btn-add-prog">+ Ajouter</button>`;
+  const matieres = Array.from(new Set(STORE.data.programmations.map(p=>p.matiere))).sort();
+  root.innerHTML = `<div style="overflow-x:auto;"><table class="tbl" id="prog-table">
+    <thead><tr><th>Matière</th>${PERIODES.map(p=>`<th>${p}</th>`).join('')}</tr></thead>
+    <tbody></tbody></table></div>`;
+  const tbody = $('tbody', root);
+  const allMatieres = Array.from(new Set([...matieres, ...Object.keys(MATIERE_COLORS)])).filter(m=>!['Récréation','Cantine','APC'].includes(m));
+  if(!STORE.data.programmations.length){
+    tbody.innerHTML = `<tr><td colspan="${PERIODES.length+1}"><div class="empty"><div class="big">📈</div>Aucune programmation. Clique sur « + Ajouter ».</div></td></tr>`;
+  } else {
+    tbody.innerHTML = matieres.map(m=>{
+      return `<tr><td><strong>${esc(m)}</strong></td>${PERIODES.map(per=>{
+        const items = STORE.data.programmations.filter(p=>p.matiere===m && p.periode===per);
+        return `<td>${items.map(it=>`<div style="margin-bottom:4px;"><label style="font-weight:400;font-size:12px;"><input type="checkbox" data-prog="${it.id}" ${it.statut==='fait'?'checked':''} style="width:auto;margin-right:5px;">${esc(it.objectifs)}</label> <button class="btn btn-sm" data-edit-prog="${it.id}" style="padding:1px 5px;">✎</button></div>`).join('')}</td>`;
+      }).join('')}</tr>`;
+    }).join('');
+  }
+  $('#btn-add-prog').addEventListener('click', ()=>openProgModal());
+  $$('[data-prog]', root).forEach(cb=> cb.addEventListener('change', ()=>{
+    const p = STORE.data.programmations.find(x=>x.id===cb.dataset.prog); p.statut = cb.checked?'fait':'prevu'; save();
+  }));
+  $$('[data-edit-prog]', root).forEach(b=> b.addEventListener('click', ()=> openProgModal(STORE.data.programmations.find(x=>x.id===b.dataset.editProg))));
+}
+function openProgModal(item){
+  const isEdit = !!item;
+  const p = item || { matiere:'Français', periode:'Période 1', objectifs:'', statut:'prevu' };
+  const body = `
+    <div class="two-col">
+      <div class="field"><label>Matière</label><input type="text" id="p-mat" value="${esc(p.matiere)}" list="mat-list"><datalist id="mat-list">${Object.keys(MATIERE_COLORS).map(m=>`<option value="${m}">`).join('')}</datalist></div>
+      <div class="field"><label>Période</label><select id="p-per">${PERIODES.map(per=>`<option ${per===p.periode?'selected':''}>${per}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>Contenu / objectifs de la période</label><textarea id="p-obj" rows="3">${esc(p.objectifs)}</textarea></div>
+  `;
+  const footExtra = isEdit? `<button class="btn btn-danger" id="p-del">Supprimer</button>`:'';
+  openModal(isEdit?'Programmation':'Nouvelle programmation', body, footExtra, ()=>{
+    const payload = { matiere:$('#p-mat').value, periode:$('#p-per').value, objectifs:$('#p-obj').value, statut:p.statut||'prevu' };
+    if(isEdit) Object.assign(item,payload); else STORE.data.programmations.push(Object.assign({id:uid()},payload));
+    save(); render(); return true;
+  }, isEdit? ()=>{ if(confirm('Supprimer ?')){ STORE.data.programmations = STORE.data.programmations.filter(x=>x.id!==item.id); save(); closeModal(); render(); } } : null, 'p-del');
+}
+
+/* =========================================================
+   FICHES DE PREPARATION
+   ========================================================= */
+function renderFiches(root){
+  $('#page-actions').innerHTML = `<button class="btn btn-primary" id="btn-add-fiche">+ Nouvelle fiche</button>`;
+  const fiches = STORE.data.fiches;
+  root.innerHTML = fiches.length ? `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">${fiches.map(f=>`
+    <div class="card card-pad" data-fiche="${f.id}" style="cursor:pointer;">
+      <div class="row"><strong>${esc(f.titre||'Sans titre')}</strong></div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">${esc(f.matiere||'')} ${f.domaine?'· '+esc(f.domaine):''}</div>
+      <div style="font-size:12px;margin-top:8px;">${(f.phases||[]).length} phase(s)</div>
+    </div>`).join('')}</div>` : `<div class="empty"><div class="big">📝</div>Aucune fiche de préparation pour le moment.</div>`;
+  $('#btn-add-fiche').addEventListener('click', ()=>openFicheModal());
+  $$('[data-fiche]', root).forEach(c=> c.addEventListener('click', ()=> openFicheModal(fiches.find(f=>f.id===c.dataset.fiche))));
+}
+function openFicheModal(fiche){
+  const isEdit = !!fiche;
+  const f = fiche || { titre:'', matiere:'Français', domaine:'', objectifs:'', materiel:'', phases:[], differenciation:'', bilan:'', seanceId:'' };
+  const body = `
+    <div class="two-col">
+      <div class="field"><label>Titre</label><input type="text" id="f-titre" value="${esc(f.titre)}"></div>
+      <div class="field"><label>Matière</label><input type="text" id="f-mat" value="${esc(f.matiere)}" list="mat-list2"><datalist id="mat-list2">${Object.keys(MATIERE_COLORS).map(m=>`<option value="${m}">`).join('')}</datalist></div>
+    </div>
+    <div class="field"><label>Domaine</label><input type="text" id="f-dom" value="${esc(f.domaine)}"></div>
+    <div class="field"><label>Objectifs</label><textarea id="f-obj" rows="2">${esc(f.objectifs)}</textarea></div>
+    <div class="field"><label>Matériel</label><textarea id="f-mat2" rows="2">${esc(f.materiel)}</textarea></div>
+    <div class="field"><label>Phases</label><div id="f-phases"></div><button type="button" class="btn btn-sm" id="f-add-phase">+ Ajouter une phase</button></div>
+    <div class="field"><label>Différenciation</label><textarea id="f-diff" rows="2">${esc(f.differenciation)}</textarea></div>
+    <div class="field"><label>Bilan</label><textarea id="f-bilan" rows="2">${esc(f.bilan)}</textarea></div>
+    <div class="field"><label>Lier à une séance (optionnel)</label><select id="f-seance"><option value="">— Aucune —</option>${STORE.data.seances.slice(-60).map(s=>`<option value="${s.id}" ${f.seanceId===s.id?'selected':''}>${s.date} · ${esc(s.matiere)}</option>`).join('')}</select></div>
+  `;
+  const footExtra = isEdit? `<button class="btn btn-danger" id="f-del">Supprimer</button>`:'';
+  openModal(isEdit?'Fiche de préparation':'Nouvelle fiche', body, footExtra, ()=>{
+    const payload = {
+      titre:$('#f-titre').value, matiere:$('#f-mat').value, domaine:$('#f-dom').value, objectifs:$('#f-obj').value,
+      materiel:$('#f-mat2').value, phases: readPhases(), differenciation:$('#f-diff').value, bilan:$('#f-bilan').value,
+      seanceId: $('#f-seance').value
+    };
+    if(isEdit) Object.assign(fiche,payload); else STORE.data.fiches.push(Object.assign({id:uid()},payload));
+    save(); render(); return true;
+  }, isEdit? ()=>{ if(confirm('Supprimer cette fiche ?')){ STORE.data.fiches = STORE.data.fiches.filter(x=>x.id!==fiche.id); save(); closeModal(); render(); } } : null, 'f-del');
+
+  function phaseRow(p){ p=p||{titre:'',duree:'',description:''}; return `<div class="phase-row">
+    <input type="text" class="ph-titre" placeholder="Titre de la phase" value="${esc(p.titre)}">
+    <input type="text" class="ph-duree" placeholder="Durée" value="${esc(p.duree)}">
+    <button type="button" class="btn btn-sm btn-danger" data-rm-phase>✕</button>
+    <textarea class="ph-desc" placeholder="Description" rows="2">${esc(p.description)}</textarea>
+  </div>`; }
+  const phasesWrap = $('#f-phases');
+  (f.phases||[]).forEach(p=> phasesWrap.insertAdjacentHTML('beforeend', phaseRow(p)));
+  $('#f-add-phase').addEventListener('click', ()=> phasesWrap.insertAdjacentHTML('beforeend', phaseRow()));
+  phasesWrap.addEventListener('click', e=>{ if(e.target.matches('[data-rm-phase]')) e.target.closest('.phase-row').remove(); });
+  function readPhases(){ return $$('.phase-row', phasesWrap).map(r=>({titre:$('.ph-titre',r).value,duree:$('.ph-duree',r).value,description:$('.ph-desc',r).value})); }
+}
+
+/* =========================================================
+   ELEVES
+   ========================================================= */
+let elevesTab = 'liste';
+function renderEleves(root){
+  $('#page-actions').innerHTML = `<button class="btn btn-primary" id="btn-add-eleve">+ Ajouter un élève</button>`;
+  root.innerHTML = `
+    <div class="row" style="margin-bottom:14px;">
+      <button class="btn btn-sm" data-tab="liste">Liste</button>
+      <button class="btn btn-sm" data-tab="trombi">Trombinoscope</button>
+      <button class="btn btn-sm" data-tab="appel">Registre d'appel</button>
+    </div>
+    <div id="eleves-body"></div>
+  `;
+  $$('[data-tab]', root).forEach(b=> b.addEventListener('click', ()=>{ elevesTab=b.dataset.tab; renderElevesBody(); }));
+  renderElevesBody();
+  $('#btn-add-eleve').addEventListener('click', ()=> openEleveModal());
+
+  function renderElevesBody(){
+    const body = $('#eleves-body', root);
+    $$('[data-tab]', root).forEach(b=> b.classList.toggle('btn-primary', b.dataset.tab===elevesTab));
+    const eleves = STORE.data.eleves.slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
+    if(!eleves.length){ body.innerHTML = `<div class="empty"><div class="big">🧒</div>Aucun élève enregistré.</div>`; return; }
+    if(elevesTab==='liste'){
+      body.innerHTML = `<div class="card">${eleves.map(e=>`
+        <div class="list-item" data-eleve="${e.id}" style="cursor:pointer;">
+          ${e.photo?`<img class="avatar" src="${e.photo}">`:`<div class="avatar">${(e.prenom[0]||'')+(e.nom[0]||'')}</div>`}
+          <div><strong>${esc(e.prenom)} ${esc(e.nom)}</strong><div style="font-size:11.5px;color:var(--text-muted);">${esc(e.niveau||'')}</div></div>
+        </div>`).join('')}</div>`;
+      $$('[data-eleve]', body).forEach(el=> el.addEventListener('click', ()=> openEleveModal(eleves.find(e=>e.id===el.dataset.eleve))));
+    } else if(elevesTab==='trombi'){
+      body.innerHTML = `<div class="trombi">${eleves.map(e=>`
+        <div class="card tcard" data-eleve="${e.id}" style="cursor:pointer;">
+          ${e.photo?`<img class="avatar" src="${e.photo}">`:`<div class="avatar">${(e.prenom[0]||'')+(e.nom[0]||'')}</div>`}
+          <div style="font-weight:600;font-size:12.5px;">${esc(e.prenom)}</div><div style="font-size:11px;color:var(--text-muted);">${esc(e.niveau||'')}</div>
+        </div>`).join('')}</div>`;
+      $$('[data-eleve]', body).forEach(el=> el.addEventListener('click', ()=> openEleveModal(eleves.find(e=>e.id===el.dataset.eleve))));
+    } else {
+      const today = isoDate(new Date());
+      body.innerHTML = `<div class="card card-pad">
+        <div class="field" style="max-width:220px;"><label>Date</label><input type="date" id="appel-date" value="${today}"></div>
+        <div id="appel-list"></div>
+      </div>`;
+      const dateInput = $('#appel-date', body);
+      function drawAppel(){
+        const d = dateInput.value;
+        $('#appel-list', body).innerHTML = eleves.map(e=>{
+          const p = STORE.data.presences.find(x=>x.eleveId===e.id && x.date===d);
+          const statut = p? p.statut : 'present';
+          return `<div class="list-item">
+            <div style="flex:1;">${esc(e.prenom)} ${esc(e.nom)}</div>
+            <select data-appel="${e.id}">
+              <option value="present" ${statut==='present'?'selected':''}>Présent</option>
+              <option value="absent" ${statut==='absent'?'selected':''}>Absent</option>
+              <option value="retard" ${statut==='retard'?'selected':''}>Retard</option>
+            </select>
+          </div>`;
+        }).join('');
+        $$('[data-appel]', body).forEach(sel=> sel.addEventListener('change', ()=>{
+          const d2 = dateInput.value; const eid = sel.dataset.appel;
+          let p = STORE.data.presences.find(x=>x.eleveId===eid && x.date===d2);
+          if(!p){ p = {id:uid(), eleveId:eid, date:d2, statut:sel.value}; STORE.data.presences.push(p); }
+          else p.statut = sel.value;
+          save();
+        }));
+      }
+      dateInput.addEventListener('change', drawAppel);
+      drawAppel();
+    }
+  }
+}
+function openEleveModal(eleve){
+  const isEdit = !!eleve;
+  const e = eleve || { nom:'', prenom:'', niveau: STORE.data.config.niveaux[0]||'', photo:'' };
+  const body = `
+    <div class="two-col">
+      <div class="field"><label>Prénom</label><input type="text" id="e-prenom" value="${esc(e.prenom)}"></div>
+      <div class="field"><label>Nom</label><input type="text" id="e-nom" value="${esc(e.nom)}"></div>
+    </div>
+    <div class="field"><label>Niveau</label><select id="e-niveau">${STORE.data.config.niveaux.map(n=>`<option ${n===e.niveau?'selected':''}>${n}</option>`).join('')}</select></div>
+    <div class="field"><label>Photo (optionnel)</label><input type="file" id="e-photo" accept="image/*"></div>
+  `;
+  const footExtra = isEdit? `<button class="btn btn-danger" id="e-del">Supprimer</button>`:'';
+  let photoData = e.photo;
+  openModal(isEdit?'Élève':'Nouvel élève', body, footExtra, ()=>{
+    const payload = { prenom:$('#e-prenom').value, nom:$('#e-nom').value, niveau:$('#e-niveau').value, photo: photoData };
+    if(isEdit) Object.assign(eleve,payload); else STORE.data.eleves.push(Object.assign({id:uid()},payload));
+    save(); render(); return true;
+  }, isEdit? ()=>{ if(confirm('Supprimer cet élève ?')){ STORE.data.eleves = STORE.data.eleves.filter(x=>x.id!==eleve.id); save(); closeModal(); render(); } } : null, 'e-del');
+  $('#e-photo').addEventListener('change', ev=>{
+    const file = ev.target.files[0]; if(!file) return;
+    const reader = new FileReader(); reader.onload = ()=>{ photoData = reader.result; }; reader.readAsDataURL(file);
+  });
+}
+
+/* =========================================================
+   EXPORT PDF (impression)
+   ========================================================= */
+function printEDT(){
+  const rows = [];
+  for(let m=SLOT_START;m<SLOT_END;m+=SLOT_STEP) rows.push(m);
+  let html = `<h1>Emploi du temps — ${esc(STORE.data.config.classeNom)}</h1>
+  <table class="tbl" style="width:100%;"><thead><tr><th></th>${DAYS.map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(m=>{
+    html += `<tr><td>${minsToLabel(m)}</td>`;
+    DAYS.forEach((d,dayIdx)=>{
+      const slot = STORE.data.creneaux.find(c=>c.jour===dayIdx && toMin(c.heureDebut)===m);
+      const overlapped = !slot && STORE.data.creneaux.some(c=>c.jour===dayIdx && toMin(c.heureDebut)<m && toMin(c.heureFin)>m);
+      if(overlapped) return;
+      const rowspan = slot ? Math.max(1, Math.round((toMin(slot.heureFin)-toMin(slot.heureDebut))/SLOT_STEP)) : 1;
+      html += `<td ${slot&&rowspan>1?`rowspan="${rowspan}"`:''} style="${slot?`background:${colorFor(slot.matiere)}22;`:''}">${slot?esc(slot.matiere)+(slot.label?'<br><small>'+esc(slot.label)+'</small>':''):''}</td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table>`;
+  doPrint(html);
+}
+function printJournal(weekStart){
+  let html = `<h1>Cahier journal — semaine du ${fmtShort(weekStart)}</h1>`;
+  DAYS.forEach((d,i)=>{
+    const date = addDays(weekStart,i); const iso = isoDate(date);
+    const list = STORE.data.seances.filter(s=>s.date===iso).sort(seanceSort);
+    html += `<h2 style="margin-top:18px;">${d} ${fmtShort(date)}</h2>`;
+    if(!list.length){ html += `<p style="color:#888;">Aucune séance</p>`; }
+    list.forEach(s=>{
+      html += `<div style="border:1px solid #ccc;border-left:5px solid ${colorFor(s.matiere)};border-radius:6px;padding:8px 12px;margin-bottom:8px;">
+        <strong>${esc(s.matiere)}</strong> ${s.domaine?'— '+esc(s.domaine):''} ${s.sousDomaine?'— '+esc(s.sousDomaine):''}
+        ${s.objectifs&&s.objectifs.length?`<div style="font-size:12px;margin-top:4px;"><em>Objectifs :</em> ${s.objectifs.map(esc).join(' ; ')}</div>`:''}
+        <div style="font-size:12.5px;margin-top:6px;">${s.description||''}</div>
+        ${s.ateliers&&s.ateliers.length? `<div style="font-size:12px;margin-top:6px;"><em>Ateliers :</em> ${s.ateliers.map(a=>esc(a.nom)+' ('+esc(a.type)+(a.groupe?', '+esc(a.groupe):'')+')').join(' — ')}</div>`:''}
+      </div>`;
+    });
+  });
+  doPrint(html);
+}
+function doPrint(html){
+  $('#print-area').innerHTML = html;
+  window.print();
+}
+
+/* =========================================================
+   BOOTSTRAP
+   ========================================================= */
+function bootstrap(){
+  loadStore();
+  initGate();
+  $('#btn-export-json').addEventListener('click', exportJSON);
+  $('#btn-import-json').addEventListener('click', ()=> $('#file-import').click());
+  $('#file-import').addEventListener('change', e=>{ if(e.target.files[0]) importJSON(e.target.files[0]); e.target.value=''; });
+  $('#btn-lock').addEventListener('click', lock);
+}
+document.addEventListener('DOMContentLoaded', bootstrap);
+})();
+</script>
+</body>
+</html>

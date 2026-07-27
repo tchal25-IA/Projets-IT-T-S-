@@ -1,0 +1,29 @@
+# Quotidien IA — robots.txt
+
+User-agent: *
+Allow: /
+Allow: /outils/
+Disallow: /api/
+Disallow: /app
+Disallow: /onboarding
+Disallow: /parametres
+Disallow: /parrainage
+
+# LLM crawlers — autorisés sur llms.txt et llms-full.txt
+User-agent: GPTBot
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /index.md
+Allow: /confidentialite.md
+
+User-agent: Claude-Web
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /index.md
+Allow: /confidentialite.md
+
+User-agent: PerplexityBot
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+Sitemap: https://quotidien-ia.lovable.app/sitemap.xml

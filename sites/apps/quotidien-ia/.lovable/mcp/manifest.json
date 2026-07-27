@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://pqwwviljhjloeofmfrjw.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "quotidien-ia-mcp",
+      "version": "0.1.0",
+      "title": "Quotidien IA"
+    },
+    "tools": [
+      {
+        "name": "list_events",
+        "title": "List events",
+        "description": "List upcoming events for the signed-in user, ordered by start date.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "description": "Max number of events to return (default 20).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_event",
+        "title": "Create event",
+        "description": "Create a calendar event for the signed-in user.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Event title."
+            },
+            "starts_at": {
+              "type": "string",
+              "description": "ISO 8601 start datetime (e.g. 2026-07-15T09:00:00Z)."
+            },
+            "ends_at": {
+              "description": "ISO 8601 end datetime.",
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "title",
+            "starts_at"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_finance_entries",
+        "title": "List finance entries",
+        "description": "List recent finance entries (income/expenses) for the signed-in user.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            },
+            "kind": {
+              "description": "Filter by entry kind.",
+              "type": "string",
+              "enum": [
+                "income",
+                "expense"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_finance_entry",
+        "title": "Create finance entry",
+        "description": "Record an income or expense entry for the signed-in user.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "Amount (positive number)."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "income",
+                "expense"
+              ]
+            },
+            "occurred_on": {
+              "type": "string",
+              "description": "Date (YYYY-MM-DD)."
+            },
+            "currency": {
+              "description": "Currency code, e.g. EUR. Defaults server-side.",
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "kind",
+            "occurred_on"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_subscription",
+        "title": "Get subscription",
+        "description": "Return the signed-in user's current subscription and selected modules.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

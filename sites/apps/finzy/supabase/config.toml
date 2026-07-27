@@ -1,0 +1,34 @@
+project_id = "vbxoixpocglzubwgojeg"
+
+# FinzyBot — requiert un utilisateur authentifié (vérif JWT aussi faite dans le code)
+[functions.ai-chat]
+verify_jwt = true
+
+# Création de session de paiement Stripe — requiert un utilisateur authentifié
+[functions.stripe-checkout]
+verify_jwt = true
+
+# Webhook Stripe — appelé par Stripe (pas d'utilisateur), signature vérifiée dans le code
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.delete-account]
+verify_jwt = true
+
+[functions.admin-manage-user]
+verify_jwt = true
+
+[functions.stripe-portal]
+verify_jwt = true
+
+[functions.market-data]
+verify_jwt = false
+
+[functions.market-news]
+verify_jwt = false
+
+[functions.market-search]
+verify_jwt = false
+
+[functions.market-sparkline]
+verify_jwt = false

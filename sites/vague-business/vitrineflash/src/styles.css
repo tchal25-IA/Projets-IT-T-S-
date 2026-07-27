@@ -1,0 +1,138 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-charcoal: var(--charcoal);
+  --color-cream: var(--cream);
+  --color-amber-warm: var(--amber-warm);
+  --font-serif-brand: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand palette — charcoal + warm amber + cream */
+  --charcoal: oklch(0.22 0.015 60);
+  --cream: oklch(0.975 0.015 85);
+  --amber-warm: oklch(0.75 0.15 65);
+
+  --background: oklch(0.975 0.015 85);       /* cream */
+  --foreground: oklch(0.22 0.015 60);        /* charcoal */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.015 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.015 60);
+  --primary: oklch(0.22 0.015 60);           /* charcoal */
+  --primary-foreground: oklch(0.975 0.015 85);
+  --secondary: oklch(0.93 0.02 80);
+  --secondary-foreground: oklch(0.22 0.015 60);
+  --muted: oklch(0.94 0.015 80);
+  --muted-foreground: oklch(0.45 0.02 60);
+  --accent: oklch(0.75 0.15 65);             /* amber */
+  --accent-foreground: oklch(0.22 0.015 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.015 75);
+  --input: oklch(0.9 0.015 75);
+  --ring: oklch(0.75 0.15 65);
+  --chart-1: oklch(0.75 0.15 65);
+  --chart-2: oklch(0.22 0.015 60);
+  --chart-3: oklch(0.6 0.1 50);
+  --chart-4: oklch(0.5 0.05 70);
+  --chart-5: oklch(0.85 0.08 80);
+  --sidebar: oklch(0.98 0.01 80);
+  --sidebar-foreground: oklch(0.22 0.015 60);
+  --sidebar-primary: oklch(0.22 0.015 60);
+  --sidebar-primary-foreground: oklch(0.98 0.01 80);
+  --sidebar-accent: oklch(0.93 0.02 80);
+  --sidebar-accent-foreground: oklch(0.22 0.015 60);
+  --sidebar-border: oklch(0.88 0.015 75);
+  --sidebar-ring: oklch(0.75 0.15 65);
+}
+
+.dark {
+  --background: oklch(0.18 0.01 60);
+  --foreground: oklch(0.975 0.015 85);
+  --card: oklch(0.22 0.015 60);
+  --card-foreground: oklch(0.975 0.015 85);
+  --popover: oklch(0.22 0.015 60);
+  --popover-foreground: oklch(0.975 0.015 85);
+  --primary: oklch(0.75 0.15 65);
+  --primary-foreground: oklch(0.18 0.01 60);
+  --secondary: oklch(0.3 0.02 60);
+  --secondary-foreground: oklch(0.975 0.015 85);
+  --muted: oklch(0.28 0.015 60);
+  --muted-foreground: oklch(0.7 0.02 70);
+  --accent: oklch(0.75 0.15 65);
+  --accent-foreground: oklch(0.18 0.01 60);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.75 0.15 65);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-brand {
+    font-family: var(--font-serif-brand);
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: var(--amber-warm);
+    color: var(--charcoal);
+  }
+}
+
+@utility grain-bg {
+  background-image:
+    radial-gradient(circle at 20% 10%, color-mix(in oklab, var(--amber-warm) 18%, transparent), transparent 40%),
+    radial-gradient(circle at 80% 90%, color-mix(in oklab, var(--amber-warm) 10%, transparent), transparent 45%);
+}
+
+@utility btn-amber {
+  background-color: var(--amber-warm);
+  color: var(--charcoal);
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 6px 20px -8px color-mix(in oklab, var(--amber-warm) 60%, transparent);
+  &:hover {
+    background-color: color-mix(in oklab, var(--amber-warm) 92%, black);
+    transform: translateY(-1px);
+  }
+}

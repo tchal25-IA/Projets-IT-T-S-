@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+
+# Wrangler / Cloudflare — secrets réels
+.wrangler/
+.dev.vars
+
+# Variables d'environnement — ne pas committer les secrets
+# .env contient uniquement la clé anon Supabase (publique par nature)
+# Les vrais secrets (SERVICE_ROLE_KEY, LOVABLE_API_KEY) sont dans .dev.vars
+.env.local
+.env.production
+.env.production.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

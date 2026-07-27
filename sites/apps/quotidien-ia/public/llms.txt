@@ -1,0 +1,68 @@
+# Quotidien IA
+
+> Assistant IA personnel pour gérer vos finances, organisation, vie admin et documents — disponible en France et en Suisse.
+
+## Ce qu'est Quotidien IA
+
+Quotidien IA est une plateforme modulaire par abonnement (plafonné à 9,99 €/mois) qui regroupe plusieurs assistants IA spécialisés pour simplifier le quotidien des particuliers et des indépendants francophones.
+
+## Modules disponibles
+
+- **Finance & fiscalité** : budget mensuel, projections 5 ans, simulateurs d'épargne, fiscalité IR/IFI (France) et impôt cantonal (Suisse)
+- **Option Finance +** : tout Finance + accès automatique à Finzy (gestion de comptes, crédits, projections)
+- **Productivité & organisation** : tâches, Kanban, gestion de projets, agenda de la semaine
+- **Événements** : calendrier, notes, rappels, génération de checklist par IA
+- **Voyage & déplacements** : comparateur temps/coût pour les trajets
+- **Contenu & connaissance** : résumé, traduction, vérification de sources par IA
+- **Vie admin & pro** : checklists, modèles de courriers, rappels administratifs
+- **Option Vie admin +** : tout Vie admin + accès automatique à Paperasse (gestion documentaire)
+
+## Conseillers IA intégrés
+
+- 🧮 Fiscaliste IA — IR, IFI, PER, LMNP, RSU, crypto (périmètre France)
+- ⚖️ Notaire IA — immobilier, succession, donation, SCI, DMTO
+- 🏦 Banquier privé IA — allocation portefeuille, retraite, succession (>500k€)
+
+## Applications connectées (SSO automatique)
+
+- **Finzy** (`finzy-v3.lovable.app`) — gestion bancaire et projections financières, inclus avec Option Finance +
+- **Paperasse** (`paperasse.lovable.app`) — centralisation et gestion de documents, inclus avec Option Vie admin +
+
+## Tarifs
+
+| Module | Prix mensuel |
+|---|---|
+| Finance & fiscalité | 3 €/mois |
+| Option Finance + (avec Finzy) | 5,99 €/mois |
+| Productivité & organisation | 2 €/mois |
+| Événements | Inclus |
+| Voyage & déplacements | Inclus |
+| Contenu & connaissance | Inclus |
+| Vie admin & pro | Inclus |
+| Option Vie admin + (avec Paperasse) | 2 €/mois |
+| **Plafond total** | **9,99 €/mois** |
+
+Réduction annuelle : -10 %. Essai gratuit 30 jours. Parrainage : 6 mois offerts + 2 mois par filleul.
+
+## Informations légales
+
+- Éditeur : société suisse (IDE/UID CHE-xxx)
+- Droit applicable : droit suisse, protections consommateurs français préservées
+- Conformité : nLPD (Suisse) + RGPD (UE/France)
+- Autorités compétentes : PFPDT (Suisse) + CNIL (France)
+- Représentant UE (art. 27 RGPD) : [à désigner]
+- Hébergement : Supabase (UE), Cloudflare Workers
+
+## Pages utiles
+
+- Page d'accueil : https://quotidien-ia.lovable.app/
+- Connexion : https://quotidien-ia.lovable.app/login
+- Mentions légales : https://quotidien-ia.lovable.app/mentions-legales
+- Confidentialité : https://quotidien-ia.lovable.app/confidentialite
+- CGU : https://quotidien-ia.lovable.app/cgu
+- Cookies : https://quotidien-ia.lovable.app/cookies
+
+## Fichiers de contenu lisibles par les LLM
+
+- https://quotidien-ia.lovable.app/llms.txt (ce fichier)
+- https://quotidien-ia.lovable.app/llms-full.txt (version complète avec détails techniques)

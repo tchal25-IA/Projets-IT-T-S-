@@ -1,0 +1,124 @@
+# Quotidien IA — Documentation complète
+
+> Version complète pour les modèles de langage. Voir llms.txt pour la version résumée.
+
+## Description
+
+Quotidien IA est un hub SaaS modulaire destiné aux particuliers et indépendants francophones (France et Suisse). Il agrège des outils IA spécialisés dans un abonnement unique plafonné, avec connexion automatique (SSO) vers des applications partenaires selon les modules souscrits.
+
+## Architecture technique
+
+- Frontend : React 19 + TanStack Router/Start
+- Styling : Tailwind CSS v4
+- Backend : Cloudflare Workers (SSR)
+- Base de données : Supabase (PostgreSQL + Auth + RLS)
+- IA : Google Gemini via passerelle Lovable
+- Paiement : Stripe (scaffold prêt, activation à venir)
+- SSO inter-apps : JWT HMAC-SHA256 (Web Crypto API)
+
+## Modules et fonctionnalités détaillées
+
+### Finance & fiscalité (3 €/mois)
+- Simulateur de budget mensuel avec projection 5 ans
+- Conversion EUR/CHF temps réel
+- Simulateur d'objectif d'épargne
+- Simulateur de crédit immobilier (amortissement)
+- Fiscalité IR France : tranches, quotient familial, PFU, LMNP
+- Fiscalité Suisse : impôt cantonal, ICC, IFD
+
+### Option Finance + (5,99 €/mois, exclusif avec Finance)
+- Tout ce qui est dans Finance
+- Connexion automatique SSO vers Finzy
+- Compte Finzy créé et lié sans re-inscription
+
+### Productivité & organisation (2 €/mois)
+- Gestionnaire de tâches (Kanban, liste, priorités)
+- Gestion de projets multi-étapes
+- Vue "Ma semaine"
+
+### Événements (inclus)
+- Calendrier avec vue mensuelle/hebdomadaire
+- Notes par événement
+- Génération de checklist IA (ex : check-list mariage, déménagement)
+- Rappels
+
+### Voyage & déplacements (inclus)
+- Comparateur de trajets : voiture vs train vs avion
+- Calcul coût total et temps porte-à-porte
+- Comparaison CO₂
+
+### Contenu & connaissance (inclus)
+- Résumé de texte par IA
+- Traduction multilingue
+- Vérification de sources et fact-checking IA
+- Veille actualités personnalisée
+
+### Vie admin & pro (inclus)
+- Checklists administratives (déménagement, mariage, création entreprise…)
+- Modèles de courriers (attestation d'hébergement, résiliation, réclamation…)
+- Rappels d'échéances administratives
+
+### Option Vie admin + (2 €/mois, exclusif avec Vie admin)
+- Tout ce qui est dans Vie admin
+- Connexion automatique SSO vers Paperasse
+- Compte Paperasse créé et lié sans re-inscription
+
+## Conseillers IA spécialisés (intégrés nativement)
+
+### Fiscaliste IA 🧮
+- Périmètre : France
+- Sujets : IR (barème, quotient familial, PAS, CEHR), revenus du capital (PFU/barème, PEA, AV), revenus fonciers (micro/réel, LMNP, SCI IR), equity (RSU, BSPCE, stock-options), crypto (PFAM, 2086), IFI, PER
+- Format : synthèse + analyse + actions + sources légales + avertissement
+
+### Notaire IA ⚖️
+- Périmètre : France
+- Sujets : DMTO, émoluments, frais de notaire, plus-value immobilière, succession, donation, démembrement, PACS, contrats de mariage, SCI
+- Format : calcul + base légale + recommandations
+
+### Banquier privé IA 🏦
+- Périmètre : international
+- Sujets : allocation portefeuille, drift, rééquilibrage, asset location, propositions structurées, planification retraite/succession (clientèle >500k€)
+
+## Applications partenaires
+
+### Finzy (finzy-v3.lovable.app)
+- Gestion bancaire et financière
+- Projections patrimoniales
+- Accès via abonnement "Option Finance +"
+- Connexion SSO automatique depuis Quotidien IA
+
+### Paperasse (paperasse.lovable.app)
+- Centralisation et gestion de documents
+- OCR et classification automatique
+- Accès via abonnement "Option Vie admin +"
+- Connexion SSO automatique depuis Quotidien IA
+
+## Système de parrainage
+
+- Code unique généré à l'inscription
+- Parrain : +2 mois d'abonnement gratuit par filleul vérifié
+- Filleul : 6 mois all-inclusive offerts à l'inscription avec un code
+- Vérification automatique : email confirmé + abonnement créé
+
+## Conformité et sécurité
+
+- RLS (Row Level Security) activé sur toutes les tables
+- Chaque utilisateur ne peut accéder qu'à ses propres données
+- Tokens JWT vérifiés côté serveur (Cloudflare Workers)
+- Rate limiting : 10 req/min par utilisateur sur les endpoints IA
+- Secrets : jamais exposés au client (process.env littéral, Cloudflare Workers)
+- RGPD : export JSON des données (art. 20), suppression compte (art. 17)
+- Consentement cookies : banner + localStorage, sans tracker publicitaire
+
+## Informations légales complètes
+
+- Éditeur : société suisse, IDE/UID CHE-xxx, RC cantonal
+- Siège : Suisse
+- Public cible : France et Suisse
+- Droit applicable : droit suisse (CO, LCD, LPM)
+- Protections consommateurs FR : droit de rétractation 14 jours (RLL), médiation
+- Cadre données : nLPD (Suisse) + RGPD (règlement UE 2016/679)
+- Autorités : PFPDT (Suisse) + CNIL (France, résidents UE)
+- Représentant UE art. 27 RGPD : désignation en cours
+- Hébergement : Supabase (régions UE/CH), Cloudflare (edge mondial)
+- Adéquation CH↔UE : décision d'adéquation en vigueur, pas de SCCs nécessaires

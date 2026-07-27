@@ -1,0 +1,138 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-concrete: var(--concrete);
+  --color-concrete-dark: var(--concrete-dark);
+  --color-ochre: var(--ochre);
+  --font-display: "Barlow Condensed", "Impact", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Warm off-white paper */
+  --background: oklch(0.975 0.008 80);
+  --foreground: oklch(0.22 0.015 60);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.015 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.015 60);
+
+  /* Burnt orange primary */
+  --primary: oklch(0.62 0.17 45);
+  --primary-foreground: oklch(0.99 0.005 80);
+
+  /* Concrete gray */
+  --secondary: oklch(0.92 0.008 70);
+  --secondary-foreground: oklch(0.28 0.015 60);
+  --muted: oklch(0.93 0.008 70);
+  --muted-foreground: oklch(0.48 0.015 60);
+  --accent: oklch(0.88 0.03 60);
+  --accent-foreground: oklch(0.25 0.015 60);
+
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.99 0.005 80);
+
+  --border: oklch(0.87 0.012 70);
+  --input: oklch(0.9 0.012 70);
+  --ring: oklch(0.62 0.17 45);
+
+  --concrete: oklch(0.55 0.012 65);
+  --concrete-dark: oklch(0.3 0.012 65);
+  --ochre: oklch(0.7 0.14 55);
+
+  --chart-1: oklch(0.62 0.17 45);
+  --chart-2: oklch(0.55 0.012 65);
+  --chart-3: oklch(0.7 0.14 55);
+  --chart-4: oklch(0.4 0.02 60);
+  --chart-5: oklch(0.75 0.05 70);
+}
+
+.dark {
+  --background: oklch(0.2 0.012 60);
+  --foreground: oklch(0.96 0.008 80);
+  --card: oklch(0.24 0.012 60);
+  --card-foreground: oklch(0.96 0.008 80);
+  --popover: oklch(0.24 0.012 60);
+  --popover-foreground: oklch(0.96 0.008 80);
+  --primary: oklch(0.68 0.17 45);
+  --primary-foreground: oklch(0.2 0.012 60);
+  --secondary: oklch(0.3 0.012 60);
+  --secondary-foreground: oklch(0.96 0.008 80);
+  --muted: oklch(0.3 0.012 60);
+  --muted-foreground: oklch(0.7 0.012 60);
+  --accent: oklch(0.35 0.02 60);
+  --accent-foreground: oklch(0.96 0.008 80);
+  --destructive: oklch(0.65 0.2 27);
+  --destructive-foreground: oklch(0.96 0.008 80);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.68 0.17 45);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility grid-blueprint {
+  background-image:
+    linear-gradient(to right, oklch(0.55 0.012 65 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.55 0.012 65 / 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* A4 print for devis */
+@media print {
+  @page { size: A4; margin: 15mm; }
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}
