@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   beforeLoad: () => {
-    throw redirect({ to: "/fusionfit/routine" });
+    // Landing always goes to login (never hang on auth-gated routine)
+    throw redirect({ to: "/login" });
   },
 });

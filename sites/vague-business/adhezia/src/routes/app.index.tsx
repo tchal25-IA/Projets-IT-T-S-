@@ -21,7 +21,9 @@ function chf(n: number, currency: string) {
 }
 
 function Dashboard() {
-  const { members, payments, club } = useStore((s) => ({ members: s.members, payments: s.payments, club: s.club }));
+  const members = useStore((s) => s.members);
+  const payments = useStore((s) => s.payments);
+  const club = useStore((s) => s.club);
 
   const stats = useMemo(() => {
     const active = members.filter((m) => m.status === "actif").length;
@@ -69,7 +71,7 @@ function Dashboard() {
             {lateList.slice(0, 5).map((p) => (
               <li key={p.id} className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="size-4 text-[color:var(--warning)]" />
+                  <AlertCircle className="size-4 text-amber-600" />
                   <div>
                     <p className="font-medium">{p.member!.name}</p>
                     <p className="text-xs text-muted-foreground">{p.member!.email}</p>
@@ -98,15 +100,16 @@ function StatCard({
   accent: "teal" | "warning" | "success";
   hint?: string;
 }) {
-  const accentColor =
-    accent === "teal" ? "var(--teal)" : accent === "warning" ? "var(--warning)" : "var(--success)";
+  const accentCls =
+    accent === "teal"
+      ? "bg-teal-100 text-teal-800"
+      : accent === "warning"
+        ? "bg-amber-100 text-amber-800"
+        : "bg-emerald-100 text-emerald-800";
   return (
     <Card className="p-5">
       <div className="flex items-center gap-3">
-        <span
-          className="inline-flex size-10 items-center justify-center rounded-lg"
-          style={{ backgroundColor: `color-mix(in oklab, ${accentColor} 15%, transparent)`, color: accentColor }}
-        >
+        <span className={`inline-flex size-10 items-center justify-center rounded-lg ${accentCls}`}>
           <Icon className="size-5" />
         </span>
         <div>

@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useRef, useSyncExternalStore } from "react";
 
 export type MemberStatus = "actif" | "en_retard" | "inactif";
 export type PaymentStatus = "à_payer" | "payé" | "exonéré";
@@ -161,9 +161,15 @@ export const store = {
 };
 
 export function useStore<T>(selector: (s: State) => T): T {
-  return useSyncExternalStore(
-    store.subscribe,
-    () => selector(state),
-    () => selector(state),
-  );
+  const cacheRef = useRef<{ snap: State; value: T } | null>(null);
+
+  const getSnapshot = () => {
+    const cached = cacheRef.current;
+    if (cached && cached.snap === state) return cached.value;
+    const value = selector(state);
+    cacheRef.current = { snap: state, value };
+    return value;
+  };
+
+  return useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
 }

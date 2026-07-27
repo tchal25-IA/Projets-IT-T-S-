@@ -21,7 +21,8 @@ export const Route = createFileRoute("/app/checkin")({
 });
 
 function CheckinPage() {
-  const { members, attendance } = useStore((s) => ({ members: s.members, attendance: s.attendance }));
+  const members = useStore((s) => s.members);
+  const attendance = useStore((s) => s.attendance);
   const [code, setCode] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = members.find((m) => m.id === selectedId) ?? members[0];
@@ -105,7 +106,7 @@ function CheckinPage() {
                   }
                 >
                   <span className="truncate">{m.name}</span>
-                  {presentIds.has(m.id) && <Badge variant="secondary" className="ml-2 bg-[color:color-mix(in_oklab,var(--success)_15%,transparent)] text-[color:var(--success)] border-0">✓</Badge>}
+                  {presentIds.has(m.id) && <Badge variant="secondary" className="ml-2 bg-emerald-100 text-emerald-800 border-0">✓</Badge>}
                 </button>
               ))}
             </div>

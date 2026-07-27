@@ -29,7 +29,9 @@ function chf(n: number, currency: string) {
 }
 
 function DuesPage() {
-  const { members, payments, club } = useStore((s) => ({ members: s.members, payments: s.payments, club: s.club }));
+  const members = useStore((s) => s.members);
+  const payments = useStore((s) => s.payments);
+  const club = useStore((s) => s.club);
   const rows = useMemo(
     () =>
       payments
@@ -102,9 +104,9 @@ function DuesPage() {
 
 function StatusPill({ status }: { status: PaymentStatus }) {
   const map: Record<PaymentStatus, string> = {
-    payé: "bg-[color:color-mix(in_oklab,var(--success)_15%,transparent)] text-[color:var(--success)]",
-    à_payer: "bg-[color:color-mix(in_oklab,var(--warning)_18%,transparent)] text-[color:var(--warning)]",
-    exonéré: "bg-secondary text-muted-foreground",
+    payé: "bg-emerald-100 text-emerald-800",
+    à_payer: "bg-amber-100 text-amber-800",
+    exonéré: "bg-slate-100 text-slate-600",
   };
   return <Badge variant="secondary" className={map[status] + " border-0"}>{statusLabel[status]}</Badge>;
 }

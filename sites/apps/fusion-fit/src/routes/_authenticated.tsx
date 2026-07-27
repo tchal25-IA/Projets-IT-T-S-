@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 function AuthenticatedLayout() {
-  const { user, loading } = useAuth();
+  const { user, loading, cloudConfigured } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function AuthenticatedLayout() {
     }
   }, [loading, user, navigate]);
 
-  if (loading || !user) {
+  if (loading) {
     return (
       <div
         className="min-h-screen grid place-items-center"
@@ -35,9 +35,22 @@ function AuthenticatedLayout() {
             className="text-xs font-mono uppercase tracking-widest"
             style={{ color: "var(--ff-text-muted)" }}
           >
-            Initialisation Initiative…
+            {cloudConfigured ? "Initialisation Initiative…" : "Préparation de l'interface…"}
           </p>
         </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div
+        className="min-h-screen grid place-items-center"
+        style={{ background: "var(--ff-bg)", color: "var(--ff-text)" }}
+      >
+        <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--ff-text-muted)" }}>
+          Redirection connexion…
+        </p>
       </div>
     );
   }

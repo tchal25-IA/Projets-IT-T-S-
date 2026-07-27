@@ -135,9 +135,9 @@ function MembersPage() {
 
 function StatusBadge({ status }: { status: MemberStatus }) {
   const map: Record<MemberStatus, string> = {
-    actif: "bg-[color:color-mix(in_oklab,var(--success)_15%,transparent)] text-[color:var(--success)]",
-    en_retard: "bg-[color:color-mix(in_oklab,var(--warning)_15%,transparent)] text-[color:var(--warning)]",
-    inactif: "bg-secondary text-muted-foreground",
+    actif: "bg-emerald-100 text-emerald-800",
+    en_retard: "bg-amber-100 text-amber-800",
+    inactif: "bg-slate-100 text-slate-600",
   };
   return <Badge variant="secondary" className={map[status] + " border-0"}>{statusLabel[status]}</Badge>;
 }

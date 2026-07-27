@@ -1,6 +1,6 @@
 // Auth provider with role detection (coach vs abonne)
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
 import type { Session, User } from "@supabase/supabase-js";
 
 export type AppRole = "coach" | "abonne";
@@ -16,6 +16,7 @@ type AuthContextValue = {
   viewAsAthlete: boolean;
   setViewAsAthlete: (v: boolean) => void;
   loading: boolean;
+  cloudConfigured: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (
     email: string,
@@ -29,12 +30,14 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 const VIEW_MODE_KEY = "ff-view-as-athlete";
+const AUTH_TIMEOUT_MS = 4000;
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const cloudConfigured = isSupabaseConfigured();
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<AppRole | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(cloudConfigured);
   const [viewAsAthlete, setViewAsAthleteState] = useState<boolean>(() => {
     try { return localStorage.getItem(VIEW_MODE_KEY) === "1"; } catch { return false; }
   });
@@ -47,50 +50,84 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch { /* ignore */ }
   }
 
-  // Setup listener BEFORE getSession (per Supabase best practices)
   useEffect(() => {
+    if (!cloudConfigured) {
+      setLoading(false);
+      return;
+    }
+
+    let cancelled = false;
     let initialized = false;
 
+    const finish = () => {
+      if (!cancelled) setLoading(false);
+    };
+
+    const timeout = window.setTimeout(finish, AUTH_TIMEOUT_MS);
+
     const { data: sub } = supabase.auth.onAuthStateChange((_event, sess) => {
+      if (cancelled) return;
       setSession(sess);
       setUser(sess?.user ?? null);
       if (!sess?.user) {
         setRole(null);
-        setLoading(false);
+        finish();
       } else {
         const isFirst = !initialized;
-        // Defer role lookup to avoid Supabase deadlock on initial load
-        setTimeout(() => fetchRole(sess.user.id, isFirst), 0);
+        setTimeout(() => {
+          void fetchRole(sess.user.id, true).finally(() => {
+            if (isFirst) finish();
+          });
+        }, 0);
       }
       initialized = true;
     });
 
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      if (!initialized) {
+    Promise.race([
+      supabase.auth.getSession(),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), AUTH_TIMEOUT_MS)),
+    ])
+      .then((result) => {
+        if (cancelled || initialized || result == null) {
+          if (!initialized) finish();
+          return;
+        }
+        const s = result.data.session;
         setSession(s);
         setUser(s?.user ?? null);
-        if (!s?.user) setLoading(false);
-        // Role fetch (if needed) will set loading=false inside fetchRole
+        if (!s?.user) finish();
+        else {
+          void fetchRole(s.user.id, true).finally(finish);
+        }
+      })
+      .catch(() => finish());
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+      sub.subscription.unsubscribe();
+    };
+  }, [cloudConfigured]);
+
+  async function fetchRole(userId: string, _setLoadingAfter = false) {
+    try {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .maybeSingle();
+      if (error) {
+        console.error("[useAuth] fetchRole error:", error.message);
       }
-    });
-
-    return () => sub.subscription.unsubscribe();
-  }, []);
-
-  async function fetchRole(userId: string, setLoadingAfter = false) {
-    const { data, error } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .maybeSingle();
-    if (error) {
-      console.error("[useAuth] fetchRole error:", error.message);
+      setRole(!error && data?.role ? (data.role as AppRole) : "abonne");
+    } catch (e) {
+      console.error("[useAuth] fetchRole failed:", e);
+      setRole("abonne");
     }
-    setRole(!error && data?.role ? (data.role as AppRole) : "abonne");
-    if (setLoadingAfter) setLoading(false);
   }
 
   const signIn = async (email: string, password: string) => {
+    if (!cloudConfigured) return { error: "Cloud non configuré — connexion indisponible." };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error?.message ?? null };
   };
@@ -101,6 +138,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     prenom: string,
     invitationToken?: string,
   ) => {
+    if (!cloudConfigured) return { error: "Cloud non configuré — inscription indisponible." };
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -113,10 +151,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    if (cloudConfigured) await supabase.auth.signOut();
+    setSession(null);
+    setUser(null);
+    setRole(null);
   };
 
-  // Rôle effectif : un coach en mode "Sujet Zéro" est vu comme abonné partout.
   const effectiveRole: AppRole | null =
     role === "coach" && viewAsAthlete ? "abonne" : role;
 
@@ -126,7 +166,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role: effectiveRole,
       realRole: role,
       viewAsAthlete, setViewAsAthlete,
-      loading, signIn, signUp, signOut,
+      loading, cloudConfigured, signIn, signUp, signOut,
     }}>
       {children}
     </AuthContext.Provider>

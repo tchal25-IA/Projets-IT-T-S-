@@ -15,7 +15,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
-  const { signIn, user } = useAuth();
+  const { signIn, user, cloudConfigured } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,6 +64,15 @@ function LoginPage() {
           <p className="text-xs mb-5" style={{ color: "var(--ff-text-muted)" }}>
             Connectez-vous pour accéder à votre routine.
           </p>
+          {!cloudConfigured && (
+            <p className="text-xs mb-4 px-3 py-2 rounded-lg border" style={{
+              background: "oklch(0.78 0.16 198 / 12%)",
+              borderColor: "var(--ff-cyan)",
+              color: "var(--ff-cyan)",
+            }}>
+              Mode local : Supabase n&apos;est pas configuré. La connexion cloud est indisponible.
+            </p>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-3">
             <Field icon={<Mail className="h-4 w-4" />} type="email" placeholder="Email" value={email} onChange={setEmail} required />
