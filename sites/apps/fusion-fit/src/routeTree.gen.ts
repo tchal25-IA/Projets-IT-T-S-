@@ -18,6 +18,7 @@ import { Route as AuthenticatedFusionfitIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedFusionfitAbonnementRouteImport } from './routes/_authenticated.fusionfit.abonnement'
 import { Route as AuthenticatedFusionfitBibliothequeRouteImport } from './routes/_authenticated.fusionfit.bibliotheque'
 import { Route as AuthenticatedFusionfitCoachRouteImport } from './routes/_authenticated.fusionfit.coach'
+import { Route as AuthenticatedFusionfitAgendaRouteImport } from './routes/_authenticated.fusionfit.agenda'
 import { Route as AuthenticatedFusionfitCreneauxRouteImport } from './routes/_authenticated.fusionfit.creneaux'
 import { Route as AuthenticatedFusionfitEscouadeRouteImport } from './routes/_authenticated.fusionfit.escouade'
 import { Route as AuthenticatedFusionfitMessagerieRouteImport } from './routes/_authenticated.fusionfit.messagerie'
@@ -74,6 +75,12 @@ const AuthenticatedFusionfitCoachRoute =
   AuthenticatedFusionfitCoachRouteImport.update({
     id: '/coach',
     path: '/coach',
+    getParentRoute: () => AuthenticatedFusionfitRoute,
+  } as any)
+const AuthenticatedFusionfitAgendaRoute =
+  AuthenticatedFusionfitAgendaRouteImport.update({
+    id: '/agenda',
+    path: '/agenda',
     getParentRoute: () => AuthenticatedFusionfitRoute,
   } as any)
 const AuthenticatedFusionfitCreneauxRoute =
@@ -138,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
   '/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
+  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -156,6 +164,7 @@ export interface FileRoutesByTo {
   '/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
   '/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
+  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -177,6 +186,7 @@ export interface FileRoutesById {
   '/_authenticated/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
   '/_authenticated/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/_authenticated/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
+  '/_authenticated/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/_authenticated/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/_authenticated/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/_authenticated/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/fusionfit/abonnement'
     | '/fusionfit/bibliotheque'
     | '/fusionfit/coach'
+    | '/fusionfit/agenda'
     | '/fusionfit/creneaux'
     | '/fusionfit/escouade'
     | '/fusionfit/messagerie'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/fusionfit/abonnement'
     | '/fusionfit/bibliotheque'
     | '/fusionfit/coach'
+    | '/fusionfit/agenda'
     | '/fusionfit/creneaux'
     | '/fusionfit/escouade'
     | '/fusionfit/messagerie'
@@ -236,6 +248,7 @@ export interface FileRouteTypes {
     | '/_authenticated/fusionfit/abonnement'
     | '/_authenticated/fusionfit/bibliotheque'
     | '/_authenticated/fusionfit/coach'
+    | '/_authenticated/fusionfit/agenda'
     | '/_authenticated/fusionfit/creneaux'
     | '/_authenticated/fusionfit/escouade'
     | '/_authenticated/fusionfit/messagerie'
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/coach'
       fullPath: '/fusionfit/coach'
       preLoaderRoute: typeof AuthenticatedFusionfitCoachRouteImport
+      parentRoute: typeof AuthenticatedFusionfitRoute
+    }
+    '/_authenticated/fusionfit/agenda': {
+      id: '/_authenticated/fusionfit/agenda'
+      path: '/agenda'
+      fullPath: '/fusionfit/agenda'
+      preLoaderRoute: typeof AuthenticatedFusionfitAgendaRouteImport
       parentRoute: typeof AuthenticatedFusionfitRoute
     }
     '/_authenticated/fusionfit/creneaux': {
@@ -406,6 +426,7 @@ interface AuthenticatedFusionfitRouteChildren {
   AuthenticatedFusionfitAbonnementRoute: typeof AuthenticatedFusionfitAbonnementRoute
   AuthenticatedFusionfitBibliothequeRoute: typeof AuthenticatedFusionfitBibliothequeRoute
   AuthenticatedFusionfitCoachRoute: typeof AuthenticatedFusionfitCoachRoute
+  AuthenticatedFusionfitAgendaRoute: typeof AuthenticatedFusionfitAgendaRoute
   AuthenticatedFusionfitCreneauxRoute: typeof AuthenticatedFusionfitCreneauxRoute
   AuthenticatedFusionfitEscouadeRoute: typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   AuthenticatedFusionfitMessagerieRoute: typeof AuthenticatedFusionfitMessagerieRoute
@@ -423,6 +444,7 @@ const AuthenticatedFusionfitRouteChildren: AuthenticatedFusionfitRouteChildren =
     AuthenticatedFusionfitBibliothequeRoute:
       AuthenticatedFusionfitBibliothequeRoute,
     AuthenticatedFusionfitCoachRoute: AuthenticatedFusionfitCoachRoute,
+    AuthenticatedFusionfitAgendaRoute: AuthenticatedFusionfitAgendaRoute,
     AuthenticatedFusionfitCreneauxRoute: AuthenticatedFusionfitCreneauxRoute,
     AuthenticatedFusionfitEscouadeRoute:
       AuthenticatedFusionfitEscouadeRouteWithChildren,

@@ -162,7 +162,10 @@ export function useUnreadCount() {
       .channel(`unread:${user.id}`)
       .on("postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        () => qc.invalidateQueries({ queryKey: ["unread-count", user.id] }))
+        () => {
+          qc.invalidateQueries({ queryKey: ["unread-count", user.id] });
+          qc.invalidateQueries({ queryKey: ["unread-by-peer", user.id] });
+        })
       .subscribe();
     return () => { supabase.removeChannel(ch); };
   }, [user, qc]);
@@ -190,6 +193,34 @@ export function useUnreadCount() {
   });
 }
 
+/** Map peerUserId → true si conversation non lue (pour badge liste coach). */
+export function useUnreadByPeer() {
+  const { user, role } = useAuth();
+  return useQuery({
+    queryKey: ["unread-by-peer", user?.id, role],
+    enabled: !!user,
+    staleTime: 15_000,
+    queryFn: async () => {
+      const col = role === "coach" ? "coach_id" : "abonne_id";
+      const peerCol = role === "coach" ? "abonne_id" : "coach_id";
+      const readCol = role === "coach" ? "coach_last_read_at" : "abonne_last_read_at";
+      const { data: convs } = await supabase
+        .from("conversations")
+        .select(`id, ${peerCol}, last_message_at, ${readCol}`)
+        .eq(col, user!.id);
+      const map: Record<string, boolean> = {};
+      for (const c of (convs ?? []) as Array<Record<string, string | null>>) {
+        const peer = c[peerCol];
+        if (!peer) continue;
+        const lastMsg = c.last_message_at;
+        const lastRead = c[readCol];
+        map[peer] = !!(lastMsg && (!lastRead || lastMsg > lastRead));
+      }
+      return map;
+    },
+  });
+}
+
 export function useMarkConversationRead() {
   const { user, role } = useAuth();
   const qc = useQueryClient();
@@ -205,6 +236,7 @@ export function useMarkConversationRead() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["unread-count", user?.id] });
+      qc.invalidateQueries({ queryKey: ["unread-by-peer", user?.id] });
     },
   });
 }

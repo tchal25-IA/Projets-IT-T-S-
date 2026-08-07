@@ -133,7 +133,7 @@ export function useCreateCreneau() {
         "creneau",
         `Créneau proposé par ${prenom}`,
         input.note || "Nouvelle demande de créneau",
-        "/fusionfit/creneaux",
+        "/fusionfit/agenda",
       );
       await supabase.rpc("enqueue_email_for_user", {
         p_user_id: dest,
@@ -192,7 +192,7 @@ export function useUpdateCreneauStatus() {
         "creneau",
         `Créneau ${label} par ${prenom}`,
         note || undefined,
-        "/fusionfit/creneaux",
+        "/fusionfit/agenda",
       );
       await supabase.rpc("enqueue_email_for_user", {
         p_user_id: notifyUserId,

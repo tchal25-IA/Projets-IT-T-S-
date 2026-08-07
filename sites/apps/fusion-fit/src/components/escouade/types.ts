@@ -38,6 +38,7 @@ export type Session = {
   serenite: number;
   energie: number;
   humeur: number;
+  temps?: number | null;
   objectif_du_jour?: string | null;
   nb_blocs: number;
   blocs_completes: number[];

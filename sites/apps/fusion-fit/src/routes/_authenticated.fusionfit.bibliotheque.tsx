@@ -9,6 +9,7 @@ import {
   useSaveCoachExercise,
   useDeleteCoachExercise,
 } from "@/hooks/use-coach-exercises";
+import { syncAssignedProgramsFromTemplate } from "@/lib/program-sync";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/bibliotheque")({
   component: BibliothequePage,
@@ -75,15 +76,34 @@ function BibliothequePage() {
   async function save() {
     if (!user || !form.titre.trim()) { alert("Le titre est obligatoire."); return; }
     setSaving(true);
+    const blocs = form.blocs.filter((b) => b.titre.trim() || b.details.trim());
     const payload = {
       coach_id: user.id,
       titre: form.titre.trim(),
       objectif: form.objectif.trim() || null,
-      blocs: form.blocs.filter((b) => b.titre.trim() || b.details.trim()),
+      blocs,
     };
-    const { error } = editing
-      ? await supabase.from("program_templates").update(payload).eq("id", editing.id)
-      : await supabase.from("program_templates").insert(payload);
+    if (editing) {
+      const { error } = await supabase.from("program_templates").update(payload).eq("id", editing.id);
+      if (error) { setSaving(false); alert(error.message); return; }
+      // Sync auto vers tous les programmes déjà attribués depuis ce template
+      const n = await syncAssignedProgramsFromTemplate({
+        coachId: user.id,
+        templateId: editing.id,
+        titre: payload.titre,
+        objectif: payload.objectif,
+        blocs,
+      });
+      setSaving(false);
+      setCreating(false);
+      setEditing(null);
+      await load();
+      if (n > 0) {
+        alert(`Programme enregistré · synchronisé vers ${n} abonné(s).`);
+      }
+      return;
+    }
+    const { error } = await supabase.from("program_templates").insert(payload);
     setSaving(false);
     if (error) { alert(error.message); return; }
     setCreating(false);

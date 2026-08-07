@@ -10,6 +10,7 @@ import {
   useConversationId,
   useAthletes,
   useMarkConversationRead,
+  useUnreadByPeer,
 } from "@/hooks/use-messages";
 import { useNotifications, useUnreadNotifCount, useMarkNotifRead } from "@/hooks/use-notifications";
 import { AvatarUploader } from "@/components/avatar-uploader";
@@ -146,6 +147,7 @@ function AbonneMessagerie() {
 // ─── Vue Coach : sélection d'un athlète puis conversation ─────────────
 function CoachMessagerie() {
   const { data: athletes = [], isLoading } = useAthletes();
+  const { data: unreadByPeer = {} } = useUnreadByPeer();
   const [selected, setSelected] = useState<{ id: string; prenom: string; avatar_url: string | null } | null>(null);
   const { with: withId } = Route.useSearch();
 
@@ -188,6 +190,13 @@ function CoachMessagerie() {
     );
   }
 
+  // Conversations non lues en tête
+  const sorted = [...athletes].sort((a, b) => {
+    const ua = unreadByPeer[a.user_id] ? 1 : 0;
+    const ub = unreadByPeer[b.user_id] ? 1 : 0;
+    return ub - ua;
+  });
+
   return (
     <div className="space-y-3">
       <div>
@@ -196,23 +205,48 @@ function CoachMessagerie() {
         </p>
         <h1 className="mt-2 text-2xl font-bold">Conversations</h1>
       </div>
-      {athletes.map((a) => (
-        <button
-          key={a.user_id}
-          onClick={() => setSelected({ id: a.user_id, prenom: a.prenom, avatar_url: a.avatar_url })}
-          className="w-full flex items-center gap-3 rounded-2xl border p-3 text-left transition hover:opacity-90"
-          style={{ background: FF.surface, borderColor: FF.border }}
-        >
-          <AvatarUploader userId={a.user_id} avatarPath={a.avatar_url} size={40} />
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-sm">{a.prenom}</p>
-            <p className="text-xs truncate" style={{ color: FF.textMuted }}>
-              {a.objectif_principal || a.email || "—"}
-            </p>
-          </div>
-          <Send className="h-4 w-4" style={{ color: FF.textMuted }} />
-        </button>
-      ))}
+      {sorted.map((a) => {
+        const unread = !!unreadByPeer[a.user_id];
+        return (
+          <button
+            key={a.user_id}
+            onClick={() => setSelected({ id: a.user_id, prenom: a.prenom, avatar_url: a.avatar_url })}
+            className="w-full flex items-center gap-3 rounded-2xl border p-3 text-left transition hover:opacity-90"
+            style={{
+              background: unread ? "oklch(0.78 0.18 55 / 10%)" : FF.surface,
+              borderColor: unread ? FF.amber : FF.border,
+            }}
+          >
+            <div className="relative">
+              <AvatarUploader userId={a.user_id} avatarPath={a.avatar_url} size={40} />
+              {unread && (
+                <span
+                  className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border"
+                  style={{ background: FF.amber, borderColor: FF.surface }}
+                  aria-label="Nouveau message"
+                />
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-sm flex items-center gap-2">
+                {a.prenom}
+                {unread && (
+                  <span
+                    className="min-w-[16px] h-4 px-1 rounded-full text-[9px] font-bold grid place-items-center"
+                    style={{ background: FF.amber, color: "#0a0e1a" }}
+                  >
+                    1
+                  </span>
+                )}
+              </p>
+              <p className="text-xs truncate" style={{ color: FF.textMuted }}>
+                {unread ? "Nouveau message" : (a.objectif_principal || a.email || "—")}
+              </p>
+            </div>
+            <Send className="h-4 w-4" style={{ color: unread ? FF.amber : FF.textMuted }} />
+          </button>
+        );
+      })}
     </div>
   );
 }

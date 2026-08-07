@@ -109,6 +109,8 @@ export function useUnreadNotifCount() {
 const PUSH_TYPES = new Set([
   "creneau",
   "creneau_rappel",
+  "evenement",
+  "event_rappel",
   "message",
   "programme",
   "programme_valide",

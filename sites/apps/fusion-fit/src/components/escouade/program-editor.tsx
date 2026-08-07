@@ -3,6 +3,7 @@ import { Save, Plus, Trash2, Sparkles, BookOpen, X, Library, Check } from "lucid
 import { supabase } from "@/integrations/supabase/client";
 import { PROGRAM_TEMPLATES, PROTOCOLES, type Bloc } from "@/data/program-templates";
 import { notify } from "@/hooks/use-notifications";
+import { recordProgramAssignment } from "@/lib/program-sync";
 import { JOURS, type Program, type DbTemplate } from "./types";
 
 export function ProgramEditor({
@@ -28,6 +29,8 @@ export function ProgramEditor({
   const [showTemplates, setShowTemplates] = useState(false);
   const [protoTargetIdx, setProtoTargetIdx] = useState<number | null>(null);
   const [savedTplMsg, setSavedTplMsg] = useState<string | null>(null);
+  /** Template biblio source (pour journal program_assignments + sync auto). */
+  const [sourceTemplateId, setSourceTemplateId] = useState<string | null>(null);
 
   async function notifierMiseAJour(progTitre: string) {
     let convId: string | null = null;
@@ -78,8 +81,17 @@ export function ProgramEditor({
     if (res.error) {
       alert(res.error.message);
     } else {
-      setProg((p) => (p ? { ...p, id: res.data.id } : p));
+      const programId = res.data.id as string;
+      setProg((p) => (p ? { ...p, id: programId } : p));
       setSavedAt(new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+      if (sourceTemplateId) {
+        await recordProgramAssignment({
+          coachId,
+          templateId: sourceTemplateId,
+          abonneId,
+          programId,
+        });
+      }
       await notifierMiseAJour(prog.titre);
       await notify(abonneId, "programme", "Programme mis à jour",
         `Ton coach a mis à jour ton programme « ${prog.titre} ».`, "/fusionfit/stats");
@@ -91,12 +103,14 @@ export function ProgramEditor({
     const tpl = PROGRAM_TEMPLATES.find((t) => t.id === tplId);
     if (!tpl) return;
     if (prog.blocs.length > 0 && !confirm(`Remplacer le programme actuel par « ${tpl.titre} » ?`)) return;
+    setSourceTemplateId(null);
     setProg({ ...prog, titre: tpl.titre, objectif: tpl.objectif, blocs: tpl.blocs.map((b) => ({ ...b })) });
     setShowTemplates(false);
   }
 
   function appliquerDbTemplate(tpl: DbTemplate) {
     if (prog.blocs.length > 0 && !confirm(`Remplacer le programme actuel par « ${tpl.titre} » ?`)) return;
+    setSourceTemplateId(tpl.id);
     setProg({
       ...prog,
       titre: tpl.titre,

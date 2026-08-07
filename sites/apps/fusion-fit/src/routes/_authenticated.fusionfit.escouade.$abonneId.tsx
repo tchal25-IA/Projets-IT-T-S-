@@ -37,13 +37,13 @@ function AbonneDetailPage() {
         if (pErr) setLoadError(pErr.message);
         setProfile(p as Profile);
 
-      // Sessions récentes de l'abonné (ressenti + durée) — RLS "Coach lit check-ins de ses abonnés"
+      // Archive séances (détail + historique long) — RLS "Coach lit check-ins de ses abonnés"
       const { data: chk } = await supabase
         .from("check_ins")
-        .select("id, date, serenite, energie, humeur, objectif_du_jour, nb_blocs, blocs_completes, session_duration_sec, session_ended, ressenti_score, ressenti_note, coach_comment, session_source")
+        .select("id, date, serenite, energie, humeur, temps, objectif_du_jour, nb_blocs, blocs_completes, session_duration_sec, session_ended, ressenti_score, ressenti_note, coach_comment, session_source")
         .eq("user_id", abonneId)
         .order("created_at", { ascending: false })
-        .limit(30);
+        .limit(120);
       setSessions((chk as Session[]) ?? []);
 
       // Templates de la bibliothèque du coach
@@ -134,14 +134,17 @@ function AbonneDetailPage() {
         style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}
       >
         <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--ff-green)" }}>
-          <Smile className="h-3.5 w-3.5" /> Ressenti & sessions récentes
+          <Smile className="h-3.5 w-3.5" /> Archive des séances
+        </p>
+        <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
+          Ouvre une session pour voir le détail des blocs et exercices réalisés.
         </p>
         {sessions.length === 0 ? (
           <p className="text-xs" style={{ color: "var(--ff-text-muted)" }}>
             Aucune session enregistrée pour le moment.
           </p>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-2 max-h-[32rem] overflow-y-auto pr-1">
             {sessions.map((s) => (
               <SessionRow key={s.id} s={s} abonneId={abonneId} />
             ))}

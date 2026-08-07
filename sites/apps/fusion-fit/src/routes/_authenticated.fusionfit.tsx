@@ -1,12 +1,13 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, CalendarClock, Repeat, CalendarCheck } from "lucide-react";
+import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, Repeat, CalendarCheck } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
 import { useUnreadCount } from "@/hooks/use-messages";
 import { useUnreadNotifCount, useCreneauPushNotifications, useRegisterWebPush } from "@/hooks/use-notifications";
 import { useTodayCheckin, useMyObjectifsProfile } from "@/hooks/use-checkins";
 import { useCreneauRemindersPoll } from "@/hooks/use-coach-exercises";
+import { useAgendaRemindersPoll } from "@/hooks/use-events";
 import { PhoenixLogo } from "@/components/phoenix-logo";
 import { FF } from "@/lib/ff-colors";
 
@@ -17,14 +18,14 @@ export const Route = createFileRoute("/_authenticated/fusionfit")({
 const NAV_ATHLETE = [
   { to: "/fusionfit/routine",     label: "Routine",     icon: Zap          },
   { to: "/fusionfit/stats",       label: "Suivi",       icon: BarChart3    },
-  { to: "/fusionfit/creneaux",    label: "Créneaux",    icon: CalendarClock},
+  { to: "/fusionfit/agenda",      label: "Agenda",      icon: CalendarCheck},
   { to: "/fusionfit/messagerie",  label: "Messagerie",  icon: MessageCircle},
   { to: "/fusionfit/profil",      label: "Profil",      icon: User         },
 ] as const;
 
 const NAV_COACH = [
   { to: "/fusionfit/escouade",    label: "Escouade",    icon: Users        },
-  { to: "/fusionfit/creneaux",    label: "Créneaux",    icon: CalendarClock},
+  { to: "/fusionfit/agenda",      label: "Agenda",      icon: CalendarCheck},
   { to: "/fusionfit/messagerie",  label: "Messagerie",  icon: MessageCircle},
   { to: "/fusionfit/bibliotheque",label: "Biblio",      icon: BookOpen     },
   { to: "/fusionfit/profil",      label: "Profil",      icon: User         },
@@ -39,6 +40,7 @@ function FusionFitShell() {
   useCreneauPushNotifications();
   useRegisterWebPush();
   useCreneauRemindersPoll();
+  useAgendaRemindersPoll();
   const navigate          = useNavigate();
   const today = new Date()
     .toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short" })
