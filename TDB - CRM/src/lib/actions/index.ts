@@ -43,8 +43,10 @@ export {
 
 export {
   upsertProduct,
+  deleteProduct,
   updateProductFieldSchema,
   addProductField,
+  updateProductField,
   removeProductField,
   upsertOffering,
   deleteOffering,

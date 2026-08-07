@@ -44,9 +44,21 @@ export async function upsertProduct(formData: FormData) {
   if (!/^[a-z0-9_-]+$/.test(slug)) throw new Error("Slug invalide");
 
   if (id) {
+    const existing = await prisma.product.findUnique({ where: { id } });
+    if (!existing) throw new Error("Produit introuvable");
+    const slugTaken = await prisma.product.findFirst({
+      where: { slug, NOT: { id } },
+    });
+    if (slugTaken) throw new Error("Slug déjà utilisé");
     await prisma.product.update({
       where: { id },
-      data: { name, description, active, sortOrder },
+      data: {
+        name,
+        slug,
+        description,
+        active,
+        sortOrder: Number.isFinite(sortOrder) ? sortOrder : 0,
+      },
     });
   } else {
     await prisma.product.create({
@@ -60,6 +72,19 @@ export async function upsertProduct(formData: FormData) {
       },
     });
   }
+  revalidateSettings();
+}
+
+export async function deleteProduct(id: string) {
+  await requireSetup();
+  const count = await prisma.lead.count({ where: { productId: id } });
+  if (count > 0) {
+    throw new Error(
+      `Impossible de supprimer : ${count} lead(s) rattaché(s). Désactivez le produit.`
+    );
+  }
+  await prisma.productOffering.deleteMany({ where: { productId: id } });
+  await prisma.product.delete({ where: { id } });
   revalidateSettings();
 }
 
@@ -125,6 +150,47 @@ export async function addProductField(formData: FormData) {
   revalidateSettings();
 }
 
+export async function updateProductField(formData: FormData) {
+  await requireSetup();
+  const productId = String(formData.get("productId") || "");
+  const originalKey = String(formData.get("originalKey") || "").trim();
+  const key = String(formData.get("key") || "").trim();
+  const label = String(formData.get("label") || "").trim();
+  const type = String(formData.get("type") || "text") as FieldDef["type"];
+  const optionsRaw = String(formData.get("options") || "").trim();
+  const optionsFrom =
+    formData.get("optionsFrom") === "offerings" ? "offerings" : null;
+  if (!productId || !originalKey || !key || !label) {
+    throw new Error("Champs requis");
+  }
+
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) throw new Error("Produit introuvable");
+  const fields = parseFieldSchema(product.fieldSchema);
+  const idx = fields.findIndex((f) => f.key === originalKey);
+  if (idx < 0) throw new Error("Champ introuvable");
+  if (key !== originalKey && fields.some((f) => f.key === key)) {
+    throw new Error("Clé déjà utilisée");
+  }
+
+  fields[idx] = {
+    key,
+    label,
+    type: optionsFrom ? "select" : type,
+    optionsFrom,
+    options: optionsRaw
+      ? optionsRaw.split("|").map((s) => s.trim()).filter(Boolean)
+      : undefined,
+    required: formData.get("required") === "on",
+  };
+
+  await prisma.product.update({
+    where: { id: productId },
+    data: { fieldSchema: fields as unknown as Prisma.InputJsonValue },
+  });
+  revalidateSettings();
+}
+
 export async function removeProductField(productId: string, key: string) {
   await requireSetup();
   const product = await prisma.product.findUnique({ where: { id: productId } });
@@ -149,9 +215,8 @@ export async function upsertOffering(formData: FormData) {
   ) as BillingPeriod;
   const amountRaw = String(formData.get("amountHt") || "").trim();
   const amountHt = amountRaw === "" ? null : Number(amountRaw);
-  const active = id
-    ? formData.get("active") === "on" || formData.get("active") === "true"
-    : true;
+  const active =
+    formData.get("active") === "on" || formData.get("active") === "true";
   const sortOrder = Number(formData.get("sortOrder") || 0);
 
   if (!productId || !name) throw new Error("Produit et nom requis");
@@ -195,6 +260,9 @@ export async function upsertCommissionRule(formData: FormData) {
   const roleKey = String(formData.get("roleKey") || "").trim().toUpperCase();
   const label = String(formData.get("label") || "").trim();
   const ratePercent = Number(formData.get("ratePercent") || 0);
+  const sortOrder = Number(formData.get("sortOrder") || 0);
+  const active =
+    formData.get("active") === "on" || formData.get("active") === "true";
   if (!["APPORTEUR", "COMMERCIAL"].includes(roleKey)) {
     throw new Error("Rôle commission invalide");
   }
@@ -208,12 +276,14 @@ export async function upsertCommissionRule(formData: FormData) {
       roleKey,
       label: label || roleKey,
       ratePercent,
-      active: true,
+      active,
+      sortOrder: Number.isFinite(sortOrder) ? sortOrder : 0,
     },
     update: {
       label: label || roleKey,
       ratePercent,
-      active: true,
+      active,
+      sortOrder: Number.isFinite(sortOrder) ? sortOrder : 0,
     },
   });
   revalidateSettings();
