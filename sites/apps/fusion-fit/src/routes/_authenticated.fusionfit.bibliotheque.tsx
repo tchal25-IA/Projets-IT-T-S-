@@ -1,9 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BookOpen, Plus, Trash2, Edit2, X, Check, Library, Loader2 } from "lucide-react";
+import { BookOpen, Plus, Trash2, Edit2, X, Check, Library, Loader2, Dumbbell } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { PROGRAM_TEMPLATES, type Bloc } from "@/data/program-templates";
+import {
+  useCoachExercises,
+  useSaveCoachExercise,
+  useDeleteCoachExercise,
+} from "@/hooks/use-coach-exercises";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/bibliotheque")({
   component: BibliothequePage,
@@ -119,12 +124,17 @@ function BibliothequePage() {
 
   return (
     <div className="space-y-5">
+      <ExercicesPanel />
+
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[10px] font-mono uppercase tracking-widest" style={{ color: "var(--ff-text-muted)" }}>
             Coach · Bibliothèque
           </p>
-          <h1 className="text-2xl font-bold mt-1">Programmes types</h1>
+          <h1 className="text-2xl font-bold mt-1">Programmes hebdomadaires</h1>
+          <p className="text-xs mt-1" style={{ color: "var(--ff-text-muted)" }}>
+            Templates réutilisables à attribuer à un abonné depuis l&apos;Escouade.
+          </p>
         </div>
         {!creating && (
           <div className="flex gap-2">
@@ -198,7 +208,7 @@ function BibliothequePage() {
             onChange={(e) => setForm({ ...form, objectif: e.target.value })}
             placeholder="Objectif du programme"
             rows={2}
-            className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-none"
+            className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-y min-h-[4.5rem]"
             style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
           />
 
@@ -236,7 +246,7 @@ function BibliothequePage() {
                   onChange={(e) => majBloc(i, { details: e.target.value })}
                   placeholder="Détails (exercices, séries, temps…)"
                   rows={2}
-                  className="w-full px-2 py-1.5 rounded border bg-transparent text-xs outline-none resize-none"
+                  className="w-full px-2 py-1.5 rounded border bg-transparent text-xs outline-none resize-y min-h-[4rem]"
                   style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
                 />
               </div>
@@ -318,3 +328,116 @@ function BibliothequePage() {
     </div>
   );
 }
+
+/** Référentiel d'exercices du coach — base commune pour bâtir les programmes. */
+function ExercicesPanel() {
+  const { data: exercises = [], isLoading } = useCoachExercises();
+  const { mutateAsync: saveEx, isPending: saving } = useSaveCoachExercise();
+  const { mutateAsync: delEx } = useDeleteCoachExercise();
+  const [nom, setNom] = useState("");
+  const [consigne, setConsigne] = useState("");
+  const [open, setOpen] = useState(true);
+
+  async function ajouter() {
+    if (!nom.trim()) return;
+    try {
+      await saveEx({ nom, consigne });
+      setNom("");
+      setConsigne("");
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur");
+    }
+  }
+
+  return (
+    <section
+      className="rounded-2xl border p-4 space-y-3"
+      style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between"
+      >
+        <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--ff-cyan)" }}>
+          <Dumbbell className="h-3.5 w-3.5" /> Mes exercices ({exercises.length})
+        </p>
+        <span className="text-[10px] font-mono" style={{ color: "var(--ff-text-muted)" }}>
+          {open ? "réduire" : "ouvrir"}
+        </span>
+      </button>
+      {open && (
+        <>
+          <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
+            Base commune : conserve les mouvements que tu réutilises dans tes programmes hebdo.
+          </p>
+          <div className="space-y-2">
+            <input
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              placeholder="Nom de l'exercice"
+              className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none"
+              style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
+            />
+            <textarea
+              value={consigne}
+              onChange={(e) => setConsigne(e.target.value)}
+              placeholder="Consigne / scaling (optionnel)"
+              rows={2}
+              className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-y min-h-[3.5rem]"
+              style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
+            />
+            <button
+              type="button"
+              onClick={ajouter}
+              disabled={saving || !nom.trim()}
+              className="w-full py-2 rounded-lg border text-xs font-bold uppercase tracking-widest disabled:opacity-50"
+              style={{ borderColor: "var(--ff-cyan)", color: "var(--ff-cyan)", background: "oklch(0.78 0.16 198 / 12%)" }}
+            >
+              <span className="inline-flex items-center gap-1 justify-center">
+                <Plus className="h-3.5 w-3.5" /> Ajouter
+              </span>
+            </button>
+          </div>
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" style={{ color: "var(--ff-cyan)" }} />
+          ) : (
+            <ul className="space-y-1.5 max-h-48 overflow-y-auto">
+              {exercises.map((ex) => (
+                <li
+                  key={ex.id}
+                  className="flex items-start justify-between gap-2 rounded-lg border p-2"
+                  style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold">{ex.nom}</p>
+                    {ex.consigne && (
+                      <p className="text-[11px] whitespace-pre-line" style={{ color: "var(--ff-text-muted)" }}>
+                        {ex.consigne}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => delEx(ex.id)}
+                    className="p-1"
+                    style={{ color: "var(--ff-text-muted)" }}
+                    aria-label="Supprimer"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </li>
+              ))}
+              {exercises.length === 0 && (
+                <li className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
+                  Aucun exercice encore — ajoute ton premier mouvement.
+                </li>
+              )}
+            </ul>
+          )}
+        </>
+      )}
+    </section>
+  );
+}
+

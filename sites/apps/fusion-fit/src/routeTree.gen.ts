@@ -25,6 +25,7 @@ import { Route as AuthenticatedFusionfitOnboardingRouteImport } from './routes/_
 import { Route as AuthenticatedFusionfitProfilRouteImport } from './routes/_authenticated.fusionfit.profil'
 import { Route as AuthenticatedFusionfitRoutineRouteImport } from './routes/_authenticated.fusionfit.routine'
 import { Route as AuthenticatedFusionfitStatsRouteImport } from './routes/_authenticated.fusionfit.stats'
+import { Route as ApiWebhooksStripeRouteImport } from './routes/api.webhooks.stripe'
 import { Route as AuthenticatedFusionfitEscouadeAbonneIdRouteImport } from './routes/_authenticated.fusionfit.escouade.$abonneId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -117,6 +118,11 @@ const AuthenticatedFusionfitStatsRoute =
     path: '/stats',
     getParentRoute: () => AuthenticatedFusionfitRoute,
   } as any)
+const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
+  id: '/api/webhooks/stripe',
+  path: '/api/webhooks/stripe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedFusionfitEscouadeAbonneIdRoute =
   AuthenticatedFusionfitEscouadeAbonneIdRouteImport.update({
     id: '/$abonneId',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/fusionfit/profil': typeof AuthenticatedFusionfitProfilRoute
   '/fusionfit/routine': typeof AuthenticatedFusionfitRoutineRoute
   '/fusionfit/stats': typeof AuthenticatedFusionfitStatsRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/fusionfit/': typeof AuthenticatedFusionfitIndexRoute
   '/fusionfit/escouade/$abonneId': typeof AuthenticatedFusionfitEscouadeAbonneIdRoute
 }
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/fusionfit/profil': typeof AuthenticatedFusionfitProfilRoute
   '/fusionfit/routine': typeof AuthenticatedFusionfitRoutineRoute
   '/fusionfit/stats': typeof AuthenticatedFusionfitStatsRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/fusionfit': typeof AuthenticatedFusionfitIndexRoute
   '/fusionfit/escouade/$abonneId': typeof AuthenticatedFusionfitEscouadeAbonneIdRoute
 }
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/_authenticated/fusionfit/profil': typeof AuthenticatedFusionfitProfilRoute
   '/_authenticated/fusionfit/routine': typeof AuthenticatedFusionfitRoutineRoute
   '/_authenticated/fusionfit/stats': typeof AuthenticatedFusionfitStatsRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/_authenticated/fusionfit/': typeof AuthenticatedFusionfitIndexRoute
   '/_authenticated/fusionfit/escouade/$abonneId': typeof AuthenticatedFusionfitEscouadeAbonneIdRoute
 }
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/fusionfit/profil'
     | '/fusionfit/routine'
     | '/fusionfit/stats'
+    | '/api/webhooks/stripe'
     | '/fusionfit/'
     | '/fusionfit/escouade/$abonneId'
   fileRoutesByTo: FileRoutesByTo
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/fusionfit/profil'
     | '/fusionfit/routine'
     | '/fusionfit/stats'
+    | '/api/webhooks/stripe'
     | '/fusionfit'
     | '/fusionfit/escouade/$abonneId'
   id:
@@ -232,6 +243,7 @@ export interface FileRouteTypes {
     | '/_authenticated/fusionfit/profil'
     | '/_authenticated/fusionfit/routine'
     | '/_authenticated/fusionfit/stats'
+    | '/api/webhooks/stripe'
     | '/_authenticated/fusionfit/'
     | '/_authenticated/fusionfit/escouade/$abonneId'
   fileRoutesById: FileRoutesById
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
+  ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -357,6 +370,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFusionfitStatsRouteImport
       parentRoute: typeof AuthenticatedFusionfitRoute
     }
+    '/api/webhooks/stripe': {
+      id: '/api/webhooks/stripe'
+      path: '/api/webhooks/stripe'
+      fullPath: '/api/webhooks/stripe'
+      preLoaderRoute: typeof ApiWebhooksStripeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/fusionfit/escouade/$abonneId': {
       id: '/_authenticated/fusionfit/escouade/$abonneId'
       path: '/$abonneId'
@@ -438,6 +458,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
+  ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -139,12 +139,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     invitationToken?: string,
   ) => {
     if (!cloudConfigured) return { error: "Cloud non configuré — inscription indisponible." };
+    if (!invitationToken?.trim()) {
+      return { error: "Un lien d'invitation coach est requis pour créer un compte." };
+    }
+    if (password.length < 8) {
+      return { error: "Le mot de passe doit contenir au moins 8 caractères." };
+    }
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/fusionfit/routine`,
-        data: { prenom, invitation_token: invitationToken ?? null },
+        emailRedirectTo: `${window.location.origin}/fusionfit/onboarding`,
+        data: { prenom, invitation_token: invitationToken.trim() },
       },
     });
     return { error: error?.message ?? null };

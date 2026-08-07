@@ -35,6 +35,23 @@ export const analyzeFatigue = createServerFn({ method: "POST" })
       if (!link) throw new Error("Non autorisé");
     }
 
+    // Gate plan Initiative+ pour auto-analyse (le coach peut toujours analyser ses athlètes)
+    if (target === userId) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("abonnement_plan, abonnement_statut")
+        .eq("user_id", userId)
+        .maybeSingle();
+      const plan = profile?.abonnement_plan ?? "decouverte";
+      const statut = profile?.abonnement_statut ?? "essai";
+      const ok =
+        statut === "actif" &&
+        (plan === "initiative" || plan === "elite");
+      if (!ok) {
+        throw new Error("Analyse IA réservée aux plans Initiative et Élite. Passe par /fusionfit/abonnement.");
+      }
+    }
+
     const { data: checkins } = await supabase
       .from("check_ins")
       .select("created_at, temps, energie, humeur")

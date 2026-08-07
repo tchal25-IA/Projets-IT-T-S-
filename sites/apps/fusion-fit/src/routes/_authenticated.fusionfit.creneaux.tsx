@@ -4,6 +4,10 @@ import { CalendarClock, Plus, Check, X, Repeat, Ban } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { notify, getMyPrenom } from "@/hooks/use-notifications";
+import { useMyAbonnement, useTrainingSlots } from "@/hooks/use-creneaux";
+import { canAccessFeature, CRENEAUX_FREE_MONTHLY_LIMIT } from "@/lib/plan-gates";
+import { PageSkeleton } from "@/components/ui-skeleton";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/creneaux")({
   component: CreneauxPage,
@@ -24,6 +28,8 @@ type Partner = { user_id: string; prenom: string };
 
 function CreneauxPage() {
   const { user, role } = useAuth();
+  const { data: rqSlots, isLoading: slotsLoading, refetch: refetchSlots } = useTrainingSlots();
+  const { data: abo } = useMyAbonnement();
   const [slots, setSlots] = useState<Slot[]>([]);
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,17 +45,12 @@ function CreneauxPage() {
     note: "",
   });
 
-  async function load() {
-    if (!user) return;
-    setLoading(true);
-    // Trie décroissant : le plus récent en haut, les créneaux passés en bas.
-    const { data } = await supabase
-      .from("training_slots")
-      .select("*")
-      .order("date_slot", { ascending: false });
-    setSlots((data as Slot[]) ?? []);
+  useEffect(() => {
+    if (rqSlots) setSlots(rqSlots as Slot[]);
+  }, [rqSlots]);
 
-    // partenaires : abonnés (si coach) ou coachs (si abonné)
+  async function loadPartners() {
+    if (!user) return;
     if (role === "coach") {
       const { data: a } = await supabase.from("coach_assignments").select("abonne_id").eq("coach_id", user.id);
       const ids = a?.map((x) => x.abonne_id) ?? [];
@@ -69,7 +70,7 @@ function CreneauxPage() {
   }
 
   useEffect(() => {
-    load();
+    void loadPartners();
   }, [user, role]);
 
   async function proposer() {
@@ -77,6 +78,21 @@ function CreneauxPage() {
       alert("Renseigne partenaire et date.");
       return;
     }
+
+    const unlimited = canAccessFeature("creneaux_illimites", abo?.plan, abo?.statut);
+    if (!unlimited && role === "abonne") {
+      const monthStart = new Date();
+      monthStart.setDate(1);
+      monthStart.setHours(0, 0, 0, 0);
+      const count = slots.filter(
+        (s) => s.abonne_id === user.id && new Date(s.date_slot) >= monthStart && s.status !== "refuse",
+      ).length;
+      if (count >= CRENEAUX_FREE_MONTHLY_LIMIT) {
+        alert(`Limite de ${CRENEAUX_FREE_MONTHLY_LIMIT} créneaux/mois. Passe en Initiative pour l'illimité.`);
+        return;
+      }
+    }
+
     const dt = new Date(`${form.date}T${form.heure}:00`);
     const payload = {
       coach_id: role === "coach" ? user.id : form.partnerId,
@@ -97,9 +113,15 @@ function CreneauxPage() {
     const prenomProposant = await getMyPrenom(user.id);
     await notify(payload.abonne_id, "creneau", `${prenomProposant} te propose un créneau`,
       `Séance le ${quand}${form.lieu ? ` · ${form.lieu}` : ""}.`, "/fusionfit/creneaux");
+    await supabase.rpc("enqueue_email_for_user", {
+      p_user_id: payload.abonne_id,
+      p_subject: `${prenomProposant} te propose un créneau`,
+      p_body: `Séance le ${quand}${form.lieu ? ` · ${form.lieu}` : ""}.`,
+      p_kind: "creneau",
+    });
     setShowForm(false);
     setForm({ ...form, date: "", lieu: "", note: "" });
-    await load();
+    await refetchSlots();
   }
 
   async function maj(id: string, status: string) {
@@ -112,7 +134,7 @@ function CreneauxPage() {
       await notify(slot.proposed_by, "creneau", `${prenom} a ${label} le créneau`,
         `Séance du ${quand}${slot.lieu ? ` · ${slot.lieu}` : ""}.`, "/fusionfit/creneaux");
     }
-    await load();
+    await refetchSlots();
   }
 
   async function envoyerContre(slot: Slot) {
@@ -138,7 +160,7 @@ function CreneauxPage() {
     }
     setCounterFor(null);
     setCounterForm({ date: "", heure: "18:00" });
-    await load();
+    await refetchSlots();
   }
 
   // Demande d'annulation : envoie automatiquement un message dans la conversation
@@ -189,7 +211,7 @@ function CreneauxPage() {
         `/fusionfit/messagerie?with=${user.id}`);
     }
 
-    await load();
+    await refetchSlots();
   }
 
   const statusInfo: Record<string, { label: string; color: string }> = {
@@ -282,7 +304,13 @@ function CreneauxPage() {
         </section>
       )}
 
-      {loading && <p className="text-center text-sm" style={{ color: "var(--ff-text-muted)" }}>Chargement…</p>}
+      {(loading || slotsLoading) && <PageSkeleton rows={3} />}
+      {!canAccessFeature("creneaux_illimites", abo?.plan, abo?.statut) && role === "abonne" && (
+        <p className="text-[11px] font-mono" style={{ color: "var(--ff-amber)" }}>
+          Plan Découverte · max {CRENEAUX_FREE_MONTHLY_LIMIT} créneaux/mois ·{" "}
+          <Link to="/fusionfit/abonnement" style={{ color: "var(--ff-cyan)" }}>Upgrade</Link>
+        </p>
+      )}
 
       {!loading && slots.length === 0 && (
         <div

@@ -9,6 +9,7 @@ export type CheckinRow = {
   temps: number;
   energie: number;
   humeur: number;
+  objectif_du_jour: string | null;
   blocs_completes: number[];
   nb_blocs: number;
   serenite: number;
@@ -28,6 +29,7 @@ export type SaveCheckinPayload = {
   temps: number;
   energie: number;
   humeur: number;
+  objectif_du_jour?: string | null;
   blocs_completes: number[];
   nb_blocs: number;
   serenite: number;
@@ -50,7 +52,7 @@ export function useCheckins(limit = 30) {
     refetchOnMount: "always",
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("checkins")
+        .from("check_ins")
         .select("*")
         .eq("user_id", user!.id)
         .order("date", { ascending: false })
@@ -71,7 +73,7 @@ export function useTodayCheckin() {
     staleTime: 30_000,
     queryFn: async () => {
       const { data } = await supabase
-        .from("checkins")
+        .from("check_ins")
         .select("*")
         .eq("user_id", user!.id)
         .eq("date", today)
@@ -92,10 +94,14 @@ export function useSaveCheckin() {
   return useMutation({
     mutationFn: async (payload: SaveCheckinPayload & { id?: string }) => {
       const { id, ...rest } = payload;
+      const patch = {
+        ...rest,
+        session_source: rest.session_source ?? undefined,
+      };
       if (id) {
         const { data, error } = await supabase
-          .from("checkins")
-          .update(rest)
+          .from("check_ins")
+          .update(patch)
           .eq("id", id)
           .select()
           .single();
@@ -103,8 +109,8 @@ export function useSaveCheckin() {
         return data as CheckinRow;
       }
       const { data, error } = await supabase
-        .from("checkins")
-        .insert({ user_id: user!.id, date: today, ...rest })
+        .from("check_ins")
+        .insert({ user_id: user!.id, date: today, ...patch })
         .select()
         .single();
       if (error) throw error;
@@ -114,6 +120,27 @@ export function useSaveCheckin() {
       qc.setQueryData(["checkin-today", user?.id, today], data);
       qc.invalidateQueries({ queryKey: ["checkins", user?.id] });
       qc.invalidateQueries({ queryKey: ["profile", user?.id] });
+    },
+  });
+}
+
+/** Profil léger pour options d'objectif du check-in. */
+export function useMyObjectifsProfile() {
+  const { user } = useAuth();
+  return useQuery({
+    queryKey: ["profile-objectifs", user?.id],
+    enabled: !!user,
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select(
+          "objectif_principal, objectif_moyen_terme, objectif_long_terme, objectifs_secondaires, onboarding_done",
+        )
+        .eq("user_id", user!.id)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
     },
   });
 }

@@ -135,6 +135,12 @@ export function useSendMessage() {
         const extrait = payload.texte.trim().slice(0, 80);
         await notify(dest, "message", `Message de ${prenom}`, extrait,
           `/fusionfit/messagerie?with=${user!.id}`);
+        await supabase.rpc("enqueue_email_for_user", {
+          p_user_id: dest,
+          p_subject: `Message de ${prenom} — FusionFit`,
+          p_body: extrait,
+          p_kind: "message",
+        });
       }
     },
     onSuccess: (_, vars) => {

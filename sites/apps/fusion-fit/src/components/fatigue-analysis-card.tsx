@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Brain, Sparkles, AlertTriangle, TrendingUp, Minus } from "lucide-react";
 import { analyzeFatigue } from "@/lib/fatigue.functions";
+import { FeatureGate } from "@/components/feature-gate";
 
 type Analysis = {
   tendance: "amelioration" | "stable" | "fatigue" | "surmenage";
@@ -18,7 +19,21 @@ const TENDANCES = {
   surmenage: { label: "Surmenage", color: "oklch(0.65 0.22 25)", icon: AlertTriangle },
 } as const;
 
-export function FatigueAnalysisCard({
+export function FatigueAnalysisCard(props: {
+  targetUserId?: string;
+  audience: "coach" | "abonne";
+}) {
+  if (props.audience === "coach") {
+    return <FatigueAnalysisInner {...props} />;
+  }
+  return (
+    <FeatureGate feature="ia_fatigue">
+      <FatigueAnalysisInner {...props} />
+    </FeatureGate>
+  );
+}
+
+function FatigueAnalysisInner({
   targetUserId,
   audience,
 }: {
@@ -83,7 +98,7 @@ export function FatigueAnalysisCard({
 
       {loading && (
         <p className="text-xs text-center py-3 font-mono" style={{ color: "var(--ff-cyan)" }}>
-          ⚙ L'IA analyse les check-ins…
+          L'IA analyse les check-ins…
         </p>
       )}
 

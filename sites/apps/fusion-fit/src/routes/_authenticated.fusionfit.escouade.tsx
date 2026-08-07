@@ -1,84 +1,49 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, X, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useAthletes } from "@/hooks/use-messages";
 import { QrCode } from "@/components/qr-code";
 import { AvatarUploader } from "@/components/avatar-uploader";
+import { SquadSocialPanel } from "@/components/escouade/squad-social-panel";
+import {
+  useCreateInvitation,
+  useEscouadeData,
+  useSquadMutations,
+} from "@/hooks/use-escouade";
+import { PageSkeleton } from "@/components/ui-skeleton";
+import { useTrainingSlots } from "@/hooks/use-creneaux";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade")({
   component: EscouadePage,
 });
 
-type Abonne = { user_id: string; prenom: string; email: string | null; objectif_principal: string | null; avatar_url: string | null };
-type Invit = { id: string; token: string; email: string | null; used_at: string | null; expires_at: string };
-type Squad = { id: string; nom: string; objectif: string; couleur: string };
-type Membership = { squad_id: string; abonne_id: string };
-
 function EscouadePage() {
-  const { user, role } = useAuth();
+  const { role } = useAuth();
   const loc = useLocation();
   // Sous-route active (fiche abonné) → on rend l'Outlet à la place de la liste.
   const onDetail = loc.pathname !== "/fusionfit/escouade" && loc.pathname !== "/fusionfit/escouade/";
-  const [abonnes, setAbonnes] = useState<Abonne[]>([]);
-  const [invits, setInvits] = useState<Invit[]>([]);
+  const { data, isLoading } = useEscouadeData();
+  const abonnes = data?.abonnes ?? [];
+  const invits = data?.invits ?? [];
+  const squads = data?.squads ?? [];
+  const members = data?.members ?? [];
+  const createInv = useCreateInvitation();
+  const { createSquad, deleteSquad, toggleMember } = useSquadMutations();
   const [emailInv, setEmailInv] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
   const [qrFor, setQrFor] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Squads
-  const [squads, setSquads] = useState<Squad[]>([]);
-  const [members, setMembers] = useState<Membership[]>([]);
   const [showNewSquad, setShowNewSquad] = useState(false);
   const [squadForm, setSquadForm] = useState({ nom: "", objectif: "" });
   const [openSquad, setOpenSquad] = useState<string | null>(null);
 
-  async function loadAll() {
-    if (!user) return;
-    const { data: assigns } = await supabase
-      .from("coach_assignments").select("abonne_id").eq("coach_id", user.id);
-    const ids = assigns?.map((a) => a.abonne_id) ?? [];
-    if (ids.length) {
-      const { data: profs } = await supabase
-        .from("profiles").select("user_id, prenom, email, objectif_principal, avatar_url").in("user_id", ids);
-      setAbonnes((profs as Abonne[]) ?? []);
-    } else {
-      setAbonnes([]);
-    }
-    const { data: inv } = await supabase
-      .from("invitations").select("*").eq("coach_id", user.id)
-      .is("used_at", null).order("created_at", { ascending: false });
-    setInvits((inv as Invit[]) ?? []);
-
-    const { data: sq } = await supabase
-      .from("squads").select("*").eq("coach_id", user.id).order("created_at", { ascending: false });
-    setSquads((sq as Squad[]) ?? []);
-    const sqIds = sq?.map((s) => s.id) ?? [];
-    if (sqIds.length) {
-      const { data: mems } = await supabase
-        .from("squad_members").select("squad_id, abonne_id").in("squad_id", sqIds);
-      setMembers((mems as Membership[]) ?? []);
-    } else {
-      setMembers([]);
-    }
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    if (role === "coach") loadAll();
-    else setLoading(false);
-  }, [user, role]);
-
   async function creerInvitation() {
-    if (!user) return;
-    const { data, error } = await supabase
-      .from("invitations").insert({ coach_id: user.id, email: emailInv.trim() || null })
-      .select().single();
-    if (error) return alert(error.message);
-    setInvits((p) => [data as Invit, ...p]);
-    setEmailInv("");
+    try {
+      await createInv.mutateAsync(emailInv);
+      setEmailInv("");
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur invitation");
+    }
   }
 
   function lien(token: string) {
@@ -91,29 +56,24 @@ function EscouadePage() {
   }
 
   async function creerSquad() {
-    if (!user || !squadForm.nom.trim()) return;
-    const { data, error } = await supabase.from("squads").insert({
-      coach_id: user.id, nom: squadForm.nom.trim(), objectif: squadForm.objectif.trim(),
-    }).select().single();
-    if (error) return alert(error.message);
-    setSquads((p) => [data as Squad, ...p]);
-    setShowNewSquad(false);
-    setSquadForm({ nom: "", objectif: "" });
+    if (!squadForm.nom.trim()) return;
+    try {
+      await createSquad.mutateAsync(squadForm);
+      setShowNewSquad(false);
+      setSquadForm({ nom: "", objectif: "" });
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur");
+    }
   }
   async function suppSquad(id: string) {
     if (!confirm("Supprimer cette escouade ?")) return;
-    await supabase.from("squads").delete().eq("id", id);
-    setSquads((p) => p.filter((s) => s.id !== id));
-    setMembers((p) => p.filter((m) => m.squad_id !== id));
+    await deleteSquad.mutateAsync(id);
   }
-  async function toggleMember(squadId: string, abonneId: string, inGroup: boolean) {
-    if (inGroup) {
-      await supabase.from("squad_members").delete().eq("squad_id", squadId).eq("abonne_id", abonneId);
-      setMembers((p) => p.filter((m) => !(m.squad_id === squadId && m.abonne_id === abonneId)));
-    } else {
-      const { error } = await supabase.from("squad_members").insert({ squad_id: squadId, abonne_id: abonneId });
-      if (error) return alert(error.message);
-      setMembers((p) => [...p, { squad_id: squadId, abonne_id: abonneId }]);
+  async function onToggleMember(squadId: string, abonneId: string, inGroup: boolean) {
+    try {
+      await toggleMember.mutateAsync({ squadId, abonneId, inGroup });
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur");
     }
   }
 
@@ -123,7 +83,7 @@ function EscouadePage() {
   if (role !== "coach") {
     return <p className="text-center mt-12 text-sm" style={{ color: "var(--ff-text-muted)" }}>Accès réservé au coach.</p>;
   }
-  if (loading) return <p className="text-center mt-12 text-sm" style={{ color: "var(--ff-text-muted)" }}>Chargement…</p>;
+  if (isLoading) return <PageSkeleton rows={5} />;
 
   return (
     <div className="space-y-5">
@@ -297,7 +257,7 @@ function EscouadePage() {
                     return (
                       <button
                         key={a.user_id}
-                        onClick={() => toggleMember(sq.id, a.user_id, inGroup)}
+                        onClick={() => onToggleMember(sq.id, a.user_id, inGroup)}
                         className="w-full flex items-center gap-2 text-xs px-2 py-1.5 rounded-lg border"
                         style={{
                           borderColor: inGroup ? "var(--ff-green)" : "var(--ff-border)",
@@ -310,6 +270,7 @@ function EscouadePage() {
                       </button>
                     );
                   })}
+                  <SquadSocialPanel squadId={sq.id} squadNom={sq.nom} isCoach />
                 </div>
               )}
             </div>
@@ -364,29 +325,17 @@ function EscouadePage() {
   );
 }
 
-// ── Dashboard coach : agenda 7 jours + alertes fatigue ────────────────
-type SlotLite = { id: string; date_slot: string; duree_min: number; lieu: string | null; status: string; abonne_id: string };
-
 function CoachDashboard({ nbAbonnes }: { nbAbonnes: number }) {
-  const { user } = useAuth();
   const { data: athletes = [] } = useAthletes();
-  const [slots, setSlots] = useState<SlotLite[]>([]);
+  const { data: allSlots = [] } = useTrainingSlots();
 
-  useEffect(() => {
-    if (!user) return;
-    const now = new Date();
-    const in7d = new Date(now.getTime() + 7 * 86400_000);
-    supabase
-      .from("training_slots")
-      .select("id, date_slot, duree_min, lieu, status, abonne_id")
-      .eq("coach_id", user.id)
-      .gte("date_slot", now.toISOString())
-      .lte("date_slot", in7d.toISOString())
-      .order("date_slot", { ascending: true })
-      .then(({ data }) => setSlots((data as SlotLite[]) ?? []));
-  }, [user]);
+  const now = Date.now();
+  const in7d = now + 7 * 86400_000;
+  const slots = allSlots.filter((s) => {
+    const t = new Date(s.date_slot).getTime();
+    return t >= now && t <= in7d;
+  });
 
-  // Alerte fatigue : énergie moyenne faible sur les check-ins connus.
   const alertes = athletes.filter((a) => a.avg_energie != null && a.avg_energie <= 2.5);
   const prenomDe = (id: string) => athletes.find((a) => a.user_id === id)?.prenom ?? "Athlète";
   const valides = slots.filter((s) => s.status === "valide");

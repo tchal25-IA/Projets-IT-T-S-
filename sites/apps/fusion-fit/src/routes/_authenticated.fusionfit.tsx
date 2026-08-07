@@ -1,11 +1,12 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, CalendarClock, Repeat, CalendarCheck } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
 import { useUnreadCount } from "@/hooks/use-messages";
-import { useUnreadNotifCount, useCreneauPushNotifications } from "@/hooks/use-notifications";
-import { useTodayCheckin } from "@/hooks/use-checkins";
+import { useUnreadNotifCount, useCreneauPushNotifications, useRegisterWebPush } from "@/hooks/use-notifications";
+import { useTodayCheckin, useMyObjectifsProfile } from "@/hooks/use-checkins";
+import { useCreneauRemindersPoll } from "@/hooks/use-coach-exercises";
 import { PhoenixLogo } from "@/components/phoenix-logo";
 import { FF } from "@/lib/ff-colors";
 
@@ -36,10 +37,24 @@ function FusionFitShell() {
   const { data: unread = 0 } = useUnreadCount();
   const { data: unreadNotifs = 0 } = useUnreadNotifCount();
   useCreneauPushNotifications();
+  useRegisterWebPush();
+  useCreneauRemindersPoll();
   const navigate          = useNavigate();
   const today = new Date()
     .toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short" })
     .toUpperCase();
+
+  const onOnboarding = loc.pathname.startsWith("/fusionfit/onboarding");
+  const { data: objectifsProfile } = useMyObjectifsProfile();
+
+  // 1ère connexion athlète : forcer le questionnaire avant le reste de l'app.
+  useEffect(() => {
+    if (role !== "abonne") return;
+    if (!objectifsProfile) return;
+    if (objectifsProfile.onboarding_done) return;
+    if (onOnboarding) return;
+    navigate({ to: "/fusionfit/onboarding", replace: true });
+  }, [role, objectifsProfile, onOnboarding, navigate]);
 
   async function handleLogout() {
     try { await signOut(); } catch { /* silenced */ }
@@ -54,6 +69,7 @@ function FusionFitShell() {
   }
 
   const NAV = role === "coach" ? NAV_COACH : NAV_ATHLETE;
+  const hideChrome = onOnboarding || (role === "abonne" && !!objectifsProfile && !objectifsProfile.onboarding_done);
 
   const headerBg = resolved === "dark"
     ? "oklch(0.07 0.025 265 / 80%)"
@@ -65,6 +81,7 @@ function FusionFitShell() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: FF.bg, color: FF.text }}>
       {/* Header */}
+      {!hideChrome && (
       <header className="sticky top-0 z-30 backdrop-blur-xl border-b ff-scanline"
         style={{ borderColor: FF.border, background: headerBg }}>
         <div className="mx-auto max-w-md px-5 h-14 flex items-center justify-between">
@@ -107,16 +124,18 @@ function FusionFitShell() {
           </div>
         </div>
       </header>
+      )}
 
       {/* Rappel check-in (athlète, hors page Routine) */}
-      {role !== "coach" && !loc.pathname.startsWith("/fusionfit/routine") && <CheckinReminder />}
+      {!hideChrome && role !== "coach" && !loc.pathname.startsWith("/fusionfit/routine") && <CheckinReminder />}
 
       {/* Contenu */}
-      <main className="flex-1 mx-auto w-full max-w-md px-5 py-6 pb-28">
+      <main className={`flex-1 mx-auto w-full max-w-md px-5 py-6 ${hideChrome ? "" : "pb-28"}`}>
         <Outlet />
       </main>
 
       {/* Navigation (5 items) */}
+      {!hideChrome && (
       <nav className="fixed bottom-0 inset-x-0 z-30 border-t backdrop-blur-xl"
         style={{ borderColor: FF.border, background: navBg }}>
         <div className="mx-auto max-w-md px-3 h-20 grid grid-cols-5">
@@ -152,6 +171,7 @@ function FusionFitShell() {
           })}
         </div>
       </nav>
+      )}
     </div>
   );
 }

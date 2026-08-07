@@ -25,6 +25,7 @@ export function useMyProgram() {
         id: data.id,
         coach_id: data.coach_id,
         titre: data.titre,
+        objectif: data.objectif ?? null,
         blocs: Array.isArray(data.blocs) ? (data.blocs as unknown as Bloc[]) : [],
       };
     },

@@ -106,11 +106,18 @@ export function useUnreadNotifCount() {
   });
 }
 
-// Notification "push" best-effort (Notification API du navigateur) pour les
-// créneaux (demande de réservation + validation/refus). Fonctionne quand
-// l'app/onglet est ouvert (ou en arrière-plan) ; une vraie push à app fermée
-// nécessiterait un service worker + clés VAPID + serveur d'envoi (hors scope
-// ici, à prévoir en phase 2 si besoin).
+const PUSH_TYPES = new Set([
+  "creneau",
+  "creneau_rappel",
+  "message",
+  "programme",
+  "programme_valide",
+  "commentaire",
+  "seance",
+  "avis",
+]);
+
+/** Push navigateur (Notification API) pour créneaux + messages (+ autres types clés). */
 export function useCreneauPushNotifications() {
   const { user } = useAuth();
   useEffect(() => {
@@ -120,13 +127,13 @@ export function useCreneauPushNotifications() {
       Notification.requestPermission().catch(() => {});
     }
     const ch = supabase
-      .channel(`push-creneaux:${user.id}`)
+      .channel(`push-notifs:${user.id}`)
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
         (payload) => {
           const row = payload.new as NotificationRow;
-          if (row.type !== "creneau") return;
+          if (!PUSH_TYPES.has(row.type)) return;
           if (Notification.permission !== "granted") return;
           try {
             const n = new Notification(row.title, {
@@ -136,14 +143,62 @@ export function useCreneauPushNotifications() {
             });
             n.onclick = () => {
               window.focus();
-              if (row.link) window.location.assign(row.link);
+              if (row.link && row.link.startsWith("/fusionfit")) {
+                window.location.assign(row.link);
+              }
             };
-          } catch { /* ignore (permission révoquée entre-temps, etc.) */ }
+          } catch { /* ignore */ }
         }
       )
       .subscribe();
     return () => { supabase.removeChannel(ch); };
   }, [user]);
+}
+
+/** Enregistre une subscription Web Push (VAPID) si la clé publique est dispo. */
+export function useRegisterWebPush() {
+  const { user } = useAuth();
+  useEffect(() => {
+    if (!user || typeof window === "undefined") return;
+    const vapid = import.meta.env.VITE_VAPID_PUBLIC_KEY as string | undefined;
+    if (!vapid || !("serviceWorker" in navigator) || !("PushManager" in window)) return;
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const reg = await navigator.serviceWorker.register("/sw.js");
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted" || cancelled) return;
+        const sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(vapid),
+        });
+        const json = sub.toJSON();
+        if (!json.endpoint || !json.keys?.p256dh || !json.keys?.auth) return;
+        await supabase.from("push_subscriptions").upsert(
+          {
+            user_id: user.id,
+            endpoint: json.endpoint,
+            p256dh: json.keys.p256dh,
+            auth: json.keys.auth,
+          },
+          { onConflict: "user_id,endpoint" },
+        );
+      } catch (e) {
+        console.warn("[webpush] registration skipped:", e);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [user]);
+}
+
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  const raw = atob(base64);
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
 }
 
 export function useMarkNotifRead() {

@@ -1,1 +1,6 @@
 .DS_Store
+
+# Env / secrets (tous les sous-projets)
+.env
+.env.*
+!.env.example

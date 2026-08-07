@@ -94,7 +94,21 @@ function NotificationsPanel() {
                 key={n.id}
                 onClick={() => {
                   if (!n.read_at) markRead([n.id]);
-                  if (n.link) navigate({ to: n.link });
+                  if (!n.link) return;
+                  // Deep links avec query (?with=) : ne pas passer la query dans `to`
+                  try {
+                    const url = new URL(n.link, window.location.origin);
+                    const path = url.pathname;
+                    const search = Object.fromEntries(url.searchParams.entries());
+                    if (path.startsWith("/fusionfit")) {
+                      navigate({
+                        to: path as "/fusionfit/messagerie",
+                        search: Object.keys(search).length ? search : undefined,
+                      } as never);
+                    }
+                  } catch {
+                    window.location.assign(n.link);
+                  }
                 }}
                 className="w-full text-left px-4 py-3 border-b transition hover:opacity-90"
                 style={{ borderColor: FF.border, background: n.read_at ? "transparent" : FF.cyanBg }}

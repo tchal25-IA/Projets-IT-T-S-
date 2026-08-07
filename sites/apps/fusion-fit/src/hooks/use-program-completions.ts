@@ -75,19 +75,33 @@ export function useValidateProgramDay() {
       sessionEndedAt?: string | null;
       sessionDurationSec?: number | null;
     }) => {
-      const row = {
+      // Ne pas écraser ressenti / chrono si le champ n'est pas fourni (démarrage ≠ validation).
+      const row: {
+        program_id: string;
+        abonne_id: string;
+        coach_id: string;
+        jour: string;
+        date: string;
+        titre: string;
+        ressenti_score?: number | null;
+        ressenti_note?: string | null;
+        session_started_at?: string | null;
+        session_ended_at?: string | null;
+        session_duration_sec?: number | null;
+      } = {
         program_id: p.programId,
         abonne_id: user!.id,
         coach_id: p.coachId,
         jour: p.jour,
         date: p.date ?? todayISO(),
         titre: p.titre,
-        ressenti_score: p.ressentiScore ?? null,
-        ressenti_note: p.ressentiNote ?? null,
-        session_started_at: p.sessionStartedAt ?? null,
-        session_ended_at: p.sessionEndedAt ?? null,
-        session_duration_sec: p.sessionDurationSec ?? null,
       };
+      if ("ressentiScore" in p) row.ressenti_score = p.ressentiScore ?? null;
+      if ("ressentiNote" in p) row.ressenti_note = p.ressentiNote ?? null;
+      if ("sessionStartedAt" in p) row.session_started_at = p.sessionStartedAt ?? null;
+      if ("sessionEndedAt" in p) row.session_ended_at = p.sessionEndedAt ?? null;
+      if ("sessionDurationSec" in p) row.session_duration_sec = p.sessionDurationSec ?? null;
+
       const { data, error } = await supabase
         .from("program_completions")
         .upsert(row, { onConflict: "abonne_id,date" })

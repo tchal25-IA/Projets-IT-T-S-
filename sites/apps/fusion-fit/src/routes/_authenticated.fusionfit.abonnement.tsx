@@ -1,13 +1,23 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Check, Sparkles, Shield, Crown, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { Check, Sparkles, Shield, Crown, ArrowRight, Loader2 } from "lucide-react";
 import { FF } from "@/lib/ff-colors";
+import {
+  activateEssaiDecouverte,
+  createCheckoutSession,
+  getStripeConfigStatus,
+} from "@/lib/stripe.functions";
+import { useMyAbonnement } from "@/hooks/use-creneaux";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { PageSkeleton } from "@/components/ui-skeleton";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/abonnement")({
   component: AbonnementPage,
 });
 
 type Plan = {
-  id: string;
+  id: "decouverte" | "initiative" | "elite";
   nom: string;
   prix: string;
   periode: string;
@@ -55,11 +65,59 @@ const PLANS: Plan[] = [
 
 function AbonnementPage() {
   const navigate = useNavigate();
+  const qc = useQueryClient();
+  const { data: abo, isLoading: aboLoading } = useMyAbonnement();
+  const checkout = useServerFn(createCheckoutSession);
+  const activateEssai = useServerFn(activateEssaiDecouverte);
+  const stripeStatusFn = useServerFn(getStripeConfigStatus);
+  const { data: stripeStatus } = useQuery({
+    queryKey: ["stripe-config"],
+    queryFn: () => stripeStatusFn(),
+    staleTime: 60_000,
+  });
 
-  function choisir() {
-    // Le paiement sera intégré ultérieurement. On continue vers le profil.
-    navigate({ to: "/fusionfit/profil", replace: true });
+  const [busy, setBusy] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function choisir(planId: Plan["id"]) {
+    setError(null);
+    setBusy(planId);
+    try {
+      if (planId === "decouverte") {
+        await activateEssai();
+        await qc.invalidateQueries({ queryKey: ["my-abonnement"] });
+        navigate({ to: "/fusionfit/profil", replace: true });
+        return;
+      }
+
+      if (!stripeStatus?.configured) {
+        setError(
+          "Paiement Stripe non configuré (STRIPE_SECRET_KEY / price IDs). Contacte ton coach ou réessaie plus tard.",
+        );
+        return;
+      }
+
+      const origin = window.location.origin;
+      const res = await checkout({
+        data: {
+          plan: planId,
+          successUrl: `${origin}/fusionfit/profil?checkout=success`,
+          cancelUrl: `${origin}/fusionfit/abonnement?checkout=cancel`,
+        },
+      });
+      if (res.url) {
+        window.location.assign(res.url);
+        return;
+      }
+      setError("Impossible de démarrer le paiement.");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Erreur paiement");
+    } finally {
+      setBusy(null);
+    }
   }
+
+  if (aboLoading) return <PageSkeleton rows={3} />;
 
   return (
     <div className="space-y-5">
@@ -69,18 +127,23 @@ function AbonnementPage() {
         </p>
         <h1 className="mt-2 text-2xl font-bold">Choisis ton plan</h1>
         <p className="mt-1 text-sm" style={{ color: FF.textMuted }}>
-          Commence gratuitement, change quand tu veux.
+          Plan actuel :{" "}
+          <span style={{ color: FF.amber }}>
+            {abo?.plan ?? "decouverte"} · {abo?.statut ?? "essai"}
+          </span>
         </p>
       </div>
 
       <div className="space-y-3">
         {PLANS.map((plan) => {
           const Icon = plan.icon;
+          const isCurrent = abo?.plan === plan.id && (abo?.statut === "actif" || abo?.statut === "essai");
           return (
             <button
               key={plan.id}
-              onClick={choisir}
-              className="w-full text-left rounded-2xl border p-4 transition-all relative overflow-hidden"
+              onClick={() => choisir(plan.id)}
+              disabled={!!busy || isCurrent}
+              className="w-full text-left rounded-2xl border p-4 transition-all relative overflow-hidden disabled:opacity-70"
               style={{
                 background: FF.surface,
                 borderColor: plan.populaire ? plan.couleur : FF.border,
@@ -96,17 +159,29 @@ function AbonnementPage() {
                 </span>
               )}
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg grid place-items-center border"
-                  style={{ borderColor: plan.couleur, background: FF.surface2 }}>
-                  <Icon className="h-5 w-5" style={{ color: plan.couleur }} />
+                <div
+                  className="h-10 w-10 rounded-lg grid place-items-center border"
+                  style={{ borderColor: plan.couleur, background: FF.surface2 }}
+                >
+                  {busy === plan.id ? (
+                    <Loader2 className="h-5 w-5 animate-spin" style={{ color: plan.couleur }} />
+                  ) : (
+                    <Icon className="h-5 w-5" style={{ color: plan.couleur }} />
+                  )}
                 </div>
                 <div className="flex-1">
-                  <p className="font-bold text-sm">{plan.nom}</p>
+                  <p className="font-bold text-sm">
+                    {plan.nom}
+                    {isCurrent ? " · actuel" : ""}
+                  </p>
                   <p className="text-xs" style={{ color: FF.textMuted }}>
-                    <span className="text-base font-bold" style={{ color: plan.couleur }}>{plan.prix}</span>{" "}
+                    <span className="text-base font-bold" style={{ color: plan.couleur }}>
+                      {plan.prix}
+                    </span>{" "}
                     {plan.periode}
                   </p>
                 </div>
+                <ArrowRight className="h-4 w-4" style={{ color: FF.textMuted }} />
               </div>
               <ul className="mt-3 space-y-1.5">
                 {plan.features.map((f) => (
@@ -121,16 +196,19 @@ function AbonnementPage() {
         })}
       </div>
 
-      <button
-        onClick={choisir}
-        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-bold uppercase tracking-widest"
-        style={{ background: FF.cyanBg20, borderColor: FF.cyan, color: FF.cyan, boxShadow: FF.glowCyan }}
-      >
-        Continuer
-        <ArrowRight className="h-4 w-4" />
-      </button>
+      {error && (
+        <p
+          className="text-xs px-3 py-2 rounded-lg border"
+          style={{ background: FF.redBg, borderColor: FF.red, color: FF.red }}
+        >
+          {error}
+        </p>
+      )}
+
       <p className="text-center text-[10px] font-mono" style={{ color: FF.textMuted }}>
-        Le paiement sécurisé sera bientôt disponible · aucune carte requise pour l'essai
+        {stripeStatus?.configured
+          ? "Paiement sécurisé via Stripe · annulation possible à tout moment"
+          : "Stripe à configurer côté serveur · l'essai Découverte reste disponible"}
       </p>
     </div>
   );

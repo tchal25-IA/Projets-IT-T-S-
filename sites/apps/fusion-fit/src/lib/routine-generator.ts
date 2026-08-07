@@ -1,7 +1,13 @@
 // Générateur de routine "de base" (auto), partagé entre la page Routine
 // (génération + cases à cocher) et le Suivi (reconstruction de l'historique
 // pour afficher le détail complet des exercices d'une séance passée).
-export type CheckInState = { temps: number | null; energie: number | null; humeur: number | null };
+export type CheckInState = {
+  temps: number | null;
+  energie: number | null;
+  humeur: number | null;
+  /** Objectif travaillé aujourd'hui (principal ou secondaire) */
+  objectif_du_jour?: string | null;
+};
 export type Pilier = "Bouger" | "Respirer" | "Nourrir";
 export type RoutineBlock = {
   pilier: Pilier;

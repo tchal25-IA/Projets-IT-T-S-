@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Check, ClipboardList, Play, Square, Timer } from "lucide-react";
+import { Sparkles, Check, ClipboardList, Play, Square, Timer, Target, Loader2 } from "lucide-react";
 import { useMyProgramCompletions, useValidateProgramDay } from "@/hooks/use-program-completions";
 import { notify, getMyPrenom } from "@/hooks/use-notifications";
 import { useAuth } from "@/hooks/use-auth";
@@ -7,7 +7,13 @@ import { FF } from "@/lib/ff-colors";
 import { todayJourFr, todayISO } from "@/lib/dates";
 
 type Bloc = { jour: string; titre: string; details: string };
-export type ProgramLite = { id: string; coach_id: string; titre: string; blocs: Bloc[] };
+export type ProgramLite = {
+  id: string;
+  coach_id: string;
+  titre: string;
+  objectif?: string | null;
+  blocs: Bloc[];
+};
 
 const RESSENTI_LABELS = ["", "Très dur", "Dur", "Correct", "Facile", "Très facile"];
 
@@ -19,10 +25,30 @@ function formatDuration(totalSec: number): string {
   return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
 }
 
+/** Validé = ressenti envoyé (fin de parcours). Une ligne sans ressenti = démarrée / en cours. */
+function isSessionValidated(
+  c: { ressenti_score: number | null; session_ended_at: string | null } | undefined,
+): boolean {
+  return c?.ressenti_score != null;
+}
+
+function isSessionInProgress(
+  c: { ressenti_score: number | null; session_started_at: string | null; session_ended_at: string | null } | undefined,
+): boolean {
+  return !!c?.session_started_at && c.ressenti_score == null;
+}
+
 // Séance du jour issue du programme du coach. Affichée en tête de l'onglet
 // Routine ; l'abonné démarre un chronomètre, termine la séance puis laisse
 // un ressenti visible par son coach.
-export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) {
+export function ProgrammeJourCard({
+  program,
+  focusObjectif,
+}: {
+  program: ProgramLite | null;
+  /** Objectif du jour choisi au check-in (prioritaire si présent) */
+  focusObjectif?: string | null;
+}) {
   const { user } = useAuth();
   const today = todayJourFr();
   const todayISOStr = todayISO();
@@ -30,18 +56,22 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
   const { data: completions = [] } = useMyProgramCompletions(program?.id);
   const { mutateAsync: validate, isPending } = useValidateProgramDay();
   const todayCompletion = completions.find((c) => c.date === todayISOStr);
+  const validated = isSessionValidated(todayCompletion);
+  const inProgress = isSessionInProgress(todayCompletion);
 
   const [showRessenti, setShowRessenti] = useState(false);
   const [score, setScore] = useState<number | null>(null);
   const [note, setNote] = useState("");
 
-  // Chronomètre de séance
-  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(todayCompletion?.session_started_at ?? null);
-  const [sessionEndedAt, setSessionEndedAt] = useState<string | null>(todayCompletion?.session_ended_at ?? null);
+  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(
+    todayCompletion?.session_started_at ?? null,
+  );
+  const [sessionEndedAt, setSessionEndedAt] = useState<string | null>(
+    todayCompletion?.session_ended_at ?? null,
+  );
   const [now, setNow] = useState<number>(() => Date.now());
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Synchronise l'état du chronomètre avec la ligne en base après mutation/refetch
   useEffect(() => {
     setSessionStartedAt(todayCompletion?.session_started_at ?? null);
     setSessionEndedAt(todayCompletion?.session_ended_at ?? null);
@@ -52,8 +82,10 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
     ? Math.max(
         0,
         Math.floor(
-          ((sessionEndedAt ? new Date(sessionEndedAt).getTime() : now) - new Date(sessionStartedAt).getTime()) / 1000
-        )
+          ((sessionEndedAt ? new Date(sessionEndedAt).getTime() : now) -
+            new Date(sessionStartedAt).getTime()) /
+            1000,
+        ),
       )
     : 0;
 
@@ -66,11 +98,17 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
     }
   }, [sessionStartedAt, sessionEndedAt]);
 
+  const objectifAffiche =
+    focusObjectif?.trim() ||
+    program?.objectif?.trim() ||
+    null;
+
   async function demarrer() {
     if (!program) return;
     const startedAt = new Date().toISOString();
     setSessionStartedAt(startedAt);
     setNow(Date.now());
+    // Upsert "started" uniquement — ne compte PAS comme validé (pas de ressenti)
     await validate({
       programId: program.id,
       coachId: program.coach_id,
@@ -86,7 +124,12 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
     if (!program) return;
     const endedAt = new Date().toISOString();
     const duration = sessionStartedAt
-      ? Math.max(0, Math.floor((new Date(endedAt).getTime() - new Date(sessionStartedAt).getTime()) / 1000))
+      ? Math.max(
+          0,
+          Math.floor(
+            (new Date(endedAt).getTime() - new Date(sessionStartedAt).getTime()) / 1000,
+          ),
+        )
       : null;
     setSessionEndedAt(endedAt);
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -104,7 +147,10 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
 
   async function valider() {
     if (!program) return;
-    if (!score) { setShowRessenti(true); return; }
+    if (!score) {
+      setShowRessenti(true);
+      return;
+    }
     try {
       await validate({
         programId: program.id,
@@ -118,9 +164,13 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
         sessionDurationSec: elapsedSec,
       });
       const prenom = user ? await getMyPrenom(user.id) : "Ton abonné";
-      await notify(program.coach_id, "programme_valide", `${prenom} a validé sa séance`,
+      await notify(
+        program.coach_id,
+        "programme_valide",
+        `${prenom} a validé sa séance`,
         `« ${blocsToday[0]?.titre ?? today} » — ressenti : ${RESSENTI_LABELS[score]}.`,
-        user ? `/fusionfit/escouade/${user.id}` : "/fusionfit/escouade");
+        user ? `/fusionfit/escouade/${user.id}` : "/fusionfit/escouade",
+      );
       setShowRessenti(false);
     } catch (e) {
       alert(e instanceof Error ? e.message : "Erreur");
@@ -129,103 +179,181 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
 
   if (!program) {
     return (
-      <section className="rounded-2xl border p-4" style={{ background: FF.surface, borderColor: FF.border }}>
-        <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1 mb-2" style={{ color: FF.cyan }}>
+      <section
+        className="rounded-2xl border p-4"
+        style={{ background: FF.surface, borderColor: FF.border }}
+      >
+        <p
+          className="text-xs font-mono uppercase tracking-wider flex items-center gap-1 mb-2"
+          style={{ color: FF.cyan }}
+        >
           <ClipboardList className="h-3.5 w-3.5" /> Séance du jour
         </p>
         <p className="text-xs" style={{ color: FF.textMuted }}>
-          Ton coach n'a pas encore publié de programme. Tu peux faire ton check-in du jour ci-dessous.
+          Ton coach n&apos;a pas encore publié de programme depuis la bibliothèque. Tu peux faire ton
+          check-in du jour ci-dessous.
         </p>
       </section>
     );
   }
 
+  const borderColor = validated ? FF.green : inProgress ? FF.amber : FF.cyan;
+
   return (
-    <section className="rounded-2xl border-2 p-4 space-y-3"
-      style={{ background: FF.surface, borderColor: todayCompletion ? FF.green : FF.cyan }}>
-      <div className="flex items-center justify-between">
-        <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1" style={{ color: FF.cyan }}>
+    <section
+      className="rounded-2xl border-2 p-4 space-y-3"
+      style={{ background: FF.surface, borderColor }}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <p
+          className="text-xs font-mono uppercase tracking-wider flex items-center gap-1"
+          style={{ color: FF.cyan }}
+        >
           <Sparkles className="h-3.5 w-3.5" /> Séance du jour · {today}
         </p>
-        {todayCompletion && (
-          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border flex items-center gap-1"
-            style={{ borderColor: FF.green, color: FF.green }}>
+        {validated ? (
+          <span
+            className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border flex items-center gap-1"
+            style={{ borderColor: FF.green, color: FF.green }}
+          >
             <Check className="h-3 w-3" /> Validé
           </span>
+        ) : inProgress ? (
+          <span
+            className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full border flex items-center gap-1"
+            style={{ borderColor: FF.amber, color: FF.amber }}
+          >
+            <Loader2 className="h-3 w-3 animate-spin" /> En cours
+          </span>
+        ) : null}
+      </div>
+
+      <div>
+        <p className="font-bold text-sm">{program.titre}</p>
+        {objectifAffiche && (
+          <p
+            className="text-xs mt-1 flex items-start gap-1.5"
+            style={{ color: FF.amber }}
+          >
+            <Target className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+            <span>
+              <span className="font-mono uppercase text-[10px] tracking-wider">Objectif · </span>
+              {objectifAffiche}
+            </span>
+          </p>
         )}
       </div>
 
       {blocsToday.length === 0 ? (
-        <p className="text-sm" style={{ color: FF.textMuted }}>Repos — aucune séance prévue aujourd'hui.</p>
+        <p className="text-sm" style={{ color: FF.textMuted }}>
+          Repos — aucune séance prévue aujourd&apos;hui.
+        </p>
       ) : (
         <div className="space-y-2">
           {blocsToday.map((b, i) => (
-            <div key={i} className="rounded-lg border p-2.5" style={{ borderColor: FF.border, background: FF.surface2 }}>
+            <div
+              key={i}
+              className="rounded-lg border p-2.5"
+              style={{ borderColor: FF.border, background: FF.surface2 }}
+            >
               <p className="font-semibold text-sm">{b.titre}</p>
               {b.details && (
-                <p className="text-xs mt-1 leading-relaxed whitespace-pre-line" style={{ color: FF.textMuted }}>{b.details}</p>
+                <p
+                  className="text-xs mt-1 leading-relaxed whitespace-pre-line"
+                  style={{ color: FF.textMuted }}
+                >
+                  {b.details}
+                </p>
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Chronomètre de séance du jour */}
-      {blocsToday.length > 0 && !todayCompletion && sessionStartedAt && (
-        <div className="rounded-xl p-3 border flex items-center justify-between"
-          style={{ background: FF.surface2, borderColor: FF.border }}>
+      {/* Chrono : visible dès le démarrage jusqu'à validation ressenti */}
+      {blocsToday.length > 0 && sessionStartedAt && !validated && (
+        <div
+          className="rounded-xl p-3 border flex items-center justify-between"
+          style={{ background: FF.surface2, borderColor: FF.border }}
+        >
           <div className="flex items-center gap-3">
-            <Timer className="h-5 w-5" style={{ color: sessionEnded ? FF.textMuted : FF.cyan }} />
+            <Timer
+              className="h-5 w-5"
+              style={{ color: sessionEnded ? FF.textMuted : FF.cyan }}
+            />
             <div>
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em]" style={{ color: FF.textMuted }}>
+              <p
+                className="text-[10px] font-mono uppercase tracking-[0.2em]"
+                style={{ color: FF.textMuted }}
+              >
                 {sessionEnded ? "Session terminée" : "Session en cours"}
               </p>
-              <p className="text-xl font-bold tabular-nums" style={{ color: sessionEnded ? FF.textMuted : FF.cyan }}>
+              <p
+                className="text-xl font-bold tabular-nums"
+                style={{ color: sessionEnded ? FF.textMuted : FF.cyan }}
+              >
                 {formatDuration(elapsedSec)}
               </p>
             </div>
           </div>
           {!sessionEnded && (
-            <button onClick={terminer} disabled={isPending}
+            <button
+              onClick={terminer}
+              disabled={isPending}
               className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-semibold uppercase tracking-widest disabled:opacity-50"
-              style={{ background: FF.surface, borderColor: FF.border, color: FF.text }}>
+              style={{ background: FF.surface, borderColor: FF.border, color: FF.text }}
+            >
               <Square className="h-3.5 w-3.5" /> Terminer
             </button>
           )}
         </div>
       )}
 
-      {blocsToday.length > 0 && !todayCompletion && !sessionStartedAt && !showRessenti && (
-        <button onClick={demarrer} disabled={isPending}
+      {blocsToday.length > 0 && !sessionStartedAt && !showRessenti && !validated && (
+        <button
+          onClick={demarrer}
+          disabled={isPending}
           className="w-full py-2.5 rounded-xl border text-sm font-bold uppercase tracking-widest disabled:opacity-50"
-          style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}>
+          style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}
+        >
           <span className="flex items-center justify-center gap-2">
             <Play className="h-4 w-4" /> Suivre cette séance
           </span>
         </button>
       )}
 
-      {/* Reprendre le ressenti si la séance est terminée en base mais pas encore notée */}
-      {blocsToday.length > 0 && todayCompletion?.session_ended_at && todayCompletion.ressenti_score == null && !showRessenti && (
-        <button onClick={() => setShowRessenti(true)} disabled={isPending}
-          className="w-full py-2.5 rounded-xl border text-sm font-bold uppercase tracking-widest disabled:opacity-50"
-          style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}>
-          Donner mon ressenti
-        </button>
-      )}
+      {blocsToday.length > 0 &&
+        todayCompletion?.session_ended_at &&
+        todayCompletion.ressenti_score == null &&
+        !showRessenti && (
+          <button
+            onClick={() => setShowRessenti(true)}
+            disabled={isPending}
+            className="w-full py-2.5 rounded-xl border text-sm font-bold uppercase tracking-widest disabled:opacity-50"
+            style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}
+          >
+            Donner mon ressenti
+          </button>
+        )}
 
-      {(showRessenti || (todayCompletion?.session_ended_at && todayCompletion.ressenti_score == null)) && (
+      {(showRessenti ||
+        (todayCompletion?.session_ended_at && todayCompletion.ressenti_score == null)) && (
         <div className="space-y-2 pt-1 border-t" style={{ borderColor: FF.border }}>
-          <p className="text-[11px] font-mono uppercase" style={{ color: FF.textMuted }}>Ton ressenti</p>
+          <p className="text-[11px] font-mono uppercase" style={{ color: FF.textMuted }}>
+            Ton ressenti
+          </p>
           <div className="flex gap-1.5">
             {[1, 2, 3, 4, 5].map((n) => (
-              <button key={n} onClick={() => setScore(n)}
+              <button
+                key={n}
+                onClick={() => setScore(n)}
                 className="flex-1 py-2 rounded-lg border text-xs font-bold"
                 style={{
                   borderColor: score === n ? FF.cyan : FF.border,
                   background: score === n ? FF.cyanBg20 : "transparent",
                   color: score === n ? FF.cyan : FF.textMuted,
-                }}>
+                }}
+              >
                 {n}
               </button>
             ))}
@@ -243,10 +371,13 @@ export function ProgrammeJourCard({ program }: { program: ProgramLite | null }) 
             className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-none"
             style={{ borderColor: FF.border, color: FF.text }}
           />
-          <button onClick={valider} disabled={isPending || !score}
+          <button
+            onClick={valider}
+            disabled={isPending || !score}
             className="w-full py-2 rounded-xl border text-sm font-bold uppercase tracking-widest disabled:opacity-50"
-            style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}>
-            {isPending ? "…" : "Confirmer"}
+            style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}
+          >
+            {isPending ? "…" : "Confirmer la validation"}
           </button>
         </div>
       )}

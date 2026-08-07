@@ -36,6 +36,7 @@ export type Database = {
           temps: number
           updated_at: string
           user_id: string
+          objectif_du_jour: string | null
         }
         Insert: {
           blocs_completes?: number[]
@@ -58,6 +59,7 @@ export type Database = {
           temps: number
           updated_at?: string
           user_id: string
+          objectif_du_jour?: string | null
         }
         Update: {
           blocs_completes?: number[]
@@ -80,6 +82,7 @@ export type Database = {
           temps?: number
           updated_at?: string
           user_id?: string
+          objectif_du_jour?: string | null
         }
         Relationships: []
       }
@@ -324,6 +327,8 @@ export type Database = {
           onboarding_done: boolean
           abonnement_plan: string
           abonnement_statut: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
           avatar_url: string | null
           bio: string | null
           chrono_marathon: string | null
@@ -340,6 +345,8 @@ export type Database = {
           profil_psycho: string | null
           updated_at: string
           user_id: string
+          objectifs_secondaires: Json
+          questionnaire_sass: Json
         }
         Insert: {
           abonnement_depuis?: string | null
@@ -354,6 +361,8 @@ export type Database = {
           onboarding_done?: boolean
           abonnement_plan?: string
           abonnement_statut?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           avatar_url?: string | null
           bio?: string | null
           chrono_marathon?: string | null
@@ -370,6 +379,8 @@ export type Database = {
           profil_psycho?: string | null
           updated_at?: string
           user_id: string
+          objectifs_secondaires?: Json
+          questionnaire_sass?: Json
         }
         Update: {
           abonnement_depuis?: string | null
@@ -384,6 +395,8 @@ export type Database = {
           onboarding_done?: boolean
           abonnement_plan?: string
           abonnement_statut?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           avatar_url?: string | null
           bio?: string | null
           chrono_marathon?: string | null
@@ -400,6 +413,8 @@ export type Database = {
           profil_psycho?: string | null
           updated_at?: string
           user_id?: string
+          objectifs_secondaires?: Json
+          questionnaire_sass?: Json
         }
         Relationships: []
       }
@@ -680,6 +695,132 @@ export type Database = {
         }
         Relationships: []
       }
+      push_subscriptions: {
+        Row: {
+          id: string
+          user_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          endpoint?: string
+          p256dh?: string
+          auth?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      email_outbox: {
+        Row: {
+          id: string
+          user_id: string | null
+          to_email: string
+          subject: string
+          body: string
+          kind: string
+          status: string
+          created_at: string
+          sent_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          to_email: string
+          subject: string
+          body: string
+          kind?: string
+          status?: string
+          created_at?: string
+          sent_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          to_email?: string
+          subject?: string
+          body?: string
+          kind?: string
+          status?: string
+          created_at?: string
+          sent_at?: string | null
+        }
+        Relationships: []
+      }
+      squad_challenges: {
+        Row: {
+          id: string
+          squad_id: string
+          coach_id: string
+          titre: string
+          description: string | null
+          metric: string
+          target_value: number
+          starts_at: string
+          ends_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          squad_id: string
+          coach_id: string
+          titre: string
+          description?: string | null
+          metric?: string
+          target_value?: number
+          starts_at?: string
+          ends_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          squad_id?: string
+          coach_id?: string
+          titre?: string
+          description?: string | null
+          metric?: string
+          target_value?: number
+          starts_at?: string
+          ends_at?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      squad_challenge_progress: {
+        Row: {
+          id: string
+          challenge_id: string
+          abonne_id: string
+          value: number
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          challenge_id: string
+          abonne_id: string
+          value?: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          challenge_id?: string
+          abonne_id?: string
+          value?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       athlete_stats: {
@@ -765,6 +906,20 @@ export type Database = {
       }
     }
     Functions: {
+      activate_essai_decouverte: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      apply_abonnement: {
+        Args: {
+          p_user_id: string
+          p_plan: string
+          p_statut: string
+          p_stripe_customer_id?: string | null
+          p_stripe_subscription_id?: string | null
+        }
+        Returns: undefined
+      }
       create_notification: {
         Args: {
           p_body?: string
@@ -775,11 +930,24 @@ export type Database = {
         }
         Returns: string
       }
+      enqueue_email_for_user: {
+        Args: {
+          p_user_id: string
+          p_subject: string
+          p_body: string
+          p_kind?: string
+        }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_coach_of: {
+        Args: { _coach: string; _abonne: string }
         Returns: boolean
       }
       is_squad_coach: {
@@ -794,11 +962,21 @@ export type Database = {
         Args: { p_checkin_id: string; p_comment: string }
         Returns: undefined
       }
+      squad_leaderboard: {
+        Args: { p_squad_id: string }
+        Returns: {
+          abonne_id: string
+          prenom: string
+          checkins_7j: number
+          completions_7j: number
+        }[]
+      }
       validate_invitation: {
         Args: { p_token: string }
         Returns: {
           coach_id: string
           email: string
+          coach_prenom: string
         }[]
       }
     }
