@@ -55,6 +55,7 @@ import {
   fieldsForProduct,
   formPrefixForSlug,
   interestFieldForSlug,
+  isProductInterested,
   productBlock,
 } from "@/lib/custom-data";
 import type { ClientStatus } from "@/generated/prisma/client";
@@ -112,6 +113,7 @@ export default async function LeadDetailPage({
 
   const customData = (lead.customData ?? {}) as Record<string, unknown>;
   const roleSlug = productSlugForRole(session.user.role);
+  const readOnly = session.user.role === "APPORTEUR";
 
   const catalogProducts = await prisma.product.findMany({
     where: { active: true },
@@ -136,22 +138,21 @@ export default async function LeadDetailPage({
         p.slug,
         fields.map((f) => f.key)
       );
-      const interested =
-        Boolean(customData[`interested_${p.slug}`]) ||
-        lead.product.slug === p.slug ||
-        lead.interests.some((i) => i.productSlug === p.slug) ||
-        Object.keys(values).length > 0;
+      const interested = isProductInterested(customData, p.slug, {
+        primarySlug: lead.product.slug,
+        interestSlugs: lead.interests.map((i) => i.productSlug),
+        hasBlockValues: Object.keys(values).length > 0,
+      });
+      // Toujours afficher les blocs en édition (comme /leads/new)
       const show =
+        !readOnly ||
         isFullAccess(session.user.role) ||
         roleSlug === p.slug ||
-        lead.product.slug === p.slug ||
-        Boolean(customData[`interested_${p.slug}`]) ||
-        lead.interests.some((i) => i.productSlug === p.slug);
+        interested;
       return { ...p, fields, values, interested, show };
     })
     .filter((p) => p.show);
 
-  const readOnly = session.user.role === "APPORTEUR";
   const hideMoney = readOnly;
   const hasClient = Boolean(lead.clientId);
   const dealLines = lead.client?.dealLines?.length

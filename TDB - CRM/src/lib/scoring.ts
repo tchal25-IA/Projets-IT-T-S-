@@ -1,5 +1,4 @@
 import type { LeadStatus } from "@/generated/prisma/client";
-import { productBlock } from "@/lib/custom-data";
 
 type ScoreLead = {
   status: LeadStatus;
@@ -12,6 +11,29 @@ type ScoreLead = {
   interests?: { productSlug: string }[];
   nextCallAt?: Date | null;
 };
+
+function collectNumericSignals(custom: Record<string, unknown>): number[] {
+  const nums: number[] = [];
+  const walk = (obj: unknown) => {
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return;
+    for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+      if (k.startsWith("interested_")) continue;
+      if (typeof v === "number" && Number.isFinite(v)) nums.push(v);
+      else if (
+        typeof v === "string" &&
+        v.trim() !== "" &&
+        !Number.isNaN(Number(v)) &&
+        /budget|volume|rdv|ca|montant|amount/i.test(k)
+      ) {
+        nums.push(Number(v));
+      } else if (v && typeof v === "object") {
+        walk(v);
+      }
+    }
+  };
+  walk(custom);
+  return nums;
+}
 
 /** Score lead 0–100 pour prioriser la file d'appels. */
 export function computeLeadScore(lead: ScoreLead): number {
@@ -41,26 +63,34 @@ export function computeLeadScore(lead: ScoreLead): number {
   else if (lead.estimatedValue && lead.estimatedValue >= 500) score += 5;
 
   const custom = (lead.customData ?? {}) as Record<string, unknown>;
-  const vf = productBlock(custom, "vitrineflash");
-  const bf = productBlock(custom, "bookflow");
-  const budget = Number(vf.budget ?? custom.budget ?? 0);
-  if (budget >= 2000) score += 10;
-  else if (budget >= 1000) score += 5;
+  const nums = collectNumericSignals(custom);
+  const budgetish = Math.max(0, ...nums.filter((n) => n >= 100), 0);
+  if (budgetish >= 2000) score += 10;
+  else if (budgetish >= 1000) score += 5;
 
-  const volume = Number(bf.volumeRdv ?? custom.volumeRdv ?? 0);
-  if (volume >= 80) score += 10;
-  else if (volume >= 30) score += 5;
+  const volumeish = Math.max(0, ...nums.filter((n) => n > 0 && n < 100), 0);
+  if (volumeish >= 80) score += 10;
+  else if (volumeish >= 30) score += 5;
 
-  const interestCount =
-    lead.interests?.length ??
-    [
-      custom.interested_vitrineflash,
-      custom.interested_bookflow,
-      vf.besoin,
-      bf.casUsage,
-    ].filter(Boolean).length;
-  if (interestCount >= 2) score += 8;
-  else if (interestCount >= 1) score += 4;
+  const interestSlugs = new Set<string>();
+  for (const i of lead.interests ?? []) interestSlugs.add(i.productSlug);
+  for (const key of Object.keys(custom)) {
+    if (!key.startsWith("interested_")) continue;
+    if (!custom[key]) continue;
+    const slug = key.replace(/^interested_/, "");
+    if (slug === "vf") interestSlugs.add("vitrineflash");
+    else if (slug === "bf") interestSlugs.add("bookflow");
+    else interestSlugs.add(slug);
+  }
+  for (const [key, val] of Object.entries(custom)) {
+    if (key.startsWith("interested_")) continue;
+    if (val && typeof val === "object" && !Array.isArray(val)) {
+      if (Object.keys(val as object).length > 0) interestSlugs.add(key);
+    }
+  }
+
+  if (interestSlugs.size >= 2) score += 8;
+  else if (interestSlugs.size >= 1) score += 4;
 
   if (lead.nextCallAt && lead.nextCallAt.getTime() < Date.now()) score += 5;
 

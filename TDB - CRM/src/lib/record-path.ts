@@ -48,7 +48,7 @@ export const RECORD_TABS: RecordTabDef[] = [
     id: "qualification",
     label: "Qualification",
     unlockAt: "NOUVEAU",
-    description: "Champs produit VitrineFlash / Bookflow",
+    description: "Champs produits du catalogue",
   },
   {
     id: "activites",

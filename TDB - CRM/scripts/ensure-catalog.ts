@@ -23,7 +23,6 @@ async function main() {
       sortOrder: 0,
     },
     update: {
-      fieldSchema: VITRINEFLASH_FIELDS,
       sortOrder: 0,
       active: true,
     },
@@ -39,7 +38,6 @@ async function main() {
       sortOrder: 1,
     },
     update: {
-      fieldSchema: BOOKFLOW_FIELDS,
       sortOrder: 1,
       active: true,
     },

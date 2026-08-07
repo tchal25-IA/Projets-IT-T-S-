@@ -271,7 +271,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
   const nextCustom = buildCustomDataPayload(
     formData,
     (lead.customData ?? {}) as Record<string, unknown>,
-    productSlugs.length ? productSlugs : ["vitrineflash", "bookflow"]
+    productSlugs.length ? productSlugs : []
   );
 
   const companyName = String(formData.get("companyName") || "");

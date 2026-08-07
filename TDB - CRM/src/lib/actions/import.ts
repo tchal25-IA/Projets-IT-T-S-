@@ -121,7 +121,7 @@ export async function importLeads(formData: FormData) {
       });
     }
 
-    const slug = product.slug as "vitrineflash" | "bookflow";
+    const slug = product.slug;
     const importExtras: Record<string, unknown> = {};
     if (row.pays) importExtras.pays = String(row.pays);
     if (row.score_opportunite || row.score)

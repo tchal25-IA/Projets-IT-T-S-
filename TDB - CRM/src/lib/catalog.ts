@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db";
 import { COMMISSION_RATES } from "@/lib/utils";
 import { parseFieldSchema } from "@/lib/fields";
-import { productBlock } from "@/lib/custom-data";
+import { isProductInterested, productBlock } from "@/lib/custom-data";
 
 export type CommissionRates = {
   APPORTEUR: number;
@@ -70,12 +70,14 @@ export async function syncDealLinesFromQualification(
   });
 
   for (const product of products) {
-    const interested = Boolean(customData[`interested_${product.slug}`]);
     const block = productBlock(
       customData,
       product.slug,
       parseFieldSchema(product.fieldSchema).map((f) => f.key)
     );
+    const interested = isProductInterested(customData, product.slug, {
+      hasBlockValues: Object.keys(block).length > 0,
+    });
     if (!interested && Object.keys(block).length === 0) continue;
 
     const fields = parseFieldSchema(product.fieldSchema).filter(

@@ -38,11 +38,13 @@ export default async function NewLeadPage() {
     prisma.user.findMany({ where: { active: true }, orderBy: { fullName: "asc" } }),
   ]);
 
-  const products = scopedProductId
+  const products = allProducts;
+  // Directions : produit principal forcé, mais intérêts multi-produits OK
+  const primaryProducts = scopedProductId
     ? allProducts.filter((p) => p.id === scopedProductId)
     : allProducts;
 
-  const defaultProduct = products[0];
+  const defaultProduct = primaryProducts[0] ?? allProducts[0];
   const catalogBlocks = products.map((p) => {
     const schema = fieldsForProduct(p.slug, p.fieldSchema);
     const fields = enrichFieldsWithOfferings(
@@ -80,7 +82,7 @@ export default async function NewLeadPage() {
             <div>
               <Label>Produit principal *</Label>
               <Select name="productId" required defaultValue={defaultProduct?.id}>
-                {products.map((p) => (
+                {primaryProducts.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.name}
                   </option>

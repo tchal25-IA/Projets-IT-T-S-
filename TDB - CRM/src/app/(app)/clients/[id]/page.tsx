@@ -78,18 +78,28 @@ export default async function ClientDetailPage({
     orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
   });
 
-  const qualBlocks = catalogProducts.map((p) => {
-    const schema = fieldsForProduct(p.slug, p.fieldSchema);
-    const fields = enrichFieldsWithOfferings(
-      schema.length ? schema : parseFieldSchema(p.fieldSchema),
-      p.offerings.map((o) => o.name)
-    );
-    const values = {
-      ...productBlock(customData, p.slug, fields.map((f) => f.key)),
-      ...productBlock(qualification, p.slug, fields.map((f) => f.key)),
-    };
-    return { id: p.id, name: p.name, fields, values };
-  });
+  const qualBlocks = catalogProducts
+    .map((p) => {
+      const schema = fieldsForProduct(p.slug, p.fieldSchema);
+      const fields = enrichFieldsWithOfferings(
+        schema.length ? schema : parseFieldSchema(p.fieldSchema),
+        p.offerings.map((o) => o.name)
+      );
+      const values = {
+        ...productBlock(customData, p.slug, fields.map((f) => f.key)),
+        ...productBlock(qualification, p.slug, fields.map((f) => f.key)),
+      };
+      const hasValues = Object.values(values).some(
+        (v) => v !== undefined && v !== null && v !== ""
+      );
+      const interested =
+        Boolean(customData[`interested_${p.slug}`]) ||
+        Boolean(qualification[`interested_${p.slug}`]) ||
+        lead?.product.slug === p.slug ||
+        hasValues;
+      return { id: p.id, name: p.name, fields, values, interested };
+    })
+    .filter((p) => p.interested);
 
   const ca = client.dealLines.reduce((s, d) => s + d.amountHt, 0);
   const commissionsTotal = client.commissions.reduce((s, c) => s + c.amountHt, 0);

@@ -54,8 +54,8 @@ export default async function ImportPage({
               ))}
             </Select>
             <p className="mt-1 text-xs text-stone-500">
-              Sur la fiche lead, vous pourrez aussi qualifier l&apos;autre service
-              (VitrineFlash + Bookflow).
+              Sur la fiche lead, vous pourrez qualifier les autres produits du
+              catalogue (intérêts multi-services).
             </p>
           </div>
           <div>

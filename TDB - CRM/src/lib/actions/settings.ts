@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { isFullAccess } from "@/lib/roles";
-import { requireUser } from "@/lib/actions/helpers";
+import { requireUser, revalidateCrm } from "@/lib/actions/helpers";
 import { parseFieldSchema, type FieldDef } from "@/lib/fields";
 import type { BillingPeriod, OfferingKind, Prisma } from "@/generated/prisma/client";
 
@@ -14,9 +14,10 @@ async function requireSetup() {
 }
 
 function revalidateSettings() {
+  revalidateCrm();
   revalidatePath("/admin/parametres");
-  revalidatePath("/leads");
   revalidatePath("/leads/new");
+  revalidatePath("/import");
 }
 
 function slugify(raw: string) {

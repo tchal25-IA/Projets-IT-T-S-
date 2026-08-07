@@ -15,6 +15,28 @@ export function interestFieldForSlug(slug: string): string {
   return `interested_${slug}`;
 }
 
+/** True si le lead est marqué intéressé pour ce produit (flags + legacy). */
+export function isProductInterested(
+  customData: Record<string, unknown> | null | undefined,
+  slug: string,
+  extras?: {
+    primarySlug?: string | null;
+    interestSlugs?: string[];
+    hasBlockValues?: boolean;
+  }
+): boolean {
+  const data = customData ?? {};
+  if (extras?.primarySlug === slug) return true;
+  if (extras?.interestSlugs?.includes(slug)) return true;
+  if (data[`interested_${slug}`]) return true;
+  if (slug === "vitrineflash" && (data.interested_vf || data.interested_vitrineflash))
+    return true;
+  if (slug === "bookflow" && (data.interested_bf || data.interested_bookflow))
+    return true;
+  if (extras?.hasBlockValues) return true;
+  return false;
+}
+
 export function productBlock(
   customData: Record<string, unknown> | null | undefined,
   slug: string,
@@ -61,12 +83,21 @@ function isChecked(formData: FormData, name: string): boolean {
 export function buildCustomDataPayload(
   formData: FormData,
   previous?: Record<string, unknown> | null,
-  productSlugs: string[] = ["vitrineflash", "bookflow"]
+  productSlugs: string[] = []
 ): Prisma.InputJsonValue {
   const prev = { ...(previous ?? {}) } as Record<string, unknown>;
   const next: Record<string, unknown> = { ...prev };
+  const slugs = productSlugs.length
+    ? productSlugs
+    : Object.keys(prev).filter(
+        (k) =>
+          !k.startsWith("interested_") &&
+          prev[k] &&
+          typeof prev[k] === "object" &&
+          !Array.isArray(prev[k])
+      );
 
-  for (const slug of productSlugs) {
+  for (const slug of slugs) {
     const prefix = formPrefixForSlug(slug);
     const block: Record<string, unknown> = {
       ...productBlock(prev, slug),
@@ -78,9 +109,14 @@ export function buildCustomDataPayload(
       if (v !== undefined) block[k] = v;
     }
     // Champs plats custom_* au create lead (produit primaire unique)
-    if (productSlugs.length === 1) {
+    if (slugs.length === 1) {
       for (const [key, value] of formData.entries()) {
-        if (!key.startsWith("custom_") || key.startsWith("custom_vf_") || key.startsWith("custom_bf_") || key.startsWith("custom_p_"))
+        if (
+          !key.startsWith("custom_") ||
+          key.startsWith("custom_vf_") ||
+          key.startsWith("custom_bf_") ||
+          key.startsWith("custom_p_")
+        )
           continue;
         const k = key.replace("custom_", "");
         const v = parseValue(k, String(value));
