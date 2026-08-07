@@ -124,6 +124,29 @@ async function main() {
   }
 
   console.log("Catalogue synchronisé (VF + Bookflow + prestations)");
+
+  await prisma.commissionRule.upsert({
+    where: { roleKey: "APPORTEUR" },
+    create: {
+      roleKey: "APPORTEUR",
+      label: "Apporteur d'affaires",
+      ratePercent: 10,
+      sortOrder: 0,
+    },
+    update: {},
+  });
+  await prisma.commissionRule.upsert({
+    where: { roleKey: "COMMERCIAL" },
+    create: {
+      roleKey: "COMMERCIAL",
+      label: "Commercial (close)",
+      ratePercent: 15,
+      sortOrder: 1,
+    },
+    update: {},
+  });
+  console.log("Règles de commission OK");
+
   await prisma.$disconnect();
   await pool.end();
 }

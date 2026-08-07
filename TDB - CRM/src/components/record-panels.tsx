@@ -281,29 +281,3 @@ export function LivraisonPanel({
     </div>
   );
 }
-
-export function AddDealLineForm({
-  action,
-}: {
-  action: (formData: FormData) => Promise<void>;
-}) {
-  return (
-    <form action={action} className="grid gap-3 sm:grid-cols-4">
-      <Input name="label" placeholder="Libellé" required className="sm:col-span-2" />
-      <Input name="amountHt" type="number" placeholder="Montant HT" required />
-      <Select name="billingStatus" defaultValue="DEVIS">
-        {Object.entries(BILLING_LABELS).map(([k, v]) => (
-          <option key={k} value={k}>
-            {v}
-          </option>
-        ))}
-      </Select>
-      <label className="flex items-center gap-2 text-sm sm:col-span-2">
-        <input type="checkbox" name="isRecurring" /> Récurrent
-      </label>
-      <Button type="submit" className="sm:col-span-2 sm:w-fit">
-        Ajouter
-      </Button>
-    </form>
-  );
-}

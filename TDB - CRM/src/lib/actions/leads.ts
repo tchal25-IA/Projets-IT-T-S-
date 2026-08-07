@@ -11,7 +11,6 @@ import { buildCustomDataPayload } from "@/lib/custom-data";
 import { recordFieldChanges, diffScalar } from "@/lib/audit";
 import { syncLeadInterests } from "@/lib/interests";
 import {
-  COMMISSION_RATES,
   canCloseDeal,
   canEditLead,
   isDirection,
@@ -25,6 +24,10 @@ import {
   templateCloseConfirm,
 } from "@/lib/email";
 import { formatEuro } from "@/lib/utils";
+import {
+  getCommissionRates,
+  syncDealLinesFromQualification,
+} from "@/lib/catalog";
 
 export async function createLead(formData: FormData) {
   const user = await requireUser();
@@ -48,17 +51,21 @@ export async function createLead(formData: FormData) {
   const product = await prisma.product.findUnique({ where: { id: productId } });
   if (!product?.active) throw new Error("Produit invalide");
 
-  const cleanCustom: Record<string, unknown> = {};
-  for (const [key, value] of formData.entries()) {
-    if (!key.startsWith("custom_")) continue;
-    const k = key.replace("custom_", "");
-    const raw = String(value);
-    if (raw === "true" || raw === "on") cleanCustom[k] = true;
-    else if (raw === "false") cleanCustom[k] = false;
-    else if (raw !== "" && !Number.isNaN(Number(raw)) && /budget|volume|rdv/i.test(k))
-      cleanCustom[k] = Number(raw);
-    else if (raw !== "") cleanCustom[k] = raw;
-  }
+  const productSlugs = (
+    await prisma.product.findMany({
+      where: { active: true },
+      select: { slug: true },
+      orderBy: { sortOrder: "asc" },
+    })
+  ).map((p) => p.slug);
+
+  const customData = buildCustomDataPayload(
+    formData,
+    {},
+    productSlugs
+  ) as Record<string, unknown>;
+  // Produit primaire toujours marqué intéressé
+  customData[`interested_${product.slug}`] = true;
 
   const lead = await prisma.lead.create({
     data: {
@@ -68,7 +75,7 @@ export async function createLead(formData: FormData) {
       phone: String(formData.get("phone") || "") || null,
       source: String(formData.get("source") || "") || "Manuel",
       productId,
-      customData: cleanCustom as Prisma.InputJsonValue,
+      customData: customData as Prisma.InputJsonValue,
       estimatedValue: formData.get("estimatedValue")
         ? Number(formData.get("estimatedValue"))
         : null,
@@ -84,7 +91,8 @@ export async function createLead(formData: FormData) {
     },
   });
 
-  await syncLeadInterests(lead.id, cleanCustom, product.slug);
+  await syncLeadInterests(lead.id, customData, product.slug);
+  await syncDealLinesFromQualification(lead.id, customData);
   await prisma.activity.create({
     data: {
       leadId: lead.id,
@@ -146,6 +154,7 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
 
     const lines = await prisma.dealLine.findMany({ where: { leadId } });
     const ca = lines.reduce((s, l) => s + l.amountHt, 0);
+    const rates = await getCommissionRates();
 
     if (lead.apporteurId && ca > 0) {
       await prisma.commission.create({
@@ -155,8 +164,8 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
           userId: lead.apporteurId,
           label: "Commission apporteur",
           roleLabel: "Apporteur d'affaires",
-          ratePercent: COMMISSION_RATES.APPORTEUR,
-          amountHt: Math.round((ca * COMMISSION_RATES.APPORTEUR) / 100),
+          ratePercent: rates.APPORTEUR,
+          amountHt: Math.round((ca * rates.APPORTEUR) / 100),
           status: "A_VERSER",
         },
       });
@@ -176,8 +185,8 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
           userId: commercialId,
           label: "Commission commercial (close)",
           roleLabel: "Commercial",
-          ratePercent: COMMISSION_RATES.COMMERCIAL,
-          amountHt: Math.round((ca * COMMISSION_RATES.COMMERCIAL) / 100),
+          ratePercent: rates.COMMERCIAL,
+          amountHt: Math.round((ca * rates.COMMERCIAL) / 100),
           status: "A_VERSER",
         },
       });
@@ -317,6 +326,10 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
     leadId,
     nextCustom as Record<string, unknown>,
     leadFull.product.slug
+  );
+  await syncDealLinesFromQualification(
+    leadId,
+    nextCustom as Record<string, unknown>
   );
   await recordFieldChanges({
     entity: "Lead",

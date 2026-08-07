@@ -11,14 +11,17 @@ import {
   upsertOffering,
   deleteOffering,
   updateProductFieldSchema,
+  upsertCommissionRule,
 } from "@/lib/actions";
 import { Button, Input, Label, Select, Card, Badge } from "@/components/ui";
 import Link from "next/link";
+import { ensureDefaultCommissionRules } from "@/lib/catalog";
 
 const TABS = [
   { id: "produits", label: "Produits / Services" },
   { id: "prestations", label: "Prestations" },
   { id: "champs", label: "Champs" },
+  { id: "commissions", label: "Commissions" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -36,13 +39,18 @@ export default async function ParametresPage({
   const sp = await searchParams;
   const tab = (TABS.some((t) => t.id === sp.tab) ? sp.tab : "produits") as TabId;
 
-  const products = await prisma.product.findMany({
-    include: {
-      offerings: { orderBy: [{ sortOrder: "asc" }, { name: "asc" }] },
-      _count: { select: { leads: true } },
-    },
-    orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-  });
+  await ensureDefaultCommissionRules();
+
+  const [products, commissionRules] = await Promise.all([
+    prisma.product.findMany({
+      include: {
+        offerings: { orderBy: [{ sortOrder: "asc" }, { name: "asc" }] },
+        _count: { select: { leads: true } },
+      },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    }),
+    prisma.commissionRule.findMany({ orderBy: { sortOrder: "asc" } }),
+  ]);
 
   const selectedId =
     sp.product && products.some((p) => p.id === sp.product)
@@ -366,6 +374,75 @@ export default async function ParametresPage({
               </Card>
             </div>
           ) : null}
+        </div>
+      ) : null}
+
+      {tab === "commissions" ? (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card className="space-y-3 p-4">
+            <h2 className="text-sm font-semibold text-stone-800">
+              Taux de commission (close)
+            </h2>
+            <p className="text-xs text-stone-500">
+              Appliqués automatiquement au close sur le CA des prestations du
+              lead.
+            </p>
+            <ul className="divide-y divide-stone-100">
+              {commissionRules.map((r) => (
+                <li key={r.id} className="flex items-center justify-between py-3">
+                  <div>
+                    <p className="font-medium text-stone-900">{r.label}</p>
+                    <p className="text-xs text-stone-500">{r.roleKey}</p>
+                  </div>
+                  <Badge tone="info">{r.ratePercent} %</Badge>
+                </li>
+              ))}
+            </ul>
+          </Card>
+
+          <Card className="space-y-4 p-4">
+            <h2 className="text-sm font-semibold text-stone-800">Modifier un taux</h2>
+            {(["APPORTEUR", "COMMERCIAL"] as const).map((roleKey) => {
+              const current = commissionRules.find((r) => r.roleKey === roleKey);
+              return (
+                <form
+                  key={roleKey}
+                  action={upsertCommissionRule}
+                  className="space-y-2 rounded-md border border-stone-100 p-3"
+                >
+                  <input type="hidden" name="roleKey" value={roleKey} />
+                  <p className="text-sm font-medium text-stone-800">{roleKey}</p>
+                  <div>
+                    <Label>Libellé</Label>
+                    <Input
+                      name="label"
+                      defaultValue={
+                        current?.label ??
+                        (roleKey === "APPORTEUR"
+                          ? "Apporteur d'affaires"
+                          : "Commercial (close)")
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Label>Taux (%)</Label>
+                    <Input
+                      name="ratePercent"
+                      type="number"
+                      step="0.1"
+                      min={0}
+                      max={100}
+                      defaultValue={current?.ratePercent ?? (roleKey === "APPORTEUR" ? 10 : 15)}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" variant="secondary">
+                    Enregistrer {roleKey}
+                  </Button>
+                </form>
+              );
+            })}
+          </Card>
         </div>
       ) : null}
     </div>

@@ -3,8 +3,17 @@ import { prisma } from "@/lib/db";
 import { createLead } from "@/lib/actions";
 import { getScopedProductId } from "@/lib/scope";
 import { PageHeader, Card, Button, Input, Label, Select } from "@/components/ui";
-import { CustomFieldsForm } from "@/components/pipeline-board";
-import { isDirection, type FieldDef } from "@/lib/utils";
+import { CustomFieldsForm } from "@/components/custom-fields-form";
+import { isDirection } from "@/lib/utils";
+import {
+  enrichFieldsWithOfferings,
+  parseFieldSchema,
+} from "@/lib/fields";
+import {
+  fieldsForProduct,
+  formPrefixForSlug,
+  interestFieldForSlug,
+} from "@/lib/custom-data";
 import { redirect } from "next/navigation";
 
 export default async function NewLeadPage() {
@@ -16,7 +25,16 @@ export default async function NewLeadPage() {
 
   const scopedProductId = await getScopedProductId(session.user.role);
   const [allProducts, users] = await Promise.all([
-    prisma.product.findMany({ where: { active: true } }),
+    prisma.product.findMany({
+      where: { active: true },
+      include: {
+        offerings: {
+          where: { active: true },
+          orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        },
+      },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    }),
     prisma.user.findMany({ where: { active: true }, orderBy: { fullName: "asc" } }),
   ]);
 
@@ -25,11 +43,21 @@ export default async function NewLeadPage() {
     : allProducts;
 
   const defaultProduct = products[0];
-  const fields = (defaultProduct?.fieldSchema as FieldDef[]) ?? [];
+  const catalogBlocks = products.map((p) => {
+    const schema = fieldsForProduct(p.slug, p.fieldSchema);
+    const fields = enrichFieldsWithOfferings(
+      schema.length ? schema : parseFieldSchema(p.fieldSchema),
+      p.offerings.map((o) => o.name)
+    );
+    return { ...p, fields };
+  });
 
   return (
     <div>
-      <PageHeader title="Nouveau lead" subtitle="Création manuelle" />
+      <PageHeader
+        title="Nouveau lead"
+        subtitle="Même logique que Qualification : intérêts multi-produits + formules catalogue"
+      />
       <Card>
         <form action={createLead} className="space-y-6">
           <div className="grid gap-3 sm:grid-cols-2">
@@ -50,7 +78,7 @@ export default async function NewLeadPage() {
               <Input name="phone" />
             </div>
             <div>
-              <Label>Produit *</Label>
+              <Label>Produit principal *</Label>
               <Select name="productId" required defaultValue={defaultProduct?.id}>
                 {products.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -58,6 +86,9 @@ export default async function NewLeadPage() {
                   </option>
                 ))}
               </Select>
+              <p className="mt-1 text-xs text-stone-500">
+                Produit de rattachement du lead (pipeline / direction).
+              </p>
             </div>
             <div>
               <Label>Valeur estimée (€)</Label>
@@ -100,12 +131,55 @@ export default async function NewLeadPage() {
             </div>
           </div>
 
-          <div>
-            <h3 className="mb-3 text-sm font-semibold">Champs produit</h3>
-            <p className="mb-3 text-xs text-stone-500">
-              Valeurs initiales pour {defaultProduct?.name}.
-            </p>
-            <CustomFieldsForm fields={fields} />
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-semibold text-stone-800">
+                Intérêts & qualification
+              </h3>
+              <p className="mt-1 text-xs text-stone-500">
+                Cochez les produits concernés et renseignez les champs / formules.
+                Les prestations choisies créent automatiquement des lignes devis.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4 rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
+              {catalogBlocks.map((p) => {
+                const interestName = interestFieldForSlug(p.slug);
+                return (
+                  <label key={p.id} className="flex items-center gap-2">
+                    <input type="hidden" name={interestName} value="false" />
+                    <input
+                      type="checkbox"
+                      name={interestName}
+                      value="true"
+                      defaultChecked={p.id === defaultProduct?.id}
+                    />
+                    Qualifié {p.name}
+                  </label>
+                );
+              })}
+            </div>
+
+            {catalogBlocks.map((p) => (
+              <div
+                key={p.id}
+                className="rounded-lg border border-teal-700/30 bg-teal-50/40 p-4"
+              >
+                <h3 className="mb-3 text-sm font-semibold text-teal-900">
+                  {p.name}
+                </h3>
+                {p.fields.length ? (
+                  <CustomFieldsForm
+                    fields={p.fields}
+                    prefix={formPrefixForSlug(p.slug)}
+                  />
+                ) : (
+                  <p className="text-sm text-stone-500">
+                    Aucun champ configuré — ajoutez-en dans Paramètres.
+                  </p>
+                )}
+              </div>
+            ))}
           </div>
 
           <Button type="submit">Créer le lead</Button>

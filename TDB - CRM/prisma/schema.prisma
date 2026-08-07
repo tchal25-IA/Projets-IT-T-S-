@@ -128,7 +128,23 @@ model ProductOffering {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
+  dealLines DealLine[]
+
   @@index([productId, active])
+}
+
+model CommissionRule {
+  id          String  @id @default(cuid())
+  /** APPORTEUR | COMMERCIAL */
+  roleKey     String
+  label       String
+  ratePercent Float
+  active      Boolean @default(true)
+  sortOrder   Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([roleKey])
 }
 
 model Client {
@@ -216,6 +232,9 @@ model DealLine {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
+  offeringId String?
+  offering   ProductOffering? @relation(fields: [offeringId], references: [id], onDelete: SetNull)
+
   leadId   String?
   lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: Cascade)
   clientId String?
@@ -223,6 +242,7 @@ model DealLine {
 
   @@index([billingStatus])
   @@index([stripeSessionId])
+  @@index([offeringId])
 }
 
 model Commission {

@@ -34,8 +34,22 @@ export async function addDealLine(leadId: string, formData: FormData) {
   const lead = await prisma.lead.findUnique({ where: { id: leadId } });
   if (!lead) throw new Error("Lead introuvable");
 
-  const label = String(formData.get("label") || "").trim().slice(0, 200);
-  const amountHt = Number(formData.get("amountHt") || 0);
+  const offeringId = String(formData.get("offeringId") || "").trim() || null;
+  let label = String(formData.get("label") || "").trim().slice(0, 200);
+  let amountHt = Number(formData.get("amountHt") || 0);
+  let isRecurring = formData.get("isRecurring") === "on";
+
+  if (offeringId) {
+    const offering = await prisma.productOffering.findFirst({
+      where: { id: offeringId, active: true },
+    });
+    if (!offering) throw new Error("Prestation catalogue introuvable");
+    label = offering.name;
+    amountHt = offering.amountHt ?? amountHt;
+    isRecurring =
+      offering.kind === "SUBSCRIPTION" || offering.kind === "MAINTENANCE";
+  }
+
   if (!label || !Number.isFinite(amountHt) || amountHt < 0) {
     throw new Error("Ligne invalide");
   }
@@ -51,10 +65,11 @@ export async function addDealLine(leadId: string, formData: FormData) {
     data: {
       leadId,
       clientId: lead.clientId,
+      offeringId,
       label,
       amountHt,
       billingStatus,
-      isRecurring: formData.get("isRecurring") === "on",
+      isRecurring,
     },
   });
 

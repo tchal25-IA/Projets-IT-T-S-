@@ -42,4 +42,5 @@ export {
   upsertOffering,
   deleteOffering,
   toggleOfferingActive,
+  upsertCommissionRule,
 } from "@/lib/actions/settings";

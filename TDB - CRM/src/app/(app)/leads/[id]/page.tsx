@@ -26,12 +26,12 @@ import { RecordTabs, SalesPath } from "@/components/record-tabs";
 import {
   ActivitiesTimeline,
   ActorsCards,
-  AddDealLineForm,
   BillingPanel,
   CommissionsPanel,
   DealLinesList,
   LivraisonPanel,
 } from "@/components/record-panels";
+import { AddDealLineForm } from "@/components/add-deal-line-form";
 import { ActivityComposer } from "@/components/activity-composer";
 import { RelatedRail } from "@/components/related-rail";
 import { ScoreBadge } from "@/components/score-badge";
@@ -471,7 +471,18 @@ export default async function LeadDetailPage({
               !hideMoney && canSeeBilling(session.user.role) ? (
                 <div className="space-y-4">
                   <DealLinesList lines={dealLines} />
-                  <AddDealLineForm action={saveDeal} />
+                  <AddDealLineForm
+                    action={saveDeal}
+                    offerings={catalogProducts.flatMap((p) =>
+                      p.offerings.map((o) => ({
+                        id: o.id,
+                        name: o.name,
+                        amountHt: o.amountHt,
+                        kind: o.kind,
+                        productName: p.name,
+                      }))
+                    )}
+                  />
                 </div>
               ) : (
                 <p className="text-sm text-stone-500">

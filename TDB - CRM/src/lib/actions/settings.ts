@@ -189,3 +189,32 @@ export async function toggleOfferingActive(id: string, active: boolean) {
   await prisma.productOffering.update({ where: { id }, data: { active } });
   revalidateSettings();
 }
+
+export async function upsertCommissionRule(formData: FormData) {
+  await requireSetup();
+  const roleKey = String(formData.get("roleKey") || "").trim().toUpperCase();
+  const label = String(formData.get("label") || "").trim();
+  const ratePercent = Number(formData.get("ratePercent") || 0);
+  if (!["APPORTEUR", "COMMERCIAL"].includes(roleKey)) {
+    throw new Error("Rôle commission invalide");
+  }
+  if (!Number.isFinite(ratePercent) || ratePercent < 0 || ratePercent > 100) {
+    throw new Error("Taux invalide (0–100)");
+  }
+
+  await prisma.commissionRule.upsert({
+    where: { roleKey },
+    create: {
+      roleKey,
+      label: label || roleKey,
+      ratePercent,
+      active: true,
+    },
+    update: {
+      label: label || roleKey,
+      ratePercent,
+      active: true,
+    },
+  });
+  revalidateSettings();
+}
