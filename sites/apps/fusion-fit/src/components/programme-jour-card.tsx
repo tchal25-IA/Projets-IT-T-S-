@@ -4,7 +4,7 @@ import { useMyProgramCompletions, useValidateProgramDay } from "@/hooks/use-prog
 import { notify, getMyPrenom } from "@/hooks/use-notifications";
 import { useAuth } from "@/hooks/use-auth";
 import { FF } from "@/lib/ff-colors";
-import { todayJourFr, todayISO } from "@/lib/dates";
+import { todayJourFr, todayISO, blocsForJour } from "@/lib/dates";
 
 type Bloc = { jour: string; titre: string; details: string };
 export type ProgramLite = {
@@ -52,7 +52,7 @@ export function ProgrammeJourCard({
   const { user } = useAuth();
   const today = todayJourFr();
   const todayISOStr = todayISO();
-  const blocsToday = program?.blocs.filter((b) => b.jour === today) ?? [];
+  const blocsToday = blocsForJour(program?.blocs, today);
   const { data: completions = [] } = useMyProgramCompletions(program?.id);
   const { mutateAsync: validate, isPending } = useValidateProgramDay();
   const todayCompletion = completions.find((c) => c.date === todayISOStr);

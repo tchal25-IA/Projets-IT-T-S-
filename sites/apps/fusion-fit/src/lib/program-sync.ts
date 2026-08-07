@@ -1,6 +1,15 @@
 import { supabase } from "@/integrations/supabase/client";
 import { notify } from "@/hooks/use-notifications";
 import type { Bloc } from "@/data/program-templates";
+import { normalizeJourFr } from "@/lib/dates";
+
+/** Normalise les jours des blocs avant écriture DB (Mercredi/Samedi inclus). */
+export function normalizeProgramBlocs(blocs: Bloc[]): Bloc[] {
+  return blocs.map((b) => ({
+    ...b,
+    jour: normalizeJourFr(b.jour) ?? b.jour.trim(),
+  }));
+}
 
 /** Enregistre le lien template → programme abonné (pour sync auto ultérieure). */
 export async function recordProgramAssignment(opts: {
@@ -53,7 +62,7 @@ export async function syncAssignedProgramsFromTemplate(opts: {
   const payload = {
     titre: opts.titre,
     objectif: opts.objectif,
-    blocs: opts.blocs as unknown as any,
+    blocs: normalizeProgramBlocs(opts.blocs) as unknown as any,
     updated_at: new Date().toISOString(),
   };
 

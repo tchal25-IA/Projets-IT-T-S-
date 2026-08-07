@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Award, Target, Clock, Shield, Star, Loader2, FileText, ClipboardList } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { AvatarUploader } from "@/components/avatar-uploader";
@@ -272,6 +273,22 @@ export function AthleteProfil() {
           Astuce : un objectif course / compétition se renseigne comme principal, secondaire ou horizon — ce n&apos;est pas une catégorie à part.
         </p>
       </Card>
+
+      {!profil.questionnaireSass && (
+        <Card icon={<ClipboardList className="h-4 w-4" />} title="Questionnaire Sass">
+          <p className="text-sm mb-3" style={{ color: "var(--ff-text-muted)" }}>
+            Ton profil n&apos;est pas encore cartographié. Réponds au questionnaire pour actualiser tes objectifs (principal, secondaires, moyen / long terme).
+          </p>
+          <Link
+            to="/fusionfit/onboarding"
+            search={{ update: true }}
+            className="inline-flex items-center justify-center w-full py-2.5 rounded-lg border text-sm font-bold"
+            style={{ borderColor: "var(--ff-cyan)", background: "oklch(0.78 0.16 198 / 15%)", color: "var(--ff-cyan)" }}
+          >
+            Répondre au questionnaire
+          </Link>
+        </Card>
+      )}
 
       {(profil.historiqueSportif || profil.antecedentsBlessures || profil.sexe || profil.age) && !profil.questionnaireSass && (
         <Card icon={<ClipboardList className="h-4 w-4" />} title="Questionnaire d'accueil">

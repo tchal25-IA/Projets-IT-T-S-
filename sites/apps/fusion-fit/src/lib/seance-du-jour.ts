@@ -1,4 +1,4 @@
-import { todayISO, todayJourFr } from "@/lib/dates";
+import { todayISO, todayJourFr, blocsForJour } from "@/lib/dates";
 import type { CoachSession } from "@/hooks/use-coaching";
 import type { ProgramLite } from "@/components/programme-jour-card";
 
@@ -45,7 +45,7 @@ export function resolveSeanceDuJour(
   program: ProgramLite | null | undefined,
 ): SeanceDuJour {
   const today = todayJourFr();
-  const blocsToday = program?.blocs?.filter((b) => b.jour === today) ?? [];
+  const blocsToday = blocsForJour(program?.blocs, today);
 
   if (isPersoActiveToday(coachSession ?? null)) {
     return {

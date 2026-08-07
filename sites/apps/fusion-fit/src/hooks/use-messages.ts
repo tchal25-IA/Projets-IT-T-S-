@@ -103,7 +103,7 @@ export function useMessagesRealtime(
 }
 
 export function useSendMessage() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (payload: {
@@ -118,9 +118,14 @@ export function useSendMessage() {
         type: payload.type ?? "normal",
       });
       if (error) throw error;
+      const now = new Date().toISOString();
+      const readPatch: Record<string, string> = { last_message_at: now };
+      // L'expéditeur a lu sa propre conversation (évite un faux badge « non lu »).
+      if (role === "coach") readPatch.coach_last_read_at = now;
+      else readPatch.abonne_last_read_at = now;
       await supabase
         .from("conversations")
-        .update({ last_message_at: new Date().toISOString() })
+        .update(readPatch as never)
         .eq("id", payload.conversation_id);
       // Notification nominative au destinataire, avec lien direct vers la
       // conversation (deep link ?with=<expéditeur>).
@@ -145,7 +150,8 @@ export function useSendMessage() {
     },
     onSuccess: (_, vars) => {
       qc.invalidateQueries({ queryKey: ["messages", vars.conversation_id] });
-      qc.invalidateQueries({ queryKey: ["unread-count"] });
+      qc.invalidateQueries({ queryKey: ["unread-count", user?.id] });
+      qc.invalidateQueries({ queryKey: ["unread-by-peer", user?.id] });
     },
   });
 }
@@ -166,6 +172,12 @@ export function useUnreadCount() {
           qc.invalidateQueries({ queryKey: ["unread-count", user.id] });
           qc.invalidateQueries({ queryKey: ["unread-by-peer", user.id] });
         })
+      .on("postgres_changes",
+        { event: "UPDATE", schema: "public", table: "conversations" },
+        () => {
+          qc.invalidateQueries({ queryKey: ["unread-count", user.id] });
+          qc.invalidateQueries({ queryKey: ["unread-by-peer", user.id] });
+        })
       .subscribe();
     return () => { supabase.removeChannel(ch); };
   }, [user, qc]);
@@ -173,7 +185,8 @@ export function useUnreadCount() {
   return useQuery({
     queryKey: ["unread-count", user?.id],
     enabled: !!user,
-    staleTime: 15_000,
+    staleTime: 5_000,
+    refetchOnWindowFocus: true,
     queryFn: async () => {
       const col = role === "coach" ? "coach_id" : "abonne_id";
       const readCol = role === "coach" ? "coach_last_read_at" : "abonne_last_read_at";
@@ -181,25 +194,36 @@ export function useUnreadCount() {
         .from("conversations")
         .select(`id, last_message_at, ${readCol}`)
         .eq(col, user!.id);
-      if (!convs) return 0;
+      if (!convs?.length) return 0;
+
+      // Non-lu seulement si le dernier message vient de l'autre partie.
       let count = 0;
       for (const c of convs as Array<Record<string, string>>) {
         const lastMsg = c.last_message_at;
         const lastRead = c[readCol];
-        if (lastMsg && (!lastRead || lastMsg > lastRead)) count += 1;
+        if (!lastMsg || (lastRead && lastMsg <= lastRead)) continue;
+        const { data: last } = await supabase
+          .from("messages")
+          .select("from_user_id")
+          .eq("conversation_id", c.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (last && last.from_user_id !== user!.id) count += 1;
       }
       return count;
     },
   });
 }
 
-/** Map peerUserId → true si conversation non lue (pour badge liste coach). */
+/** Map peerUserId → true si conversation non lue (dernier msg de l'autre). */
 export function useUnreadByPeer() {
   const { user, role } = useAuth();
   return useQuery({
     queryKey: ["unread-by-peer", user?.id, role],
     enabled: !!user,
-    staleTime: 15_000,
+    staleTime: 5_000,
+    refetchOnWindowFocus: true,
     queryFn: async () => {
       const col = role === "coach" ? "coach_id" : "abonne_id";
       const peerCol = role === "coach" ? "abonne_id" : "coach_id";
@@ -214,7 +238,18 @@ export function useUnreadByPeer() {
         if (!peer) continue;
         const lastMsg = c.last_message_at;
         const lastRead = c[readCol];
-        map[peer] = !!(lastMsg && (!lastRead || lastMsg > lastRead));
+        if (!lastMsg || (lastRead && lastMsg <= lastRead)) {
+          map[peer] = false;
+          continue;
+        }
+        const { data: last } = await supabase
+          .from("messages")
+          .select("from_user_id")
+          .eq("conversation_id", c.id!)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        map[peer] = !!(last && last.from_user_id !== user!.id);
       }
       return map;
     },

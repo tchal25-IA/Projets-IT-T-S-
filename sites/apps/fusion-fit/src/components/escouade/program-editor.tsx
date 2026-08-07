@@ -3,7 +3,7 @@ import { Save, Plus, Trash2, Sparkles, BookOpen, X, Library, Check } from "lucid
 import { supabase } from "@/integrations/supabase/client";
 import { PROGRAM_TEMPLATES, PROTOCOLES, type Bloc } from "@/data/program-templates";
 import { notify } from "@/hooks/use-notifications";
-import { recordProgramAssignment } from "@/lib/program-sync";
+import { recordProgramAssignment, normalizeProgramBlocs } from "@/lib/program-sync";
 import { JOURS, type Program, type DbTemplate } from "./types";
 
 export function ProgramEditor({
@@ -70,7 +70,7 @@ export function ProgramEditor({
       coach_id: prog.coach_id,
       titre: prog.titre,
       objectif: prog.objectif,
-      blocs: prog.blocs as unknown as any,
+      blocs: normalizeProgramBlocs(prog.blocs) as unknown as any,
     };
     let res;
     if (prog.id) {

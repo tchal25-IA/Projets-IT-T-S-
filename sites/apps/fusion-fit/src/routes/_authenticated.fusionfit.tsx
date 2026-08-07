@@ -1,11 +1,11 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, Repeat, CalendarCheck } from "lucide-react";
+import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, Repeat, CalendarCheck, ClipboardList } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
 import { useUnreadCount } from "@/hooks/use-messages";
 import { useUnreadNotifCount, useCreneauPushNotifications, useRegisterWebPush } from "@/hooks/use-notifications";
-import { useTodayCheckin, useMyObjectifsProfile } from "@/hooks/use-checkins";
+import { useTodayCheckin, useMyObjectifsProfile, hasQuestionnaireSass } from "@/hooks/use-checkins";
 import { useCreneauRemindersPoll } from "@/hooks/use-coach-exercises";
 import { useAgendaRemindersPoll } from "@/hooks/use-events";
 import { PhoenixLogo } from "@/components/phoenix-logo";
@@ -130,6 +130,9 @@ function FusionFitShell() {
 
       {/* Rappel check-in (athlète, hors page Routine) */}
       {!hideChrome && role !== "coach" && !loc.pathname.startsWith("/fusionfit/routine") && <CheckinReminder />}
+      {!hideChrome && role !== "coach" && !onOnboarding && (
+        <QuestionnaireReminder profile={objectifsProfile} />
+      )}
 
       {/* Contenu */}
       <main className={`flex-1 mx-auto w-full max-w-md px-5 py-6 ${hideChrome ? "" : "pb-28"}`}>
@@ -179,6 +182,41 @@ function FusionFitShell() {
 }
 
 // Bannière de rappel : l'athlète n'a pas encore fait son check-in du jour.
+// Bannière : inscrits existants sans questionnaire Sass → proposer de compléter le profil.
+function QuestionnaireReminder({ profile }: {
+  profile: { onboarding_done?: boolean | null; questionnaire_sass?: unknown } | null | undefined;
+}) {
+  const [dismissed, setDismissed] = useState(false);
+  const navigate = useNavigate();
+  if (!profile || dismissed) return null;
+  if (hasQuestionnaireSass(profile)) return null;
+
+  return (
+    <div className="mx-auto w-full max-w-md px-5 pt-4">
+      <div className="rounded-xl border p-3 flex items-center gap-3"
+        style={{ borderColor: FF.cyan, background: "oklch(0.78 0.16 198 / 10%)" }}>
+        <ClipboardList className="h-5 w-5 flex-shrink-0" style={{ color: FF.cyan }} />
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-semibold" style={{ color: FF.text }}>Questionnaire Sass</p>
+          <p className="text-[11px]" style={{ color: FF.textMuted }}>
+            Complète-le pour actualiser tes objectifs et ton profil athlète.
+          </p>
+        </div>
+        <button
+          onClick={() => navigate({ to: "/fusionfit/onboarding", search: { update: true } })}
+          className="px-3 py-1.5 rounded-lg border text-[11px] font-bold uppercase tracking-wider flex-shrink-0"
+          style={{ borderColor: FF.cyan, color: FF.cyan }}>
+          Répondre
+        </button>
+        <button onClick={() => setDismissed(true)} aria-label="Ignorer"
+          className="flex-shrink-0 text-lg leading-none px-1" style={{ color: FF.textMuted }}>
+          ×
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function CheckinReminder() {
   const { data: todayCheckin, isLoading } = useTodayCheckin();
   const [dismissed, setDismissed] = useState(false);

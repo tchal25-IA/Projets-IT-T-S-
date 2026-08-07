@@ -10,7 +10,7 @@ import { useMyProgram } from "@/hooks/use-program";
 import { FatigueAnalysisCard } from "@/components/fatigue-analysis-card";
 import { WeightTracker } from "@/components/weight-tracker";
 import { FF, PILIER_COLORS } from "@/lib/ff-colors";
-import { JOURS_FR, todayJourFr } from "@/lib/dates";
+import { JOURS_FR, blocsForJour, todayJourFr } from "@/lib/dates";
 import { generateRoutine, splitFormat } from "@/lib/routine-generator";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/stats")({
@@ -97,7 +97,7 @@ function ProgrammeSemaine({ program }: { program: { id: string; titre: string; b
       {weekOpen && (
         <div className="space-y-1.5 pt-2">
           {JOURS_FR.map((jour) => {
-            const blocs = program.blocs.filter((b) => b.jour === jour);
+            const blocs = blocsForJour(program.blocs, jour);
             const isToday = jour === today;
             return (
               <div key={jour} className="rounded-lg border p-2"

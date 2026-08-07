@@ -9,7 +9,8 @@ import {
   useSaveCoachExercise,
   useDeleteCoachExercise,
 } from "@/hooks/use-coach-exercises";
-import { syncAssignedProgramsFromTemplate } from "@/lib/program-sync";
+import { syncAssignedProgramsFromTemplate, normalizeProgramBlocs } from "@/lib/program-sync";
+import { JOURS_FR } from "@/lib/dates";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/bibliotheque")({
   component: BibliothequePage,
@@ -76,7 +77,9 @@ function BibliothequePage() {
   async function save() {
     if (!user || !form.titre.trim()) { alert("Le titre est obligatoire."); return; }
     setSaving(true);
-    const blocs = form.blocs.filter((b) => b.titre.trim() || b.details.trim());
+    const blocs = normalizeProgramBlocs(
+      form.blocs.filter((b) => b.titre.trim() || b.details.trim()),
+    );
     const payload = {
       coach_id: user.id,
       titre: form.titre.trim(),
@@ -239,13 +242,16 @@ function BibliothequePage() {
             {form.blocs.map((b, i) => (
               <div key={i} className="rounded-lg border p-2 space-y-1.5" style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}>
                 <div className="flex gap-2 items-center">
-                  <input
+                  <select
                     value={b.jour}
                     onChange={(e) => majBloc(i, { jour: e.target.value })}
-                    placeholder="Jour"
-                    className="w-24 px-2 py-1.5 rounded border bg-transparent text-xs outline-none"
+                    className="w-28 px-2 py-1.5 rounded border bg-transparent text-xs outline-none"
                     style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
-                  />
+                  >
+                    {JOURS_FR.map((j) => (
+                      <option key={j} value={j} style={{ background: "var(--ff-bg)" }}>{j}</option>
+                    ))}
+                  </select>
                   <input
                     value={b.titre}
                     onChange={(e) => majBloc(i, { titre: e.target.value })}

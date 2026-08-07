@@ -89,6 +89,41 @@ export function useEventRegistrationCounts(eventIds: string[]) {
   });
 }
 
+/** Prénoms des inscrits par événement (vue coach). */
+export function useEventInscritsNames(eventIds: string[]) {
+  return useQuery({
+    queryKey: ["event-inscrits-names", eventIds.join(",")],
+    enabled: eventIds.length > 0,
+    staleTime: 15_000,
+    queryFn: async () => {
+      const { data, error } = await sb
+        .from("event_registrations")
+        .select("event_id, user_id")
+        .in("event_id", eventIds)
+        .eq("status", "inscrit");
+      if (error) throw new Error(error.message);
+      const rows = (data ?? []) as Array<{ event_id: string; user_id: string }>;
+      const userIds = [...new Set(rows.map((r) => r.user_id))];
+      const names: Record<string, string> = {};
+      if (userIds.length) {
+        const { data: profs } = await sb
+          .from("profiles")
+          .select("user_id, prenom")
+          .in("user_id", userIds);
+        for (const p of (profs ?? []) as Array<{ user_id: string; prenom: string }>) {
+          names[p.user_id] = p.prenom || "Athlète";
+        }
+      }
+      const byEvent: Record<string, string[]> = {};
+      for (const r of rows) {
+        if (!byEvent[r.event_id]) byEvent[r.event_id] = [];
+        byEvent[r.event_id].push(names[r.user_id] ?? "Athlète");
+      }
+      return byEvent;
+    },
+  });
+}
+
 export function useCreateCoachEvent() {
   const { user } = useAuth();
   const qc = useQueryClient();
@@ -207,6 +242,7 @@ export function useRespondEvent() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["event-regs"] });
       qc.invalidateQueries({ queryKey: ["event-reg-counts"] });
+      qc.invalidateQueries({ queryKey: ["event-inscrits-names"] });
       qc.invalidateQueries({ queryKey: ["coach-events"] });
     },
   });

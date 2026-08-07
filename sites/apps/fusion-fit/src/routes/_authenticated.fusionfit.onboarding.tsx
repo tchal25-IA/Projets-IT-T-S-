@@ -16,6 +16,9 @@ import {
 } from "@/lib/questionnaire-sass";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/onboarding")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    update: search.update === true || search.update === "true" || search.update === "1",
+  }),
   component: OnboardingPage,
 });
 
@@ -49,6 +52,7 @@ type StepDef = {
 function OnboardingPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { update: isUpdate } = Route.useSearch();
   const qc = useQueryClient();
   const [step, setStep] = useState(0);
   const [id, setId] = useState<Identity>(EMPTY_ID);
@@ -59,17 +63,34 @@ function OnboardingPage() {
     if (!user) return;
     supabase
       .from("profiles")
-      .select("prenom, onboarding_done")
+      .select("prenom, nom, sexe, age, taille_cm, onboarding_done, questionnaire_sass")
       .eq("user_id", user.id)
       .maybeSingle()
       .then(({ data }) => {
-        if (data?.onboarding_done) {
-          navigate({ to: "/fusionfit/abonnement", replace: true });
-          return;
+        if (!data) return;
+        // Mode création : déjà onboardé avec Sass → sortir
+        if (data.onboarding_done && !isUpdate) {
+          const q = data.questionnaire_sass;
+          const hasSass = !!q && typeof q === "object" && !Array.isArray(q) && Object.keys(q as object).length > 0;
+          if (hasSass) {
+            navigate({ to: "/fusionfit/routine", replace: true });
+            return;
+          }
+          // Onboardé sans Sass (anciens inscrits) → rester pour compléter
         }
-        if (data?.prenom) setId((p) => ({ ...p, prenom: p.prenom || data.prenom }));
+        if (data.prenom) setId((p) => ({
+          ...p,
+          prenom: data.prenom || p.prenom,
+          nom: (data as { nom?: string | null }).nom ?? p.nom,
+          sexe: data.sexe ?? p.sexe,
+          age: data.age != null ? String(data.age) : p.age,
+          taille: data.taille_cm != null ? String(data.taille_cm) : p.taille,
+        }));
+        if (data.questionnaire_sass && typeof data.questionnaire_sass === "object") {
+          setSass({ ...EMPTY_SASS, ...(data.questionnaire_sass as SassAnswers) });
+        }
       });
-  }, [user, navigate]);
+  }, [user, navigate, isUpdate]);
 
   function setSassField(qid: string, value: string | string[] | number | null) {
     setSass((prev) => ({ ...prev, [qid]: value }));
@@ -235,7 +256,7 @@ function OnboardingPage() {
 
       await qc.invalidateQueries({ queryKey: ["profile-objectifs", user.id] });
       await qc.invalidateQueries({ queryKey: ["profile", user.id] });
-      navigate({ to: "/fusionfit/abonnement", replace: true });
+      navigate({ to: isUpdate ? "/fusionfit/profil" : "/fusionfit/abonnement", replace: true });
     } catch (e) {
       alert(e instanceof Error ? e.message : "Erreur d'enregistrement");
     } finally {

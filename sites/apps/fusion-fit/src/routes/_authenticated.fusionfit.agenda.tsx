@@ -11,12 +11,13 @@ import { useMyAbonnement, useTrainingSlots } from "@/hooks/use-creneaux";
 import { useMyProgram } from "@/hooks/use-program";
 import { canAccessFeature, CRENEAUX_FREE_MONTHLY_LIMIT } from "@/lib/plan-gates";
 import { PageSkeleton } from "@/components/ui-skeleton";
-import { JOURS } from "@/components/escouade/types";
+import { JOURS_FR, jourFrDe, blocsForJour, localISODate } from "@/lib/dates";
 import {
   useCoachEvents,
   useCreateCoachEvent,
   useMyEventRegistrations,
   useEventRegistrationCounts,
+  useEventInscritsNames,
   useRespondEvent,
 } from "@/hooks/use-events";
 import { useEscouadeData } from "@/hooks/use-escouade";
@@ -89,6 +90,7 @@ function AgendaPage() {
   const eventIds = events.map((e) => e.id);
   const { data: myRegs = [] } = useMyEventRegistrations(eventIds);
   const { data: regCounts = {} } = useEventRegistrationCounts(eventIds);
+  const { data: inscritsNames = {} } = useEventInscritsNames(eventIds);
   const { mutateAsync: createEvent, isPending: creatingEvent } = useCreateCoachEvent();
   const { mutateAsync: respondEvent, isPending: responding } = useRespondEvent();
 
@@ -124,20 +126,15 @@ function AgendaPage() {
     })();
   }, [user, role]);
 
-  const selectedJour = JOURS[(selected.getDay() + 6) % 7];
-  const programBlocs = (program?.blocs ?? []).filter((b) =>
-    b.jour.toLowerCase().startsWith(selectedJour.slice(0, 3).toLowerCase()) || b.jour === selectedJour,
-  );
+  const selectedJour = jourFrDe(selected);
+  const programBlocs = blocsForJour(program?.blocs, selectedJour);
   const daySlots = slots.filter((s) => sameDay(new Date(s.date_slot), selected));
   const dayEvents = events.filter((e) => sameDay(new Date(e.starts_at), selected));
 
   function dotsForDay(d: Date) {
     const hasSlot = slots.some((s) => sameDay(new Date(s.date_slot), d) && s.status !== "refuse" && s.status !== "annule");
     const hasEvent = events.some((e) => sameDay(new Date(e.starts_at), d));
-    const jour = JOURS[(d.getDay() + 6) % 7];
-    const hasProg = (program?.blocs ?? []).some(
-      (b) => b.jour === jour || b.jour.toLowerCase().startsWith(jour.slice(0, 3).toLowerCase()),
-    );
+    const hasProg = blocsForJour(program?.blocs, jourFrDe(d)).length > 0;
     return { hasSlot, hasEvent, hasProg };
   }
 
@@ -289,7 +286,7 @@ function AgendaPage() {
               onClick={() => {
                 setShowEventForm((s) => !s);
                 setShowSlotForm(false);
-                setEventForm((f) => ({ ...f, date: dayKey(selected) }));
+                setEventForm((f) => ({ ...f, date: localISODate(selected) }));
               }}
               className="flex items-center gap-1 px-3 py-2 rounded-lg border text-xs"
               style={{ borderColor: "var(--ff-amber)", background: "oklch(0.78 0.18 55 / 12%)", color: "var(--ff-amber)" }}
@@ -349,7 +346,7 @@ function AgendaPage() {
                 }}
               >
                 <p className="text-[9px] font-mono uppercase" style={{ color: "var(--ff-text-muted)" }}>
-                  {JOURS[(d.getDay() + 6) % 7].slice(0, 3)}
+                  {JOURS_FR[(d.getDay() + 6) % 7].slice(0, 3)}
                 </p>
                 <p className="text-sm font-bold tabular-nums" style={{ color: isSel ? "var(--ff-cyan)" : "var(--ff-text)" }}>
                   {d.getDate()}
@@ -518,6 +515,22 @@ function AgendaPage() {
                 {ev.lieu && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{ev.lieu}</span>}
               </div>
               {ev.objectif && <p className="text-xs">{ev.objectif}</p>}
+              {role === "coach" && (
+                <div className="rounded-lg border p-2 space-y-1" style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}>
+                  <p className="text-[10px] font-mono uppercase" style={{ color: "var(--ff-amber)" }}>
+                    Inscrits ({inscrits}/{ev.capacity})
+                  </p>
+                  {(inscritsNames[ev.id] ?? []).length === 0 ? (
+                    <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>Personne n&apos;est encore inscrit.</p>
+                  ) : (
+                    <ul className="text-xs space-y-0.5" style={{ color: "var(--ff-text)" }}>
+                      {(inscritsNames[ev.id] ?? []).map((name, i) => (
+                        <li key={`${name}-${i}`}>· {name}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
               {role !== "coach" && myStatus !== "inscrit" && myStatus !== "refuse" && (
                 <div className="flex gap-2 pt-1">
                   <button

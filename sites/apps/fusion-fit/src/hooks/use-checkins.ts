@@ -124,7 +124,7 @@ export function useSaveCheckin() {
   });
 }
 
-/** Profil léger pour options d'objectif du check-in. */
+/** Profil léger pour options d'objectif du check-in + état questionnaire. */
 export function useMyObjectifsProfile() {
   const { user } = useAuth();
   return useQuery({
@@ -135,7 +135,7 @@ export function useMyObjectifsProfile() {
       const { data, error } = await supabase
         .from("profiles")
         .select(
-          "objectif_principal, objectif_moyen_terme, objectif_long_terme, objectifs_secondaires, onboarding_done",
+          "objectif_principal, objectif_moyen_terme, objectif_long_terme, objectifs_secondaires, onboarding_done, questionnaire_sass",
         )
         .eq("user_id", user!.id)
         .maybeSingle();
@@ -143,4 +143,12 @@ export function useMyObjectifsProfile() {
       return data;
     },
   });
+}
+
+/** True si le questionnaire Sass est renseigné. */
+export function hasQuestionnaireSass(profile: {
+  questionnaire_sass?: unknown;
+} | null | undefined): boolean {
+  const q = profile?.questionnaire_sass;
+  return !!q && typeof q === "object" && !Array.isArray(q) && Object.keys(q as object).length > 0;
 }

@@ -1,8 +1,10 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useState } from "react";
-import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle } from "lucide-react";
+import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle, ClipboardList } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useAthletes } from "@/hooks/use-messages";
+import { notify } from "@/hooks/use-notifications";
+import { supabase } from "@/integrations/supabase/client";
 import { QrCode } from "@/components/qr-code";
 import { AvatarUploader } from "@/components/avatar-uploader";
 import { SquadSocialPanel } from "@/components/escouade/squad-social-panel";
@@ -13,6 +15,7 @@ import {
 } from "@/hooks/use-escouade";
 import { PageSkeleton } from "@/components/ui-skeleton";
 import { useTrainingSlots } from "@/hooks/use-creneaux";
+import { hasQuestionnaireSass } from "@/hooks/use-checkins";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade")({
   component: EscouadePage,
@@ -36,6 +39,38 @@ function EscouadePage() {
   const [showNewSquad, setShowNewSquad] = useState(false);
   const [squadForm, setSquadForm] = useState({ nom: "", objectif: "" });
   const [openSquad, setOpenSquad] = useState<string | null>(null);
+  const [relancing, setRelancing] = useState(false);
+
+  async function relancerQuestionnaire() {
+    if (!abonnes.length) return;
+    setRelancing(true);
+    try {
+      const ids = abonnes.map((a) => a.user_id);
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("user_id, questionnaire_sass")
+        .in("user_id", ids);
+      const sans = (profs ?? []).filter((p) => !hasQuestionnaireSass(p));
+      if (!sans.length) {
+        alert("Tous tes abonnés ont déjà répondu au questionnaire Sass.");
+        return;
+      }
+      for (const p of sans) {
+        await notify(
+          p.user_id,
+          "programme",
+          "Questionnaire Sass à compléter",
+          "Ton coach te propose de répondre au questionnaire pour actualiser ton profil et tes objectifs.",
+          "/fusionfit/onboarding?update=1",
+        );
+      }
+      alert(`Invitation envoyée à ${sans.length} abonné(s).`);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur");
+    } finally {
+      setRelancing(false);
+    }
+  }
 
   async function creerInvitation() {
     try {
@@ -96,6 +131,17 @@ function EscouadePage() {
 
       {/* Dashboard : agenda de la semaine + alertes fatigue */}
       <CoachDashboard nbAbonnes={abonnes.length} />
+
+      <button
+        type="button"
+        onClick={relancerQuestionnaire}
+        disabled={relancing || abonnes.length === 0}
+        className="w-full py-2.5 rounded-xl border text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+        style={{ borderColor: "var(--ff-cyan)", color: "var(--ff-cyan)", background: "oklch(0.78 0.16 198 / 10%)" }}
+      >
+        <ClipboardList className="h-3.5 w-3.5" />
+        {relancing ? "Envoi…" : "Proposer le questionnaire Sass aux inscrits"}
+      </button>
 
       {/* Inviter */}
       <section
