@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { createLead } from "@/lib/actions";
 import { getScopedProductId } from "@/lib/scope";
+import { getLeadSources } from "@/lib/business-settings";
 import { PageHeader, Card, Button, Input, Label, Select } from "@/components/ui";
 import { CustomFieldsForm } from "@/components/custom-fields-form";
 import { isDirection } from "@/lib/utils";
@@ -24,7 +25,7 @@ export default async function NewLeadPage() {
   }
 
   const scopedProductId = await getScopedProductId(session.user.role);
-  const [allProducts, users] = await Promise.all([
+  const [allProducts, users, leadSources] = await Promise.all([
     prisma.product.findMany({
       where: { active: true },
       include: {
@@ -36,6 +37,7 @@ export default async function NewLeadPage() {
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
     }),
     prisma.user.findMany({ where: { active: true }, orderBy: { fullName: "asc" } }),
+    getLeadSources(),
   ]);
 
   const products = allProducts;
@@ -98,7 +100,13 @@ export default async function NewLeadPage() {
             </div>
             <div>
               <Label>Source</Label>
-              <Input name="source" defaultValue="Manuel" />
+              <Select name="source" defaultValue={leadSources[0] ?? "Manuel"}>
+                {leadSources.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </Select>
             </div>
             <div>
               <Label>Commercial</Label>

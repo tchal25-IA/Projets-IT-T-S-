@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { isFullAccess } from "@/lib/roles";
 import { parseFieldSchema } from "@/lib/fields";
-import { formatEuro } from "@/lib/utils";
 import {
   upsertProduct,
   addProductField,
@@ -12,12 +11,21 @@ import {
   deleteOffering,
   updateProductFieldSchema,
   upsertCommissionRule,
+  saveCompanySettings,
+  saveLeadSources,
 } from "@/lib/actions";
 import { Button, Input, Label, Select, Card, Badge } from "@/components/ui";
 import Link from "next/link";
 import { ensureDefaultCommissionRules } from "@/lib/catalog";
+import {
+  ensureDefaultBusinessSettings,
+  getCompanySettings,
+  getLeadSources,
+} from "@/lib/business-settings";
 
 const TABS = [
+  { id: "entreprise", label: "Entreprise" },
+  { id: "sources", label: "Sources leads" },
   { id: "produits", label: "Produits / Services" },
   { id: "prestations", label: "Prestations" },
   { id: "champs", label: "Champs" },
@@ -37,11 +45,14 @@ export default async function ParametresPage({
   }
 
   const sp = await searchParams;
-  const tab = (TABS.some((t) => t.id === sp.tab) ? sp.tab : "produits") as TabId;
+  const tab = (TABS.some((t) => t.id === sp.tab) ? sp.tab : "entreprise") as TabId;
 
-  await ensureDefaultCommissionRules();
+  await Promise.all([
+    ensureDefaultCommissionRules(),
+    ensureDefaultBusinessSettings(),
+  ]);
 
-  const [products, commissionRules] = await Promise.all([
+  const [products, commissionRules, company, leadSources] = await Promise.all([
     prisma.product.findMany({
       include: {
         offerings: { orderBy: [{ sortOrder: "asc" }, { name: "asc" }] },
@@ -50,6 +61,8 @@ export default async function ParametresPage({
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
     }),
     prisma.commissionRule.findMany({ orderBy: { sortOrder: "asc" } }),
+    getCompanySettings(),
+    getLeadSources(),
   ]);
 
   const selectedId =
@@ -63,8 +76,8 @@ export default async function ParametresPage({
       <div>
         <h1 className="font-display text-3xl text-stone-900">Paramètres</h1>
         <p className="mt-1 text-sm text-stone-500">
-          Catalogue produits, prestations / formules, et champs de qualification
-          (Associé / Admin).
+          Configuration business du CRM : entreprise, sources, catalogue,
+          champs de qualification et taux de commission.
         </p>
       </div>
 
@@ -83,6 +96,80 @@ export default async function ParametresPage({
           </Link>
         ))}
       </div>
+
+      {tab === "entreprise" ? (
+        <Card className="max-w-2xl space-y-4 p-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+            Identité de l&apos;entreprise
+          </h2>
+          <p className="text-xs text-stone-500">
+            Ces informations alimentent les documents, devis et le contexte
+            commercial du SaaS.
+          </p>
+          <form action={saveCompanySettings} className="grid gap-3 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <Label>Nom commercial</Label>
+              <Input name="name" defaultValue={company.name} required />
+            </div>
+            <div className="sm:col-span-2">
+              <Label>Raison sociale</Label>
+              <Input name="legalName" defaultValue={company.legalName} />
+            </div>
+            <div>
+              <Label>Email</Label>
+              <Input name="email" type="email" defaultValue={company.email} />
+            </div>
+            <div>
+              <Label>Téléphone</Label>
+              <Input name="phone" defaultValue={company.phone} />
+            </div>
+            <div>
+              <Label>Site web</Label>
+              <Input name="website" defaultValue={company.website} />
+            </div>
+            <div>
+              <Label>Devise</Label>
+              <Input name="currency" defaultValue={company.currency || "EUR"} />
+            </div>
+            <div className="sm:col-span-2">
+              <Label>Adresse</Label>
+              <Input name="address" defaultValue={company.address} />
+            </div>
+            <div>
+              <Label>SIRET</Label>
+              <Input name="siret" defaultValue={company.siret} />
+            </div>
+            <div>
+              <Label>N° TVA</Label>
+              <Input name="vatNumber" defaultValue={company.vatNumber} />
+            </div>
+            <div className="sm:col-span-2">
+              <Button type="submit">Enregistrer l&apos;entreprise</Button>
+            </div>
+          </form>
+        </Card>
+      ) : null}
+
+      {tab === "sources" ? (
+        <Card className="max-w-xl space-y-4 p-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+            Sources de leads
+          </h2>
+          <p className="text-xs text-stone-500">
+            Une source par ligne. Utilisées à la création et à l&apos;édition
+            d&apos;un lead.
+          </p>
+          <form action={saveLeadSources} className="space-y-3">
+            <textarea
+              name="sources"
+              rows={10}
+              defaultValue={leadSources.join("\n")}
+              className="w-full rounded-md border border-stone-300 px-3 py-2 text-sm"
+            />
+            <Button type="submit">Enregistrer les sources</Button>
+          </form>
+        </Card>
+      ) : null}
 
       {tab === "produits" ? (
         <div className="grid gap-6 lg:grid-cols-2">
@@ -199,21 +286,76 @@ export default async function ParametresPage({
                 <h2 className="text-sm font-semibold text-stone-800">
                   Prestations — {selected.name}
                 </h2>
-                <ul className="divide-y divide-stone-100">
+                <ul className="space-y-4">
                   {selected.offerings.map((o) => (
-                    <li key={o.id} className="flex items-center justify-between gap-2 py-2">
-                      <div>
-                        <p className="font-medium text-stone-900">{o.name}</p>
-                        <p className="text-xs text-stone-500">
-                          {o.kind} · {o.billingPeriod}
-                          {o.amountHt != null ? ` · ${formatEuro(o.amountHt)}` : ""}
-                          {o.code ? ` · ${o.code}` : ""}
-                          {!o.active ? " · inactif" : ""}
-                        </p>
-                      </div>
-                      <form action={deleteOffering.bind(null, o.id)}>
+                    <li
+                      key={o.id}
+                      className="rounded-md border border-stone-100 p-3"
+                    >
+                      <form action={upsertOffering} className="space-y-2">
+                        <input type="hidden" name="id" value={o.id} />
+                        <input type="hidden" name="productId" value={selected.id} />
+                        <div className="grid gap-2 sm:grid-cols-2">
+                          <div>
+                            <Label>Nom</Label>
+                            <Input name="name" defaultValue={o.name} required />
+                          </div>
+                          <div>
+                            <Label>Code</Label>
+                            <Input name="code" defaultValue={o.code ?? ""} />
+                          </div>
+                          <div>
+                            <Label>Type</Label>
+                            <Select name="kind" defaultValue={o.kind}>
+                              <option value="ONE_SHOT">One-shot</option>
+                              <option value="SUBSCRIPTION">Abonnement</option>
+                              <option value="MAINTENANCE">Maintenance</option>
+                              <option value="OTHER">Autre</option>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label>Période</Label>
+                            <Select name="billingPeriod" defaultValue={o.billingPeriod}>
+                              <option value="NONE">Aucune</option>
+                              <option value="MONTHLY">Mensuel</option>
+                              <option value="YEARLY">Annuel</option>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label>Montant HT (€)</Label>
+                            <Input
+                              name="amountHt"
+                              type="number"
+                              step="0.01"
+                              defaultValue={o.amountHt ?? ""}
+                            />
+                          </div>
+                          <div>
+                            <Label>Ordre</Label>
+                            <Input
+                              name="sortOrder"
+                              type="number"
+                              defaultValue={o.sortOrder}
+                            />
+                          </div>
+                        </div>
+                        <label className="flex items-center gap-2 text-sm">
+                          <input
+                            type="checkbox"
+                            name="active"
+                            defaultChecked={o.active}
+                          />
+                          Actif
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          <Button type="submit" variant="secondary">
+                            Enregistrer
+                          </Button>
+                        </div>
+                      </form>
+                      <form action={deleteOffering.bind(null, o.id)} className="mt-2">
                         <Button type="submit" variant="ghost" className="text-red-700">
-                          Suppr.
+                          Supprimer
                         </Button>
                       </form>
                     </li>

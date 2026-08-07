@@ -3,13 +3,20 @@ export {
   updateLeadStatus,
   updateLeadDetails,
   addActivity,
+  deleteLead,
 } from "@/lib/actions/leads";
 
 export {
   addDealLine,
+  updateDealLine,
+  deleteDealLine,
   updateDealLineStatus,
   updateClientStatus,
+  updateClientDetails,
+  deleteClient,
   updateCommissionStatus,
+  updateCommission,
+  deleteCommission,
   startStripeCheckout,
 } from "@/lib/actions/billing";
 
@@ -29,7 +36,7 @@ export { saveLeadView, deleteSavedView } from "@/lib/actions/views";
 
 export { sendLeadEmail } from "@/lib/actions/emails";
 
-  export {
+export {
   markNotificationRead,
   markAllNotificationsRead,
 } from "@/lib/actions/notifications";
@@ -43,4 +50,6 @@ export {
   deleteOffering,
   toggleOfferingActive,
   upsertCommissionRule,
+  saveCompanySettings,
+  saveLeadSources,
 } from "@/lib/actions/settings";

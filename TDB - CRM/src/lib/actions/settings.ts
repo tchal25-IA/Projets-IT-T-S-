@@ -149,10 +149,9 @@ export async function upsertOffering(formData: FormData) {
   ) as BillingPeriod;
   const amountRaw = String(formData.get("amountHt") || "").trim();
   const amountHt = amountRaw === "" ? null : Number(amountRaw);
-  const active =
-    formData.get("active") === "on" ||
-    formData.get("active") === "true" ||
-    !id;
+  const active = id
+    ? formData.get("active") === "on" || formData.get("active") === "true"
+    : true;
   const sortOrder = Number(formData.get("sortOrder") || 0);
 
   if (!productId || !name) throw new Error("Produit et nom requis");
@@ -217,5 +216,39 @@ export async function upsertCommissionRule(formData: FormData) {
       active: true,
     },
   });
+  revalidateSettings();
+}
+
+export async function saveCompanySettings(formData: FormData) {
+  await requireSetup();
+  const { setSetting, DEFAULT_COMPANY } = await import("@/lib/business-settings");
+  await setSetting("company", {
+    name: String(formData.get("name") || DEFAULT_COMPANY.name).trim(),
+    legalName: String(formData.get("legalName") || "").trim(),
+    email: String(formData.get("email") || "").trim(),
+    phone: String(formData.get("phone") || "").trim(),
+    website: String(formData.get("website") || "").trim(),
+    address: String(formData.get("address") || "").trim(),
+    siret: String(formData.get("siret") || "").trim(),
+    vatNumber: String(formData.get("vatNumber") || "").trim(),
+    currency: String(formData.get("currency") || "EUR").trim() || "EUR",
+  });
+  revalidateSettings();
+}
+
+export async function saveLeadSources(formData: FormData) {
+  await requireSetup();
+  const { setSetting, DEFAULT_LEAD_SOURCES } = await import(
+    "@/lib/business-settings"
+  );
+  const raw = String(formData.get("sources") || "");
+  const sources = raw
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  await setSetting(
+    "lead.sources",
+    sources.length ? sources : DEFAULT_LEAD_SOURCES
+  );
   revalidateSettings();
 }

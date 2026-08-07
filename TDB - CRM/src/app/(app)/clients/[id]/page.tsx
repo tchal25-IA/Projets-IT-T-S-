@@ -7,10 +7,16 @@ import { getScopedProductId } from "@/lib/scope";
 import { visibleTabsForRole } from "@/lib/visible-tabs";
 import { productBlock, fieldsForProduct } from "@/lib/custom-data";
 import { enrichFieldsWithOfferings, parseFieldSchema } from "@/lib/fields";
-import { updateClientStatus } from "@/lib/actions";
-import { PageHeader, Button, Badge, Stat } from "@/components/ui";
+import {
+  updateClientStatus,
+  updateClientDetails,
+  deleteClient,
+  addDealLine,
+} from "@/lib/actions";
+import { PageHeader, Button, Badge, Stat, Input, Label, Textarea } from "@/components/ui";
 import { RecordTabs, SalesPath } from "@/components/record-tabs";
 import { QualReadOnly } from "@/components/custom-fields-form";
+import { AddDealLineForm } from "@/components/add-deal-line-form";
 import {
   ActivitiesTimeline,
   ActorsCards,
@@ -27,6 +33,7 @@ import {
   canSeeMargins,
   formatDate,
   formatEuro,
+  isDirection,
 } from "@/lib/utils";
 import type { ClientStatus } from "@/generated/prisma/client";
 
@@ -66,6 +73,8 @@ export default async function ClientDetailPage({
   const lead = client.leads[0];
   const customData = (lead?.customData ?? {}) as Record<string, unknown>;
   const qualification = (client.qualification ?? {}) as Record<string, unknown>;
+  const canEditClient = canSeeBilling(session.user.role);
+  const canDelete = isDirection(session.user.role);
 
   const catalogProducts = await prisma.product.findMany({
     where: { active: true },
@@ -104,17 +113,40 @@ export default async function ClientDetailPage({
   const ca = client.dealLines.reduce((s, d) => s + d.amountHt, 0);
   const commissionsTotal = client.commissions.reduce((s, c) => s + c.amountHt, 0);
 
+  async function saveClient(formData: FormData) {
+    "use server";
+    await updateClientDetails(id, formData);
+  }
+  async function removeClient() {
+    "use server";
+    await deleteClient(id);
+  }
+  async function saveDeal(formData: FormData) {
+    "use server";
+    if (!lead) throw new Error("Lead d'origine requis pour ajouter une prestation");
+    await addDealLine(lead.id, formData);
+  }
+
   return (
     <div>
       <PageHeader
         title={client.companyName}
         subtitle="Fiche client — même format que le lead, onglets post-conversion ouverts"
         actions={
-          lead ? (
-            <Link href={`/leads/${lead.id}`}>
-              <Button variant="secondary">Lead d&apos;origine</Button>
-            </Link>
-          ) : null
+          <div className="flex flex-wrap gap-2">
+            {lead ? (
+              <Link href={`/leads/${lead.id}`}>
+                <Button variant="secondary">Lead d&apos;origine</Button>
+              </Link>
+            ) : null}
+            {canDelete ? (
+              <form action={removeClient}>
+                <Button type="submit" variant="ghost" className="text-red-700">
+                  Supprimer le client
+                </Button>
+              </form>
+            ) : null}
+          </div>
         }
       />
 
@@ -148,7 +180,33 @@ export default async function ClientDetailPage({
               </p>
             </div>
           ),
-          contact: (
+          contact: canEditClient ? (
+            <form action={saveClient} className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <Label>Entreprise</Label>
+                <Input name="companyName" defaultValue={client.companyName} required />
+              </div>
+              <div>
+                <Label>Contact</Label>
+                <Input name="contactName" defaultValue={client.contactName ?? ""} />
+              </div>
+              <div>
+                <Label>Email</Label>
+                <Input name="email" defaultValue={client.email ?? ""} />
+              </div>
+              <div>
+                <Label>Téléphone</Label>
+                <Input name="phone" defaultValue={client.phone ?? ""} />
+              </div>
+              <div className="sm:col-span-2">
+                <Label>Notes</Label>
+                <Textarea name="notes" rows={3} defaultValue={client.notes ?? ""} />
+              </div>
+              <div className="sm:col-span-2">
+                <Button type="submit">Enregistrer le contact</Button>
+              </div>
+            </form>
+          ) : (
             <div className="grid gap-2 text-sm sm:grid-cols-2">
               <p>
                 <span className="text-stone-500">Contact :</span>{" "}
@@ -187,7 +245,26 @@ export default async function ClientDetailPage({
             <ActivitiesTimeline activities={lead?.activities ?? []} />
           ),
           prestations: canSeeBilling(session.user.role) ? (
-            <DealLinesList lines={client.dealLines} />
+            <div className="space-y-4">
+              <DealLinesList
+                lines={client.dealLines}
+                canEdit={canSeeBilling(session.user.role)}
+              />
+              {lead ? (
+                <AddDealLineForm
+                  action={saveDeal}
+                  offerings={catalogProducts.flatMap((p) =>
+                    p.offerings.map((o) => ({
+                      id: o.id,
+                      name: o.name,
+                      amountHt: o.amountHt,
+                      kind: o.kind,
+                      productName: p.name,
+                    }))
+                  )}
+                />
+              ) : null}
+            </div>
           ) : (
             <p className="text-sm text-stone-500">Accès restreint</p>
           ),

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/db";
 import { getScopedProductId } from "@/lib/scope";
 import { computeDashboardMetrics } from "@/lib/dashboard";
 import { PageHeader, Stat, Card, Badge } from "@/components/ui";
@@ -9,10 +8,13 @@ import {
   formatDateTime,
   STATUS_LABELS,
   ROLE_LABELS,
+  COMMISSION_STATUS_LABELS,
   isDirection,
+  canSeeCommissions,
 } from "@/lib/utils";
 import { StatsCharts } from "@/components/stats-charts";
 import { toggleTaskDone } from "@/lib/actions";
+import type { CommissionStatus } from "@/generated/prisma/client";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -21,47 +23,11 @@ export default async function DashboardPage() {
   const productId = await getScopedProductId(role);
   const m = await computeDashboardMetrics(id, role, productId);
 
-  const yearMonth = new Date().toISOString().slice(0, 7);
-  const startMonth = new Date(`${yearMonth}-01T00:00:00`);
-
-  const [tasks, quota, closesMonth] = await Promise.all([
-    prisma.task.findMany({
-      where: {
-        userId: id,
-        doneAt: null,
-      },
-      include: { lead: true },
-      orderBy: { dueAt: "asc" },
-      take: 5,
-    }),
-    role === "COMMERCIAL"
-      ? prisma.quota.findUnique({
-          where: { userId_yearMonth: { userId: id, yearMonth } },
-        })
-      : Promise.resolve(null),
-    role === "COMMERCIAL"
-      ? prisma.lead.findMany({
-          where: {
-            commercialId: id,
-            status: "CLOSE",
-            closedAt: { gte: startMonth },
-          },
-          include: { dealLines: true },
-        })
-      : Promise.resolve([]),
-  ]);
-
-  const closesCount = closesMonth.length;
-  const caMonth = closesMonth.reduce(
-    (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
-    0
-  );
-
   return (
     <div>
       <PageHeader
         title={`Home — ${ROLE_LABELS[role]}`}
-        subtitle={`${fullName} · indicateurs synchronisés en temps réel`}
+        subtitle={`${fullName} · indicateurs synchronisés selon votre profil`}
       />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -71,39 +37,28 @@ export default async function DashboardPage() {
           hint={`${m.leadsTotal} au total`}
         />
         <Stat
-          label="Taux de win"
-          value={`${m.winRate}%`}
-          hint={`${m.leadsClosed} closés / ${m.leadsLost} perdus`}
+          label="Signatures (mois)"
+          value={String(m.signaturesMonth)}
+          hint={`${m.leadsClosed} closés au total · win ${m.winRate}%`}
         />
-        <Stat label="Pipeline estimé" value={formatEuro(m.pipelineValue)} />
-        {role === "APPORTEUR" || role === "COMMERCIAL" ? (
+        <Stat
+          label="CA réalisé (mois)"
+          value={formatEuro(m.caMonth)}
+          hint={`CA closé cumulé ${formatEuro(m.closedCa)}`}
+        />
+        {canSeeCommissions(role) ? (
           <Stat
-            label="Commissions"
-            value={formatEuro(m.commissionsTotal)}
-            hint={`${formatEuro(m.commissionsAVerser)} à verser`}
+            label="Commissions à verser"
+            value={formatEuro(m.commissionsAVerser)}
+            hint={`Total ${formatEuro(m.commissionsTotal)} · versé ${formatEuro(m.commissionsVersees)}`}
           />
         ) : (
-          <Stat label="CA suivi" value={formatEuro(m.closedCa)} />
+          <Stat label="Pipeline estimé" value={formatEuro(m.pipelineValue)} />
         )}
       </div>
 
-      {role === "COMMERCIAL" && quota ? (
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Stat
-            label="Objectif closes"
-            value={`${closesCount} / ${quota.targetCloses}`}
-            hint={yearMonth}
-          />
-          <Stat
-            label="Objectif CA"
-            value={`${formatEuro(caMonth)} / ${formatEuro(quota.targetCa)}`}
-            hint={yearMonth}
-          />
-        </div>
-      ) : null}
-
       <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {role === "COMMERCIAL" || isDirection(role) ? (
+        {(role === "COMMERCIAL" || isDirection(role)) && (
           <>
             <Stat label="Appels aujourd'hui" value={String(m.callsToday)} />
             <Stat label="RDV posés (jour)" value={String(m.rdvToday)} />
@@ -113,7 +68,7 @@ export default async function DashboardPage() {
               hint="nextCallAt dépassé"
             />
           </>
-        ) : null}
+        )}
         {role === "APPORTEUR" ? (
           <>
             <Stat label="Convertis" value={String(m.leadsClosed)} />
@@ -129,18 +84,19 @@ export default async function DashboardPage() {
           value={String(m.clientsTotal)}
           hint={`${m.clientsEnLivraison} en livraison · ${m.clientsActifs} actifs`}
         />
+        <Stat label="Pipeline estimé" value={formatEuro(m.pipelineValue)} />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <Card>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold">Mes tâches</h2>
+            <h2 className="text-sm font-semibold">Tâches à effectuer</h2>
             <Link href="/taches" className="text-xs text-teal-800 hover:underline">
               Agenda
             </Link>
           </div>
           <div className="divide-y divide-stone-100">
-            {tasks.map((t) => (
+            {m.openTasks.map((t) => (
               <div
                 key={t.id}
                 className="flex items-center justify-between gap-2 py-2 text-sm"
@@ -149,7 +105,7 @@ export default async function DashboardPage() {
                   <p className="font-medium">{t.title}</p>
                   <p className="text-xs text-stone-500">
                     {t.dueAt ? formatDateTime(t.dueAt) : "Sans échéance"}
-                    {t.lead ? ` · ${t.lead.companyName}` : ""}
+                    {t.companyName ? ` · ${t.companyName}` : ""}
                   </p>
                 </div>
                 <form
@@ -167,7 +123,7 @@ export default async function DashboardPage() {
                 </form>
               </div>
             ))}
-            {tasks.length === 0 ? (
+            {m.openTasks.length === 0 ? (
               <p className="py-3 text-sm text-stone-500">Aucune tâche ouverte.</p>
             ) : null}
           </div>
@@ -208,6 +164,99 @@ export default async function DashboardPage() {
             ) : null}
           </div>
         </Card>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <Card>
+          <h2 className="mb-3 text-sm font-semibold">Timeline récente</h2>
+          <div className="max-h-80 space-y-3 overflow-y-auto">
+            {m.timeline.map((a) => (
+              <div key={a.id} className="border-l-2 border-teal-700/30 pl-3">
+                <p className="text-xs text-stone-500">
+                  {formatDateTime(a.createdAt)} · {a.userName ?? "Système"} ·{" "}
+                  {a.type}
+                </p>
+                <Link
+                  href={`/leads/${a.leadId}`}
+                  className="text-sm font-medium text-teal-900 hover:underline"
+                >
+                  {a.companyName}
+                </Link>
+                <p className="text-sm text-stone-700">{a.note}</p>
+              </div>
+            ))}
+            {m.timeline.length === 0 ? (
+              <p className="py-3 text-sm text-stone-500">Aucune activité récente.</p>
+            ) : null}
+          </div>
+        </Card>
+
+        {canSeeCommissions(role) ? (
+          <Card>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-sm font-semibold">Paiements commissions</h2>
+              <Link
+                href="/clients"
+                className="text-xs text-teal-800 hover:underline"
+              >
+                Clients
+              </Link>
+            </div>
+            <div className="divide-y divide-stone-100">
+              {m.pendingCommissions.map((c) => (
+                <div
+                  key={c.id}
+                  className="flex items-center justify-between gap-2 py-2 text-sm"
+                >
+                  <div>
+                    <p className="font-medium">{c.companyName}</p>
+                    <p className="text-xs text-stone-500">
+                      {c.userName} · {c.label}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold">{formatEuro(c.amountHt)}</p>
+                    <Badge tone="warning">
+                      {COMMISSION_STATUS_LABELS[
+                        c.status as CommissionStatus
+                      ] ?? c.status}
+                    </Badge>
+                  </div>
+                </div>
+              ))}
+              {m.pendingCommissions.length === 0 ? (
+                <p className="py-3 text-sm text-stone-500">
+                  Aucune commission en attente.
+                </p>
+              ) : null}
+            </div>
+          </Card>
+        ) : (
+          <Card>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-sm font-semibold">Leads récents</h2>
+              <Link href="/leads" className="text-xs text-teal-800 hover:underline">
+                Voir tout
+              </Link>
+            </div>
+            <div className="divide-y divide-stone-100">
+              {m.recentLeads.map((l) => (
+                <div key={l.id} className="flex justify-between py-2 text-sm">
+                  <Link
+                    href={`/leads/${l.id}`}
+                    className="font-medium text-teal-900 hover:underline"
+                  >
+                    {l.companyName}
+                  </Link>
+                  <Badge tone="neutral">
+                    {STATUS_LABELS[l.status as keyof typeof STATUS_LABELS] ??
+                      l.status}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
       </div>
 
       <Card className="mt-6">

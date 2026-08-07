@@ -10,6 +10,7 @@ import {
   addDealLine,
   updateLeadDetails,
   updateClientStatus,
+  deleteLead,
 } from "@/lib/actions";
 import {
   PageHeader,
@@ -36,6 +37,7 @@ import { ActivityComposer } from "@/components/activity-composer";
 import { RelatedRail } from "@/components/related-rail";
 import { ScoreBadge } from "@/components/score-badge";
 import { computeLeadScore } from "@/lib/scoring";
+import { getLeadSources } from "@/lib/business-settings";
 import {
   CLIENT_STATUS_LABELS,
   STATUS_LABELS,
@@ -44,6 +46,7 @@ import {
   canSeeMargins,
   formatDateTime,
   formatEuro,
+  isDirection,
   isFullAccess,
   productSlugForRole,
 } from "@/lib/utils";
@@ -110,6 +113,9 @@ export default async function LeadDetailPage({
     orderBy: { fullName: "asc" },
     take: 50,
   });
+
+  const leadSources = await getLeadSources();
+  const canManage = isDirection(session.user.role);
 
   const customData = (lead.customData ?? {}) as Record<string, unknown>;
   const roleSlug = productSlugForRole(session.user.role);
@@ -183,6 +189,10 @@ export default async function LeadDetailPage({
     "use server";
     await addDealLine(id, formData);
   }
+  async function removeLead() {
+    "use server";
+    await deleteLead(id);
+  }
 
   const hiddenIdentity = (
     <>
@@ -192,6 +202,26 @@ export default async function LeadDetailPage({
       <input type="hidden" name="phone" value={lead.phone ?? ""} />
       <input type="hidden" name="website" value={lead.website ?? ""} />
       <input type="hidden" name="source" value={lead.source ?? ""} />
+      <input type="hidden" name="productId" value={lead.productId} />
+      <input
+        type="hidden"
+        name="estimatedValue"
+        value={lead.estimatedValue ?? ""}
+      />
+      <input
+        type="hidden"
+        name="nextCallAt"
+        value={
+          lead.nextCallAt
+            ? new Date(
+                lead.nextCallAt.getTime() -
+                  lead.nextCallAt.getTimezoneOffset() * 60000
+              )
+                .toISOString()
+                .slice(0, 16)
+            : ""
+        }
+      />
       <input type="hidden" name="commercialId" value={lead.commercialId ?? ""} />
       <input type="hidden" name="apporteurId" value={lead.apporteurId ?? ""} />
     </>
@@ -203,11 +233,24 @@ export default async function LeadDetailPage({
         title={lead.companyName}
         subtitle={`${lead.product.name} · fiche Lead → Client`}
         actions={
-          lead.clientId ? (
-            <Link href={`/clients/${lead.clientId}`}>
-              <Button variant="secondary">Fiche client</Button>
-            </Link>
-          ) : null
+          <div className="flex flex-wrap gap-2">
+            {lead.clientId ? (
+              <Link href={`/clients/${lead.clientId}`}>
+                <Button variant="secondary">Fiche client</Button>
+              </Link>
+            ) : null}
+            {canManage ? (
+              <form action={removeLead}>
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  className="text-red-700"
+                >
+                  Supprimer le lead
+                </Button>
+              </form>
+            ) : null}
+          </div>
         }
       />
 
@@ -314,12 +357,38 @@ export default async function LeadDetailPage({
                 </div>
                 <div>
                   <Label>Source</Label>
-                  <Input
-                    name="source"
-                    defaultValue={lead.source ?? ""}
-                    disabled={readOnly}
-                  />
+                  {readOnly ? (
+                    <Input name="source" defaultValue={lead.source ?? ""} disabled />
+                  ) : (
+                    <Select name="source" defaultValue={lead.source ?? ""}>
+                      <option value="">—</option>
+                      {[
+                        ...new Set([
+                          ...leadSources,
+                          ...(lead.source ? [lead.source] : []),
+                        ]),
+                      ].map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
                 </div>
+                {canManage ? (
+                  <div>
+                    <Label>Produit principal</Label>
+                    <Select name="productId" defaultValue={lead.productId}>
+                      {catalogProducts.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name}
+                        </option>
+                      ))}
+                    </Select>
+                  </div>
+                ) : (
+                  <input type="hidden" name="productId" value={lead.productId} />
+                )}
                 {!hideMoney ? (
                   <div>
                     <Label>Valeur estimée (€)</Label>
@@ -471,7 +540,10 @@ export default async function LeadDetailPage({
             prestations:
               !hideMoney && canSeeBilling(session.user.role) ? (
                 <div className="space-y-4">
-                  <DealLinesList lines={dealLines} />
+                  <DealLinesList
+                    lines={dealLines}
+                    canEdit={canSeeBilling(session.user.role)}
+                  />
                   <AddDealLineForm
                     action={saveDeal}
                     offerings={catalogProducts.flatMap((p) =>

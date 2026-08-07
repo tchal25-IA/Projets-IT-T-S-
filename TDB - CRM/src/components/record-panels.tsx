@@ -1,10 +1,10 @@
 import { BillingActions } from "@/components/billing-actions";
-import { CommissionStatusForm } from "@/components/commission-status-form";
+import { EditableDealLines } from "@/components/editable-deal-lines";
+import { EditableCommissions } from "@/components/editable-commissions";
 import { Badge, Button, Input, Label, Select, Stat, Textarea } from "@/components/ui";
 import {
   BILLING_LABELS,
   CLIENT_STATUS_LABELS,
-  COMMISSION_STATUS_LABELS,
   formatDate,
   formatDateTime,
   formatEuro,
@@ -22,6 +22,7 @@ type DealLineRow = {
   amountHt: number;
   billingStatus: BillingStatus;
   isRecurring: boolean;
+  notes?: string | null;
 };
 
 type CommissionRow = {
@@ -43,29 +44,14 @@ type ActivityRow = {
   user: { fullName: string } | null;
 };
 
-export function DealLinesList({ lines }: { lines: DealLineRow[] }) {
-  if (lines.length === 0) {
-    return <p className="text-sm text-stone-500">Aucune prestation.</p>;
-  }
-  return (
-    <div className="space-y-2">
-      {lines.map((d) => (
-        <div
-          key={d.id}
-          className="flex items-center justify-between border-b border-stone-100 py-2 text-sm"
-        >
-          <div>
-            <p className="font-medium">{d.label}</p>
-            <p className="text-xs text-stone-500">
-              {BILLING_LABELS[d.billingStatus]}
-              {d.isRecurring ? " · récurrent" : ""}
-            </p>
-          </div>
-          <p>{formatEuro(d.amountHt)}</p>
-        </div>
-      ))}
-    </div>
-  );
+export function DealLinesList({
+  lines,
+  canEdit = false,
+}: {
+  lines: DealLineRow[];
+  canEdit?: boolean;
+}) {
+  return <EditableDealLines lines={lines} canEdit={canEdit} />;
 }
 
 export function BillingPanel({
@@ -119,42 +105,12 @@ export function CommissionsPanel({
   filterUserId?: string | null;
   canEdit: boolean;
 }) {
-  const rows = filterUserId
-    ? commissions.filter((c) => c.userId === filterUserId)
-    : commissions;
-
-  if (rows.length === 0) {
-    return (
-      <p className="text-sm text-stone-500">
-        Les commissions apparaissent après le close (conversion lead → client).
-      </p>
-    );
-  }
-
   return (
-    <div className="space-y-3">
-      {rows.map((c) => (
-        <div key={c.id} className="rounded-md border border-stone-200 p-3 text-sm">
-          <div className="flex justify-between gap-2">
-            <div>
-              <p className="font-medium">{c.user.fullName}</p>
-              <p className="text-xs text-stone-500">
-                {c.roleLabel} · {c.ratePercent}% · {c.label}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="font-semibold">{formatEuro(c.amountHt)}</p>
-              <Badge tone={c.status === "VERSEE" ? "success" : "warning"}>
-                {COMMISSION_STATUS_LABELS[c.status]}
-              </Badge>
-            </div>
-          </div>
-          {canEdit ? (
-            <CommissionStatusForm id={c.id} status={c.status} />
-          ) : null}
-        </div>
-      ))}
-    </div>
+    <EditableCommissions
+      commissions={commissions}
+      filterUserId={filterUserId}
+      canEdit={canEdit}
+    />
   );
 }
 

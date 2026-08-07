@@ -288,10 +288,27 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
     : null;
   const commercialId = isDirection(user.role)
     ? String(formData.get("commercialId") || "") || null
-    : lead.commercialId;
+    : user.role === "COMMERCIAL"
+      ? user.id
+      : lead.commercialId;
   const apporteurId = isDirection(user.role)
     ? String(formData.get("apporteurId") || "") || null
     : lead.apporteurId;
+
+  let productId = lead.productId;
+  const nextProductId = String(formData.get("productId") || "");
+  if (nextProductId && nextProductId !== lead.productId) {
+    if (!isDirection(user.role)) throw new Error("Produit non modifiable");
+    const scopedProductId = await getScopedProductId(user.role);
+    if (scopedProductId && nextProductId !== scopedProductId) {
+      throw new Error("Produit hors périmètre");
+    }
+    const product = await prisma.product.findFirst({
+      where: { id: nextProductId, active: true },
+    });
+    if (!product) throw new Error("Produit invalide");
+    productId = product.id;
+  }
 
   const changes = [
     diffScalar("companyName", lead.companyName, companyName),
@@ -303,7 +320,13 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
     diffScalar("estimatedValue", lead.estimatedValue, estimatedValue),
     diffScalar("commercialId", lead.commercialId, commercialId),
     diffScalar("apporteurId", lead.apporteurId, apporteurId),
+    diffScalar("productId", lead.productId, productId),
   ].filter(Boolean) as { field: string; oldValue: string | null; newValue: string | null }[];
+
+  const updatedProduct =
+    productId !== lead.productId
+      ? await prisma.product.findUnique({ where: { id: productId } })
+      : leadFull.product;
 
   await prisma.lead.update({
     where: { id: leadId },
@@ -318,6 +341,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
       nextCallAt,
       commercialId,
       apporteurId,
+      productId,
       customData: nextCustom,
     },
   });
@@ -325,7 +349,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
   await syncLeadInterests(
     leadId,
     nextCustom as Record<string, unknown>,
-    leadFull.product.slug
+    updatedProduct?.slug ?? leadFull.product.slug
   );
   await syncDealLinesFromQualification(
     leadId,
@@ -387,4 +411,22 @@ export async function addActivity(leadId: string, formData: FormData) {
   }
 
   revalidateCrm({ leadId });
+}
+
+export async function deleteLead(leadId: string) {
+  const user = await requireUser();
+  if (!isDirection(user.role)) throw new Error("Accès refusé");
+  await assertLeadAccess(user, leadId, { requireEdit: true });
+
+  await prisma.activity.deleteMany({ where: { leadId } });
+  await prisma.leadInterest.deleteMany({ where: { leadId } });
+  await prisma.dealLine.deleteMany({ where: { leadId } });
+  await prisma.commission.updateMany({
+    where: { leadId },
+    data: { leadId: null },
+  });
+  await prisma.task.deleteMany({ where: { leadId } });
+  await prisma.lead.delete({ where: { id: leadId } });
+  revalidateCrm({ leadId });
+  redirect("/leads");
 }

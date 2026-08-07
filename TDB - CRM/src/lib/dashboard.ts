@@ -10,6 +10,8 @@ export type DashboardMetrics = {
   winRate: number;
   pipelineValue: number;
   closedCa: number;
+  caMonth: number;
+  signaturesMonth: number;
   callsToday: number;
   rdvToday: number;
   overdueCalls: number;
@@ -35,6 +37,30 @@ export type DashboardMetrics = {
     nextCallAt: Date | null;
     status: string;
   }[];
+  timeline: {
+    id: string;
+    type: string;
+    note: string;
+    createdAt: Date;
+    companyName: string;
+    leadId: string;
+    userName: string | null;
+  }[];
+  pendingCommissions: {
+    id: string;
+    label: string;
+    amountHt: number;
+    status: string;
+    userName: string;
+    companyName: string;
+  }[];
+  openTasks: {
+    id: string;
+    title: string;
+    dueAt: Date | null;
+    companyName: string | null;
+    leadId: string | null;
+  }[];
 };
 
 export async function computeDashboardMetrics(
@@ -47,14 +73,18 @@ export async function computeDashboardMetrics(
 
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
+  const startMonth = new Date();
+  startMonth.setDate(1);
+  startMonth.setHours(0, 0, 0, 0);
 
   const [
     leads,
     clients,
-    dealLines,
     commissions,
     callsToday,
     rdvToday,
+    activities,
+    tasks,
   ] = await Promise.all([
     prisma.lead.findMany({
       where,
@@ -66,12 +96,6 @@ export async function computeDashboardMetrics(
       orderBy: { updatedAt: "desc" },
     }),
     prisma.client.findMany({ where: clientWhere }),
-    prisma.dealLine.findMany({
-      where:
-        Object.keys(where).length === 0 && Object.keys(clientWhere).length === 0
-          ? {}
-          : { OR: [{ lead: where }, { client: clientWhere }] },
-    }),
     prisma.commission.findMany({
       where:
         role === "APPORTEUR" || role === "COMMERCIAL"
@@ -79,6 +103,11 @@ export async function computeDashboardMetrics(
           : productId
             ? { lead: { productId } }
             : {},
+      include: {
+        user: true,
+        client: true,
+      },
+      orderBy: { createdAt: "desc" },
     }),
     prisma.activity.count({
       where: {
@@ -96,9 +125,41 @@ export async function computeDashboardMetrics(
         ...(role === "COMMERCIAL" ? { userId } : {}),
       },
     }),
+    prisma.activity.findMany({
+      where: {
+        lead: where,
+        ...(role === "COMMERCIAL" || role === "APPORTEUR" ? { userId } : {}),
+      },
+      include: {
+        lead: { select: { id: true, companyName: true } },
+        user: { select: { fullName: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 12,
+    }),
+    prisma.task.findMany({
+      where: {
+        doneAt: null,
+        OR: [
+          { userId },
+          ...(role === "ASSOCIE" || role === "ADMIN" || role.startsWith("DIRECTION")
+            ? [{ lead: where }]
+            : []),
+        ],
+      },
+      include: { lead: { select: { id: true, companyName: true } } },
+      orderBy: { dueAt: "asc" },
+      take: 8,
+    }),
   ]);
 
-  const openStatuses = ["NOUVEAU", "CONTACTE", "QUALIFIE", "RDV_PLANIFIE", "PROPOSITION"];
+  const openStatuses = [
+    "NOUVEAU",
+    "CONTACTE",
+    "QUALIFIE",
+    "RDV_PLANIFIE",
+    "PROPOSITION",
+  ];
   const leadsOpen = leads.filter((l) => openStatuses.includes(l.status)).length;
   const leadsClosed = leads.filter((l) => l.status === "CLOSE").length;
   const leadsLost = leads.filter((l) => l.status === "PERDU").length;
@@ -115,6 +176,18 @@ export async function computeDashboardMetrics(
       (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
       0
     );
+
+  const closedThisMonth = leads.filter(
+    (l) =>
+      l.status === "CLOSE" &&
+      l.closedAt &&
+      l.closedAt >= startMonth
+  );
+  const signaturesMonth = closedThisMonth.length;
+  const caMonth = closedThisMonth.reduce(
+    (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+    0
+  );
 
   const overdueCalls = leads.filter(
     (l) =>
@@ -141,6 +214,23 @@ export async function computeDashboardMetrics(
     value,
   }));
 
+  // Dédupliquer tâches (userId + lead scope peut doubler)
+  const seenTasks = new Set<string>();
+  const openTasks = tasks
+    .filter((t) => {
+      if (seenTasks.has(t.id)) return false;
+      seenTasks.add(t.id);
+      return true;
+    })
+    .slice(0, 8)
+    .map((t) => ({
+      id: t.id,
+      title: t.title,
+      dueAt: t.dueAt,
+      companyName: t.lead?.companyName ?? null,
+      leadId: t.lead?.id ?? null,
+    }));
+
   return {
     leadsTotal: leads.length,
     leadsOpen,
@@ -149,11 +239,14 @@ export async function computeDashboardMetrics(
     winRate,
     pipelineValue,
     closedCa,
+    caMonth,
+    signaturesMonth,
     callsToday,
     rdvToday,
     overdueCalls,
     clientsTotal: clients.length,
-    clientsEnLivraison: clients.filter((c) => c.status === "EN_LIVRAISON").length,
+    clientsEnLivraison: clients.filter((c) => c.status === "EN_LIVRAISON")
+      .length,
     clientsActifs: clients.filter((c) => c.status === "ACTIF").length,
     commissionsTotal: commissions.reduce((s, c) => s + c.amountHt, 0),
     commissionsAVerser: commissions
@@ -186,5 +279,26 @@ export async function computeDashboardMetrics(
         nextCallAt: l.nextCallAt,
         status: l.status,
       })),
+    timeline: activities.map((a) => ({
+      id: a.id,
+      type: a.type,
+      note: a.note,
+      createdAt: a.createdAt,
+      companyName: a.lead.companyName,
+      leadId: a.lead.id,
+      userName: a.user?.fullName ?? null,
+    })),
+    pendingCommissions: commissions
+      .filter((c) => c.status === "A_VERSER" || c.status === "CALCULEE")
+      .slice(0, 8)
+      .map((c) => ({
+        id: c.id,
+        label: c.label,
+        amountHt: c.amountHt,
+        status: c.status,
+        userName: c.user.fullName,
+        companyName: c.client.companyName,
+      })),
+    openTasks,
   };
 }

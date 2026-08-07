@@ -185,3 +185,122 @@ export async function startStripeCheckout(dealLineId: string) {
   revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
   redirect(result.url);
 }
+
+export async function updateDealLine(id: string, formData: FormData) {
+  const user = await requireUser();
+  const line = await assertDealLineAccess(user, id);
+
+  const label = String(formData.get("label") || "").trim().slice(0, 200);
+  const amountHt = Number(formData.get("amountHt") || 0);
+  if (!label || !Number.isFinite(amountHt) || amountHt < 0) {
+    throw new Error("Ligne invalide");
+  }
+  const billingStatus = String(
+    formData.get("billingStatus") || line.billingStatus
+  ) as BillingStatus;
+  if (!BILLING_STATUSES.includes(billingStatus)) {
+    throw new Error("Statut facturation invalide");
+  }
+
+  await prisma.dealLine.update({
+    where: { id },
+    data: {
+      label,
+      amountHt,
+      billingStatus,
+      isRecurring: formData.get("isRecurring") === "on",
+      notes: String(formData.get("notes") || "") || null,
+    },
+  });
+
+  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+}
+
+export async function deleteDealLine(id: string) {
+  const user = await requireUser();
+  const line = await assertDealLineAccess(user, id);
+  await prisma.dealLine.delete({ where: { id } });
+  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+}
+
+export async function updateCommission(id: string, formData: FormData) {
+  const user = await requireUser();
+  if (!isDirection(user.role)) throw new Error("Accès refusé");
+
+  const existing = await prisma.commission.findUnique({ where: { id } });
+  if (!existing) throw new Error("Commission introuvable");
+  await assertClientAccess(user, existing.clientId);
+
+  const ratePercent = Number(formData.get("ratePercent") || existing.ratePercent);
+  const amountHt = Number(formData.get("amountHt") || existing.amountHt);
+  const status = String(formData.get("status") || existing.status) as
+    | "CALCULEE"
+    | "A_VERSER"
+    | "VERSEE";
+  const label = String(formData.get("label") || existing.label).trim();
+
+  if (!Number.isFinite(ratePercent) || ratePercent < 0 || ratePercent > 100) {
+    throw new Error("Taux invalide");
+  }
+  if (!Number.isFinite(amountHt) || amountHt < 0) {
+    throw new Error("Montant invalide");
+  }
+  if (!["CALCULEE", "A_VERSER", "VERSEE"].includes(status)) {
+    throw new Error("Statut invalide");
+  }
+
+  await prisma.commission.update({
+    where: { id },
+    data: { ratePercent, amountHt, status, label: label || existing.label },
+  });
+  revalidateCrm({ clientId: existing.clientId, leadId: existing.leadId });
+}
+
+export async function deleteCommission(id: string) {
+  const user = await requireUser();
+  if (!isDirection(user.role)) throw new Error("Accès refusé");
+  const existing = await prisma.commission.findUnique({ where: { id } });
+  if (!existing) return;
+  await assertClientAccess(user, existing.clientId);
+  await prisma.commission.delete({ where: { id } });
+  revalidateCrm({ clientId: existing.clientId, leadId: existing.leadId });
+}
+
+export async function updateClientDetails(clientId: string, formData: FormData) {
+  const user = await requireUser();
+  if (!canSeeBilling(user.role) && user.role !== "APPORTEUR") {
+    // apporteur read-only typically
+  }
+  if (!canSeeBilling(user.role)) throw new Error("Accès refusé");
+  await assertClientAccess(user, clientId);
+
+  await prisma.client.update({
+    where: { id: clientId },
+    data: {
+      companyName: String(formData.get("companyName") || "").trim() || undefined,
+      contactName: String(formData.get("contactName") || "") || null,
+      email: String(formData.get("email") || "") || null,
+      phone: String(formData.get("phone") || "") || null,
+      notes: String(formData.get("notes") || "") || null,
+    },
+  });
+  revalidateCrm({ clientId });
+}
+
+export async function deleteClient(clientId: string) {
+  const user = await requireUser();
+  if (!isDirection(user.role)) throw new Error("Accès refusé");
+  await assertClientAccess(user, clientId);
+
+  // Détache les leads, purge dépendances
+  await prisma.commission.deleteMany({ where: { clientId } });
+  await prisma.dealLine.deleteMany({ where: { clientId } });
+  await prisma.task.deleteMany({ where: { clientId } });
+  await prisma.lead.updateMany({
+    where: { clientId },
+    data: { clientId: null },
+  });
+  await prisma.client.delete({ where: { id: clientId } });
+  revalidateCrm({ clientId });
+  redirect("/clients");
+}
