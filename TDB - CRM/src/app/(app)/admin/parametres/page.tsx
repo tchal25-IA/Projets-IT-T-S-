@@ -1,0 +1,373 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import { isFullAccess } from "@/lib/roles";
+import { parseFieldSchema } from "@/lib/fields";
+import { formatEuro } from "@/lib/utils";
+import {
+  upsertProduct,
+  addProductField,
+  removeProductField,
+  upsertOffering,
+  deleteOffering,
+  updateProductFieldSchema,
+} from "@/lib/actions";
+import { Button, Input, Label, Select, Card, Badge } from "@/components/ui";
+import Link from "next/link";
+
+const TABS = [
+  { id: "produits", label: "Produits / Services" },
+  { id: "prestations", label: "Prestations" },
+  { id: "champs", label: "Champs" },
+] as const;
+
+type TabId = (typeof TABS)[number]["id"];
+
+export default async function ParametresPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string; product?: string }>;
+}) {
+  const session = await auth();
+  if (!session?.user || !isFullAccess(session.user.role)) {
+    redirect("/dashboard");
+  }
+
+  const sp = await searchParams;
+  const tab = (TABS.some((t) => t.id === sp.tab) ? sp.tab : "produits") as TabId;
+
+  const products = await prisma.product.findMany({
+    include: {
+      offerings: { orderBy: [{ sortOrder: "asc" }, { name: "asc" }] },
+      _count: { select: { leads: true } },
+    },
+    orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+  });
+
+  const selectedId =
+    sp.product && products.some((p) => p.id === sp.product)
+      ? sp.product
+      : products[0]?.id;
+  const selected = products.find((p) => p.id === selectedId) ?? null;
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="font-display text-3xl text-stone-900">Paramètres</h1>
+        <p className="mt-1 text-sm text-stone-500">
+          Catalogue produits, prestations / formules, et champs de qualification
+          (Associé / Admin).
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-2">
+        {TABS.map((t) => (
+          <Link
+            key={t.id}
+            href={`/admin/parametres?tab=${t.id}${selectedId ? `&product=${selectedId}` : ""}`}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium ${
+              tab === t.id
+                ? "bg-teal-800 text-white"
+                : "bg-stone-100 text-stone-700 hover:bg-stone-200"
+            }`}
+          >
+            {t.label}
+          </Link>
+        ))}
+      </div>
+
+      {tab === "produits" ? (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card className="space-y-4 p-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+              Produits existants
+            </h2>
+            <ul className="divide-y divide-stone-100">
+              {products.map((p) => (
+                <li key={p.id} className="flex items-start justify-between gap-3 py-3">
+                  <div>
+                    <p className="font-medium text-stone-900">{p.name}</p>
+                    <p className="text-xs text-stone-500">
+                      slug: {p.slug} · {p._count.leads} lead(s) ·{" "}
+                      {p.offerings.length} prestation(s)
+                    </p>
+                    {p.description ? (
+                      <p className="mt-1 text-sm text-stone-600">{p.description}</p>
+                    ) : null}
+                  </div>
+                  <Badge tone={p.active ? "success" : "neutral"}>
+                    {p.active ? "Actif" : "Inactif"}
+                  </Badge>
+                </li>
+              ))}
+            </ul>
+          </Card>
+
+          <Card className="space-y-4 p-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+              Nouveau produit / service
+            </h2>
+            <form action={upsertProduct} className="space-y-3">
+              <div>
+                <Label htmlFor="name">Nom</Label>
+                <Input id="name" name="name" required placeholder="Ex. Audit SEO" />
+              </div>
+              <div>
+                <Label htmlFor="slug">Slug (optionnel)</Label>
+                <Input id="slug" name="slug" placeholder="auditseo" />
+              </div>
+              <div>
+                <Label htmlFor="description">Description</Label>
+                <Input id="description" name="description" />
+              </div>
+              <div>
+                <Label htmlFor="sortOrder">Ordre</Label>
+                <Input id="sortOrder" name="sortOrder" type="number" defaultValue={0} />
+              </div>
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" name="active" defaultChecked />
+                Actif
+              </label>
+              <Button type="submit">Créer</Button>
+            </form>
+
+            {selected ? (
+              <form action={upsertProduct} className="space-y-3 border-t border-stone-100 pt-4">
+                <h3 className="text-sm font-semibold text-stone-800">
+                  Modifier « {selected.name} »
+                </h3>
+                <input type="hidden" name="id" value={selected.id} />
+                <input type="hidden" name="slug" value={selected.slug} />
+                <div>
+                  <Label>Nom</Label>
+                  <Input name="name" defaultValue={selected.name} required />
+                </div>
+                <div>
+                  <Label>Description</Label>
+                  <Input name="description" defaultValue={selected.description ?? ""} />
+                </div>
+                <div>
+                  <Label>Ordre</Label>
+                  <Input
+                    name="sortOrder"
+                    type="number"
+                    defaultValue={selected.sortOrder}
+                  />
+                </div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" name="active" defaultChecked={selected.active} />
+                  Actif
+                </label>
+                <Button type="submit" variant="secondary">
+                  Enregistrer
+                </Button>
+              </form>
+            ) : null}
+          </Card>
+        </div>
+      ) : null}
+
+      {tab === "prestations" ? (
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {products.map((p) => (
+              <Link
+                key={p.id}
+                href={`/admin/parametres?tab=prestations&product=${p.id}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${
+                  selectedId === p.id
+                    ? "bg-stone-900 text-white"
+                    : "border border-stone-200 text-stone-700"
+                }`}
+              >
+                {p.name}
+              </Link>
+            ))}
+          </div>
+
+          {selected ? (
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Card className="space-y-3 p-4">
+                <h2 className="text-sm font-semibold text-stone-800">
+                  Prestations — {selected.name}
+                </h2>
+                <ul className="divide-y divide-stone-100">
+                  {selected.offerings.map((o) => (
+                    <li key={o.id} className="flex items-center justify-between gap-2 py-2">
+                      <div>
+                        <p className="font-medium text-stone-900">{o.name}</p>
+                        <p className="text-xs text-stone-500">
+                          {o.kind} · {o.billingPeriod}
+                          {o.amountHt != null ? ` · ${formatEuro(o.amountHt)}` : ""}
+                          {o.code ? ` · ${o.code}` : ""}
+                          {!o.active ? " · inactif" : ""}
+                        </p>
+                      </div>
+                      <form action={deleteOffering.bind(null, o.id)}>
+                        <Button type="submit" variant="ghost" className="text-red-700">
+                          Suppr.
+                        </Button>
+                      </form>
+                    </li>
+                  ))}
+                  {selected.offerings.length === 0 ? (
+                    <li className="py-4 text-sm text-stone-500">Aucune prestation</li>
+                  ) : null}
+                </ul>
+              </Card>
+
+              <Card className="space-y-3 p-4">
+                <h2 className="text-sm font-semibold text-stone-800">Ajouter</h2>
+                <form action={upsertOffering} className="space-y-3">
+                  <input type="hidden" name="productId" value={selected.id} />
+                  <div>
+                    <Label>Nom</Label>
+                    <Input name="name" required placeholder="Bookflow Pro" />
+                  </div>
+                  <div>
+                    <Label>Code</Label>
+                    <Input name="code" placeholder="BF-PRO" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Type</Label>
+                      <Select name="kind" defaultValue="SUBSCRIPTION">
+                        <option value="ONE_SHOT">One-shot</option>
+                        <option value="SUBSCRIPTION">Abonnement</option>
+                        <option value="MAINTENANCE">Maintenance</option>
+                        <option value="OTHER">Autre</option>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label>Période</Label>
+                      <Select name="billingPeriod" defaultValue="MONTHLY">
+                        <option value="NONE">Aucune</option>
+                        <option value="MONTHLY">Mensuel</option>
+                        <option value="YEARLY">Annuel</option>
+                      </Select>
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Montant HT (€)</Label>
+                    <Input name="amountHt" type="number" step="0.01" />
+                  </div>
+                  <Button type="submit">Ajouter la prestation</Button>
+                </form>
+              </Card>
+            </div>
+          ) : (
+            <p className="text-sm text-stone-500">Créez d&apos;abord un produit.</p>
+          )}
+        </div>
+      ) : null}
+
+      {tab === "champs" ? (
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {products.map((p) => (
+              <Link
+                key={p.id}
+                href={`/admin/parametres?tab=champs&product=${p.id}`}
+                className={`rounded-md px-3 py-1.5 text-sm ${
+                  selectedId === p.id
+                    ? "bg-stone-900 text-white"
+                    : "border border-stone-200 text-stone-700"
+                }`}
+              >
+                {p.name}
+              </Link>
+            ))}
+          </div>
+
+          {selected ? (
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Card className="space-y-3 p-4">
+                <h2 className="text-sm font-semibold text-stone-800">
+                  Champs — {selected.name}
+                </h2>
+                <ul className="divide-y divide-stone-100 text-sm">
+                  {parseFieldSchema(selected.fieldSchema).map((f) => (
+                    <li key={f.key} className="flex items-center justify-between py-2">
+                      <div>
+                        <p className="font-medium">{f.label}</p>
+                        <p className="text-xs text-stone-500">
+                          {f.key} · {f.type}
+                          {f.optionsFrom === "offerings"
+                            ? " · options = prestations"
+                            : f.options?.length
+                              ? ` · ${f.options.length} options`
+                              : ""}
+                        </p>
+                      </div>
+                      <form action={removeProductField.bind(null, selected.id, f.key)}>
+                        <Button type="submit" variant="ghost" className="text-red-700">
+                          Retirer
+                        </Button>
+                      </form>
+                    </li>
+                  ))}
+                </ul>
+                <form action={updateProductFieldSchema} className="space-y-2 border-t pt-3">
+                  <input type="hidden" name="productId" value={selected.id} />
+                  <Label>Édition JSON avancée</Label>
+                  <textarea
+                    name="fieldSchemaJson"
+                    rows={10}
+                    defaultValue={JSON.stringify(
+                      parseFieldSchema(selected.fieldSchema),
+                      null,
+                      2
+                    )}
+                    className="w-full rounded-md border border-stone-300 px-3 py-2 font-mono text-xs"
+                  />
+                  <Button type="submit" variant="secondary">
+                    Sauver le JSON
+                  </Button>
+                </form>
+              </Card>
+
+              <Card className="space-y-3 p-4">
+                <h2 className="text-sm font-semibold text-stone-800">Ajouter un champ</h2>
+                <form action={addProductField} className="space-y-3">
+                  <input type="hidden" name="productId" value={selected.id} />
+                  <div>
+                    <Label>Clé technique</Label>
+                    <Input name="key" required placeholder="budget" />
+                  </div>
+                  <div>
+                    <Label>Libellé</Label>
+                    <Input name="label" required placeholder="Budget indicatif" />
+                  </div>
+                  <div>
+                    <Label>Type</Label>
+                    <Select name="type" defaultValue="text">
+                      <option value="text">Texte</option>
+                      <option value="textarea">Long texte</option>
+                      <option value="number">Nombre</option>
+                      <option value="date">Date</option>
+                      <option value="boolean">Case à cocher</option>
+                      <option value="select">Liste</option>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Options (séparées par |)</Label>
+                    <Input name="options" placeholder="A|B|C" />
+                  </div>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input type="checkbox" name="optionsFrom" value="offerings" />
+                    Options = prestations du produit
+                  </label>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input type="checkbox" name="required" />
+                    Obligatoire
+                  </label>
+                  <Button type="submit">Ajouter</Button>
+                </form>
+              </Card>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}

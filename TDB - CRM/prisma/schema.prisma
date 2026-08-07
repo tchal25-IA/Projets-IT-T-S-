@@ -1,0 +1,341 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ASSOCIE
+  DIRECTION_VF
+  DIRECTION_BOOKFLOW
+  COMMERCIAL
+  APPORTEUR
+  ADMIN
+}
+
+enum LeadStatus {
+  NOUVEAU
+  CONTACTE
+  QUALIFIE
+  RDV_PLANIFIE
+  PROPOSITION
+  CLOSE
+  PERDU
+}
+
+enum ClientStatus {
+  EN_LIVRAISON
+  ACTIF
+  MAINTENANCE
+}
+
+enum BillingStatus {
+  DEVIS
+  A_FACTURER
+  FACTURE
+  PAYE
+}
+
+enum ActivityType {
+  APPEL
+  EMAIL
+  NOTE
+  RDV
+  STATUT
+  IMPORT
+  SYSTEM
+}
+
+enum CommissionStatus {
+  CALCULEE
+  A_VERSER
+  VERSEE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum SavedViewEntity {
+  LEAD
+}
+
+enum OfferingKind {
+  ONE_SHOT
+  SUBSCRIPTION
+  MAINTENANCE
+  OTHER
+}
+
+enum BillingPeriod {
+  NONE
+  MONTHLY
+  YEARLY
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  fullName     String
+  role         Role
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  leadsApportes    Lead[]         @relation("Apporteur")
+  leadsCommerciaux Lead[]         @relation("Commercial")
+  activities       Activity[]
+  notifications    Notification[]
+  commissions      Commission[]
+  tasks            Task[]
+  savedViews       SavedView[]
+  fieldHistories   FieldHistory[]
+  quotas           Quota[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  fieldSchema Json
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  leads     Lead[]
+  offerings ProductOffering[]
+}
+
+model ProductOffering {
+  id            String        @id @default(cuid())
+  productId     String
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name          String
+  code          String?
+  kind          OfferingKind  @default(OTHER)
+  amountHt      Float?
+  billingPeriod BillingPeriod @default(NONE)
+  active        Boolean       @default(true)
+  sortOrder     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([productId, active])
+}
+
+model Client {
+  id            String       @id @default(cuid())
+  companyName   String
+  contactName   String?
+  email         String?
+  phone         String?
+  status        ClientStatus @default(EN_LIVRAISON)
+  notes         String?
+  qualification Json         @default("{}")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  leads       Lead[]
+  dealLines   DealLine[]
+  commissions Commission[]
+  tasks       Task[]
+}
+
+model Lead {
+  id             String     @id @default(cuid())
+  companyName    String
+  contactName    String?
+  email          String?
+  phone          String?
+  website        String?
+  status         LeadStatus @default(NOUVEAU)
+  source         String?
+  customData     Json       @default("{}")
+  estimatedValue Float?
+  nextCallAt     DateTime?
+  closedAt       DateTime?
+  importedAt     DateTime?
+  lastImportedAt DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  apporteurId  String?
+  apporteur    User?    @relation("Apporteur", fields: [apporteurId], references: [id])
+  commercialId String?
+  commercial   User?    @relation("Commercial", fields: [commercialId], references: [id])
+  clientId     String?
+  client       Client?  @relation(fields: [clientId], references: [id])
+
+  activities  Activity[]
+  dealLines   DealLine[]
+  commissions Commission[]
+  tasks       Task[]
+  interests   LeadInterest[]
+
+  @@index([status])
+  @@index([productId])
+  @@index([commercialId])
+  @@index([apporteurId])
+  @@index([nextCallAt])
+  @@index([email])
+  @@index([website])
+}
+
+model LeadInterest {
+  id          String   @id @default(cuid())
+  productSlug String
+  createdAt   DateTime @default(now())
+
+  leadId String
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@unique([leadId, productSlug])
+  @@index([productSlug])
+}
+
+model DealLine {
+  id              String        @id @default(cuid())
+  label           String
+  amountHt        Float
+  billingStatus   BillingStatus @default(DEVIS)
+  isRecurring     Boolean       @default(false)
+  notes           String?
+  invoiceNumber   String?
+  stripeSessionId String?
+  paidAt          DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  leadId   String?
+  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id])
+
+  @@index([billingStatus])
+  @@index([stripeSessionId])
+}
+
+model Commission {
+  id          String           @id @default(cuid())
+  label       String
+  roleLabel   String
+  ratePercent Float
+  amountHt    Float
+  status      CommissionStatus @default(CALCULEE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  leadId   String?
+  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  clientId String
+  client   Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([userId])
+}
+
+model Activity {
+  id        String       @id @default(cuid())
+  type      ActivityType
+  note      String
+  createdAt DateTime     @default(now())
+
+  leadId String
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  userId String?
+  user   User?  @relation(fields: [userId], references: [id])
+
+  @@index([leadId])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}
+
+model Task {
+  id        String       @id @default(cuid())
+  title     String
+  dueAt     DateTime?
+  doneAt    DateTime?
+  priority  TaskPriority @default(MEDIUM)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  userId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  leadId   String?
+  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  @@index([userId, doneAt])
+  @@index([dueAt])
+}
+
+model SavedView {
+  id        String          @id @default(cuid())
+  name      String
+  entity    SavedViewEntity @default(LEAD)
+  filters   Json            @default("{}")
+  isShared  Boolean         @default(false)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, entity])
+}
+
+model FieldHistory {
+  id        String   @id @default(cuid())
+  entity    String
+  entityId  String
+  field     String
+  oldValue  String?
+  newValue  String?
+  createdAt DateTime @default(now())
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([entity, entityId, createdAt])
+}
+
+model Quota {
+  id           String @id @default(cuid())
+  yearMonth    String
+  targetCloses Int    @default(0)
+  targetCa     Float  @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, yearMonth])
+  @@index([yearMonth])
+}
