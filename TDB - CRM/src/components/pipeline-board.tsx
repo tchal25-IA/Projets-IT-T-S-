@@ -19,11 +19,18 @@ type KanbanLead = {
   commercial: { fullName: string } | null;
 };
 
-export function PipelineBoard({ leads }: { leads: KanbanLead[] }) {
+export function PipelineBoard({
+  leads,
+  labels,
+}: {
+  leads: KanbanLead[];
+  labels?: Partial<Record<LeadStatus, string>>;
+}) {
   const router = useRouter();
   const [pending, start] = useTransition();
   const [dragging, setDragging] = useState<string | null>(null);
   const [localLeads, setLocalLeads] = useState(leads);
+  const labelMap = { ...STATUS_LABELS, ...labels };
 
   useEffect(() => {
     setLocalLeads(leads);
@@ -64,7 +71,7 @@ export function PipelineBoard({ leads }: { leads: KanbanLead[] }) {
           onDrop={() => onDrop(status)}
         >
           <div className="flex items-center justify-between border-b border-stone-200 px-3 py-2">
-            <p className="text-sm font-medium text-stone-800">{STATUS_LABELS[status]}</p>
+            <p className="text-sm font-medium text-stone-800">{labelMap[status]}</p>
             <Badge>{columns[status]?.length ?? 0}</Badge>
           </div>
           <div className={`min-h-40 space-y-2 p-2 ${pending ? "opacity-70" : ""}`}>

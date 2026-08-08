@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { isFullAccess } from "@/lib/roles";
 import { parseFieldSchema } from "@/lib/fields";
-import { formatEuro } from "@/lib/utils";
+import { formatEuro, PIPELINE_STATUSES } from "@/lib/utils";
 import {
   upsertProduct,
   deleteProduct,
@@ -16,20 +16,27 @@ import {
   upsertCommissionRule,
   saveCompanySettings,
   saveLeadSources,
+  saveCrmLabels,
 } from "@/lib/actions";
 import { Button, Input, Label, Select, Card, Badge, Textarea } from "@/components/ui";
+import { SettingsForm } from "@/components/settings-form";
 import Link from "next/link";
 import { ensureDefaultCommissionRules } from "@/lib/catalog";
 import {
   ensureDefaultBusinessSettings,
+  getBillingStatusLabels,
+  getClientStatusLabels,
   getCompanySettings,
   getLeadSources,
+  getLeadStatusLabels,
 } from "@/lib/business-settings";
+import type { BillingStatus, ClientStatus } from "@/generated/prisma/client";
 
 const TABS = [
   { id: "entreprise", label: "Entreprise" },
   { id: "sources", label: "Sources leads" },
-  { id: "produits", label: "Produits / Services" },
+  { id: "libellés", label: "Libellés" },
+  { id: "produits", label: "Produits" },
   { id: "prestations", label: "Prestations" },
   { id: "champs", label: "Champs" },
   { id: "commissions", label: "Commissions" },
@@ -49,7 +56,7 @@ const FIELD_TYPES = [
 export default async function ParametresPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string; product?: string; saved?: string }>;
+  searchParams: Promise<{ tab?: string; product?: string }>;
 }) {
   const session = await auth();
   if (!session?.user || !isFullAccess(session.user.role)) {
@@ -64,7 +71,15 @@ export default async function ParametresPage({
     ensureDefaultBusinessSettings(),
   ]);
 
-  const [products, commissionRules, company, leadSources] = await Promise.all([
+  const [
+    products,
+    commissionRules,
+    company,
+    leadSources,
+    leadLabels,
+    clientLabels,
+    billingLabels,
+  ] = await Promise.all([
     prisma.product.findMany({
       include: {
         offerings: { orderBy: [{ sortOrder: "asc" }, { name: "asc" }] },
@@ -75,6 +90,9 @@ export default async function ParametresPage({
     prisma.commissionRule.findMany({ orderBy: { sortOrder: "asc" } }),
     getCompanySettings(),
     getLeadSources(),
+    getLeadStatusLabels(),
+    getClientStatusLabels(),
+    getBillingStatusLabels(),
   ]);
 
   const selectedId =
@@ -82,28 +100,24 @@ export default async function ParametresPage({
       ? sp.product
       : products[0]?.id;
   const selected = products.find((p) => p.id === selectedId) ?? null;
+  const tabHref = (id: string) =>
+    `/admin/parametres?tab=${id}${selectedId ? `&product=${selectedId}` : ""}`;
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-3xl text-stone-900">Paramètres</h1>
         <p className="mt-1 text-sm text-stone-500">
-          Tout est modifiable : entreprise, sources, produits, prestations,
-          champs de qualification et taux de commission.
+          Configuration complète du CRM. Chaque carte a un bouton Enregistrer
+          avec confirmation visible.
         </p>
       </div>
-
-      {sp.saved ? (
-        <div className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
-          Modifications enregistrées.
-        </div>
-      ) : null}
 
       <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-2">
         {TABS.map((t) => (
           <Link
             key={t.id}
-            href={`/admin/parametres?tab=${t.id}${selectedId ? `&product=${selectedId}` : ""}`}
+            href={tabHref(t.id)}
             className={`rounded-md px-3 py-1.5 text-sm font-medium ${
               tab === t.id
                 ? "bg-teal-800 text-white"
@@ -118,12 +132,14 @@ export default async function ParametresPage({
       {tab === "entreprise" ? (
         <Card className="max-w-2xl space-y-4 p-4">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
-            Identité de l&apos;entreprise
+            Identité entreprise
           </h2>
-          <form
-            key={`company-${company.name}-${company.siret}`}
+          <SettingsForm
+            key={`company-${JSON.stringify(company)}`}
             action={saveCompanySettings}
             className="grid gap-3 sm:grid-cols-2"
+            submitLabel="Enregistrer l’entreprise"
+            submitVariant="primary"
           >
             <div className="sm:col-span-2">
               <Label>Nom commercial</Label>
@@ -161,10 +177,7 @@ export default async function ParametresPage({
               <Label>N° TVA</Label>
               <Input name="vatNumber" defaultValue={company.vatNumber} />
             </div>
-            <div className="sm:col-span-2">
-              <Button type="submit">Enregistrer</Button>
-            </div>
-          </form>
+          </SettingsForm>
         </Card>
       ) : null}
 
@@ -173,22 +186,90 @@ export default async function ParametresPage({
           <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
             Sources de leads
           </h2>
-          <p className="text-xs text-stone-500">
-            Une source par ligne. Utilisées à la création et à l&apos;édition
-            d&apos;un lead.
-          </p>
-          <form
+          <p className="text-xs text-stone-500">Une source par ligne.</p>
+          <SettingsForm
             key={`sources-${leadSources.join("|")}`}
             action={saveLeadSources}
             className="space-y-3"
+            submitLabel="Enregistrer les sources"
+            submitVariant="primary"
           >
             <Textarea
               name="sources"
-              rows={10}
+              rows={12}
               defaultValue={leadSources.join("\n")}
             />
-            <Button type="submit">Enregistrer les sources</Button>
-          </form>
+          </SettingsForm>
+        </Card>
+      ) : null}
+
+      {tab === "libellés" ? (
+        <Card className="space-y-4 p-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+            Libellés affichés dans le CRM
+          </h2>
+          <p className="text-xs text-stone-500">
+            Modifiez les noms des statuts pipeline, client et facturation.
+          </p>
+          <SettingsForm
+            key={`labels-${JSON.stringify(leadLabels)}-${JSON.stringify(clientLabels)}-${JSON.stringify(billingLabels)}`}
+            action={saveCrmLabels}
+            className="space-y-8"
+            submitLabel="Enregistrer tous les libellés"
+            submitVariant="primary"
+          >
+            <section className="space-y-3">
+              <h3 className="text-sm font-semibold text-stone-800">
+                Statuts pipeline (leads)
+              </h3>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {PIPELINE_STATUSES.map((key) => (
+                  <div key={key}>
+                    <Label>{key}</Label>
+                    <Input
+                      name={`lead.${key}`}
+                      defaultValue={leadLabels[key]}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="space-y-3">
+              <h3 className="text-sm font-semibold text-stone-800">
+                Statuts client
+              </h3>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(Object.keys(clientLabels) as ClientStatus[]).map((key) => (
+                  <div key={key}>
+                    <Label>{key}</Label>
+                    <Input
+                      name={`client.${key}`}
+                      defaultValue={clientLabels[key]}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="space-y-3">
+              <h3 className="text-sm font-semibold text-stone-800">
+                Statuts facturation
+              </h3>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(Object.keys(billingLabels) as BillingStatus[]).map((key) => (
+                  <div key={key}>
+                    <Label>{key}</Label>
+                    <Input
+                      name={`billing.${key}`}
+                      defaultValue={billingLabels[key]}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          </SettingsForm>
         </Card>
       ) : null}
 
@@ -199,16 +280,17 @@ export default async function ParametresPage({
               <Card key={p.id} className="space-y-3 p-4">
                 <div className="flex items-center justify-between gap-2">
                   <h2 className="text-sm font-semibold text-stone-800">
-                    Modifier le produit
+                    {p.name}
                   </h2>
                   <Badge tone={p.active ? "success" : "neutral"}>
-                    {p._count.leads} lead(s) · {p.offerings.length} prestation(s)
+                    {p._count.leads} lead(s)
                   </Badge>
                 </div>
-                <form
+                <SettingsForm
                   key={`product-${p.id}-${p.updatedAt.toISOString()}`}
                   action={upsertProduct}
                   className="space-y-3"
+                  submitLabel="Enregistrer le produit"
                 >
                   <input type="hidden" name="id" value={p.id} />
                   <div>
@@ -221,10 +303,13 @@ export default async function ParametresPage({
                   </div>
                   <div>
                     <Label>Description</Label>
-                    <Input name="description" defaultValue={p.description ?? ""} />
+                    <Input
+                      name="description"
+                      defaultValue={p.description ?? ""}
+                    />
                   </div>
                   <div>
-                    <Label>Ordre d&apos;affichage</Label>
+                    <Label>Ordre</Label>
                     <Input
                       name="sortOrder"
                       type="number"
@@ -239,26 +324,30 @@ export default async function ParametresPage({
                     />
                     Actif
                   </label>
-                  <div className="flex flex-wrap gap-2">
-                    <Button type="submit" variant="secondary">
-                      Enregistrer
-                    </Button>
-                  </div>
-                </form>
-                <form action={deleteProduct.bind(null, p.id)}>
-                  <Button type="submit" variant="ghost" className="text-red-700">
-                    Supprimer le produit
-                  </Button>
-                </form>
+                </SettingsForm>
+                <SettingsForm
+                  action={async () => {
+                    "use server";
+                    await deleteProduct(p.id);
+                  }}
+                  submitLabel="Supprimer"
+                  submitVariant="ghost"
+                  className="space-y-1"
+                />
               </Card>
             ))}
           </div>
 
           <Card className="max-w-lg space-y-3 p-4">
             <h2 className="text-sm font-semibold text-stone-800">
-              Nouveau produit / service
+              Nouveau produit
             </h2>
-            <form action={upsertProduct} className="space-y-3">
+            <SettingsForm
+              action={upsertProduct}
+              className="space-y-3"
+              submitLabel="Créer"
+              submitVariant="primary"
+            >
               <div>
                 <Label>Nom</Label>
                 <Input name="name" required placeholder="Ex. Audit SEO" />
@@ -279,8 +368,7 @@ export default async function ParametresPage({
                 <input type="checkbox" name="active" defaultChecked />
                 Actif
               </label>
-              <Button type="submit">Créer le produit</Button>
-            </form>
+            </SettingsForm>
           </Card>
         </div>
       ) : null}
@@ -311,10 +399,11 @@ export default async function ParametresPage({
               <div className="grid gap-4 lg:grid-cols-2">
                 {selected.offerings.map((o) => (
                   <Card key={o.id} className="space-y-3 p-4">
-                    <form
+                    <SettingsForm
                       key={`offering-${o.id}-${o.updatedAt.toISOString()}`}
                       action={upsertOffering}
                       className="space-y-3"
+                      submitLabel="Enregistrer la prestation"
                     >
                       <input type="hidden" name="id" value={o.id} />
                       <input type="hidden" name="productId" value={selected.id} />
@@ -380,19 +469,15 @@ export default async function ParametresPage({
                           </span>
                         ) : null}
                       </label>
-                      <Button type="submit" variant="secondary">
-                        Enregistrer
-                      </Button>
-                    </form>
-                    <form action={deleteOffering.bind(null, o.id)}>
-                      <Button
-                        type="submit"
-                        variant="ghost"
-                        className="text-red-700"
-                      >
-                        Supprimer
-                      </Button>
-                    </form>
+                    </SettingsForm>
+                    <SettingsForm
+                      action={async () => {
+                        "use server";
+                        await deleteOffering(o.id);
+                      }}
+                      submitLabel="Supprimer"
+                      submitVariant="ghost"
+                    />
                   </Card>
                 ))}
               </div>
@@ -405,7 +490,12 @@ export default async function ParametresPage({
                 <h3 className="text-sm font-semibold text-stone-800">
                   Ajouter une prestation
                 </h3>
-                <form action={upsertOffering} className="space-y-3">
+                <SettingsForm
+                  action={upsertOffering}
+                  className="space-y-3"
+                  submitLabel="Ajouter"
+                  submitVariant="primary"
+                >
                   <input type="hidden" name="productId" value={selected.id} />
                   <div>
                     <Label>Nom</Label>
@@ -446,8 +536,7 @@ export default async function ParametresPage({
                     <input type="checkbox" name="active" defaultChecked />
                     Actif
                   </label>
-                  <Button type="submit">Ajouter</Button>
-                </form>
+                </SettingsForm>
               </Card>
             </div>
           ) : (
@@ -477,15 +566,16 @@ export default async function ParametresPage({
           {selected ? (
             <div className="space-y-4">
               <h2 className="text-sm font-semibold text-stone-800">
-                Champs de qualification — {selected.name}
+                Champs — {selected.name}
               </h2>
               <div className="grid gap-4 lg:grid-cols-2">
                 {parseFieldSchema(selected.fieldSchema).map((f) => (
                   <Card key={f.key} className="space-y-3 p-4">
-                    <form
-                      key={`field-${selected.id}-${f.key}-${f.label}`}
+                    <SettingsForm
+                      key={`field-${selected.id}-${f.key}-${f.label}-${f.type}`}
                       action={updateProductField}
                       className="space-y-3"
+                      submitLabel="Enregistrer le champ"
                     >
                       <input type="hidden" name="productId" value={selected.id} />
                       <input type="hidden" name="originalKey" value={f.key} />
@@ -508,11 +598,10 @@ export default async function ParametresPage({
                         </Select>
                       </div>
                       <div>
-                        <Label>Options (séparées par |)</Label>
+                        <Label>Options (A|B|C)</Label>
                         <Input
                           name="options"
                           defaultValue={(f.options ?? []).join("|")}
-                          placeholder="A|B|C"
                         />
                       </div>
                       <label className="flex items-center gap-2 text-sm">
@@ -522,7 +611,7 @@ export default async function ParametresPage({
                           value="offerings"
                           defaultChecked={f.optionsFrom === "offerings"}
                         />
-                        Options = prestations du produit
+                        Options = prestations catalogue
                       </label>
                       <label className="flex items-center gap-2 text-sm">
                         <input
@@ -532,21 +621,15 @@ export default async function ParametresPage({
                         />
                         Obligatoire
                       </label>
-                      <Button type="submit" variant="secondary">
-                        Enregistrer le champ
-                      </Button>
-                    </form>
-                    <form
-                      action={removeProductField.bind(null, selected.id, f.key)}
-                    >
-                      <Button
-                        type="submit"
-                        variant="ghost"
-                        className="text-red-700"
-                      >
-                        Supprimer
-                      </Button>
-                    </form>
+                    </SettingsForm>
+                    <SettingsForm
+                      action={async () => {
+                        "use server";
+                        await removeProductField(selected.id, f.key);
+                      }}
+                      submitLabel="Supprimer"
+                      submitVariant="ghost"
+                    />
                   </Card>
                 ))}
               </div>
@@ -556,7 +639,12 @@ export default async function ParametresPage({
                   <h3 className="text-sm font-semibold text-stone-800">
                     Ajouter un champ
                   </h3>
-                  <form action={addProductField} className="space-y-3">
+                  <SettingsForm
+                    action={addProductField}
+                    className="space-y-3"
+                    submitLabel="Ajouter"
+                    submitVariant="primary"
+                  >
                     <input type="hidden" name="productId" value={selected.id} />
                     <div>
                       <Label>Clé technique</Label>
@@ -564,11 +652,7 @@ export default async function ParametresPage({
                     </div>
                     <div>
                       <Label>Libellé</Label>
-                      <Input
-                        name="label"
-                        required
-                        placeholder="Budget indicatif"
-                      />
+                      <Input name="label" required placeholder="Budget" />
                     </div>
                     <div>
                       <Label>Type</Label>
@@ -581,8 +665,8 @@ export default async function ParametresPage({
                       </Select>
                     </div>
                     <div>
-                      <Label>Options (séparées par |)</Label>
-                      <Input name="options" placeholder="A|B|C" />
+                      <Label>Options (A|B|C)</Label>
+                      <Input name="options" />
                     </div>
                     <label className="flex items-center gap-2 text-sm">
                       <input
@@ -590,23 +674,23 @@ export default async function ParametresPage({
                         name="optionsFrom"
                         value="offerings"
                       />
-                      Options = prestations du produit
+                      Options = prestations
                     </label>
                     <label className="flex items-center gap-2 text-sm">
                       <input type="checkbox" name="required" />
                       Obligatoire
                     </label>
-                    <Button type="submit">Ajouter</Button>
-                  </form>
+                  </SettingsForm>
                 </Card>
 
                 <Card className="space-y-3 p-4">
                   <h3 className="text-sm font-semibold text-stone-800">
-                    Édition JSON avancée
+                    JSON avancé
                   </h3>
-                  <form
+                  <SettingsForm
                     action={updateProductFieldSchema}
                     className="space-y-2"
+                    submitLabel="Sauver le JSON"
                   >
                     <input type="hidden" name="productId" value={selected.id} />
                     <Textarea
@@ -619,10 +703,7 @@ export default async function ParametresPage({
                         2
                       )}
                     />
-                    <Button type="submit" variant="secondary">
-                      Sauver le JSON
-                    </Button>
-                  </form>
+                  </SettingsForm>
                 </Card>
               </div>
             </div>
@@ -633,8 +714,8 @@ export default async function ParametresPage({
       {tab === "commissions" ? (
         <div className="space-y-4">
           <p className="text-sm text-stone-500">
-            Taux appliqués automatiquement au close sur le CA des prestations.
-            Modifiez libellé, taux, ordre et statut actif.
+            Taux appliqués au close. Modifiez puis Enregistrer — un message
+            « Enregistré ✓ » confirme la prise en compte.
           </p>
           <div className="grid gap-4 lg:grid-cols-2">
             {(["APPORTEUR", "COMMERCIAL"] as const).map((roleKey) => {
@@ -643,7 +724,7 @@ export default async function ParametresPage({
                 <Card key={roleKey} className="space-y-3 p-4">
                   <div className="flex items-center justify-between">
                     <h2 className="text-sm font-semibold text-stone-800">
-                      {roleKey}
+                      Commission {roleKey}
                     </h2>
                     {current ? (
                       <Badge tone={current.active ? "success" : "neutral"}>
@@ -651,10 +732,12 @@ export default async function ParametresPage({
                       </Badge>
                     ) : null}
                   </div>
-                  <form
-                    key={`comm-${roleKey}-${current?.updatedAt?.toISOString() ?? "new"}-${current?.ratePercent ?? 0}`}
+                  <SettingsForm
+                    key={`comm-${roleKey}-${current?.updatedAt?.toISOString() ?? "x"}-${current?.ratePercent}`}
                     action={upsertCommissionRule}
                     className="space-y-3"
+                    submitLabel={`Enregistrer ${roleKey}`}
+                    submitVariant="primary"
                   >
                     <input type="hidden" name="roleKey" value={roleKey} />
                     <div>
@@ -671,7 +754,7 @@ export default async function ParametresPage({
                       />
                     </div>
                     <div>
-                      <Label>Taux de commission (%)</Label>
+                      <Label>Taux (%)</Label>
                       <Input
                         name="ratePercent"
                         type="number"
@@ -691,8 +774,7 @@ export default async function ParametresPage({
                         name="sortOrder"
                         type="number"
                         defaultValue={
-                          current?.sortOrder ??
-                          (roleKey === "APPORTEUR" ? 0 : 1)
+                          current?.sortOrder ?? (roleKey === "APPORTEUR" ? 0 : 1)
                         }
                       />
                     </div>
@@ -702,10 +784,9 @@ export default async function ParametresPage({
                         name="active"
                         defaultChecked={current?.active ?? true}
                       />
-                      Actif (utilisé au close)
+                      Actif au close
                     </label>
-                    <Button type="submit">Enregistrer {roleKey}</Button>
-                  </form>
+                  </SettingsForm>
                 </Card>
               );
             })}

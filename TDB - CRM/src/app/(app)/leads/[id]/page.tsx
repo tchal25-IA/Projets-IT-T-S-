@@ -38,6 +38,7 @@ import { RelatedRail } from "@/components/related-rail";
 import { ScoreBadge } from "@/components/score-badge";
 import { computeLeadScore } from "@/lib/scoring";
 import { getLeadSources } from "@/lib/business-settings";
+import { getLeadStatusLabels } from "@/lib/business-settings";
 import {
   CLIENT_STATUS_LABELS,
   STATUS_LABELS,
@@ -115,6 +116,7 @@ export default async function LeadDetailPage({
   });
 
   const leadSources = await getLeadSources();
+  const statusLabels = await getLeadStatusLabels();
   const canManage = isDirection(session.user.role);
 
   const customData = (lead.customData ?? {}) as Record<string, unknown>;
@@ -260,6 +262,7 @@ export default async function LeadDetailPage({
             leadId={lead.id}
             value={lead.status}
             disabled={readOnly}
+            labels={statusLabels}
           />
         </div>
         <ScoreBadge score={score} />

@@ -11,15 +11,18 @@ export function StatusSelect({
   leadId,
   value,
   disabled,
+  labels,
 }: {
   leadId: string;
   value: LeadStatus;
   disabled?: boolean;
+  labels?: Partial<Record<LeadStatus, string>>;
 }) {
   const router = useRouter();
   const [pending, start] = useTransition();
   const [local, setLocal] = useState(value);
   const [flash, setFlash] = useState(false);
+  const labelMap = { ...STATUS_LABELS, ...labels };
 
   useEffect(() => {
     setLocal(value);
@@ -48,7 +51,7 @@ export function StatusSelect({
       >
         {PIPELINE_STATUSES.map((s) => (
           <option key={s} value={s}>
-            {STATUS_LABELS[s]}
+            {labelMap[s]}
           </option>
         ))}
       </Select>

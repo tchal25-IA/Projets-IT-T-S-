@@ -322,3 +322,40 @@ export async function saveLeadSources(formData: FormData) {
   );
   revalidateSettings();
 }
+
+export async function saveCrmLabels(formData: FormData) {
+  await requireSetup();
+  const { setSetting } = await import("@/lib/business-settings");
+  const {
+    STATUS_LABELS,
+    CLIENT_STATUS_LABELS,
+    BILLING_LABELS,
+  } = await import("@/lib/utils");
+
+  const leadStatus = { ...STATUS_LABELS };
+  for (const key of Object.keys(STATUS_LABELS) as (keyof typeof STATUS_LABELS)[]) {
+    const v = String(formData.get(`lead.${key}`) || "").trim();
+    if (v) leadStatus[key] = v;
+  }
+
+  const clientStatus = { ...CLIENT_STATUS_LABELS };
+  for (const key of Object.keys(
+    CLIENT_STATUS_LABELS
+  ) as (keyof typeof CLIENT_STATUS_LABELS)[]) {
+    const v = String(formData.get(`client.${key}`) || "").trim();
+    if (v) clientStatus[key] = v;
+  }
+
+  const billingStatus = { ...BILLING_LABELS };
+  for (const key of Object.keys(
+    BILLING_LABELS
+  ) as (keyof typeof BILLING_LABELS)[]) {
+    const v = String(formData.get(`billing.${key}`) || "").trim();
+    if (v) billingStatus[key] = v;
+  }
+
+  await setSetting("labels.leadStatus", leadStatus);
+  await setSetting("labels.clientStatus", clientStatus);
+  await setSetting("labels.billingStatus", billingStatus);
+  revalidateSettings();
+}

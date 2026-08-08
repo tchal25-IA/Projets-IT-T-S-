@@ -54,4 +54,5 @@ export {
   upsertCommissionRule,
   saveCompanySettings,
   saveLeadSources,
+  saveCrmLabels,
 } from "@/lib/actions/settings";

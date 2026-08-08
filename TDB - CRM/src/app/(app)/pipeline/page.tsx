@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { leadVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
+import { getLeadStatusLabels } from "@/lib/business-settings";
 import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/ui";
 import { PipelineBoard } from "@/components/pipeline-board";
@@ -15,14 +16,19 @@ export default async function PipelinePage() {
   }
 
   const productId = await getScopedProductId(session.user.role);
-  const leads = await prisma.lead.findMany({
-    where: leadVisibilityWhere(session.user.id, session.user.role, { productId }),
-    include: {
-      product: { select: { name: true, slug: true } },
-      commercial: { select: { fullName: true } },
-    },
-    orderBy: { updatedAt: "desc" },
-  });
+  const [leads, statusLabels] = await Promise.all([
+    prisma.lead.findMany({
+      where: leadVisibilityWhere(session.user.id, session.user.role, {
+        productId,
+      }),
+      include: {
+        product: { select: { name: true, slug: true } },
+        commercial: { select: { fullName: true } },
+      },
+      orderBy: { updatedAt: "desc" },
+    }),
+    getLeadStatusLabels(),
+  ]);
 
   return (
     <div>
@@ -30,7 +36,7 @@ export default async function PipelinePage() {
         title="Pipeline"
         subtitle="Glissez-déposez les cartes pour changer le statut"
       />
-      <PipelineBoard leads={leads} />
+      <PipelineBoard leads={leads} labels={statusLabels} />
     </div>
   );
 }
