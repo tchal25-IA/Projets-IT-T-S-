@@ -10,6 +10,7 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:setup": "prisma db push && tsx prisma/seed.ts",
+    "db:patch-catalog": "tsx prisma/patch-catalog.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

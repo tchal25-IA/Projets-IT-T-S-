@@ -430,6 +430,17 @@ function FieldsTab({
       : [{ key: "", label: "", type: "text" }]
   );
 
+  // Remount state when switching product
+  const [productKey, setProductKey] = useState(product.id);
+  if (product.id !== productKey) {
+    setProductKey(product.id);
+    setRows(
+      product.fieldSchema.length
+        ? product.fieldSchema
+        : [{ key: "", label: "", type: "text" }]
+    );
+  }
+
   return (
     <div className="rounded-xl border border-stone-200 bg-white p-4">
       <h3 className="text-sm font-semibold text-stone-900">
