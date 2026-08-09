@@ -37,10 +37,8 @@ import { RelatedRail } from "@/components/related-rail";
 import { ScoreBadge } from "@/components/score-badge";
 import { computeLeadScore } from "@/lib/scoring";
 import {
-  BOOKFLOW_FIELDS,
   CLIENT_STATUS_LABELS,
   STATUS_LABELS,
-  VITRINEFLASH_FIELDS,
   canSeeBilling,
   canSeeCommissions,
   canSeeMargins,
@@ -50,6 +48,10 @@ import {
   productBlock,
   productSlugForRole,
 } from "@/lib/utils";
+import {
+  withOfferingOptions,
+} from "@/lib/fields";
+import { fieldsForProduct } from "@/lib/custom-data";
 import type { ClientStatus } from "@/generated/prisma/client";
 
 export default async function LeadDetailPage({
@@ -103,20 +105,42 @@ export default async function LeadDetailPage({
     take: 50,
   });
 
+  const catalog = await prisma.product.findMany({
+    where: { active: true },
+    include: {
+      offerings: {
+        where: { active: true },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+      },
+    },
+    orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+  });
+
   const customData = (lead.customData ?? {}) as Record<string, unknown>;
-  const vfValues = productBlock(customData, "vitrineflash");
-  const bfValues = productBlock(customData, "bookflow");
   const roleSlug = productSlugForRole(session.user.role);
-  const showVf =
-    isFullAccess(session.user.role) ||
-    roleSlug === "vitrineflash" ||
-    lead.product.slug === "vitrineflash" ||
-    Boolean(customData.interested_vitrineflash);
-  const showBf =
-    isFullAccess(session.user.role) ||
-    roleSlug === "bookflow" ||
-    lead.product.slug === "bookflow" ||
-    Boolean(customData.interested_bookflow);
+
+  const productPanels = catalog.map((product) => {
+    const schema = fieldsForProduct(product.slug, product.fieldSchema);
+    const offeringNames = product.offerings.map((o) => o.name);
+    const fields = withOfferingOptions(schema, offeringNames);
+    const values = productBlock(
+      customData,
+      product.slug,
+      schema.map((f) => f.key)
+    );
+    const interested =
+      Boolean(customData[`interested_${product.slug}`]) ||
+      lead.product.slug === product.slug ||
+      lead.interests.some((i) => i.productSlug === product.slug) ||
+      Object.keys(values).length > 0;
+    const visible =
+      isFullAccess(session.user.role) ||
+      roleSlug === product.slug ||
+      lead.product.slug === product.slug ||
+      Boolean(customData[`interested_${product.slug}`]) ||
+      lead.interests.some((i) => i.productSlug === product.slug);
+    return { product, fields, values, interested, visible };
+  });
 
   const readOnly = session.user.role === "APPORTEUR";
   const hideMoney = readOnly;
@@ -132,9 +156,10 @@ export default async function LeadDetailPage({
       ? lead.nextCallAt
       : null;
   const score = computeLeadScore(lead);
-  const interestLabels = lead.interests.map((i) =>
-    i.productSlug === "vitrineflash" ? "VitrineFlash" : "Bookflow"
-  );
+  const interestLabels = lead.interests.map((i) => {
+    const p = catalog.find((c) => c.slug === i.productSlug);
+    return p?.name ?? i.productSlug;
+  });
 
   async function saveDetails(formData: FormData) {
     "use server";
@@ -334,71 +359,45 @@ export default async function LeadDetailPage({
               <form action={saveDetails} className="space-y-4">
                 {hiddenIdentity}
                 <div className="flex flex-wrap gap-4 rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm">
-                  <label className="flex items-center gap-2">
-                    <input type="hidden" name="interested_vf" value="false" />
-                    <input
-                      type="checkbox"
-                      name="interested_vf"
-                      value="true"
-                      defaultChecked={
-                        Boolean(customData.interested_vitrineflash) ||
-                        lead.product.slug === "vitrineflash" ||
-                        lead.interests.some((i) => i.productSlug === "vitrineflash") ||
-                        Object.keys(vfValues).length > 0
-                      }
-                      disabled={readOnly}
-                    />
-                    Qualifié VitrineFlash
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="hidden" name="interested_bf" value="false" />
-                    <input
-                      type="checkbox"
-                      name="interested_bf"
-                      value="true"
-                      defaultChecked={
-                        Boolean(customData.interested_bookflow) ||
-                        lead.product.slug === "bookflow" ||
-                        lead.interests.some((i) => i.productSlug === "bookflow") ||
-                        Object.keys(bfValues).length > 0
-                      }
-                      disabled={readOnly}
-                    />
-                    Qualifié Bookflow
-                  </label>
+                  {productPanels.map(({ product, interested }) => (
+                    <label key={product.id} className="flex items-center gap-2">
+                      <input
+                        type="hidden"
+                        name={`interested_${product.slug}`}
+                        value="false"
+                      />
+                      <input
+                        type="checkbox"
+                        name={`interested_${product.slug}`}
+                        value="true"
+                        defaultChecked={interested}
+                        disabled={readOnly}
+                      />
+                      Qualifié {product.name}
+                    </label>
+                  ))}
                 </div>
-                {showVf ? (
-                  <div className="rounded-lg border border-teal-700/30 bg-teal-50/40 p-4">
-                    <h3 className="mb-3 text-sm font-semibold text-teal-900">
-                      VitrineFlash
-                    </h3>
-                    {readOnly ? (
-                      <QualReadOnly fields={VITRINEFLASH_FIELDS} values={vfValues} />
-                    ) : (
-                      <CustomFieldsForm
-                        fields={VITRINEFLASH_FIELDS}
-                        values={vfValues}
-                        prefix="custom_vf_"
-                      />
-                    )}
-                  </div>
-                ) : null}
-                {showBf ? (
-                  <div className="rounded-lg border border-indigo-700/30 bg-indigo-50/40 p-4">
-                    <h3 className="mb-3 text-sm font-semibold text-indigo-900">
-                      Bookflow
-                    </h3>
-                    {readOnly ? (
-                      <QualReadOnly fields={BOOKFLOW_FIELDS} values={bfValues} />
-                    ) : (
-                      <CustomFieldsForm
-                        fields={BOOKFLOW_FIELDS}
-                        values={bfValues}
-                        prefix="custom_bf_"
-                      />
-                    )}
-                  </div>
-                ) : null}
+                {productPanels
+                  .filter((p) => p.visible)
+                  .map(({ product, fields, values }) => (
+                    <div
+                      key={product.id}
+                      className="rounded-lg border border-teal-700/30 bg-teal-50/40 p-4"
+                    >
+                      <h3 className="mb-3 text-sm font-semibold text-teal-900">
+                        {product.name}
+                      </h3>
+                      {readOnly ? (
+                        <QualReadOnly fields={fields} values={values} />
+                      ) : (
+                        <CustomFieldsForm
+                          fields={fields}
+                          values={values}
+                          prefix={`custom_${product.slug}_`}
+                        />
+                      )}
+                    </div>
+                  ))}
                 {!readOnly ? (
                   <Button type="submit">Enregistrer la qualification</Button>
                 ) : null}

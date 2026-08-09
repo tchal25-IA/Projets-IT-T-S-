@@ -65,6 +65,19 @@ enum SavedViewEntity {
   LEAD
 }
 
+enum OfferingKind {
+  ONE_SHOT
+  SUBSCRIPTION
+  MAINTENANCE
+  OTHER
+}
+
+enum BillingPeriod {
+  NONE
+  MONTHLY
+  YEARLY
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -93,10 +106,30 @@ model Product {
   description String?
   fieldSchema Json
   active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  leads Lead[]
+  leads     Lead[]
+  offerings ProductOffering[]
+}
+
+model ProductOffering {
+  id            String        @id @default(cuid())
+  name          String
+  code          String?
+  kind          OfferingKind  @default(ONE_SHOT)
+  amountHt      Float?
+  billingPeriod BillingPeriod @default(NONE)
+  active        Boolean       @default(true)
+  sortOrder     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, active])
 }
 
 model Client {

@@ -77,6 +77,7 @@ export function navForRole(role: Role) {
 
   if (isFullAccess(role)) {
     base.push({ href: "/import", label: "Import" });
+    base.push({ href: "/admin/parametres", label: "Paramètres" });
     base.push({ href: "/admin/users", label: "Utilisateurs" });
     base.push({ href: "/admin/quotas", label: "Objectifs" });
   }

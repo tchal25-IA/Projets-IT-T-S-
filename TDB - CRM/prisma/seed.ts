@@ -51,6 +51,7 @@ async function main() {
   await prisma.dealLine.deleteMany();
   await prisma.lead.deleteMany();
   await prisma.client.deleteMany();
+  await prisma.productOffering.deleteMany();
   await prisma.product.deleteMany();
   await prisma.user.deleteMany();
 
@@ -117,6 +118,7 @@ async function main() {
       name: "VitrineFlash",
       description: "Création / reprise / modification de sites web (± maintenance)",
       fieldSchema: VITRINEFLASH_FIELDS,
+      sortOrder: 0,
     },
   });
 
@@ -126,7 +128,76 @@ async function main() {
       name: "Bookflow",
       description: "Outil de prise de RDV moderne, complet et accessible (type Calendly)",
       fieldSchema: BOOKFLOW_FIELDS,
+      sortOrder: 1,
     },
+  });
+
+  await prisma.productOffering.createMany({
+    data: [
+      {
+        productId: vf.id,
+        name: "Site vitrine — Création",
+        code: "VF-CREATE",
+        kind: "ONE_SHOT",
+        amountHt: 1490,
+        billingPeriod: "NONE",
+        sortOrder: 0,
+      },
+      {
+        productId: vf.id,
+        name: "Site vitrine — Reprise",
+        code: "VF-REPRISE",
+        kind: "ONE_SHOT",
+        amountHt: 990,
+        billingPeriod: "NONE",
+        sortOrder: 1,
+      },
+      {
+        productId: vf.id,
+        name: "Maintenance 12 mois",
+        code: "VF-MAINT-12",
+        kind: "MAINTENANCE",
+        amountHt: 348,
+        billingPeriod: "YEARLY",
+        sortOrder: 2,
+      },
+      {
+        productId: vf.id,
+        name: "Maintenance mensuelle",
+        code: "VF-MAINT-M",
+        kind: "MAINTENANCE",
+        amountHt: 39,
+        billingPeriod: "MONTHLY",
+        sortOrder: 3,
+      },
+      {
+        productId: bookflow.id,
+        name: "Bookflow Starter",
+        code: "BF-START",
+        kind: "SUBSCRIPTION",
+        amountHt: 19,
+        billingPeriod: "MONTHLY",
+        sortOrder: 0,
+      },
+      {
+        productId: bookflow.id,
+        name: "Bookflow Pro",
+        code: "BF-PRO",
+        kind: "SUBSCRIPTION",
+        amountHt: 348,
+        billingPeriod: "YEARLY",
+        sortOrder: 1,
+      },
+      {
+        productId: bookflow.id,
+        name: "Bookflow Business",
+        code: "BF-BIZ",
+        kind: "SUBSCRIPTION",
+        amountHt: 59,
+        billingPeriod: "MONTHLY",
+        sortOrder: 2,
+      },
+    ],
   });
 
   // Sample leads across apporteurs / commerciaux / products

@@ -19,16 +19,16 @@ import {
   LivraisonPanel,
 } from "@/components/record-panels";
 import {
-  BOOKFLOW_FIELDS,
   CLIENT_STATUS_LABELS,
   STATUS_LABELS,
-  VITRINEFLASH_FIELDS,
   canSeeBilling,
   canSeeCommissions,
   canSeeMargins,
   formatDate,
   formatEuro,
 } from "@/lib/utils";
+import { fieldsForProduct } from "@/lib/custom-data";
+import { withOfferingOptions } from "@/lib/fields";
 import type { ClientStatus } from "@/generated/prisma/client";
 
 export default async function ClientDetailPage({
@@ -64,17 +64,36 @@ export default async function ClientDetailPage({
   });
   if (!client) notFound();
 
+  const catalog = await prisma.product.findMany({
+    where: { active: true },
+    include: {
+      offerings: {
+        where: { active: true },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+      },
+    },
+    orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+  });
+
   const lead = client.leads[0];
   const customData = (lead?.customData ?? {}) as Record<string, unknown>;
   const qualification = (client.qualification ?? {}) as Record<string, unknown>;
-  const vfValues = {
-    ...productBlock(customData, "vitrineflash"),
-    ...productBlock(qualification, "vitrineflash"),
-  };
-  const bfValues = {
-    ...productBlock(customData, "bookflow"),
-    ...productBlock(qualification, "bookflow"),
-  };
+  const qualPanels = catalog.map((product) => {
+    const schema = fieldsForProduct(product.slug, product.fieldSchema);
+    const fields = withOfferingOptions(
+      schema,
+      product.offerings.map((o) => o.name)
+    );
+    const values = {
+      ...productBlock(customData, product.slug, schema.map((f) => f.key)),
+      ...productBlock(qualification, product.slug, schema.map((f) => f.key)),
+    };
+    const hasData =
+      Object.keys(values).length > 0 ||
+      Boolean(customData[`interested_${product.slug}`]) ||
+      lead?.product.slug === product.slug;
+    return { product, fields, values, hasData };
+  });
   const ca = client.dealLines.reduce((s, d) => s + d.amountHt, 0);
   const commissionsTotal = client.commissions.reduce((s, c) => s + c.amountHt, 0);
 
@@ -138,14 +157,22 @@ export default async function ClientDetailPage({
           ),
           qualification: (
             <div className="space-y-4">
-              <div className="rounded-lg border border-teal-700/30 bg-teal-50/40 p-4">
-                <h3 className="mb-3 text-sm font-semibold text-teal-900">VitrineFlash</h3>
-                <QualReadOnly fields={VITRINEFLASH_FIELDS} values={vfValues} />
-              </div>
-              <div className="rounded-lg border border-indigo-700/30 bg-indigo-50/40 p-4">
-                <h3 className="mb-3 text-sm font-semibold text-indigo-900">Bookflow</h3>
-                <QualReadOnly fields={BOOKFLOW_FIELDS} values={bfValues} />
-              </div>
+              {qualPanels
+                .filter((p) => p.hasData)
+                .map(({ product, fields, values }) => (
+                  <div
+                    key={product.id}
+                    className="rounded-lg border border-teal-700/30 bg-teal-50/40 p-4"
+                  >
+                    <h3 className="mb-3 text-sm font-semibold text-teal-900">
+                      {product.name}
+                    </h3>
+                    <QualReadOnly fields={fields} values={values} />
+                  </div>
+                ))}
+              {qualPanels.every((p) => !p.hasData) ? (
+                <p className="text-sm text-stone-500">Aucune qualification renseignée.</p>
+              ) : null}
             </div>
           ),
           acteurs: (

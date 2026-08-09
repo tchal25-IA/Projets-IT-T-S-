@@ -8,8 +8,8 @@ import type {
   CommissionStatus,
 } from "@/generated/prisma/client";
 
-export { type FieldDef, VITRINEFLASH_FIELDS, BOOKFLOW_FIELDS } from "@/lib/fields";
-export { productBlock } from "@/lib/custom-data";
+export { type FieldDef, VITRINEFLASH_FIELDS, BOOKFLOW_FIELDS, withOfferingOptions, parseFieldSchema } from "@/lib/fields";
+export { productBlock, fieldsForProduct } from "@/lib/custom-data";
 export {
   isFullAccess,
   isDirection,

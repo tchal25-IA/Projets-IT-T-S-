@@ -251,9 +251,17 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
   });
   if (!leadFull) throw new Error("Lead introuvable");
 
+  const products = await prisma.product.findMany({
+    where: { active: true },
+    select: { slug: true },
+    orderBy: { sortOrder: "asc" },
+  });
+  const slugs = products.map((p) => p.slug);
+
   const nextCustom = buildCustomDataPayload(
     formData,
-    (lead.customData ?? {}) as Record<string, unknown>
+    (lead.customData ?? {}) as Record<string, unknown>,
+    slugs.length ? slugs : ["vitrineflash", "bookflow"]
   );
 
   const companyName = String(formData.get("companyName") || "");
@@ -307,7 +315,8 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
   await syncLeadInterests(
     leadId,
     nextCustom as Record<string, unknown>,
-    leadFull.product.slug
+    leadFull.product.slug,
+    slugs
   );
   await recordFieldChanges({
     entity: "Lead",

@@ -4,7 +4,9 @@ import { createLead } from "@/lib/actions";
 import { getScopedProductId } from "@/lib/scope";
 import { PageHeader, Card, Button, Input, Label, Select } from "@/components/ui";
 import { CustomFieldsForm } from "@/components/pipeline-board";
-import { isDirection, type FieldDef } from "@/lib/utils";
+import { isDirection } from "@/lib/utils";
+import { fieldsForProduct } from "@/lib/custom-data";
+import { withOfferingOptions } from "@/lib/fields";
 import { redirect } from "next/navigation";
 
 export default async function NewLeadPage() {
@@ -16,7 +18,16 @@ export default async function NewLeadPage() {
 
   const scopedProductId = await getScopedProductId(session.user.role);
   const [allProducts, users] = await Promise.all([
-    prisma.product.findMany({ where: { active: true } }),
+    prisma.product.findMany({
+      where: { active: true },
+      include: {
+        offerings: {
+          where: { active: true },
+          orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        },
+      },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    }),
     prisma.user.findMany({ where: { active: true }, orderBy: { fullName: "asc" } }),
   ]);
 
@@ -25,7 +36,12 @@ export default async function NewLeadPage() {
     : allProducts;
 
   const defaultProduct = products[0];
-  const fields = (defaultProduct?.fieldSchema as FieldDef[]) ?? [];
+  const fields = defaultProduct
+    ? withOfferingOptions(
+        fieldsForProduct(defaultProduct.slug, defaultProduct.fieldSchema),
+        defaultProduct.offerings.map((o) => o.name)
+      )
+    : [];
 
   return (
     <div>
