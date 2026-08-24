@@ -55,7 +55,7 @@ export function MonAbonnementCard() {
         Gérer mon abonnement <ChevronRight className="h-3.5 w-3.5" />
       </button>
       <p className="text-center text-[10px] font-mono mt-2" style={{ color: "var(--ff-text-muted)" }}>
-        Paiement sécurisé bientôt disponible
+        Paiement sécurisé via Stripe
       </p>
     </Card>
   );

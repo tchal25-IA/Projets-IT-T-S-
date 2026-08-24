@@ -92,9 +92,9 @@ export function CheckinForm({
 
       <div>
         <p className="text-[10px] font-mono uppercase tracking-[0.25em]" style={{ color: FF.cyan }}>
-          // Sujet Zéro · Calibration
+          // Mode Athlète · Check-in
         </p>
-        <h1 className="mt-2 text-2xl font-bold">Comment tu te sens aujourd&apos;hui ?</h1>
+        <h1 className="mt-2 text-2xl font-bold">Comment te sens-tu aujourd&apos;hui ?</h1>
         <p className="mt-1 text-sm" style={{ color: FF.textMuted }}>
           Quatre questions pour composer la séance qui te correspond.
         </p>

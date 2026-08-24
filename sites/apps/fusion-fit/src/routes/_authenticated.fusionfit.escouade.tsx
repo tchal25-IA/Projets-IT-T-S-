@@ -124,9 +124,9 @@ function EscouadePage() {
     <div className="space-y-5">
       <header>
         <p className="text-[10px] font-mono uppercase tracking-widest" style={{ color: "var(--ff-text-muted)" }}>
-          Coach · Escouade
+          Mode Coach · Athlètes
         </p>
-        <h1 className="text-2xl font-bold mt-1">Mes abonnés</h1>
+        <h1 className="text-2xl font-bold mt-1">Mes athlètes</h1>
       </header>
 
       {/* Dashboard : agenda de la semaine + alertes fatigue */}

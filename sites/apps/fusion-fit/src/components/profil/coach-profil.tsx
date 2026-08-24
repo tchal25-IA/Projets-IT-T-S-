@@ -58,7 +58,7 @@ export function CoachProfil() {
           )}
           <div className="flex-1 min-w-0">
             <p className="text-[10px] font-mono uppercase tracking-[0.25em] flex items-center gap-1" style={{ color: "var(--ff-amber)" }}>
-              <Shield className="h-3 w-3" /> Coach Initiative
+              <Shield className="h-3 w-3" /> Head Coach
             </p>
             <h1 className="text-xl font-bold truncate mt-0.5">{prenom}</h1>
           </div>

@@ -245,6 +245,8 @@ export type Database = {
           created_at: string
           from_user_id: string
           id: string
+          media_duration_sec: number | null
+          media_url: string | null
           texte: string
           to_user_id: string | null
           type: string
@@ -254,6 +256,8 @@ export type Database = {
           created_at?: string
           from_user_id: string
           id?: string
+          media_duration_sec?: number | null
+          media_url?: string | null
           texte: string
           to_user_id?: string | null
           type?: string
@@ -263,6 +267,8 @@ export type Database = {
           created_at?: string
           from_user_id?: string
           id?: string
+          media_duration_sec?: number | null
+          media_url?: string | null
           texte?: string
           to_user_id?: string | null
           type?: string

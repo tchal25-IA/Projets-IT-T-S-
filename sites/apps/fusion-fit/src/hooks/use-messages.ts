@@ -11,6 +11,8 @@ export type MessageRow = {
   texte: string;
   type: string;
   created_at: string;
+  media_url?: string | null;
+  media_duration_sec?: number | null;
 };
 
 // ─── Coach de l'abonné courant (via coach_assignments) ────────────────
@@ -110,13 +112,22 @@ export function useSendMessage() {
       conversation_id: string;
       texte: string;
       type?: string;
+      media_url?: string | null;
+      media_duration_sec?: number | null;
     }) => {
+      const isVoice = payload.type === "voice";
+      const texte = isVoice
+        ? (payload.texte.trim() || "🎤 Note vocale")
+        : payload.texte.trim();
+      if (!texte && !payload.media_url) throw new Error("Message vide");
       const { error } = await supabase.from("messages").insert({
         conversation_id: payload.conversation_id,
         from_user_id: user!.id,
-        texte: payload.texte.trim(),
+        texte,
         type: payload.type ?? "normal",
-      });
+        media_url: payload.media_url ?? null,
+        media_duration_sec: payload.media_duration_sec ?? null,
+      } as never);
       if (error) throw error;
       const now = new Date().toISOString();
       const readPatch: Record<string, string> = { last_message_at: now };
@@ -137,7 +148,7 @@ export function useSendMessage() {
       if (conv) {
         const dest = conv.coach_id === user!.id ? conv.abonne_id : conv.coach_id;
         const prenom = await getMyPrenom(user!.id);
-        const extrait = payload.texte.trim().slice(0, 80);
+        const extrait = isVoice ? "🎤 Note vocale" : texte.slice(0, 80);
         await notify(dest, "message", `Message de ${prenom}`, extrait,
           `/fusionfit/messagerie?with=${user!.id}`);
         await supabase.rpc("enqueue_email_for_user", {
@@ -152,6 +163,33 @@ export function useSendMessage() {
       qc.invalidateQueries({ queryKey: ["messages", vars.conversation_id] });
       qc.invalidateQueries({ queryKey: ["unread-count", user?.id] });
       qc.invalidateQueries({ queryKey: ["unread-by-peer", user?.id] });
+      qc.invalidateQueries({ queryKey: ["conversation-meta", vars.conversation_id] });
+    },
+  });
+}
+
+/** Métadonnées conversation (accusés de lecture style WhatsApp). */
+export function useConversationMeta(conversationId: string | null | undefined) {
+  return useQuery({
+    queryKey: ["conversation-meta", conversationId],
+    enabled: !!conversationId,
+    staleTime: 5_000,
+    refetchOnWindowFocus: true,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("conversations")
+        .select("id, coach_id, abonne_id, coach_last_read_at, abonne_last_read_at, last_message_at")
+        .eq("id", conversationId!)
+        .maybeSingle();
+      if (error) throw error;
+      return data as {
+        id: string;
+        coach_id: string;
+        abonne_id: string;
+        coach_last_read_at: string | null;
+        abonne_last_read_at: string | null;
+        last_message_at: string | null;
+      } | null;
     },
   });
 }
@@ -269,9 +307,10 @@ export function useMarkConversationRead() {
         .update(patch as never)
         .eq("id", conversationId);
     },
-    onSuccess: () => {
+    onSuccess: (_d, conversationId) => {
       qc.invalidateQueries({ queryKey: ["unread-count", user?.id] });
       qc.invalidateQueries({ queryKey: ["unread-by-peer", user?.id] });
+      qc.invalidateQueries({ queryKey: ["conversation-meta", conversationId] });
     },
   });
 }

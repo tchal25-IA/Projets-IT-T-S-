@@ -156,7 +156,7 @@ function BibliothequePage() {
           </p>
           <h1 className="text-2xl font-bold mt-1">Programmes hebdomadaires</h1>
           <p className="text-xs mt-1" style={{ color: "var(--ff-text-muted)" }}>
-            Templates réutilisables à attribuer à un abonné depuis l&apos;Escouade.
+            Templates réutilisables à attribuer à un athlète depuis l&apos;onglet Athlète.
           </p>
         </div>
         {!creating && (

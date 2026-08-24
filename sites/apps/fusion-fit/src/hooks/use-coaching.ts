@@ -101,6 +101,27 @@ export function useSaveCoachSession() {
   });
 }
 
+/** Annule / supprime proprement une séance perso injectée sur un athlète. */
+export function useDeleteCoachSession() {
+  const { user } = useAuth();
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: { abonne_id: string; titre?: string | null }) => {
+      const { error } = await sb
+        .from("coach_sessions")
+        .delete()
+        .eq("coach_id", user!.id)
+        .eq("abonne_id", payload.abonne_id);
+      if (error) throw new Error(error.message);
+      return payload;
+    },
+    onSuccess: (_d, vars) => {
+      qc.invalidateQueries({ queryKey: ["coach-session", "for", user?.id, vars.abonne_id] });
+      qc.invalidateQueries({ queryKey: ["coach-session", "mine"] });
+    },
+  });
+}
+
 // ─── Commentaire de séance (coach → check-in d'un abonné) ─────────────
 export function useSetSessionComment() {
   const qc = useQueryClient();

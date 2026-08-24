@@ -35,9 +35,9 @@ export const PILIER_COLORS: Record<PilierKey, { bg: string; text: string; border
 
 // Métadonnées des plans d'abonnement (source unique, réutilisée profil abonné + coach)
 export const ABONNEMENT_PLANS: Record<string, { nom: string; prix: string; couleur: string }> = {
-  decouverte: { nom: "Découverte", prix: "Gratuit", couleur: FF.cyan },
-  initiative: { nom: "Initiative", prix: "29€/mois", couleur: FF.amber },
-  elite:      { nom: "Élite",      prix: "59€/mois", couleur: "oklch(0.80 0.20 300)" },
+  decouverte: { nom: "Gratuit", prix: "0 €", couleur: FF.cyan },
+  initiative: { nom: "Standard", prix: "29,99 €/mois", couleur: FF.amber },
+  elite:      { nom: "Premium / VIP", prix: "59,99 €/mois", couleur: "oklch(0.80 0.20 300)" },
 };
 
 export const ABONNEMENT_STATUTS: Record<string, { label: string; couleur: string }> = {

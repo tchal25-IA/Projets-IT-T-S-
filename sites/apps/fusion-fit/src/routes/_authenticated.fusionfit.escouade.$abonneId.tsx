@@ -111,7 +111,7 @@ function AbonneDetailPage() {
   return (
     <div className="space-y-5">
       <Link to="/fusionfit/escouade" className="flex items-center gap-1 text-xs" style={{ color: "var(--ff-text-muted)" }}>
-        <ArrowLeft className="h-3.5 w-3.5" /> Escouade
+        <ArrowLeft className="h-3.5 w-3.5" /> Athlètes
       </Link>
 
       {loadError && (

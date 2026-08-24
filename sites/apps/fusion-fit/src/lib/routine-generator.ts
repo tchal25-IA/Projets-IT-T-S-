@@ -48,6 +48,10 @@ export const SCALING_ALTERNATIVES: Record<string, string> = {
   "Sit-ups": "Dos sensible ? Crunchs courts ou gainage (planche) à la place.",
   "200m run": "Limitation aux jambes ? Vélo ou rameur léger sur la même durée.",
   "Pull-ups": "Pas encore accessible ? Rowing horizontal ou tirage élastique.",
+  "Overhead": "Épaule sensible ? Remplace par un press à la poitrine (landmine / haltère léger) ou un row.",
+  "Thruster": "Épaule/hanche limitée ? Front squat + push press séparé, charge allégée.",
+  "Lunges": "Hanche/genou sensible ? Step-up bas ou split squat assisté (appuis).",
+  "Deadlift": "Dos sensible ? RDL léger ou good morning sans charge, amplitude contrôlée.",
 };
 
 export function scalingFor(exercise: string): string | null {
@@ -70,12 +74,20 @@ function parseExercises(description: string): string[] {
 
 // Certains blocs commencent par un "format" (AMRAP, 3 rounds…) qui doit
 // s'afficher à côté du titre plutôt que dans la liste d'exercices.
-const FORMAT_PREFIXES = ["AMRAP", "3 rounds", "4 rounds", "5 rounds", "For Time", "For Quality", "EMOM"];
+const FORMAT_PREFIXES = [
+  "AMRAP", "EMOM", "For Time", "For Quality",
+  "2 rounds", "3 rounds", "4 rounds", "5 rounds", "6 rounds",
+  "Tabata",
+];
 
 export function splitFormat(exercises: string[]): { format: string | null; exercises: string[] } {
-  if (exercises.length && FORMAT_PREFIXES.some((p) => exercises[0].toLowerCase() === p.toLowerCase())) {
-    return { format: exercises[0], exercises: exercises.slice(1) };
-  }
+  if (!exercises.length) return { format: null, exercises };
+  const first = exercises[0].trim();
+  // Match exact format OR "AMRAP 12'" / "3 rounds for time" as first line
+  const exact = FORMAT_PREFIXES.find((p) => first.toLowerCase() === p.toLowerCase());
+  if (exact) return { format: first, exercises: exercises.slice(1) };
+  const starts = FORMAT_PREFIXES.find((p) => first.toLowerCase().startsWith(p.toLowerCase()));
+  if (starts && first.length <= 28) return { format: first, exercises: exercises.slice(1) };
   return { format: null, exercises };
 }
 

@@ -24,7 +24,7 @@ const NAV_ATHLETE = [
 ] as const;
 
 const NAV_COACH = [
-  { to: "/fusionfit/escouade",    label: "Escouade",    icon: Users        },
+  { to: "/fusionfit/escouade",    label: "Athlète",     icon: Users        },
   { to: "/fusionfit/agenda",      label: "Agenda",      icon: CalendarCheck},
   { to: "/fusionfit/messagerie",  label: "Messagerie",  icon: MessageCircle},
   { to: "/fusionfit/bibliotheque",label: "Biblio",      icon: BookOpen     },
@@ -96,7 +96,7 @@ function FusionFitShell() {
               <p className="text-[9px] font-mono uppercase tracking-[0.25em] flex items-center gap-1"
                 style={{ color: FF.textMuted }}>
                 {role === "coach" && <Shield className="h-2.5 w-2.5" style={{ color: FF.amber }} />}
-                {viewAsAthlete ? "Mode Sujet Zéro" : role === "coach" ? "Coach Initiative" : "Agent · " + today}
+                {viewAsAthlete ? "Mode Athlète" : role === "coach" ? "Mode Coach" : "Agent · " + today}
               </p>
             </div>
           </div>

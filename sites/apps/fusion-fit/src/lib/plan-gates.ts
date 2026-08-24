@@ -29,7 +29,7 @@ export type FeatureKey =
 
 const FEATURE_MIN_PLAN: Record<FeatureKey, PlanId> = {
   programme_coach: "initiative",
-  ia_fatigue: "initiative",
+  ia_fatigue: "elite",
   creneaux_illimites: "initiative",
   suivi_prioritaire: "elite",
   bilans_video: "elite",
@@ -57,9 +57,9 @@ export function canAccessFeature(
 export function upgradeHint(feature: FeatureKey): string {
   const required = FEATURE_MIN_PLAN[feature];
   const labels: Record<PlanId, string> = {
-    decouverte: "Découverte",
-    initiative: "Initiative",
-    elite: "Élite",
+    decouverte: "Gratuit",
+    initiative: "Standard",
+    elite: "Premium / VIP",
   };
   return `Disponible dès le plan ${labels[required]}.`;
 }

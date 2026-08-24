@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Save, Plus, Trash2, Dumbbell, Repeat, Calendar } from "lucide-react";
+import { Save, Plus, Trash2, Dumbbell, Repeat, Calendar, Ban } from "lucide-react";
 import {
-  useCoachSessionFor, useSaveCoachSession, type CoachBloc,
+  useCoachSessionFor, useSaveCoachSession, useDeleteCoachSession, type CoachBloc,
 } from "@/hooks/use-coaching";
 import { notify } from "@/hooks/use-notifications";
 import { PILIER_COLORS } from "@/lib/ff-colors";
@@ -12,6 +12,7 @@ const PILIERS: Array<CoachBloc["pilier"]> = ["Bouger", "Respirer", "Nourrir"];
 export function SeancePersoEditor({ abonneId, prenom }: { abonneId: string; prenom: string }) {
   const { data: existing, isLoading } = useCoachSessionFor(abonneId);
   const { mutateAsync: save, isPending } = useSaveCoachSession();
+  const { mutateAsync: remove, isPending: isDeleting } = useDeleteCoachSession();
   const [titre, setTitre] = useState("");
   const [objectif, setObjectif] = useState("");
   const [frequence, setFrequence] = useState(3);
@@ -34,6 +35,17 @@ export function SeancePersoEditor({ abonneId, prenom }: { abonneId: string; pren
     }
     setHydrated(true);
   }, [existing, isLoading, hydrated]);
+
+  function resetForm() {
+    setTitre("");
+    setObjectif("");
+    setFrequence(3);
+    setMode("recurrent");
+    setDateSeance("");
+    setActif(true);
+    setBlocs([{ pilier: "Bouger", titre: "", exercices: [] }]);
+    setHydrated(false);
+  }
 
   function updBloc(i: number, patch: Partial<CoachBloc>) {
     setBlocs((bs) => bs.map((b, j) => (j === i ? { ...b, ...patch } : b)));
@@ -70,20 +82,54 @@ export function SeancePersoEditor({ abonneId, prenom }: { abonneId: string; pren
     }
   }
 
+  async function annulerSeance() {
+    if (!existing) return;
+    const label = existing.titre || titre || "cette séance";
+    if (!confirm(`Annuler et supprimer « ${label} » pour ${prenom} ?\nLa séance disparaîtra de sa Routine.`)) return;
+    try {
+      await remove({ abonne_id: abonneId, titre: existing.titre });
+      resetForm();
+      setSavedMsg("Séance annulée · retirée de la Routine ✓");
+      setTimeout(() => setSavedMsg(null), 2500);
+      await notify(
+        abonneId,
+        "seance",
+        "Séance perso annulée",
+        `Ton coach a retiré « ${label} ». Reviens à ton programme habituel.`,
+        "/fusionfit/routine",
+      );
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Erreur");
+    }
+  }
+
   return (
     <section className="rounded-2xl border p-4 space-y-3" style={{ background: "var(--ff-surface)", borderColor: "var(--ff-cyan)" }}>
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--ff-cyan)" }}>
           <Dumbbell className="h-3.5 w-3.5" /> Séance perso de {prenom}
         </p>
-        <button onClick={enregistrer} disabled={isPending}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs"
-          style={{ borderColor: "var(--ff-green)", color: "var(--ff-green)", background: "oklch(0.65 0.18 145 / 12%)" }}>
-          <Save className="h-3.5 w-3.5" /> {isPending ? "…" : "Enregistrer"}
-        </button>
+        <div className="flex items-center gap-2">
+          {existing && (
+            <button
+              type="button"
+              onClick={annulerSeance}
+              disabled={isDeleting || isPending}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs"
+              style={{ borderColor: "var(--ff-red)", color: "var(--ff-red)", background: "oklch(0.65 0.20 22 / 10%)" }}
+            >
+              <Ban className="h-3.5 w-3.5" /> {isDeleting ? "…" : "Annuler"}
+            </button>
+          )}
+          <button onClick={enregistrer} disabled={isPending || isDeleting}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs"
+            style={{ borderColor: "var(--ff-green)", color: "var(--ff-green)", background: "oklch(0.65 0.18 145 / 12%)" }}>
+            <Save className="h-3.5 w-3.5" /> {isPending ? "…" : "Enregistrer"}
+          </button>
+        </div>
       </div>
       <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
-        L'abonné pourra choisir cette séance à la place du programme de base, selon la fréquence définie.
+        L&apos;athlète pourra choisir cette séance à la place du programme de base. Utilise Annuler pour la retirer proprement.
       </p>
       {savedMsg && <p className="text-[10px]" style={{ color: "var(--ff-green)" }}>{savedMsg}</p>}
 
@@ -102,7 +148,6 @@ export function SeancePersoEditor({ abonneId, prenom }: { abonneId: string; pren
         style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
       />
 
-      {/* Choix : récurrent ou jour précis */}
       <div className="grid grid-cols-2 gap-2">
         <button
           type="button"
@@ -189,7 +234,7 @@ export function SeancePersoEditor({ abonneId, prenom }: { abonneId: string; pren
               <textarea
                 value={b.exercices.join("\n")}
                 onChange={(e) => updBloc(i, { exercices: e.target.value.split("\n") })}
-                placeholder="Un exercice par ligne (ex: 5 Burpees)"
+                placeholder={"Un exercice par ligne\nPremière ligne = format (ex: 3 rounds / For Time / AMRAP)\nPuis les mouvements"}
                 rows={3}
                 className="w-full px-2 py-1 rounded border bg-transparent text-xs outline-none resize-y min-h-[5rem]"
                 style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}

@@ -317,7 +317,7 @@ export function ProgrammeJourCard({
           style={{ borderColor: FF.cyan, background: FF.cyanBg20, color: FF.cyan }}
         >
           <span className="flex items-center justify-center gap-2">
-            <Play className="h-4 w-4" /> Suivre cette séance
+            <Play className="h-4 w-4" /> Démarrer
           </span>
         </button>
       )}

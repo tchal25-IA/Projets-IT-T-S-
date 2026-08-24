@@ -1,6 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Send, Shield, User, Zap, Loader2, ChevronLeft, Users, Bell, Check } from "lucide-react";
+import {
+  Send, Shield, User, Zap, Loader2, ChevronLeft, Users, Bell, Check, CheckCheck,
+  Mic, Square, Play,
+} from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import {
   useMessages,
@@ -11,9 +14,11 @@ import {
   useAthletes,
   useMarkConversationRead,
   useUnreadByPeer,
+  useConversationMeta,
 } from "@/hooks/use-messages";
 import { useNotifications, useUnreadNotifCount, useMarkNotifRead } from "@/hooks/use-notifications";
 import { AvatarUploader } from "@/components/avatar-uploader";
+import { supabase } from "@/integrations/supabase/client";
 import { FF } from "@/lib/ff-colors";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/messagerie")({
@@ -43,7 +48,6 @@ function MessageriePage() {
 }
 
 // Panneau notifications regroupé dans la messagerie (la cloche a été retirée).
-// Repliable ; s'ouvre automatiquement s'il y a des non-lues.
 function NotificationsPanel() {
   const { data: notifs = [] } = useNotifications(30);
   const { data: unread = 0 } = useUnreadNotifCount();
@@ -51,7 +55,6 @@ function NotificationsPanel() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  // Ouvre le panneau si notifs non-lues au premier affichage.
   useEffect(() => {
     if (unread > 0) setOpen(true);
   }, [unread]);
@@ -96,7 +99,6 @@ function NotificationsPanel() {
                 onClick={() => {
                   if (!n.read_at) markRead([n.id]);
                   if (!n.link) return;
-                  // Deep links avec query (?with=) : ne pas passer la query dans `to`
                   try {
                     const url = new URL(n.link, window.location.origin);
                     const path = url.pathname;
@@ -128,7 +130,6 @@ function NotificationsPanel() {
   );
 }
 
-// ─── Vue Abonné : conversation unique avec son coach ──────────────────
 function AbonneMessagerie() {
   const { data: coachId, isLoading } = useCoachId();
 
@@ -141,17 +142,15 @@ function AbonneMessagerie() {
       />
     );
   }
-  return <Conversation otherId={coachId} titre="Coach Initiative" coachSide={false} />;
+  return <Conversation otherId={coachId} titre="Head Coach" coachSide={false} />;
 }
 
-// ─── Vue Coach : sélection d'un athlète puis conversation ─────────────
 function CoachMessagerie() {
   const { data: athletes = [], isLoading } = useAthletes();
   const { data: unreadByPeer = {} } = useUnreadByPeer();
   const [selected, setSelected] = useState<{ id: string; prenom: string; avatar_url: string | null } | null>(null);
   const { with: withId } = Route.useSearch();
 
-  // Deep link : ouvre directement la conversation demandée par la notification.
   useEffect(() => {
     if (!withId || selected || !athletes.length) return;
     const a = athletes.find((x) => x.user_id === withId);
@@ -185,12 +184,11 @@ function CoachMessagerie() {
     return (
       <Empty
         icon={<Users className="h-10 w-10" style={{ color: FF.textMuted }} />}
-        text="Aucun athlète. Invite-en un depuis l'onglet Escouade."
+        text="Aucun athlète. Invite-en un depuis l'onglet Athlète."
       />
     );
   }
 
-  // Conversations non lues en tête
   const sorted = [...athletes].sort((a, b) => {
     const ua = unreadByPeer[a.user_id] ? 1 : 0;
     const ub = unreadByPeer[b.user_id] ? 1 : 0;
@@ -201,7 +199,7 @@ function CoachMessagerie() {
     <div className="space-y-3">
       <div>
         <p className="text-[10px] font-mono uppercase tracking-[0.25em]" style={{ color: FF.amber }}>
-          // Coach · Messagerie
+          // Mode Coach · Messagerie
         </p>
         <h1 className="mt-2 text-2xl font-bold">Conversations</h1>
       </div>
@@ -251,7 +249,6 @@ function CoachMessagerie() {
   );
 }
 
-// ─── Conversation (commune coach/abonné) ──────────────────────────────
 function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
   otherId: string; titre: string; coachSide: boolean;
   avatarUserId?: string; avatarPath?: string | null;
@@ -259,22 +256,27 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
   const { user } = useAuth();
   const { data: conversationId, isLoading: loadingConv } = useConversationId(otherId);
   const { data: messages = [], refetch } = useMessages(conversationId);
+  const { data: meta } = useConversationMeta(conversationId);
   const { mutate: sendMessage, isPending: sending } = useSendMessage();
   const { mutate: markRead } = useMarkConversationRead();
   const [input, setInput] = useState("");
+  const [uploadingVoice, setUploadingVoice] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Marquer comme lu à l'ouverture + à chaque nouveau message reçu
   useEffect(() => {
     if (conversationId) markRead(conversationId);
   }, [conversationId, messages.length, markRead]);
 
   const handleNewMessage = useCallback(() => { refetch(); }, [refetch]);
   useMessagesRealtime(conversationId, handleNewMessage);
+
+  const peerLastRead = coachSide
+    ? meta?.abonne_last_read_at
+    : meta?.coach_last_read_at;
 
   const lastSentAt = useRef(0);
   function envoyer(texte: string) {
@@ -284,6 +286,30 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
     lastSentAt.current = now;
     sendMessage({ conversation_id: conversationId, texte });
     setInput("");
+  }
+
+  async function envoyerVocal(blob: Blob, durationSec: number) {
+    if (!conversationId || !user) return;
+    setUploadingVoice(true);
+    try {
+      const ext = blob.type.includes("mp4") ? "mp4" : "webm";
+      const path = `${user.id}/${conversationId}/${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("chat-audio")
+        .upload(path, blob, { contentType: blob.type || "audio/webm", upsert: false });
+      if (upErr) throw upErr;
+      sendMessage({
+        conversation_id: conversationId,
+        texte: "🎤 Note vocale",
+        type: "voice",
+        media_url: path,
+        media_duration_sec: Math.max(1, Math.round(durationSec)),
+      });
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Envoi vocal impossible");
+    } finally {
+      setUploadingVoice(false);
+    }
   }
 
   if (loadingConv) return <CenterSpinner />;
@@ -302,7 +328,7 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
         <div className="flex-1 min-w-0">
           <p className="font-bold text-sm truncate">{titre}</p>
           <p className="text-[11px]" style={{ color: FF.textMuted }}>
-            {coachSide ? "Athlète Initiative" : "Ton coach"}
+            {coachSide ? "Mode Athlète" : "Mode Coach"}
           </p>
         </div>
       </div>
@@ -315,6 +341,7 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
         )}
         {messages.map((msg) => {
           const isMe = msg.from_user_id === user?.id;
+          const isRead = !!(peerLastRead && msg.created_at <= peerLastRead);
           return (
             <div key={msg.id} className={`flex gap-2 ${isMe ? "flex-row-reverse" : ""}`}>
               <div className="h-7 w-7 rounded-full grid place-items-center flex-shrink-0 border"
@@ -340,11 +367,16 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
                       {msg.type === "notification" ? "Notification" : "Encouragement"}
                     </p>
                   )}
-                  <p className="text-sm leading-relaxed">{msg.texte}</p>
+                  {msg.type === "voice" && msg.media_url ? (
+                    <VoiceBubble path={msg.media_url} durationSec={msg.media_duration_sec} />
+                  ) : (
+                    <p className="text-sm leading-relaxed">{msg.texte}</p>
+                  )}
                 </div>
-                <p className={`text-[10px] font-mono mt-1 ${isMe ? "text-right" : "text-left"}`}
+                <p className={`text-[10px] font-mono mt-1 flex items-center gap-1 ${isMe ? "justify-end" : "justify-start"}`}
                   style={{ color: FF.textMuted }}>
                   {new Date(msg.created_at).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+                  {isMe && <ReadReceipt read={isRead} />}
                 </p>
               </div>
             </div>
@@ -367,6 +399,7 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
 
       <div className="flex items-center gap-2 rounded-xl px-3 py-2 border mt-2"
         style={{ background: FF.surface, borderColor: FF.border }}>
+        <VoiceRecorder onRecorded={envoyerVocal} disabled={sending || uploadingVoice || !conversationId} />
         <input
           placeholder="Écrire un message…"
           className="flex-1 bg-transparent outline-none text-sm"
@@ -375,17 +408,162 @@ function Conversation({ otherId, titre, coachSide, avatarUserId, avatarPath }: {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); envoyer(input); } }}
         />
-        <button onClick={() => envoyer(input)} disabled={!input.trim() || sending}
+        <button onClick={() => envoyer(input)} disabled={!input.trim() || sending || uploadingVoice}
           className="flex h-9 w-9 items-center justify-center rounded-xl transition-all"
           style={{
             background: input.trim() ? FF.cyanBg20 : FF.surface2,
             border: `1px solid ${input.trim() ? FF.cyan : FF.border}`,
             color: input.trim() ? FF.cyan : FF.textMuted,
           }}>
-          {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+          {sending || uploadingVoice ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
         </button>
       </div>
     </div>
+  );
+}
+
+function ReadReceipt({ read }: { read: boolean }) {
+  return (
+    <span title={read ? "Lu" : "Envoyé"} aria-label={read ? "Lu" : "Envoyé"}>
+      {read
+        ? <CheckCheck className="h-3.5 w-3.5" style={{ color: FF.cyan }} />
+        : <Check className="h-3.5 w-3.5" style={{ color: FF.textMuted }} />}
+    </span>
+  );
+}
+
+function VoiceBubble({ path, durationSec }: { path: string; durationSec?: number | null }) {
+  const [url, setUrl] = useState<string | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    let revoked: string | null = null;
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase.storage.from("chat-audio").createSignedUrl(path, 3600);
+      if (cancelled || error || !data?.signedUrl) return;
+      setUrl(data.signedUrl);
+    })();
+    return () => {
+      cancelled = true;
+      if (revoked) URL.revokeObjectURL(revoked);
+      audioRef.current?.pause();
+    };
+  }, [path]);
+
+  function toggle() {
+    if (!url) return;
+    if (!audioRef.current) {
+      audioRef.current = new Audio(url);
+      audioRef.current.onended = () => setPlaying(false);
+    }
+    if (playing) {
+      audioRef.current.pause();
+      setPlaying(false);
+    } else {
+      void audioRef.current.play();
+      setPlaying(true);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      className="flex items-center gap-2 min-w-[140px]"
+      disabled={!url}
+    >
+      <span className="h-8 w-8 rounded-full grid place-items-center border"
+        style={{ borderColor: FF.cyan, color: FF.cyan, background: FF.cyanBg }}>
+        {playing ? <Square className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+      </span>
+      <span className="text-sm">
+        Note vocale{durationSec ? ` · ${durationSec}s` : ""}
+      </span>
+    </button>
+  );
+}
+
+function VoiceRecorder({
+  onRecorded,
+  disabled,
+}: {
+  onRecorded: (blob: Blob, durationSec: number) => void | Promise<void>;
+  disabled?: boolean;
+}) {
+  const [recording, setRecording] = useState(false);
+  const [secs, setSecs] = useState(0);
+  const mediaRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<BlobPart[]>([]);
+  const startedAt = useRef(0);
+  const tickRef = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (tickRef.current) window.clearInterval(tickRef.current);
+    mediaRef.current?.stop();
+  }, []);
+
+  async function start() {
+    if (disabled || recording) return;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mime = MediaRecorder.isTypeSupported("audio/webm")
+        ? "audio/webm"
+        : MediaRecorder.isTypeSupported("audio/mp4")
+          ? "audio/mp4"
+          : "";
+      const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+      chunksRef.current = [];
+      rec.ondataavailable = (e) => { if (e.data.size) chunksRef.current.push(e.data); };
+      rec.onstop = () => {
+        stream.getTracks().forEach((t) => t.stop());
+        const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
+        const duration = Math.max(1, (Date.now() - startedAt.current) / 1000);
+        void onRecorded(blob, duration);
+      };
+      mediaRef.current = rec;
+      startedAt.current = Date.now();
+      setSecs(0);
+      tickRef.current = window.setInterval(() => {
+        setSecs(Math.floor((Date.now() - startedAt.current) / 1000));
+      }, 250);
+      rec.start();
+      setRecording(true);
+    } catch {
+      alert("Micro inaccessible. Autorise le micro dans le navigateur.");
+    }
+  }
+
+  function stop() {
+    if (!recording) return;
+    if (tickRef.current) window.clearInterval(tickRef.current);
+    mediaRef.current?.stop();
+    setRecording(false);
+    setSecs(0);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={recording ? stop : start}
+      disabled={disabled && !recording}
+      aria-label={recording ? "Arrêter l'enregistrement" : "Note vocale"}
+      className="flex h-9 w-9 items-center justify-center rounded-xl flex-shrink-0 relative"
+      style={{
+        background: recording ? "oklch(0.65 0.20 22 / 18%)" : FF.surface2,
+        border: `1px solid ${recording ? "var(--ff-red)" : FF.border}`,
+        color: recording ? "var(--ff-red)" : FF.textMuted,
+      }}
+    >
+      {recording ? <Square className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+      {recording && (
+        <span className="absolute -top-2 -right-1 text-[9px] font-mono tabular-nums px-1 rounded"
+          style={{ background: "var(--ff-red)", color: "#fff" }}>
+          {secs}s
+        </span>
+      )}
+    </button>
   );
 }
 
