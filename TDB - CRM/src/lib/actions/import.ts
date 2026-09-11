@@ -8,6 +8,7 @@ import { requireUser, notify, revalidateCrm } from "@/lib/actions/helpers";
 import { syncLeadInterests } from "@/lib/interests";
 import Papa from "papaparse";
 import * as XLSX from "xlsx";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 import { 
   validateImportFile, 
   validateImportRow, 

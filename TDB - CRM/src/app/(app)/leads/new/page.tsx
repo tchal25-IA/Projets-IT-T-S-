@@ -16,6 +16,7 @@ import {
   interestFieldForSlug,
 } from "@/lib/custom-data";
 import { redirect } from "next/navigation";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function NewLeadPage() {
   const session = await auth();
@@ -24,10 +25,11 @@ export default async function NewLeadPage() {
     redirect("/leads");
   }
 
+  const orgId = await requireOrg();
   const scopedProductId = await getScopedProductId(session.user.role);
   const [allProducts, users, leadSources] = await Promise.all([
     prisma.product.findMany({
-      where: { active: true },
+      where: orgWhere(orgId, { active: true }),
       include: {
         offerings: {
           where: { active: true },
@@ -36,7 +38,7 @@ export default async function NewLeadPage() {
       },
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
     }),
-    prisma.user.findMany({ where: { active: true }, orderBy: { fullName: "asc" } }),
+    prisma.user.findMany({ where: orgWhere(orgId, { active: true }), orderBy: { fullName: "asc" } }),
     getLeadSources(),
   ]);
 

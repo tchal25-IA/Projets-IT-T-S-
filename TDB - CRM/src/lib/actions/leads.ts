@@ -207,7 +207,7 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
 
     const directors = await prisma.user.findMany({
       where: orgWhere(orgId, {
-        role: { in: ["ASSOCIE", "ADMIN", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] },
+        role: { in: ["ASSOCIE", "ADMIN", "DIRECTION_VF", "DIRECTION_BOOKFLOW" ] as const },
         active: true,
       }),
     });

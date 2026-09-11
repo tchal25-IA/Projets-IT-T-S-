@@ -40,7 +40,8 @@ export async function createUser(formData: FormData) {
 
 export async function updateUser(formData: FormData) {
   const actor = await requireUser();
-  const orgId = await requireOrg();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   if (!canManageUsers(actor.role)) throw new Error("Accès refusé");
 
   const id = String(formData.get("id") || "");
@@ -108,7 +109,8 @@ export async function deleteUser(userId: string) {
 
 export async function toggleUserActive(userId: string, active: boolean) {
   const user = await requireUser();
-  const orgId = await requireOrg();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   if (!canManageUsers(user.role)) throw new Error("Accès refusé");
   if (user.id === userId && !active) {
     throw new Error("Vous ne pouvez pas désactiver votre propre compte");

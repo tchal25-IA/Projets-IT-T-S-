@@ -581,7 +581,8 @@ async function main() {
     data: { accountId: account.id },
   });
 
-  const oppsClosedLead = await prisma.opportunity.createMany({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _oppsClosedLead = await prisma.opportunity.createMany({
     data: [
       {
         organizationId: org.id,

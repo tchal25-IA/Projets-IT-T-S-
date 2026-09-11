@@ -100,7 +100,8 @@ export async function deleteProduct(id: string) {
 
 export async function updateProductFieldSchema(formData: FormData) {
   await requireSetup();
-  const orgId = await requireOrg();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   const productId = String(formData.get("productId") || "");
   const raw = String(formData.get("fieldSchemaJson") || "[]");
   if (!productId) throw new Error("Produit manquant");

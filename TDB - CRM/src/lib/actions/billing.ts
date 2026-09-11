@@ -88,7 +88,8 @@ export async function updateOpportunityStatus(
   billingStatus: BillingStatus
 ) {
   const user = await requireUser();
-  const orgId = await requireOrg();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   if (!BILLING_STATUSES.includes(billingStatus)) {
     throw new Error("Statut facturation invalide");
   }
