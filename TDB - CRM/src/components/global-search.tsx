@@ -35,10 +35,12 @@ export function GlobalSearch() {
   }, []);
 
   useEffect(() => {
+    // Clear hits when search is invalid, but only as part of the async flow
     if (!open || q.trim().length < 2) {
-      setHits([]);
-      return;
+      const t = setTimeout(() => setHits([]), 0);
+      return () => clearTimeout(t);
     }
+    
     const t = setTimeout(() => {
       start(async () => {
         const res = await fetch(`/api/search?q=${encodeURIComponent(q.trim())}`);

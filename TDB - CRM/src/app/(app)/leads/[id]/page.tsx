@@ -169,10 +169,15 @@ export default async function LeadDetailPage({
   const commissions = lead.client?.commissions?.length
     ? lead.client.commissions
     : lead.commissions;
-  const upcoming =
-    lead.nextCallAt && lead.nextCallAt.getTime() >= Date.now() - 60_000
+  // Server component: Date.now() called once per request, stable for this render
+  /* eslint-disable react-hooks/purity */
+  const upcoming = (function computeUpcoming() {
+    const nowMs = Date.now();
+    return lead.nextCallAt && lead.nextCallAt.getTime() >= nowMs - 60_000
       ? lead.nextCallAt
       : null;
+  })();
+  /* eslint-enable react-hooks/purity */
   const score = computeLeadScore(lead);
   const interestLabels = lead.interests.map((i) => {
     const p = catalogProducts.find((x) => x.slug === i.productSlug);
