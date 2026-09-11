@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { requireOrg } from "@/lib/tenant";
 
 export async function recordFieldChanges(opts: {
   entity: string;
@@ -11,8 +12,10 @@ export async function recordFieldChanges(opts: {
   );
   if (rows.length === 0) return;
 
+  const orgId = await requireOrg();
   await prisma.fieldHistory.createMany({
     data: rows.map((c) => ({
+      organizationId: orgId,
       entity: opts.entity,
       entityId: opts.entityId,
       field: c.field,
