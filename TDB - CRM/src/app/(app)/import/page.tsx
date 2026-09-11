@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { importLeads } from "@/lib/actions";
 import { PageHeader, Card, Button, Label, Select } from "@/components/ui";
 import { isFullAccess } from "@/lib/utils";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function ImportPage({
   searchParams,
@@ -16,7 +17,8 @@ export default async function ImportPage({
     redirect("/dashboard");
   }
 
-  const products = await prisma.product.findMany({ where: { active: true } });
+  const orgId = await requireOrg();
+  const products = await prisma.product.findMany({ where: orgWhere(orgId, { active: true }) });
   const sp = await searchParams;
 
   async function action(formData: FormData) {

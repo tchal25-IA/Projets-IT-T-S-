@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { assertDealLineAccess } from "@/lib/access";
+import { assertOpportunityAccess } from "@/lib/access";
 import { buildSimplePdf, dealLinesToPdfLines } from "@/lib/pdf";
 import { NextResponse } from "next/server";
 
@@ -14,19 +14,19 @@ export async function GET(
 
   const { id } = await ctx.params;
   try {
-    const line = await assertDealLineAccess(session.user, id);
+    const line = await assertOpportunityAccess(session.user, id);
     const company =
-      line.client?.companyName ?? line.lead?.companyName ?? "Client";
+      line.account?.companyName ?? line.lead?.companyName ?? "Client";
     const pdf = buildSimplePdf(
       dealLinesToPdfLines({
         title: line.billingStatus === "DEVIS" ? "DEVIS" : "FACTURE",
         company,
-        invoiceNumber: line.invoiceNumber,
+        invoiceNumber: line.invoiceNumber ?? "",
         lines: [
           {
-            label: line.label,
-            amountHt: line.amountHt,
-            billingStatus: line.billingStatus,
+            label: line.name,
+            amountHt: line.amount,
+            billingStatus: line.billingStatus ?? "DEVIS",
           },
         ],
       })

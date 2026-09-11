@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-/** Flash toast via ?saved=1 or ?error=… dans l’URL (actions serveur). */
+/** Flash toast via ?saved=1 or ?error=… dans l'URL (actions serveur). */
 export function FlashToast() {
   const params = useSearchParams();
   const pathname = usePathname();
@@ -15,17 +15,24 @@ export function FlashToast() {
   useEffect(() => {
     const saved = params.get("saved");
     const error = params.get("error");
-    if (saved) {
-      setTone("ok");
-      setMsg("Enregistré");
-    } else if (error) {
-      setTone("err");
-      setMsg(decodeURIComponent(error));
-    } else {
-      setMsg(null);
+    
+    // Early return without setState to avoid effect warning
+    if (!saved && !error) {
       return;
     }
-    const t = setTimeout(() => {
+
+    // Use setTimeout to defer state updates and avoid cascading renders
+    const updateTimer = setTimeout(() => {
+      if (saved) {
+        setTone("ok");
+        setMsg("Enregistré");
+      } else if (error) {
+        setTone("err");
+        setMsg(decodeURIComponent(error));
+      }
+    }, 0);
+
+    const clearTimer = setTimeout(() => {
       setMsg(null);
       const next = new URLSearchParams(params.toString());
       next.delete("saved");
@@ -33,7 +40,11 @@ export function FlashToast() {
       const qs = next.toString();
       router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     }, 2800);
-    return () => clearTimeout(t);
+
+    return () => {
+      clearTimeout(updateTimer);
+      clearTimeout(clearTimer);
+    };
   }, [params, pathname, router]);
 
   if (!msg) return null;

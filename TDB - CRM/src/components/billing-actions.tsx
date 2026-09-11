@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { updateDealLineStatus, startStripeCheckout } from "@/lib/actions";
@@ -20,10 +20,6 @@ export function BillingActions({
   const router = useRouter();
   const [pending, start] = useTransition();
   const [local, setLocal] = useState(status);
-
-  useEffect(() => {
-    setLocal(status);
-  }, [status]);
 
   return (
     <div className="flex flex-wrap items-center gap-2">

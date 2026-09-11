@@ -50,10 +50,16 @@ Voir `.env.example` : `RESEND_*`, `STRIPE_*`, `BOOKFLOW_WEBHOOK_SECRET`, `NEXT_P
 - URL : https://tdb-crm.vercel.app
 - Projet Vercel : `tdb-crm`
 
-## Base de données temporaire Prisma
+## Base de données
 
-La base Postgres actuelle a été créée via `create-db`.
-**À faire :** claimez-la pour la conserver :
-https://create-db.prisma.io/claim?projectID=proj_sw9u7nwu8tzmu3ecf1181fpv
+**⚠️ Migration requise** : La base actuelle sur create-db.prisma.io est temporaire.
 
-Sinon créez une base Postgres permanente et mettez à jour `DATABASE_URL` (local + Vercel).
+**Guide complet** : Voir [`docs/DATABASE_MIGRATION.md`](./docs/DATABASE_MIGRATION.md) pour :
+- Options recommandées (Vercel Postgres, Supabase)
+- Migration étape par étape avec Prisma Migrate
+- Configuration des variables d'environnement
+- Troubleshooting
+
+**Action immédiate** : 
+1. Option temporaire : Claim la DB actuelle → https://create-db.prisma.io/claim?projectID=proj_sw9u7nwu8tzmu3ecf1181fpv
+2. **Recommandé** : Migrer vers Vercel Postgres (voir docs)

@@ -10,6 +10,9 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:setup": "prisma db push && tsx prisma/seed.ts",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:studio": "prisma studio",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -21,7 +24,7 @@
     "date-fns": "^4.4.0",
     "dotenv": "^17.2.3",
     "lucide-react": "^1.29.0",
-    "next": "16.3.0",
+    "next": "^16.3.5",
     "next-auth": "^5.0.0-beta.32",
     "papaparse": "^5.5.4",
     "pg": "^8.16.3",

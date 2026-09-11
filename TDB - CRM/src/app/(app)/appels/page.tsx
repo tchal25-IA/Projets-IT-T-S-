@@ -23,6 +23,7 @@ import {
 } from "@/lib/utils";
 import { computeLeadScore } from "@/lib/scoring";
 import type { LeadStatus } from "@/generated/prisma/client";
+import { requireOrg } from "@/lib/tenant";
 
 export default async function AppelsPage({
   searchParams,
@@ -38,9 +39,11 @@ export default async function AppelsPage({
   const sp = await searchParams;
   const focus = sp.mode === "focus";
 
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
   const baseWhere = leadVisibilityWhere(session.user.id, session.user.role, {
     productId,
+    organizationId: orgId,
   });
 
   const where = {

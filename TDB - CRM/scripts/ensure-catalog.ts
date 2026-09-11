@@ -13,9 +13,21 @@ async function main() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 1 });
   const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 
+  // Get or create default organization
+  let org = await prisma.organization.findFirst({ where: { slug: "default" } });
+  if (!org) {
+    org = await prisma.organization.create({
+      data: {
+        name: "T&S Default",
+        slug: "default",
+      },
+    });
+  }
+
   const vf = await prisma.product.upsert({
-    where: { slug: "vitrineflash" },
+    where: { organizationId_slug: { organizationId: org.id, slug: "vitrineflash" } },
     create: {
+      organizationId: org.id,
       slug: "vitrineflash",
       name: "VitrineFlash",
       description: "Création / reprise / modification de sites web",
@@ -29,8 +41,9 @@ async function main() {
   });
 
   const bf = await prisma.product.upsert({
-    where: { slug: "bookflow" },
+    where: { organizationId_slug: { organizationId: org.id, slug: "bookflow" } },
     create: {
+      organizationId: org.id,
       slug: "bookflow",
       name: "Bookflow",
       description: "Prise de RDV",
@@ -45,6 +58,7 @@ async function main() {
 
   const offerings = [
     {
+      organizationId: org.id,
       productId: vf.id,
       name: "Site vitrine one-shot",
       code: "VF-SITE",
@@ -54,6 +68,7 @@ async function main() {
       sortOrder: 0,
     },
     {
+      organizationId: org.id,
       productId: vf.id,
       name: "Maintenance Essentiel",
       code: "VF-MAINT-E",
@@ -63,6 +78,7 @@ async function main() {
       sortOrder: 1,
     },
     {
+      organizationId: org.id,
       productId: vf.id,
       name: "Maintenance Pro",
       code: "VF-MAINT-P",
@@ -72,6 +88,7 @@ async function main() {
       sortOrder: 2,
     },
     {
+      organizationId: org.id,
       productId: bf.id,
       name: "Bookflow Starter",
       code: "BF-START",
@@ -81,6 +98,7 @@ async function main() {
       sortOrder: 0,
     },
     {
+      organizationId: org.id,
       productId: bf.id,
       name: "Bookflow Pro",
       code: "BF-PRO",
@@ -90,6 +108,7 @@ async function main() {
       sortOrder: 1,
     },
     {
+      organizationId: org.id,
       productId: bf.id,
       name: "Bookflow Business",
       code: "BF-BIZ",
@@ -102,7 +121,7 @@ async function main() {
 
   for (const o of offerings) {
     const existing = await prisma.productOffering.findFirst({
-      where: { productId: o.productId, code: o.code },
+      where: { organizationId: org.id, productId: o.productId, code: o.code },
     });
     if (existing) {
       await prisma.productOffering.update({
@@ -124,8 +143,9 @@ async function main() {
   console.log("Catalogue synchronisé (VF + Bookflow + prestations)");
 
   await prisma.commissionRule.upsert({
-    where: { roleKey: "APPORTEUR" },
+    where: { organizationId_roleKey: { organizationId: org.id, roleKey: "APPORTEUR" } },
     create: {
+      organizationId: org.id,
       roleKey: "APPORTEUR",
       label: "Apporteur d'affaires",
       ratePercent: 10,
@@ -134,8 +154,9 @@ async function main() {
     update: {},
   });
   await prisma.commissionRule.upsert({
-    where: { roleKey: "COMMERCIAL" },
+    where: { organizationId_roleKey: { organizationId: org.id, roleKey: "COMMERCIAL" } },
     create: {
+      organizationId: org.id,
       roleKey: "COMMERCIAL",
       label: "Commercial (close)",
       ratePercent: 15,

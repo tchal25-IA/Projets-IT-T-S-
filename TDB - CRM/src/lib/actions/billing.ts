@@ -2,16 +2,17 @@
 
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { BillingStatus, ClientStatus } from "@/generated/prisma/client";
+import { BillingStatus, AccountStatus } from "@/generated/prisma/client";
 import { canSeeBilling, isDirection } from "@/lib/utils";
 import { requireUser, revalidateCrm } from "@/lib/actions/helpers";
 import { recordFieldChanges } from "@/lib/audit";
 import { createCheckoutSession, isStripeConfigured } from "@/lib/stripe";
 import {
   assertLeadAccess,
-  assertClientAccess,
-  assertDealLineAccess,
+  assertAccountAccess,
+  assertOpportunityAccess,
 } from "@/lib/access";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 const BILLING_STATUSES: BillingStatus[] = [
   "DEVIS",
@@ -20,14 +21,15 @@ const BILLING_STATUSES: BillingStatus[] = [
   "PAYE",
 ];
 
-const CLIENT_STATUSES: ClientStatus[] = [
+const ACCOUNT_STATUSES: AccountStatus[] = [
   "EN_LIVRAISON",
   "ACTIF",
   "MAINTENANCE",
 ];
 
-export async function addDealLine(leadId: string, formData: FormData) {
+export async function addOpportunity(leadId: string, formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!canSeeBilling(user.role)) throw new Error("Accès refusé");
   await assertLeadAccess(user, leadId);
 
@@ -35,22 +37,22 @@ export async function addDealLine(leadId: string, formData: FormData) {
   if (!lead) throw new Error("Lead introuvable");
 
   const offeringId = String(formData.get("offeringId") || "").trim() || null;
-  let label = String(formData.get("label") || "").trim().slice(0, 200);
-  let amountHt = Number(formData.get("amountHt") || 0);
+  let name = String(formData.get("label") || formData.get("name") || "").trim().slice(0, 200);
+  let amount = Number(formData.get("amountHt") || formData.get("amount") || 0);
   let isRecurring = formData.get("isRecurring") === "on";
 
   if (offeringId) {
     const offering = await prisma.productOffering.findFirst({
-      where: { id: offeringId, active: true },
+      where: orgWhere(orgId, { id: offeringId, active: true }),
     });
     if (!offering) throw new Error("Prestation catalogue introuvable");
-    label = offering.name;
-    amountHt = offering.amountHt ?? amountHt;
+    name = offering.name;
+    amount = offering.amountHt ?? amount;
     isRecurring =
       offering.kind === "SUBSCRIPTION" || offering.kind === "MAINTENANCE";
   }
 
-  if (!label || !Number.isFinite(amountHt) || amountHt < 0) {
+  if (!name || !Number.isFinite(amount) || amount < 0) {
     throw new Error("Ligne invalide");
   }
 
@@ -61,14 +63,16 @@ export async function addDealLine(leadId: string, formData: FormData) {
     throw new Error("Statut facturation invalide");
   }
 
-  await prisma.dealLine.create({
+  await prisma.opportunity.create({
     data: {
+      organizationId: orgId,
       leadId,
-      clientId: lead.clientId,
+      accountId: lead.accountId,
       offeringId,
-      label,
-      amountHt,
+      name,
+      amount,
       billingStatus,
+      stage: "QUALIFICATION",
       isRecurring,
     },
   });
@@ -76,17 +80,22 @@ export async function addDealLine(leadId: string, formData: FormData) {
   revalidateCrm({ leadId });
 }
 
-export async function updateDealLineStatus(
+// Legacy alias
+export const addDealLine = addOpportunity;
+
+export async function updateOpportunityStatus(
   id: string,
   billingStatus: BillingStatus
 ) {
   const user = await requireUser();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   if (!BILLING_STATUSES.includes(billingStatus)) {
     throw new Error("Statut facturation invalide");
   }
-  const prev = await assertDealLineAccess(user, id);
+  const prev = await assertOpportunityAccess(user, id);
 
-  const line = await prisma.dealLine.update({
+  const opp = await prisma.opportunity.update({
     where: { id },
     data: {
       billingStatus,
@@ -100,136 +109,154 @@ export async function updateDealLineStatus(
   });
 
   await recordFieldChanges({
-    entity: "DealLine",
+    entity: "Opportunity",
     entityId: id,
     userId: user.id,
     changes: [
       {
         field: "billingStatus",
-        oldValue: prev.billingStatus,
+        oldValue: prev.billingStatus ?? "",
         newValue: billingStatus,
       },
     ],
   });
 
-  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+  revalidateCrm({ leadId: opp.leadId ?? undefined, accountId: opp.accountId ?? undefined });
 }
 
-export async function updateClientStatus(clientId: string, status: ClientStatus) {
+// Legacy alias
+export const updateDealLineStatus = updateOpportunityStatus;
+
+export async function updateAccountStatus(accountId: string, status: AccountStatus) {
   const user = await requireUser();
   if (!canSeeBilling(user.role)) throw new Error("Accès refusé");
-  if (!CLIENT_STATUSES.includes(status)) throw new Error("Statut invalide");
-  const prev = await assertClientAccess(user, clientId);
+  if (!ACCOUNT_STATUSES.includes(status)) throw new Error("Statut invalide");
+  const prev = await assertAccountAccess(user, accountId);
 
-  await prisma.client.update({ where: { id: clientId }, data: { status } });
+  await prisma.account.update({ where: { id: accountId }, data: { status } });
   await recordFieldChanges({
-    entity: "Client",
-    entityId: clientId,
+    entity: "Account",
+    entityId: accountId,
     userId: user.id,
     changes: [{ field: "status", oldValue: prev.status, newValue: status }],
   });
-  revalidateCrm({ clientId });
+  revalidateCrm({ accountId });
 }
+
+// Legacy alias
+export const updateClientStatus = updateAccountStatus;
 
 export async function updateCommissionStatus(
   id: string,
   status: "CALCULEE" | "A_VERSER" | "VERSEE"
 ) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!isDirection(user.role)) throw new Error("Accès refusé");
   if (!["CALCULEE", "A_VERSER", "VERSEE"].includes(status)) {
     throw new Error("Statut commission invalide");
   }
 
-  const existing = await prisma.commission.findUnique({ where: { id } });
+  const existing = await prisma.commission.findFirst({ 
+    where: orgWhere(orgId, { id })
+  });
   if (!existing) throw new Error("Commission introuvable");
-  await assertClientAccess(user, existing.clientId);
+  await assertAccountAccess(user, existing.accountId);
 
   const commission = await prisma.commission.update({
     where: { id },
     data: { status },
   });
-  revalidateCrm({ clientId: commission.clientId });
+  revalidateCrm({ accountId: commission.accountId });
 }
 
-export async function startStripeCheckout(dealLineId: string) {
+export async function startStripeCheckout(opportunityId: string) {
   const user = await requireUser();
   if (!isStripeConfigured()) {
     throw new Error("Stripe non configuré — définissez STRIPE_SECRET_KEY");
   }
 
-  const line = await assertDealLineAccess(user, dealLineId);
+  const opp = await assertOpportunityAccess(user, opportunityId);
 
-  const email = line.client?.email ?? line.lead?.email;
+  const email = opp.account?.email ?? opp.lead?.email;
   const result = await createCheckoutSession({
-    dealLineId: line.id,
-    label: line.label,
-    amountHt: line.amountHt,
+    dealLineId: opp.id,
+    label: opp.name,
+    amountHt: opp.amount,
     customerEmail: email,
   });
   if (!result.url || !result.sessionId) {
     throw new Error(result.error ?? "Impossible de créer la session Stripe");
   }
 
-  await prisma.dealLine.update({
-    where: { id: line.id },
+  await prisma.opportunity.update({
+    where: { id: opp.id },
     data: {
       stripeSessionId: result.sessionId,
       billingStatus: "FACTURE",
       invoiceNumber:
-        line.invoiceNumber ??
-        `FAC-${new Date().getFullYear()}-${line.id.slice(-6).toUpperCase()}`,
+        opp.invoiceNumber ??
+        `FAC-${new Date().getFullYear()}-${opp.id.slice(-6).toUpperCase()}`,
     },
   });
 
-  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+  revalidateCrm({ leadId: opp.leadId ?? undefined, accountId: opp.accountId ?? undefined });
   redirect(result.url);
 }
 
-export async function updateDealLine(id: string, formData: FormData) {
+export async function updateOpportunity(id: string, formData: FormData) {
   const user = await requireUser();
-  const line = await assertDealLineAccess(user, id);
+  const opp = await assertOpportunityAccess(user, id);
 
-  const label = String(formData.get("label") || "").trim().slice(0, 200);
-  const amountHt = Number(formData.get("amountHt") || 0);
-  if (!label || !Number.isFinite(amountHt) || amountHt < 0) {
+  const name = String(formData.get("label") || formData.get("name") || "").trim().slice(0, 200);
+  const amount = Number(formData.get("amountHt") || formData.get("amount") || 0);
+  if (!name || !Number.isFinite(amount) || amount < 0) {
     throw new Error("Ligne invalide");
   }
   const billingStatus = String(
-    formData.get("billingStatus") || line.billingStatus
+    formData.get("billingStatus") || opp.billingStatus
   ) as BillingStatus;
   if (!BILLING_STATUSES.includes(billingStatus)) {
     throw new Error("Statut facturation invalide");
   }
 
-  await prisma.dealLine.update({
+  await prisma.opportunity.update({
     where: { id },
     data: {
-      label,
-      amountHt,
+      name,
+      amount,
       billingStatus,
       isRecurring: formData.get("isRecurring") === "on",
-      notes: String(formData.get("notes") || "") || null,
+      description: String(formData.get("notes") || formData.get("description") || "") || null,
     },
   });
 
-  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+  revalidateCrm({ leadId: opp.leadId ?? undefined, accountId: opp.accountId ?? undefined });
 }
 
-export async function deleteDealLine(id: string) {
+// Legacy alias
+export const updateDealLine = updateOpportunity;
+
+export async function deleteOpportunity(id: string) {
   const user = await requireUser();
-  const line = await assertDealLineAccess(user, id);
-  await prisma.dealLine.delete({ where: { id } });
-  revalidateCrm({ leadId: line.leadId, clientId: line.clientId });
+  const opp = await assertOpportunityAccess(user, id);
+  await prisma.opportunity.delete({ where: { id } });
+  revalidateCrm({ leadId: opp.leadId ?? undefined, accountId: opp.accountId ?? undefined });
 }
+
+// Legacy alias
+export const deleteDealLine = deleteOpportunity;
 
 export async function updateCommission(id: string, formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!isDirection(user.role)) throw new Error("Accès refusé");
 
-  const existing = await prisma.commission.findUnique({ where: { id } });
+  const existing = await prisma.commission.findFirst({ 
+    where: orgWhere(orgId, { id })
+  });
   if (!existing) throw new Error("Commission introuvable");
-  await assertClientAccess(user, existing.clientId);
+  await assertAccountAccess(user, existing.accountId);
 
   const ratePercent = Number(formData.get("ratePercent") || existing.ratePercent);
   const amountHt = Number(formData.get("amountHt") || existing.amountHt);
@@ -253,54 +280,64 @@ export async function updateCommission(id: string, formData: FormData) {
     where: { id },
     data: { ratePercent, amountHt, status, label: label || existing.label },
   });
-  revalidateCrm({ clientId: existing.clientId, leadId: existing.leadId });
+  revalidateCrm({ accountId: existing.accountId, leadId: existing.leadId ?? undefined });
 }
 
 export async function deleteCommission(id: string) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!isDirection(user.role)) throw new Error("Accès refusé");
-  const existing = await prisma.commission.findUnique({ where: { id } });
+  const existing = await prisma.commission.findFirst({ 
+    where: orgWhere(orgId, { id })
+  });
   if (!existing) return;
-  await assertClientAccess(user, existing.clientId);
+  await assertAccountAccess(user, existing.accountId);
   await prisma.commission.delete({ where: { id } });
-  revalidateCrm({ clientId: existing.clientId, leadId: existing.leadId });
+  revalidateCrm({ accountId: existing.accountId, leadId: existing.leadId ?? undefined });
 }
 
-export async function updateClientDetails(clientId: string, formData: FormData) {
+export async function updateAccountDetails(accountId: string, formData: FormData) {
   const user = await requireUser();
   if (!canSeeBilling(user.role) && user.role !== "APPORTEUR") {
     // apporteur read-only typically
   }
   if (!canSeeBilling(user.role)) throw new Error("Accès refusé");
-  await assertClientAccess(user, clientId);
+  await assertAccountAccess(user, accountId);
 
-  await prisma.client.update({
-    where: { id: clientId },
+  await prisma.account.update({
+    where: { id: accountId },
     data: {
       companyName: String(formData.get("companyName") || "").trim() || undefined,
-      contactName: String(formData.get("contactName") || "") || null,
       email: String(formData.get("email") || "") || null,
       phone: String(formData.get("phone") || "") || null,
       notes: String(formData.get("notes") || "") || null,
     },
   });
-  revalidateCrm({ clientId });
+  revalidateCrm({ accountId });
 }
 
-export async function deleteClient(clientId: string) {
+// Legacy alias
+export const updateClientDetails = updateAccountDetails;
+
+export async function deleteAccount(accountId: string) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!isDirection(user.role)) throw new Error("Accès refusé");
-  await assertClientAccess(user, clientId);
+  await assertAccountAccess(user, accountId);
 
   // Détache les leads, purge dépendances
-  await prisma.commission.deleteMany({ where: { clientId } });
-  await prisma.dealLine.deleteMany({ where: { clientId } });
-  await prisma.task.deleteMany({ where: { clientId } });
+  await prisma.commission.deleteMany({ where: orgWhere(orgId, { accountId }) });
+  await prisma.opportunity.deleteMany({ where: orgWhere(orgId, { accountId }) });
+  await prisma.task.deleteMany({ where: orgWhere(orgId, { accountId }) });
+  await prisma.contact.deleteMany({ where: orgWhere(orgId, { accountId }) });
   await prisma.lead.updateMany({
-    where: { clientId },
-    data: { clientId: null },
+    where: orgWhere(orgId, { accountId }),
+    data: { accountId: null },
   });
-  await prisma.client.delete({ where: { id: clientId } });
-  revalidateCrm({ clientId });
+  await prisma.account.delete({ where: { id: accountId } });
+  revalidateCrm({ accountId });
   redirect("/clients");
 }
+
+// Legacy alias
+export const deleteClient = deleteAccount;

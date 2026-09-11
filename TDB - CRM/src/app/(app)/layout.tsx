@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { navForRole } from "@/lib/permissions";
 import { AppShell } from "@/components/app-shell";
 import { FlashToast } from "@/components/flash-toast";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { Suspense } from "react";
 
 export default async function AppLayout({
@@ -27,7 +28,7 @@ export default async function AppLayout({
       <Suspense fallback={null}>
         <FlashToast />
       </Suspense>
-      {children}
+      <ErrorBoundary>{children}</ErrorBoundary>
     </AppShell>
   );
 }

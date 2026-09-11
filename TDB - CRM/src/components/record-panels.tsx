@@ -4,7 +4,7 @@ import { EditableCommissions } from "@/components/editable-commissions";
 import { Badge, Button, Input, Label, Select, Stat, Textarea } from "@/components/ui";
 import {
   BILLING_LABELS,
-  CLIENT_STATUS_LABELS,
+  ACCOUNT_STATUS_LABELS,
   formatDate,
   formatDateTime,
   formatEuro,
@@ -12,17 +12,20 @@ import {
 import type {
   ActivityType,
   BillingStatus,
-  ClientStatus,
+  AccountStatus,
   CommissionStatus,
 } from "@/generated/prisma/client";
 
 type DealLineRow = {
   id: string;
-  label: string;
-  amountHt: number;
-  billingStatus: BillingStatus;
+  name: string;  // Changed from 'label' for Opportunity model
+  amount: number;  // Changed from 'amountHt' for Opportunity model
+  billingStatus: BillingStatus | null;  // Nullable in Opportunity
   isRecurring: boolean;
   notes?: string | null;
+  // Legacy aliases for backward compatibility
+  label?: string;
+  amountHt?: number;
 };
 
 type CommissionRow = {
@@ -70,7 +73,7 @@ export function BillingPanel({
         <div key={d.id} className="rounded-md border border-stone-200 p-3 text-sm">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-medium">{d.label}</p>
+              <p className="font-medium">{d.name}</p>
               <Badge
                 tone={
                   d.billingStatus === "PAYE"
@@ -80,14 +83,14 @@ export function BillingPanel({
                       : "neutral"
                 }
               >
-                {BILLING_LABELS[d.billingStatus]}
+                {d.billingStatus ? BILLING_LABELS[d.billingStatus] : "Devis"}
               </Badge>
             </div>
-            <p className="font-semibold">{formatEuro(d.amountHt)}</p>
+            <p className="font-semibold">{formatEuro(d.amount)}</p>
           </div>
           {canEdit ? (
             <div className="mt-2">
-              <BillingActions id={d.id} status={d.billingStatus} showPay />
+              <BillingActions id={d.id} status={d.billingStatus ?? "DEVIS"} showPay />
             </div>
           ) : null}
         </div>
@@ -198,7 +201,7 @@ export function LivraisonPanel({
   onStatusAction,
   leadLink,
 }: {
-  status: ClientStatus;
+  status: AccountStatus;
   notes?: string | null;
   createdAt?: Date | null;
   canEdit: boolean;
@@ -208,7 +211,7 @@ export function LivraisonPanel({
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2">
-        <Stat label="Statut client" value={CLIENT_STATUS_LABELS[status]} />
+        <Stat label="Statut client" value={ACCOUNT_STATUS_LABELS[status]} />
         {createdAt ? (
           <Stat label="Client depuis" value={formatDate(createdAt)} />
         ) : null}
@@ -221,7 +224,7 @@ export function LivraisonPanel({
           <div className="w-56">
             <Label>Statut livraison</Label>
             <Select name="status" defaultValue={status}>
-              {Object.entries(CLIENT_STATUS_LABELS).map(([k, v]) => (
+              {Object.entries(ACCOUNT_STATUS_LABELS).map(([k, v]) => (
                 <option key={k} value={k}>
                   {v}
                 </option>

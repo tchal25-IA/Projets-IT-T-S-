@@ -10,6 +10,7 @@ declare module "next-auth" {
   interface User {
     role: Role;
     fullName: string;
+    organizationId?: string;
   }
   interface Session {
     user: {
@@ -17,6 +18,8 @@ declare module "next-auth" {
       email: string;
       role: Role;
       fullName: string;
+      organizationId: string;
+      organizationSlug?: string;
     };
     error?: string;
   }
@@ -30,6 +33,8 @@ declare module "@auth/core/jwt" {
     active?: boolean;
     lastCheck?: number;
     error?: string;
+    organizationId?: string;
+    organizationSlug?: string;
   }
 }
 
@@ -54,8 +59,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const user = await prisma.user.findUnique({
           where: { email: parsed.data.email.toLowerCase() },
+          include: {
+            organization: {
+              select: {
+                id: true,
+                slug: true,
+                active: true,
+              },
+            },
+          },
         });
         if (!user || !user.active) return null;
+        if (!user.organization?.active) return null;
 
         const ok = await bcrypt.compare(parsed.data.password, user.passwordHash);
         if (!ok) return null;
@@ -65,6 +80,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: user.email,
           role: user.role,
           fullName: user.fullName,
+          organizationId: user.organization.id,
         };
       },
     }),
@@ -77,6 +93,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.role = user.role;
         token.fullName = user.fullName;
         token.email = user.email;
+        token.organizationId = user.organizationId;
         token.active = true;
         token.lastCheck = Date.now();
         delete token.error;
@@ -93,10 +110,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             fullName: true,
             active: true,
             email: true,
+            organizationId: true,
+            organization: {
+              select: {
+                slug: true,
+                active: true,
+              },
+            },
           },
         });
         token.lastCheck = now;
-        if (!dbUser || !dbUser.active) {
+        if (!dbUser || !dbUser.active || !dbUser.organization?.active) {
           token.active = false;
           token.error = "Inactive";
           return token;
@@ -104,6 +128,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.role = dbUser.role;
         token.fullName = dbUser.fullName;
         token.email = dbUser.email;
+        token.organizationId = dbUser.organizationId;
+        token.organizationSlug = dbUser.organization.slug;
         token.active = true;
         delete token.error;
       }
@@ -118,6 +144,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.role = token.role as Role;
         session.user.fullName = (token.fullName as string) ?? "";
         session.user.email = (token.email as string) ?? "";
+        session.user.organizationId = (token.organizationId as string) ?? "";
+        session.user.organizationSlug = token.organizationSlug as string | undefined;
       }
       return session;
     },
