@@ -300,7 +300,7 @@ export async function computeDashboardMetrics(
         amountHt: c.amountHt,
         status: c.status,
         userName: c.user.fullName,
-        companyName: c.client.companyName,
+        companyName: c.account.companyName,
       })),
     openTasks,
   };

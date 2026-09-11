@@ -1,25 +1,25 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { clientVisibilityWhere } from "@/lib/permissions";
+import { accountVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
 import { PageHeader, Card, Badge } from "@/components/ui";
-import { CLIENT_STATUS_LABELS, formatDate, canSeeBilling } from "@/lib/utils";
+import { ACCOUNT_STATUS_LABELS, formatDate, canSeeBilling } from "@/lib/utils";
 
 export default async function ClientsPage() {
   const session = await auth();
   if (!session?.user) return null;
 
   const productId = await getScopedProductId(session.user.role);
-  const where = clientVisibilityWhere(session.user.id, session.user.role, {
+  const where = accountVisibilityWhere(session.user.id, session.user.role, {
     productId,
   });
 
-  const clients = await prisma.client.findMany({
+  const accounts = await prisma.account.findMany({
     where,
     include: {
       leads: { include: { commercial: true, product: true, apporteur: true } },
-      dealLines: true,
+      opportunities: true,
       commissions: true,
     },
     orderBy: { updatedAt: "desc" },
@@ -45,7 +45,7 @@ export default async function ClientsPage() {
             </tr>
           </thead>
           <tbody>
-            {clients.map((c) => (
+            {accounts.map((c) => (
               <tr key={c.id} className="border-b border-stone-100 hover:bg-stone-50/80">
                 <td className="px-4 py-3">
                   <Link
@@ -58,7 +58,7 @@ export default async function ClientsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <Badge tone={c.status === "ACTIF" ? "success" : "warning"}>
-                    {CLIENT_STATUS_LABELS[c.status]}
+                    {ACCOUNT_STATUS_LABELS[c.status]}
                   </Badge>
                 </td>
                 <td className="px-4 py-3 text-stone-600">
@@ -72,7 +72,7 @@ export default async function ClientsPage() {
                 </td>
                 <td className="px-4 py-3">
                   {canSeeBilling(session.user.role) || session.user.role === "APPORTEUR"
-                    ? c.dealLines.length
+                    ? c.opportunities.length
                     : "—"}
                 </td>
                 <td className="px-4 py-3 text-stone-500">{formatDate(c.createdAt)}</td>
@@ -80,7 +80,7 @@ export default async function ClientsPage() {
             ))}
           </tbody>
         </table>
-        {clients.length === 0 ? (
+        {accounts.length === 0 ? (
           <p className="p-6 text-sm text-stone-500">Aucun client pour le moment.</p>
         ) : null}
       </Card>

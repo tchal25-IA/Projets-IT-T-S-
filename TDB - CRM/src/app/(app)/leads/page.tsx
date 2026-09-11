@@ -20,6 +20,7 @@ import {
   type SystemViewId,
 } from "@/lib/list-views";
 import type { Prisma } from "@/generated/prisma/client";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function LeadsPage({
   searchParams,
@@ -34,14 +35,15 @@ export default async function LeadsPage({
   const session = await auth();
   if (!session?.user) return null;
   const sp = await searchParams;
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
   const view = (sp.view ?? "all") as string;
 
   const savedViews = await prisma.savedView.findMany({
-    where: {
+    where: orgWhere(orgId, {
       entity: "LEAD",
       OR: [{ userId: session.user.id }, { isShared: true }],
-    },
+    }),
     orderBy: { name: "asc" },
   });
 
@@ -83,7 +85,7 @@ export default async function LeadsPage({
       },
       orderBy: { updatedAt: "desc" },
     }),
-    prisma.product.findMany({ where: { active: true } }),
+    prisma.product.findMany({ where: orgWhere(orgId, { active: true }) }),
   ]);
 
   const scopedProducts = productId
