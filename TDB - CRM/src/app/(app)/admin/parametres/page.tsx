@@ -29,7 +29,7 @@ import {
   getLeadSources,
   getLeadStatusLabels,
 } from "@/lib/business-settings";
-import type { BillingStatus, ClientStatus } from "@/generated/prisma/client";
+import type { BillingStatus, AccountStatus } from "@/generated/prisma/client";
 
 const TABS = [
   { id: "entreprise", label: "Entreprise" },
@@ -66,7 +66,6 @@ export default async function ParametresPage({
   const tab = (TABS.some((t) => t.id === sp.tab) ? sp.tab : "entreprise") as TabId;
 
   await Promise.all([
-    ensureDefaultCommissionRules(),
     ensureDefaultBusinessSettings(),
   ]);
 
@@ -239,7 +238,7 @@ export default async function ParametresPage({
                 Statuts client
               </h3>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {(Object.keys(clientLabels) as ClientStatus[]).map((key) => (
+                {(Object.keys(clientLabels) as AccountStatus[]).map((key) => (
                   <div key={key}>
                     <Label>{key}</Label>
                     <Input

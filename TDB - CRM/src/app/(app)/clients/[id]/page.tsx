@@ -2,16 +2,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { clientVisibilityWhere } from "@/lib/permissions";
+import { accountVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
 import { visibleTabsForRole } from "@/lib/visible-tabs";
 import { productBlock, fieldsForProduct } from "@/lib/custom-data";
 import { enrichFieldsWithOfferings, parseFieldSchema } from "@/lib/fields";
 import {
-  updateClientStatus,
-  updateClientDetails,
-  deleteClient,
-  addDealLine,
+  updateAccountStatus,
+  updateAccountDetails,
+  deleteAccount,
+  addOpportunity,
 } from "@/lib/actions";
 import { PageHeader, Button, Badge, Stat, Input, Label, Textarea } from "@/components/ui";
 import { RecordTabs, SalesPath } from "@/components/record-tabs";
@@ -26,7 +26,7 @@ import {
   LivraisonPanel,
 } from "@/components/record-panels";
 import {
-  CLIENT_STATUS_LABELS,
+  ACCOUNT_STATUS_LABELS,
   STATUS_LABELS,
   canSeeBilling,
   canSeeCommissions,
@@ -35,7 +35,7 @@ import {
   formatEuro,
   isDirection,
 } from "@/lib/utils";
-import type { ClientStatus } from "@/generated/prisma/client";
+import type { AccountStatus } from "@/generated/prisma/client";
 
 export default async function ClientDetailPage({
   params,
@@ -47,10 +47,10 @@ export default async function ClientDetailPage({
 
   const productId = await getScopedProductId(session.user.role);
   const { id } = await params;
-  const client = await prisma.client.findFirst({
+  const account = await prisma.account.findFirst({
     where: {
       id,
-      ...clientVisibilityWhere(session.user.id, session.user.role, { productId }),
+      ...accountVisibilityWhere(session.user.id, session.user.role, { productId }),
     },
     include: {
       leads: {
@@ -68,12 +68,12 @@ export default async function ClientDetailPage({
       commissions: { include: { user: true }, orderBy: { createdAt: "asc" } },
     },
   });
-  if (!client) notFound();
+  if (!account) notFound();
 
-  const lead = client.leads[0];
+  const lead = account.leads[0];
   const customData = (lead?.customData ?? {}) as Record<string, unknown>;
-  const qualification = (client.qualification ?? {}) as Record<string, unknown>;
-  const canEditClient = canSeeBilling(session.user.role);
+  const qualification = (account.qualification ?? {}) as Record<string, unknown>;
+  const canEditAccount = canSeeBilling(session.user.role);
   const canDelete = isDirection(session.user.role);
 
   const catalogProducts = await prisma.product.findMany({
@@ -110,27 +110,27 @@ export default async function ClientDetailPage({
     })
     .filter((p) => p.interested);
 
-  const ca = client.dealLines.reduce((s, d) => s + d.amountHt, 0);
-  const commissionsTotal = client.commissions.reduce((s, c) => s + c.amountHt, 0);
+  const ca = account.opportunities.reduce((s, d) => s + d.amount, 0);
+  const commissionsTotal = account.commissions.reduce((s, c) => s + c.amountHt, 0);
 
-  async function saveClient(formData: FormData) {
+  async function saveAccount(formData: FormData) {
     "use server";
-    await updateClientDetails(id, formData);
+    await updateAccountDetails(id, formData);
   }
-  async function removeClient() {
+  async function removeAccount() {
     "use server";
-    await deleteClient(id);
+    await deleteAccount(id);
   }
   async function saveDeal(formData: FormData) {
     "use server";
     if (!lead) throw new Error("Lead d'origine requis pour ajouter une prestation");
-    await addDealLine(lead.id, formData);
+    await addOpportunity(lead.id, formData);
   }
 
   return (
     <div>
       <PageHeader
-        title={client.companyName}
+        title={account.companyName}
         subtitle="Fiche client — même format que le lead, onglets post-conversion ouverts"
         actions={
           <div className="flex flex-wrap gap-2">
@@ -140,7 +140,7 @@ export default async function ClientDetailPage({
               </Link>
             ) : null}
             {canDelete ? (
-              <form action={removeClient}>
+              <form action={removeAccount}>
                 <Button type="submit" variant="ghost" className="text-red-700">
                   Supprimer le client
                 </Button>
@@ -151,7 +151,7 @@ export default async function ClientDetailPage({
       />
 
       <div className="mb-4 flex flex-wrap gap-2">
-        <Badge tone="warning">{CLIENT_STATUS_LABELS[client.status]}</Badge>
+        <Badge tone="warning">{ACCOUNT_STATUS_LABELS[account.status]}</Badge>
         {lead ? <Badge tone="info">{lead.product.name}</Badge> : null}
         {lead ? (
           <Badge tone="success">Issu lead · {STATUS_LABELS[lead.status]}</Badge>
@@ -174,33 +174,33 @@ export default async function ClientDetailPage({
             <div className="grid gap-3 sm:grid-cols-3">
               <Stat label="CA prestations" value={formatEuro(ca)} />
               <Stat label="Commissions" value={formatEuro(commissionsTotal)} />
-              <Stat label="Statut" value={CLIENT_STATUS_LABELS[client.status]} />
+              <Stat label="Statut" value={ACCOUNT_STATUS_LABELS[account.status]} />
               <p className="sm:col-span-3 text-xs text-stone-500">
-                Créé le {formatDate(client.createdAt)}
+                Créé le {formatDate(account.createdAt)}
               </p>
             </div>
           ),
-          contact: canEditClient ? (
-            <form action={saveClient} className="grid gap-3 sm:grid-cols-2">
+          contact: canEditAccount ? (
+            <form action={saveAccount} className="grid gap-3 sm:grid-cols-2">
               <div>
                 <Label>Entreprise</Label>
-                <Input name="companyName" defaultValue={client.companyName} required />
+                <Input name="companyName" defaultValue={account.companyName} required />
               </div>
               <div>
                 <Label>Contact</Label>
-                <Input name="contactName" defaultValue={client.contactName ?? ""} />
+                <Input name="contactName" defaultValue={account.contactName ?? ""} />
               </div>
               <div>
                 <Label>Email</Label>
-                <Input name="email" defaultValue={client.email ?? ""} />
+                <Input name="email" defaultValue={account.email ?? ""} />
               </div>
               <div>
                 <Label>Téléphone</Label>
-                <Input name="phone" defaultValue={client.phone ?? ""} />
+                <Input name="phone" defaultValue={account.phone ?? ""} />
               </div>
               <div className="sm:col-span-2">
                 <Label>Notes</Label>
-                <Textarea name="notes" rows={3} defaultValue={client.notes ?? ""} />
+                <Textarea name="notes" rows={3} defaultValue={account.notes ?? ""} />
               </div>
               <div className="sm:col-span-2">
                 <Button type="submit">Enregistrer le contact</Button>
@@ -210,13 +210,13 @@ export default async function ClientDetailPage({
             <div className="grid gap-2 text-sm sm:grid-cols-2">
               <p>
                 <span className="text-stone-500">Contact :</span>{" "}
-                {client.contactName ?? "—"}
+                {account.contactName ?? "—"}
               </p>
               <p>
-                <span className="text-stone-500">Email :</span> {client.email ?? "—"}
+                <span className="text-stone-500">Email :</span> {account.email ?? "—"}
               </p>
               <p>
-                <span className="text-stone-500">Téléphone :</span> {client.phone ?? "—"}
+                <span className="text-stone-500">Téléphone :</span> {account.phone ?? "—"}
               </p>
             </div>
           ),
@@ -247,7 +247,7 @@ export default async function ClientDetailPage({
           prestations: canSeeBilling(session.user.role) ? (
             <div className="space-y-4">
               <DealLinesList
-                lines={client.dealLines}
+                lines={account.opportunities}
                 canEdit={canSeeBilling(session.user.role)}
               />
               {lead ? (
@@ -270,7 +270,7 @@ export default async function ClientDetailPage({
           ),
           facturation: canSeeBilling(session.user.role) ? (
             <BillingPanel
-              lines={client.dealLines}
+              lines={account.opportunities}
               canEdit={canSeeBilling(session.user.role)}
             />
           ) : (
@@ -278,7 +278,7 @@ export default async function ClientDetailPage({
           ),
           commissions: canSeeCommissions(session.user.role) ? (
             <CommissionsPanel
-              commissions={client.commissions}
+              commissions={account.commissions}
               filterUserId={
                 session.user.role === "APPORTEUR" ||
                 session.user.role === "COMMERCIAL"
