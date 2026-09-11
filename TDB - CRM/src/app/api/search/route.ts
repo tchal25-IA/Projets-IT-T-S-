@@ -52,7 +52,6 @@ export async function GET(req: Request) {
           {
             OR: [
               { companyName: { contains: q, mode: "insensitive" } },
-              { contactName: { contains: q, mode: "insensitive" } },
               { email: { contains: q, mode: "insensitive" } },
               { phone: { contains: q, mode: "insensitive" } },
             ],

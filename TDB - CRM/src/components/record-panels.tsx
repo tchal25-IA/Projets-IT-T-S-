@@ -18,11 +18,14 @@ import type {
 
 type DealLineRow = {
   id: string;
-  label: string;
-  amountHt: number;
+  name: string;  // Changed from 'label' for Opportunity model
+  amount: number;  // Changed from 'amountHt' for Opportunity model
   billingStatus: BillingStatus;
   isRecurring: boolean;
   notes?: string | null;
+  // Legacy aliases for backward compatibility
+  label?: string;
+  amountHt?: number;
 };
 
 type CommissionRow = {

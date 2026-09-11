@@ -187,10 +187,6 @@ export default async function ClientDetailPage({
                 <Input name="companyName" defaultValue={account.companyName} required />
               </div>
               <div>
-                <Label>Contact</Label>
-                <Input name="contactName" defaultValue={account.contactName ?? ""} />
-              </div>
-              <div>
                 <Label>Email</Label>
                 <Input name="email" defaultValue={account.email ?? ""} />
               </div>
@@ -209,8 +205,8 @@ export default async function ClientDetailPage({
           ) : (
             <div className="grid gap-2 text-sm sm:grid-cols-2">
               <p>
-                <span className="text-stone-500">Contact :</span>{" "}
-                {account.contactName ?? "—"}
+                <span className="text-stone-500">Contact lead :</span>{" "}
+                {account.leads[0]?.contactName ?? "—"}
               </p>
               <p>
                 <span className="text-stone-500">Email :</span> {account.email ?? "—"}

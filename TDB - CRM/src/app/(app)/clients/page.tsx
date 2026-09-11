@@ -57,7 +57,7 @@ export default async function ClientsPage() {
                   >
                     {c.companyName}
                   </Link>
-                  <p className="text-xs text-stone-500">{c.contactName}</p>
+                  <p className="text-xs text-stone-500">{c.leads[0]?.contactName ?? c.email ?? "—"}</p>
                 </td>
                 <td className="px-4 py-3">
                   <Badge tone={c.status === "ACTIF" ? "success" : "warning"}>
