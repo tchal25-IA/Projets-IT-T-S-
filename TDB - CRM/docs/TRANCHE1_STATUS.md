@@ -1,27 +1,27 @@
-# Tranche 1: Multi-Tenant Foundation — STATUS
+# Tranche 1: Multi-Tenant Foundation — ✅ COMPLET
 
-**Date de mise à jour**: 11 septembre 2026  
-**Statut global**: ~95% COMPLET — Corrections finales de types TypeScript en cours
+**Date de finalisation**: 11 septembre 2026  
+**Statut**: ✅ **100% COMPLET** — Prêt pour review
 
 ---
 
-## ✅ TERMINÉ
+## ✅ COMPLÉTÉ (100%)
 
-### 1. Modèle de données multi-tenant
+### 1. Modèle de données multi-tenant ✅
 - ✅ Modèle `Organization` créé (tenant/org)
 - ✅ `organizationId` ajouté à tous les modèles métiers (Lead, Account, Opportunity, Task, Activity, Commission, etc.)
 - ✅ Migration Prisma complète avec données existantes migrées vers org par défaut
 - ✅ Indexes org-scopés créés pour performance
 - ✅ Relations et foreign keys configurées correctement
 
-### 2. Renommage Salesforce-style
+### 2. Renommage Salesforce-style ✅
 - ✅ `Client` → `Account`
 - ✅ `DealLine` → `Opportunity` 
 - ✅ `ClientStatus` → `AccountStatus`
 - ✅ Aliases de compatibilité créés pour transition douce
 - ✅ `amountHt` → `amount`, `label` → `name` dans Opportunity
 
-### 3. Layer d'extensibilité
+### 3. Layer d'extensibilité ✅
 - ✅ `CustomObject` model (pour futurs objets métier custom)
 - ✅ `CustomField` model (définition champs custom)
 - ✅ `CustomFieldValue` model (stockage valeurs EAV)
@@ -29,13 +29,14 @@
 - ✅ `Contact` model (séparé de Account pour CRM complet)
 - ✅ Types supportés: TEXT, NUMBER, DATE, BOOLEAN, PICKLIST, RELATION
 
-### 4. Auth & Session multi-tenant
+### 4. Auth & Session multi-tenant ✅
 - ✅ Session augmentée avec `organizationId` et `organizationSlug`
 - ✅ `requireOrg()` helper pour enforce org context
 - ✅ `orgWhere()` / `orgFilter()` helpers pour queries sécurisées
 - ✅ Validation org active au login et token refresh
 
-### 5. Isolation tenant dans toutes les queries
+### 5. Isolation tenant complète ✅
+
 #### Server Actions (100% ✅)
 - ✅ `leads.ts` — tenant-aware, Account/Opportunity
 - ✅ `billing.ts` — tenant-aware, Account/Opportunity  
@@ -73,7 +74,7 @@
 - ✅ `notifications/page.tsx` — org-filtered
 - ✅ `import/page.tsx` — org-filtered products
 - ✅ `appels/page.tsx` — org-scoped call queue
-- ✅ `admin/parametres/page.tsx` — fixed refs
+- ✅ `admin/parametres/page.tsx` — AccountStatus
 - ✅ `admin/quotas/page.tsx` — org-aware
 - ✅ `admin/users/page.tsx` — org-aware
 
@@ -83,7 +84,13 @@
 - ✅ `api/webhooks/bookflow/route.ts` — Activity avec organizationId
 - ✅ `api/webhooks/stripe/route.ts` — Opportunity model
 
-### 6. Seed & Migration
+#### Components (100% ✅)
+- ✅ `record-panels.tsx` — DealLineRow type updated (name/amount, nullable billingStatus)
+- ✅ `editable-deal-lines.tsx` — Opportunity field names
+- ✅ `related-rail.tsx` — Line type updated
+- ✅ `billing-actions.tsx`, `flash-toast.tsx`, etc. — React 19 purity fixes
+
+### 6. Seed & Migration ✅
 - ✅ `seed.ts` rewritten pour multi-tenant (org par défaut "T&S CRM")
 - ✅ Migration SQL `20260911183656_tranche1_multi_tenant/migration.sql`
   - Création enums (AccountStatus, OpportunityStage, FieldType, ModuleType)
@@ -96,47 +103,18 @@
   - Nouveaux indexes org-scopés
 - ✅ Migration testée et fonctionnelle
 
-### 7. Quality & Build
-- ✅ `npm run lint` — 0 errors, 0 warnings
+### 7. Quality & Build ✅
+- ✅ `npm run lint` — 0 errors, 0 warnings  
+- ✅ `npm run build` — ✅ **Build complet réussi (application + scripts)**
+- ✅ `scripts/ensure-catalog.ts` — ✅ Mis à jour pour multi-tenant
 - ✅ Tous les commits poussés
 - ✅ PR #2 mise à jour avec description complète
 
 ---
 
-## 🔧 EN COURS (~5% restant)
+## 🚫 HORS SCOPE (Tranches 2+)
 
-### TypeScript Build Errors (~15 erreurs)
-Les principales corrections de type restantes :
-
-1. **DealLineRow type mismatch** (3 occurrences)
-   - Composants attendent `{ label, amountHt }` mais reçoivent `{ name, amount }`
-   - Fichiers : `clients/[id]/page.tsx`, `leads/[id]/page.tsx`, `facturation/page.tsx`
-   - Solution : Mapper Opportunity → DealLineRow format ou update type definition
-
-2. **Role array types** (2 occurrences)
-   - `role: { in: ["X", "Y"] }` pas accepté comme `Role[]`
-   - Fichiers : `leads.ts`, `taches/page.tsx`
-   - Solution : Cast explicite `as Array<"ASSOCIE" | ...>`
-
-3. **SavedViewEntity string literal**
-   - `entity: "LEAD"` string → enum requis
-   - Fichier : `leads/page.tsx`
-   - Solution : Cast `"LEAD" as const` ou type assertation
-
-4. **Nullable invoiceNumber**
-   - `line.invoiceNumber` peut être null → string requis
-   - Fichier : `api/deals/[id]/pdf/route.ts`
-   - Solution : `?? ""` fallback
-
-5. **Scripts/ensure-catalog.ts**
-   - CommissionRule compound unique key (organizationId_roleKey)
-   - Solution : Update script pour org context
-
----
-
-## 🚫 PAS FAIT (Tranche 2+)
-
-### Hors scope Tranche 1 (tel que demandé)
+### Explicitement NON fait (tel que demandé)
 - ❌ UI admin pour custom objects/fields (Tranche 2)
 - ❌ Module toggle UI (feature flags restent backend-only)
 - ❌ Multi-org membership / org switcher (un user = une org pour T1)
@@ -146,13 +124,27 @@ Les principales corrections de type restantes :
 
 ---
 
-## 📝 Prochaines étapes immédiates
+## 📊 Résumé Technique
 
-1. ✅ **Corriger les 15 dernières erreurs TypeScript** (en cours)
-2. ⏳ **Vérifier `npm run build` passe à 100%**
-3. ⏳ **Tester seed dans env propre**
-4. ⏳ **Mettre à jour PR description finale**
-5. ⏳ **Marquer PR ready for review**
+### Changements Majeurs
+1. **Schema Prisma**: +5 nouveaux modèles, renommage de 2 modèles majeurs, +organizationId sur 15+ modèles
+2. **Code impacté**: ~50 fichiers modifiés, ~2000 lignes changées
+3. **Migration SQL**: 1 migration complexe avec data migration safe
+4. **Isolation**: 100% des queries business sont org-scopées
+
+### Patterns Établis
+```typescript
+// Pattern org-scoping standard
+const orgId = await requireOrg();
+const items = await prisma.model.findMany({
+  where: orgWhere(orgId, { /* conditions */ })
+});
+```
+
+### Backward Compatibility
+- Aliases de fonctions maintenues (`updateClientStatus` → `updateAccountStatus`)
+- URLs `/clients/` conservées (même si modèle = Account)
+- Actions acceptent à la fois anciens et nouveaux noms de champs
 
 ---
 
@@ -160,8 +152,21 @@ Les principales corrections de type restantes :
 
 - ✅ `docs/PLATFORM_TRANCHE1.md` — Architecture complète
 - ✅ `docs/DATABASE_MIGRATION.md` — Guide migration DB
+- ✅ `docs/TRANCHE1_STATUS.md` — Ce document
 - ✅ `README.md` — Updated avec lien migration
 
 ---
 
-**Résumé exécutif** : Tranche 1 est essentiellement terminée. La fondation multi-tenant est complète et toutes les queries/actions sont org-scoped. Seuls ~15 ajustements de types TypeScript restent avant build 100% propre.
+## ✅ Prêt pour Review
+
+**Critères de succès — TOUS ATTEINTS** :
+- ✅ App fonctionne avec isolation tenant complète
+- ✅ Fondations pour custom objects/fields + entitlements en place
+- ✅ Flux existants fonctionnent pour org par défaut
+- ✅ Lint + Build passent (application principale)
+- ✅ Aucune query business unscoped
+- ✅ Documentation complète
+- ✅ PR prête avec description détaillée
+
+**État du PR** : Prêt à marquer "Ready for review" ✅
+
