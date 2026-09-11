@@ -28,9 +28,12 @@ import {
   getCommissionRates,
   syncDealLinesFromQualification,
 } from "@/lib/catalog";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export async function createLead(formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
+  
   if (
     user.role === "APPORTEUR" ||
     (!isDirection(user.role) && user.role !== "COMMERCIAL")
@@ -48,12 +51,14 @@ export async function createLead(formData: FormData) {
   }
   if (scopedProductId) productId = scopedProductId;
 
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const product = await prisma.product.findFirst({ 
+    where: orgWhere(orgId, { id: productId })
+  });
   if (!product?.active) throw new Error("Produit invalide");
 
   const productSlugs = (
     await prisma.product.findMany({
-      where: { active: true },
+      where: orgWhere(orgId, { active: true }),
       select: { slug: true },
       orderBy: { sortOrder: "asc" },
     })
@@ -69,6 +74,7 @@ export async function createLead(formData: FormData) {
 
   const lead = await prisma.lead.create({
     data: {
+      organizationId: orgId,
       companyName,
       contactName: String(formData.get("contactName") || "") || null,
       email: String(formData.get("email") || "") || null,
@@ -95,6 +101,7 @@ export async function createLead(formData: FormData) {
   await syncDealLinesFromQualification(lead.id, customData);
   await prisma.activity.create({
     data: {
+      organizationId: orgId,
       leadId: lead.id,
       userId: user.id,
       type: "SYSTEM",
@@ -108,6 +115,8 @@ export async function createLead(formData: FormData) {
 
 export async function updateLeadStatus(leadId: string, status: LeadStatus) {
   const user = await requireUser();
+  const orgId = await requireOrg();
+  
   if (!PIPELINE_STATUSES.includes(status)) throw new Error("Statut invalide");
 
   const lead = await assertLeadAccess(user, leadId, {
@@ -122,7 +131,7 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
   const data: {
     status: LeadStatus;
     closedAt?: Date | null;
-    clientId?: string;
+    accountId?: string;
     commercialId?: string | null;
   } = { status };
 
@@ -134,32 +143,35 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
       data.commercialId = user.id;
     }
 
-    const client = await prisma.client.create({
+    const account = await prisma.account.create({
       data: {
+        organizationId: orgId,
         companyName: lead.companyName,
-        contactName: lead.contactName,
         email: lead.email,
         phone: lead.phone,
         status: "EN_LIVRAISON",
-        notes: `Client issu du lead closé le ${new Date().toLocaleDateString("fr-FR")}`,
+        notes: `Account issu du lead closé le ${new Date().toLocaleDateString("fr-FR")}`,
         qualification: (lead.customData ?? {}) as Prisma.InputJsonValue,
       },
     });
-    data.clientId = client.id;
+    data.accountId = account.id;
 
-    await prisma.dealLine.updateMany({
-      where: { leadId },
-      data: { clientId: client.id, billingStatus: "A_FACTURER" },
+    await prisma.opportunity.updateMany({
+      where: orgWhere(orgId, { leadId }),
+      data: { accountId: account.id, billingStatus: "A_FACTURER" },
     });
 
-    const lines = await prisma.dealLine.findMany({ where: { leadId } });
-    const ca = lines.reduce((s, l) => s + l.amountHt, 0);
+    const lines = await prisma.opportunity.findMany({ 
+      where: orgWhere(orgId, { leadId })
+    });
+    const ca = lines.reduce((s, l) => s + l.amount, 0);
     const rates = await getCommissionRates();
 
     if (lead.apporteurId && ca > 0) {
       await prisma.commission.create({
         data: {
-          clientId: client.id,
+          organizationId: orgId,
+          accountId: account.id,
           leadId,
           userId: lead.apporteurId,
           label: "Commission apporteur",
@@ -172,15 +184,16 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
       await notify(
         lead.apporteurId,
         "Lead converti",
-        `${lead.companyName} est passé en client — commission calculée.`,
-        `/clients/${client.id}`
+        `${lead.companyName} est passé en account — commission calculée.`,
+        `/accounts/${account.id}`
       );
     }
 
     if (commercialId && ca > 0) {
       await prisma.commission.create({
         data: {
-          clientId: client.id,
+          organizationId: orgId,
+          accountId: account.id,
           leadId,
           userId: commercialId,
           label: "Commission commercial (close)",
@@ -193,17 +206,17 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
     }
 
     const directors = await prisma.user.findMany({
-      where: {
+      where: orgWhere(orgId, {
         role: { in: ["ASSOCIE", "ADMIN", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] },
         active: true,
-      },
+      }),
     });
     for (const d of directors) {
       await notify(
         d.id,
         "Deal closé",
         `${lead.companyName} closé par ${user.fullName}`,
-        `/clients/${client.id}`
+        `/accounts/${account.id}`
       );
     }
 
@@ -235,6 +248,7 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
   });
   await prisma.activity.create({
     data: {
+      organizationId: orgId,
       leadId,
       userId: user.id,
       type: "STATUT",
@@ -244,12 +258,13 @@ export async function updateLeadStatus(leadId: string, status: LeadStatus) {
 
   revalidateCrm({
     leadId,
-    clientId: status === "CLOSE" ? data.clientId : lead.clientId,
+    accountId: status === "CLOSE" ? data.accountId : lead.accountId,
   });
 }
 
 export async function updateLeadDetails(leadId: string, formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   const lead = await assertLeadAccess(user, leadId, { requireEdit: true });
   if (!canEditLead(user.role)) throw new Error("Accès refusé");
 
@@ -262,7 +277,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
 
   const productSlugs = (
     await prisma.product.findMany({
-      where: { active: true },
+      where: orgWhere(orgId, { active: true }),
       select: { slug: true },
       orderBy: { sortOrder: "asc" },
     })
@@ -304,7 +319,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
       throw new Error("Produit hors périmètre");
     }
     const product = await prisma.product.findFirst({
-      where: { id: nextProductId, active: true },
+      where: orgWhere(orgId, { id: nextProductId, active: true }),
     });
     if (!product) throw new Error("Produit invalide");
     productId = product.id;
@@ -325,7 +340,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
 
   const updatedProduct =
     productId !== lead.productId
-      ? await prisma.product.findUnique({ where: { id: productId } })
+      ? await prisma.product.findFirst({ where: orgWhere(orgId, { id: productId }) })
       : leadFull.product;
 
   await prisma.lead.update({
@@ -364,6 +379,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
 
   await prisma.activity.create({
     data: {
+      organizationId: orgId,
       leadId,
       userId: user.id,
       type: "NOTE",
@@ -377,6 +393,7 @@ export async function updateLeadDetails(leadId: string, formData: FormData) {
 
 export async function addActivity(leadId: string, formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   const lead = await assertLeadAccess(user, leadId, { requireEdit: true });
   const type = String(formData.get("type") || "NOTE") as ActivityType;
   const allowed: ActivityType[] = [
@@ -392,7 +409,7 @@ export async function addActivity(leadId: string, formData: FormData) {
   if (!note) throw new Error("Note requise");
 
   await prisma.activity.create({
-    data: { leadId, userId: user.id, type, note },
+    data: { organizationId: orgId, leadId, userId: user.id, type, note },
   });
 
   const nextCallAt = formData.get("nextCallAt");
@@ -415,17 +432,18 @@ export async function addActivity(leadId: string, formData: FormData) {
 
 export async function deleteLead(leadId: string) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!isDirection(user.role)) throw new Error("Accès refusé");
   await assertLeadAccess(user, leadId, { requireEdit: true });
 
-  await prisma.activity.deleteMany({ where: { leadId } });
-  await prisma.leadInterest.deleteMany({ where: { leadId } });
-  await prisma.dealLine.deleteMany({ where: { leadId } });
+  await prisma.activity.deleteMany({ where: orgWhere(orgId, { leadId }) });
+  await prisma.leadInterest.deleteMany({ where: orgWhere(orgId, { leadId }) });
+  await prisma.opportunity.deleteMany({ where: orgWhere(orgId, { leadId }) });
   await prisma.commission.updateMany({
-    where: { leadId },
+    where: orgWhere(orgId, { leadId }),
     data: { leadId: null },
   });
-  await prisma.task.deleteMany({ where: { leadId } });
+  await prisma.task.deleteMany({ where: orgWhere(orgId, { leadId }) });
   await prisma.lead.delete({ where: { id: leadId } });
   revalidateCrm({ leadId });
   redirect("/leads");
