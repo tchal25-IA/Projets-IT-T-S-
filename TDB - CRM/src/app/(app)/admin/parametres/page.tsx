@@ -21,7 +21,6 @@ import {
 import { Input, Label, Select, Card, Badge, Textarea } from "@/components/ui";
 import { SettingsForm } from "@/components/settings-form";
 import Link from "next/link";
-import { ensureDefaultCommissionRules } from "@/lib/catalog";
 import {
   ensureDefaultBusinessSettings,
   getBillingStatusLabels,
