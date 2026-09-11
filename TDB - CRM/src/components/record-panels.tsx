@@ -4,7 +4,7 @@ import { EditableCommissions } from "@/components/editable-commissions";
 import { Badge, Button, Input, Label, Select, Stat, Textarea } from "@/components/ui";
 import {
   BILLING_LABELS,
-  CLIENT_STATUS_LABELS,
+  ACCOUNT_STATUS_LABELS,
   formatDate,
   formatDateTime,
   formatEuro,
@@ -12,7 +12,7 @@ import {
 import type {
   ActivityType,
   BillingStatus,
-  ClientStatus,
+  AccountStatus,
   CommissionStatus,
 } from "@/generated/prisma/client";
 
@@ -198,7 +198,7 @@ export function LivraisonPanel({
   onStatusAction,
   leadLink,
 }: {
-  status: ClientStatus;
+  status: AccountStatus;
   notes?: string | null;
   createdAt?: Date | null;
   canEdit: boolean;
@@ -208,7 +208,7 @@ export function LivraisonPanel({
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2">
-        <Stat label="Statut client" value={CLIENT_STATUS_LABELS[status]} />
+        <Stat label="Statut client" value={ACCOUNT_STATUS_LABELS[status]} />
         {createdAt ? (
           <Stat label="Client depuis" value={formatDate(createdAt)} />
         ) : null}
@@ -221,7 +221,7 @@ export function LivraisonPanel({
           <div className="w-56">
             <Label>Statut livraison</Label>
             <Select name="status" defaultValue={status}>
-              {Object.entries(CLIENT_STATUS_LABELS).map(([k, v]) => (
+              {Object.entries(ACCOUNT_STATUS_LABELS).map(([k, v]) => (
                 <option key={k} value={k}>
                   {v}
                 </option>
