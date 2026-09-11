@@ -68,15 +68,15 @@ export function EditableDealLines({
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <Label>Libellé</Label>
-              <Input name="label" defaultValue={d.label} required disabled={pending} />
+              <Input name="name" defaultValue={d.name} required disabled={pending} />
             </div>
             <div>
               <Label>Montant HT (€)</Label>
               <Input
-                name="amountHt"
+                name="amount"
                 type="number"
                 step="0.01"
-                defaultValue={d.amountHt}
+                defaultValue={d.amount}
                 required
                 disabled={pending}
               />
@@ -85,7 +85,7 @@ export function EditableDealLines({
               <Label>Statut facturation</Label>
               <Select
                 name="billingStatus"
-                defaultValue={d.billingStatus}
+                defaultValue={d.billingStatus ?? undefined}
                 disabled={pending}
               >
                 {Object.entries(BILLING_LABELS).map(([k, v]) => (
