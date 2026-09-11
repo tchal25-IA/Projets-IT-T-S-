@@ -24,11 +24,11 @@ export function leadVisibilityWhere(
   }
 }
 
-export function clientVisibilityWhere(
+export function accountVisibilityWhere(
   userId: string,
   role: Role,
   options?: { productId?: string | null }
-): Prisma.ClientWhereInput {
+): Prisma.AccountWhereInput {
   if (isFullAccess(role)) return {};
 
   if (role === "DIRECTION_VF" || role === "DIRECTION_BOOKFLOW") {
@@ -47,6 +47,9 @@ export function clientVisibilityWhere(
 
   return { id: "__none__" };
 }
+
+// Legacy alias for backward compatibility
+export const clientVisibilityWhere = accountVisibilityWhere;
 
 export function navForRole(role: Role) {
   if (role === "APPORTEUR") {
