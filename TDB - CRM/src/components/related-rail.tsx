@@ -72,13 +72,13 @@ export function RelatedRail({
           {dealLines.slice(0, 5).map((l) => (
             <li key={l.id} className="text-sm">
               <div className="flex justify-between gap-2">
-                <span className="truncate">{l.label}</span>
+                <span className="truncate">{l.name}</span>
                 <span className="shrink-0 text-stone-600">
-                  {formatEuro(l.amountHt)}
+                  {formatEuro(l.amount)}
                 </span>
               </div>
               <span className="text-[11px] text-stone-400">
-                {BILLING_LABELS[l.billingStatus]}
+                {l.billingStatus ? BILLING_LABELS[l.billingStatus] : "Devis"}
               </span>
             </li>
           ))}
