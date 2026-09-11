@@ -7,6 +7,10 @@ datasource db {
   provider = "postgresql"
 }
 
+// ============================================================================
+// ENUMS
+// ============================================================================
+
 enum Role {
   ASSOCIE
   DIRECTION_VF
@@ -26,13 +30,24 @@ enum LeadStatus {
   PERDU
 }
 
-enum ClientStatus {
+enum AccountStatus {
+  // Renommé de ClientStatus pour alignement Salesforce
   EN_LIVRAISON
   ACTIF
   MAINTENANCE
 }
 
+enum OpportunityStage {
+  // Nouveau : remplace implicitement BillingStatus
+  QUALIFICATION
+  PROPOSAL
+  NEGOTIATION
+  CLOSED_WON
+  CLOSED_LOST
+}
+
 enum BillingStatus {
+  // Conservé pour compatibilité, mapping vers OpportunityStage progressif
   DEVIS
   A_FACTURER
   FACTURE
@@ -63,6 +78,8 @@ enum TaskPriority {
 
 enum SavedViewEntity {
   LEAD
+  ACCOUNT
+  OPPORTUNITY
 }
 
 enum OfferingKind {
@@ -78,15 +95,89 @@ enum BillingPeriod {
   YEARLY
 }
 
+enum FieldType {
+  TEXT
+  TEXTAREA
+  NUMBER
+  DECIMAL
+  DATE
+  DATETIME
+  BOOLEAN
+  PICKLIST
+  MULTIPICKLIST
+  REFERENCE
+  URL
+  EMAIL
+  PHONE
+}
+
+enum ModuleType {
+  SALES
+  MARKETING
+  SERVICE
+  CUSTOM_OBJECTS
+  ADVANCED_REPORTS
+  API_ACCESS
+  INTEGRATIONS
+}
+
+// ============================================================================
+// MULTI-TENANT CORE
+// ============================================================================
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  domain    String?
+  settings  Json     @default("{}")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  users                User[]
+  leads                Lead[]
+  accounts             Account[]
+  contacts             Contact[]
+  opportunities        Opportunity[]
+  activities           Activity[]
+  notifications        Notification[]
+  tasks                Task[]
+  savedViews           SavedView[]
+  fieldHistories       FieldHistory[]
+  quotas               Quota[]
+  commissions          Commission[]
+  products             Product[]
+  productOfferings     ProductOffering[]
+  commissionRules      CommissionRule[]
+  crmSettings          CrmSetting[]
+  customObjects        CustomObject[]
+  customFields         CustomField[]
+  customFieldValues    CustomFieldValue[]
+  moduleEntitlements   ModuleEntitlement[]
+  leadInterests        LeadInterest[]
+
+  @@index([active])
+  @@index([slug])
+}
+
+// ============================================================================
+// USER & AUTH
+// ============================================================================
+
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  fullName     String
-  role         Role
-  active       Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String   @id @default(cuid())
+  email          String   @unique
+  passwordHash   String
+  fullName       String
+  role           Role
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   leadsApportes    Lead[]         @relation("Apporteur")
   leadsCommerciaux Lead[]         @relation("Commercial")
@@ -97,76 +188,20 @@ model User {
   savedViews       SavedView[]
   fieldHistories   FieldHistory[]
   quotas           Quota[]
+
+  @@index([organizationId, active])
+  @@index([organizationId, role])
 }
 
-model Product {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  description String?
-  fieldSchema Json
-  active      Boolean  @default(true)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  leads     Lead[]
-  offerings ProductOffering[]
-}
-
-model ProductOffering {
-  id            String        @id @default(cuid())
-  productId     String
-  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
-  name          String
-  code          String?
-  kind          OfferingKind  @default(OTHER)
-  amountHt      Float?
-  billingPeriod BillingPeriod @default(NONE)
-  active        Boolean       @default(true)
-  sortOrder     Int           @default(0)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-
-  dealLines DealLine[]
-
-  @@index([productId, active])
-}
-
-model CommissionRule {
-  id          String  @id @default(cuid())
-  /** APPORTEUR | COMMERCIAL */
-  roleKey     String
-  label       String
-  ratePercent Float
-  active      Boolean @default(true)
-  sortOrder   Int     @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@unique([roleKey])
-}
-
-model Client {
-  id            String       @id @default(cuid())
-  companyName   String
-  contactName   String?
-  email         String?
-  phone         String?
-  status        ClientStatus @default(EN_LIVRAISON)
-  notes         String?
-  qualification Json         @default("{}")
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  leads       Lead[]
-  dealLines   DealLine[]
-  commissions Commission[]
-  tasks       Task[]
-}
+// ============================================================================
+// CRM ENTITIES (Business Objects)
+// ============================================================================
 
 model Lead {
   id             String     @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   companyName    String
   contactName    String?
   email          String?
@@ -189,85 +224,117 @@ model Lead {
   apporteur    User?    @relation("Apporteur", fields: [apporteurId], references: [id])
   commercialId String?
   commercial   User?    @relation("Commercial", fields: [commercialId], references: [id])
-  clientId     String?
-  client       Client?  @relation(fields: [clientId], references: [id])
+  accountId    String?
+  account      Account? @relation(fields: [accountId], references: [id])
 
-  activities  Activity[]
-  dealLines   DealLine[]
-  commissions Commission[]
-  tasks       Task[]
-  interests   LeadInterest[]
+  activities    Activity[]
+  opportunities Opportunity[]
+  commissions   Commission[]
+  tasks         Task[]
+  interests     LeadInterest[]
 
-  @@index([status])
-  @@index([productId])
-  @@index([commercialId])
-  @@index([apporteurId])
-  @@index([nextCallAt])
-  @@index([email])
-  @@index([website])
+  @@index([organizationId, status])
+  @@index([organizationId, productId])
+  @@index([organizationId, commercialId])
+  @@index([organizationId, apporteurId])
+  @@index([organizationId, nextCallAt])
+  @@index([organizationId, email])
+  @@index([organizationId, website])
 }
 
-model LeadInterest {
-  id          String   @id @default(cuid())
-  productSlug String
-  createdAt   DateTime @default(now())
+model Account {
+  // Renommé de Client pour alignement Salesforce
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  companyName    String
+  website        String?
+  phone          String?
+  email          String?
+  status         AccountStatus @default(EN_LIVRAISON)
+  notes          String?
+  qualification  Json          @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  leadId String
-  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  leads         Lead[]
+  contacts      Contact[]
+  opportunities Opportunity[]
+  commissions   Commission[]
+  tasks         Task[]
 
-  @@unique([leadId, productSlug])
-  @@index([productSlug])
+  @@index([organizationId, status])
+  @@index([organizationId, companyName])
 }
 
-model DealLine {
-  id              String        @id @default(cuid())
-  label           String
-  amountHt        Float
-  billingStatus   BillingStatus @default(DEVIS)
-  isRecurring     Boolean       @default(false)
-  notes           String?
+model Contact {
+  // Nouveau : sépare les contacts des accounts
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  firstName      String?
+  lastName       String
+  email          String?
+  phone          String?
+  mobilePhone    String?
+  title          String?
+  isPrimary      Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  accountId String?
+  account   Account? @relation(fields: [accountId], references: [id])
+
+  @@index([organizationId, accountId])
+  @@index([organizationId, email])
+}
+
+model Opportunity {
+  // Évolution de DealLine vers concept Salesforce Opportunity
+  id              String           @id @default(cuid())
+  organizationId  String
+  organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name            String
+  amount          Float
+  stage           OpportunityStage @default(QUALIFICATION)
+  closeDate       DateTime?
+  probability     Int?             @default(0)
+  description     String?
+  isRecurring     Boolean          @default(false)
+  
+  // Legacy billing fields (compatibilité)
+  billingStatus   BillingStatus?
   invoiceNumber   String?
   stripeSessionId String?
   paidAt          DateTime?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   offeringId String?
   offering   ProductOffering? @relation(fields: [offeringId], references: [id], onDelete: SetNull)
+  
+  accountId String?
+  account   Account? @relation(fields: [accountId], references: [id])
+  leadId    String?
+  lead      Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
 
-  leadId   String?
-  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  clientId String?
-  client   Client? @relation(fields: [clientId], references: [id])
-
-  @@index([billingStatus])
+  @@index([organizationId, stage])
+  @@index([organizationId, accountId])
+  @@index([organizationId, leadId])
+  @@index([organizationId, closeDate])
   @@index([stripeSessionId])
   @@index([offeringId])
 }
 
-model Commission {
-  id          String           @id @default(cuid())
-  label       String
-  roleLabel   String
-  ratePercent Float
-  amountHt    Float
-  status      CommissionStatus @default(CALCULEE)
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  userId   String
-  user     User    @relation(fields: [userId], references: [id])
-  leadId   String?
-  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
-  clientId String
-  client   Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
-
-  @@index([clientId])
-  @@index([userId])
-}
-
 model Activity {
-  id        String       @id @default(cuid())
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   type      ActivityType
   note      String
   createdAt DateTime     @default(now())
@@ -277,12 +344,62 @@ model Activity {
   userId String?
   user   User?  @relation(fields: [userId], references: [id])
 
-  @@index([leadId])
-  @@index([createdAt])
+  @@index([organizationId, leadId])
+  @@index([organizationId, createdAt])
+}
+
+model Commission {
+  id             String           @id @default(cuid())
+  organizationId String
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  label       String
+  roleLabel   String
+  ratePercent Float
+  amountHt    Float
+  status      CommissionStatus @default(CALCULEE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  leadId    String?
+  lead      Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  accountId String
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, accountId])
+  @@index([organizationId, userId])
+}
+
+model Task {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  title     String
+  dueAt     DateTime?
+  doneAt    DateTime?
+  priority  TaskPriority @default(MEDIUM)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  leadId    String?
+  lead      Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  accountId String?
+  account   Account? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, userId, doneAt])
+  @@index([organizationId, dueAt])
 }
 
 model Notification {
-  id        String   @id @default(cuid())
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   title     String
   body      String
   link      String?
@@ -292,31 +409,189 @@ model Notification {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId, read])
+  @@index([organizationId, userId, read])
 }
 
-model Task {
-  id        String       @id @default(cuid())
-  title     String
-  dueAt     DateTime?
-  doneAt    DateTime?
-  priority  TaskPriority @default(MEDIUM)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+// ============================================================================
+// PRODUCT CATALOG
+// ============================================================================
 
-  userId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  leadId   String?
-  lead     Lead?   @relation(fields: [leadId], references: [id], onDelete: SetNull)
-  clientId String?
-  client   Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+model Product {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  slug        String
+  name        String
+  description String?
+  fieldSchema Json
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@index([userId, doneAt])
-  @@index([dueAt])
+  leads     Lead[]
+  offerings ProductOffering[]
+
+  @@unique([organizationId, slug])
+  @@index([organizationId, active])
+}
+
+model ProductOffering {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  productId     String
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name          String
+  code          String?
+  kind          OfferingKind  @default(OTHER)
+  amountHt      Float?
+  billingPeriod BillingPeriod @default(NONE)
+  active        Boolean       @default(true)
+  sortOrder     Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  opportunities Opportunity[]
+
+  @@index([organizationId, productId, active])
+}
+
+model CommissionRule {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  roleKey     String
+  label       String
+  ratePercent Float
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([organizationId, roleKey])
+}
+
+// ============================================================================
+// METADATA & EXTENSIBILITY
+// ============================================================================
+
+model CustomObject {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  name        String
+  apiName     String
+  label       String
+  pluralLabel String?
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  customFields CustomField[]
+
+  @@unique([organizationId, apiName])
+  @@index([organizationId, isActive])
+}
+
+model CustomField {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  objectType     String
+  apiName        String
+  label          String
+  fieldType      FieldType
+  isRequired     Boolean   @default(false)
+  defaultValue   String?
+  helpText       String?
+  picklistValues Json?
+  referenceTo    String?
+  isActive       Boolean   @default(true)
+  sortOrder      Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  customObjectId String?
+  customObject   CustomObject? @relation(fields: [customObjectId], references: [id], onDelete: Cascade)
+
+  values CustomFieldValue[]
+
+  @@unique([organizationId, objectType, apiName])
+  @@index([organizationId, objectType, isActive])
+}
+
+model CustomFieldValue {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  customFieldId String
+  customField   CustomField @relation(fields: [customFieldId], references: [id], onDelete: Cascade)
+  
+  recordType    String
+  recordId      String
+  
+  valueText     String?
+  valueNumber   Float?
+  valueDate     DateTime?
+  valueBoolean  Boolean?
+  valueJson     Json?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([customFieldId, recordId])
+  @@index([organizationId, recordType, recordId])
+  @@index([customFieldId, recordId])
+}
+
+model ModuleEntitlement {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  moduleType ModuleType
+  isEnabled  Boolean    @default(true)
+  quota      Int?
+  enabledAt  DateTime   @default(now())
+  expiresAt  DateTime?
+  notes      String?
+
+  @@unique([organizationId, moduleType])
+  @@index([organizationId, isEnabled])
+}
+
+// ============================================================================
+// SUPPORT MODELS
+// ============================================================================
+
+model LeadInterest {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  productSlug String
+  createdAt   DateTime @default(now())
+
+  leadId String
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@unique([leadId, productSlug])
+  @@index([organizationId, productSlug])
 }
 
 model SavedView {
-  id        String          @id @default(cuid())
+  id             String          @id @default(cuid())
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   name      String
   entity    SavedViewEntity @default(LEAD)
   filters   Json            @default("{}")
@@ -327,11 +602,14 @@ model SavedView {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId, entity])
+  @@index([organizationId, userId, entity])
 }
 
 model FieldHistory {
-  id        String   @id @default(cuid())
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   entity    String
   entityId  String
   field     String
@@ -342,29 +620,37 @@ model FieldHistory {
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  @@index([entity, entityId, createdAt])
+  @@index([organizationId, entity, entityId, createdAt])
 }
 
 model Quota {
-  id           String @id @default(cuid())
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
   yearMonth    String
-  targetCloses Int    @default(0)
-  targetCa     Float  @default(0)
+  targetCloses Int      @default(0)
+  targetCa     Float    @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, yearMonth])
-  @@index([yearMonth])
+  @@unique([organizationId, userId, yearMonth])
+  @@index([organizationId, yearMonth])
 }
 
-/** Réglages business (entreprise, sources, labels…) — clé/valeur JSON. */
 model CrmSetting {
-  id        String   @id @default(cuid())
-  key       String   @unique
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  
+  key       String
   value     Json
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+
+  @@unique([organizationId, key])
+  @@index([organizationId])
 }
