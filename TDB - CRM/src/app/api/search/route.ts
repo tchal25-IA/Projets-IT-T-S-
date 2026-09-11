@@ -1,8 +1,9 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { leadVisibilityWhere, clientVisibilityWhere } from "@/lib/permissions";
+import { leadVisibilityWhere, accountVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
 import { NextResponse } from "next/server";
+import { requireOrg } from "@/lib/tenant";
 
 export async function GET(req: Request) {
   const session = await auth();
@@ -13,15 +14,18 @@ export async function GET(req: Request) {
   const q = new URL(req.url).searchParams.get("q")?.trim() ?? "";
   if (q.length < 2) return NextResponse.json([]);
 
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
   const leadWhere = leadVisibilityWhere(session.user.id, session.user.role, {
     productId,
+    organizationId: orgId,
   });
-  const clientWhere = clientVisibilityWhere(session.user.id, session.user.role, {
+  const accountWhere = accountVisibilityWhere(session.user.id, session.user.role, {
     productId,
+    organizationId: orgId,
   });
 
-  const [leads, clients] = await Promise.all([
+  const [leads, accounts] = await Promise.all([
     prisma.lead.findMany({
       where: {
         AND: [
@@ -41,10 +45,10 @@ export async function GET(req: Request) {
       take: 8,
       orderBy: { updatedAt: "desc" },
     }),
-    prisma.client.findMany({
+    prisma.account.findMany({
       where: {
         AND: [
-          clientWhere,
+          accountWhere,
           {
             OR: [
               { companyName: { contains: q, mode: "insensitive" } },
@@ -68,7 +72,7 @@ export async function GET(req: Request) {
       subtitle: `${l.product.name} · ${l.email ?? l.phone ?? "—"}`,
       href: `/leads/${l.id}`,
     })),
-    ...clients.map((c) => ({
+    ...accounts.map((c) => ({
       id: c.id,
       type: "client" as const,
       title: c.companyName,

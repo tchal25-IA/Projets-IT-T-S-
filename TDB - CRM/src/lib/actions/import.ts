@@ -19,6 +19,7 @@ export async function importLeads(formData: FormData) {
   const user = await requireUser();
   if (!isFullAccess(user.role)) throw new Error("Accès refusé");
 
+  const orgId = await requireOrg();
   const productId = String(formData.get("productId") || "");
   const file = formData.get("file") as File | null;
   if (!productId || !file) throw new Error("Fichier et produit requis");
@@ -121,7 +122,7 @@ export async function importLeads(formData: FormData) {
       existing = await prisma.lead.findFirst({
         where: orgWhere(orgId, {
           productId,
-          email: { equals: email, mode: "insensitive" },
+          email: { equals: email, mode: "insensitive" as const },
         }),
       });
     }
@@ -130,9 +131,9 @@ export async function importLeads(formData: FormData) {
         where: orgWhere(orgId, {
           productId,
           OR: [
-            { website: { equals: website, mode: "insensitive" } },
-            { website: { equals: `www.${website}`, mode: "insensitive" } },
-            { website: { contains: website, mode: "insensitive" } },
+            { website: { equals: website, mode: "insensitive" as const } },
+            { website: { equals: `www.${website}`, mode: "insensitive" as const } },
+            { website: { contains: website, mode: "insensitive" as const } },
           ],
         }),
       });
@@ -143,7 +144,7 @@ export async function importLeads(formData: FormData) {
           productId,
           companyName: {
             equals: companyName,
-            mode: "insensitive",
+            mode: "insensitive" as const,
           },
         }),
       });
@@ -239,7 +240,7 @@ export async function importLeads(formData: FormData) {
   }
 
   const commercials = await prisma.user.findMany({
-    where: orgWhere(orgId, { role: "COMMERCIAL", active: true }),
+    where: orgWhere(orgId, { role: "COMMERCIAL" as const, active: true }),
   });
   for (const c of commercials) {
     await notify(
