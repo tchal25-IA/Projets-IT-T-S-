@@ -292,17 +292,17 @@ export default async function ClientDetailPage({
           ),
           livraison: (
             <LivraisonPanel
-              status={client.status}
-              notes={client.notes}
-              createdAt={client.createdAt}
+              status={account.status}
+              notes={account.notes}
+              createdAt={account.createdAt}
               canEdit={canSeeBilling(session.user.role)}
               onStatusAction={
                 canSeeBilling(session.user.role)
                   ? async (fd) => {
                       "use server";
-                      await updateClientStatus(
+                      await updateAccountStatus(
                         id,
-                        String(fd.get("status")) as ClientStatus
+                        String(fd.get("status")) as AccountStatus
                       );
                     }
                   : undefined
