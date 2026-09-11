@@ -8,6 +8,11 @@ import { requireUser, notify, revalidateCrm } from "@/lib/actions/helpers";
 import { syncLeadInterests } from "@/lib/interests";
 import Papa from "papaparse";
 import * as XLSX from "xlsx";
+import { 
+  validateImportFile, 
+  validateImportRow, 
+  sanitizeObject 
+} from "@/lib/import-helpers";
 
 export async function importLeads(formData: FormData) {
   const user = await requireUser();
@@ -17,36 +22,62 @@ export async function importLeads(formData: FormData) {
   const file = formData.get("file") as File | null;
   if (!productId || !file) throw new Error("Fichier et produit requis");
 
+  // Validate file before processing
+  const fileValidation = validateImportFile(file);
+  if (!fileValidation.ok) {
+    throw new Error(fileValidation.error || "Fichier invalide");
+  }
+
   const product = await prisma.product.findUnique({ where: { id: productId } });
   if (!product) throw new Error("Produit introuvable");
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const MAX_BYTES = 2 * 1024 * 1024; // 2 Mo
   const MAX_ROWS = 2000;
-  if (buffer.byteLength > MAX_BYTES) {
-    throw new Error("Fichier trop volumineux (max. 2 Mo)");
-  }
 
   const name = file.name.toLowerCase();
-  let rows: Record<string, string>[] = [];
+  let rows: unknown[] = [];
 
-  if (name.endsWith(".csv")) {
-    const text = buffer.toString("utf-8");
-    const parsed = Papa.parse<Record<string, string>>(text, {
-      header: true,
-      skipEmptyLines: true,
-    });
-    rows = parsed.data;
-  } else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
-    const wb = XLSX.read(buffer, { type: "buffer" });
-    const sheet = wb.Sheets[wb.SheetNames[0]];
-    rows = XLSX.utils.sheet_to_json(sheet, { defval: "" }) as Record<
-      string,
-      string
-    >[];
-  } else {
-    throw new Error("Format non supporté (CSV ou Excel)");
+  try {
+    if (name.endsWith(".csv")) {
+      const text = buffer.toString("utf-8");
+      const parsed = Papa.parse(text, {
+        header: true,
+        skipEmptyLines: true,
+      });
+      rows = parsed.data;
+    } else if (name.endsWith(".xlsx") || name.endsWith(".xls")) {
+      // Parse Excel with safety options
+      const wb = XLSX.read(buffer, { 
+        type: "buffer",
+        // Security: disable VBA macros and external links
+        bookVBA: false,
+        // Limit cells to prevent memory exhaustion
+        sheetRows: MAX_ROWS + 1,
+      });
+      
+      if (!wb.SheetNames || wb.SheetNames.length === 0) {
+        throw new Error("Aucune feuille trouvée dans le fichier Excel");
+      }
+      
+      const sheet = wb.Sheets[wb.SheetNames[0]];
+      if (!sheet) {
+        throw new Error("Impossible de lire la première feuille");
+      }
+      
+      rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+    } else {
+      throw new Error("Format non supporté (CSV ou Excel)");
+    }
+  } catch (error) {
+    // Log error for debugging but don't expose internal details to user
+    console.error("Import parsing error:", error);
+    throw new Error(
+      "Erreur lors de la lecture du fichier. Vérifiez le format et réessayez."
+    );
   }
+
+  // Sanitize all rows to prevent prototype pollution
+  rows = rows.map((row) => sanitizeObject(row));
 
   if (rows.length > MAX_ROWS) {
     throw new Error(`Trop de lignes (max. ${MAX_ROWS})`);
@@ -57,18 +88,14 @@ export async function importLeads(formData: FormData) {
   let skipped = 0;
   const now = new Date();
 
-  for (const row of rows) {
-    const companyName =
-      row.companyName ||
-      row.entreprise ||
-      row.societe ||
-      row.company ||
-      row.nom ||
-      "";
-    if (!String(companyName).trim()) {
+  for (let i = 0; i < rows.length; i++) {
+    const validatedRow = validateImportRow(rows[i]);
+    if (!validatedRow) {
       skipped++;
       continue;
     }
+
+    const { companyName, data: row } = validatedRow;
 
     const email = normalizeEmail(String(row.email || "")) || null;
     const website =
@@ -83,9 +110,9 @@ export async function importLeads(formData: FormData) {
         )
       ) || null;
     const phone =
-      String(row.phone || row.telephone || row.tel || "").trim() || null;
+      String(row.phone || row.telephone || row.tel || "").trim().slice(0, 50) || null;
     const contactName =
-      String(row.contactName || row.contact || row.prenom || "").trim() ||
+      String(row.contactName || row.contact || row.prenom || "").trim().slice(0, 100) ||
       null;
 
     let existing = null as Awaited<ReturnType<typeof prisma.lead.findFirst>>;
@@ -114,7 +141,7 @@ export async function importLeads(formData: FormData) {
         where: {
           productId,
           companyName: {
-            equals: String(companyName).trim(),
+            equals: companyName,
             mode: "insensitive",
           },
         },
@@ -123,16 +150,20 @@ export async function importLeads(formData: FormData) {
 
     const slug = product.slug;
     const importExtras: Record<string, unknown> = {};
-    if (row.pays) importExtras.pays = String(row.pays);
-    if (row.score_opportunite || row.score)
-      importExtras.score_opportunite = Number(
-        row.score_opportunite || row.score
-      );
-    if (row.besoins) importExtras.besoins = String(row.besoins);
-    if (row.calendly_detecte)
-      importExtras.calendly_detecte =
-        String(row.calendly_detecte).toLowerCase() === "true" ||
-        String(row.calendly_detecte).toLowerCase() === "oui";
+    
+    // Safely extract and limit import metadata
+    if (row.pays) importExtras.pays = String(row.pays).slice(0, 100);
+    if (row.score_opportunite || row.score) {
+      const scoreValue = Number(row.score_opportunite || row.score);
+      if (!isNaN(scoreValue) && isFinite(scoreValue)) {
+        importExtras.score_opportunite = Math.max(0, Math.min(100, scoreValue));
+      }
+    }
+    if (row.besoins) importExtras.besoins = String(row.besoins).slice(0, 500);
+    if (row.calendly_detecte) {
+      const calendlyValue = String(row.calendly_detecte).toLowerCase();
+      importExtras.calendly_detecte = calendlyValue === "true" || calendlyValue === "oui";
+    }
 
     if (existing) {
       const prevCustom = (existing.customData ?? {}) as Record<string, unknown>;
@@ -141,13 +172,13 @@ export async function importLeads(formData: FormData) {
       const nextCustom = {
         ...prevCustom,
         [slug]: { ...prevBlock, ...importExtras },
-        lastImportFile: file.name,
+        lastImportFile: file.name.slice(0, 255),
       };
 
       await prisma.lead.update({
         where: { id: existing.id },
         data: {
-          companyName: String(companyName).trim(),
+          companyName: companyName.slice(0, 200),
           contactName: contactName ?? existing.contactName,
           email: email ?? existing.email,
           phone: phone ?? existing.phone,
@@ -164,7 +195,7 @@ export async function importLeads(formData: FormData) {
           leadId: existing.id,
           userId: user.id,
           type: "IMPORT",
-          note: `Réimport ${now.toISOString().slice(0, 10)} par ${user.fullName} depuis ${file.name}`,
+          note: `Réimport ${now.toISOString().slice(0, 10)} par ${user.fullName} depuis ${file.name.slice(0, 100)}`,
         },
       });
       updated++;
@@ -173,12 +204,12 @@ export async function importLeads(formData: FormData) {
 
     const customData = {
       [slug]: importExtras,
-      lastImportFile: file.name,
+      lastImportFile: file.name.slice(0, 255),
     };
 
     const lead = await prisma.lead.create({
       data: {
-        companyName: String(companyName).trim(),
+        companyName: companyName.slice(0, 200),
         contactName,
         email,
         phone,
@@ -197,7 +228,7 @@ export async function importLeads(formData: FormData) {
         leadId: lead.id,
         userId: user.id,
         type: "IMPORT",
-        note: `Premier import ${now.toISOString().slice(0, 10)} par ${user.fullName} depuis ${file.name}`,
+        note: `Premier import ${now.toISOString().slice(0, 10)} par ${user.fullName} depuis ${file.name.slice(0, 100)}`,
       },
     });
     created++;
@@ -210,7 +241,7 @@ export async function importLeads(formData: FormData) {
     await notify(
       c.id,
       "Import leads terminé",
-      `${created} créé(s), ${updated} mis à jour, ${skipped} ignoré(s) — ${file.name}`,
+      `${created} créé(s), ${updated} mis à jour, ${skipped} ignoré(s) — ${file.name.slice(0, 100)}`,
       "/leads"
     );
   }
