@@ -9,9 +9,9 @@ import { Button, Input, Label, Select } from "@/components/ui";
 
 type DealLineRow = {
   id: string;
-  label: string;
-  amountHt: number;
-  billingStatus: BillingStatus;
+  name: string;  // Opportunity.name
+  amount: number;  // Opportunity.amount
+  billingStatus: BillingStatus | null;
   isRecurring: boolean;
   notes?: string | null;
 };
@@ -39,13 +39,13 @@ export function EditableDealLines({
             className="flex items-center justify-between border-b border-stone-100 py-2 text-sm"
           >
             <div>
-              <p className="font-medium">{d.label}</p>
+              <p className="font-medium">{d.name}</p>
               <p className="text-xs text-stone-500">
-                {BILLING_LABELS[d.billingStatus]}
+                {d.billingStatus ? BILLING_LABELS[d.billingStatus] : "—"}
                 {d.isRecurring ? " · récurrent" : ""}
               </p>
             </div>
-            <p>{formatEuro(d.amountHt)}</p>
+            <p>{formatEuro(d.amount)}</p>
           </div>
         ))}
       </div>
