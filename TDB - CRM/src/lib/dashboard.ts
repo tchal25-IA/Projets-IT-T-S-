@@ -70,8 +70,8 @@ export async function computeDashboardMetrics(
   productId: string | null
 ): Promise<DashboardMetrics> {
   const orgId = await requireOrg();
-  const where = leadVisibilityWhere(userId, role, { productId });
-  const accountWhere = accountVisibilityWhere(userId, role, { productId });
+  const where = leadVisibilityWhere(userId, role, { productId, organizationId: orgId });
+  const accountWhere = accountVisibilityWhere(userId, role, { productId, organizationId: orgId });
 
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);

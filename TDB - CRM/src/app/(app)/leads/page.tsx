@@ -53,7 +53,7 @@ export default async function LeadsPage({
     : "all";
 
   const andParts: Prisma.LeadWhereInput[] = [
-    leadVisibilityWhere(session.user.id, session.user.role, { productId }),
+    leadVisibilityWhere(session.user.id, session.user.role, { productId, organizationId: orgId }),
   ];
 
   if (saved) {

@@ -1,18 +1,20 @@
-import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { accountVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
 import { PageHeader, Card, Badge } from "@/components/ui";
 import { ACCOUNT_STATUS_LABELS, formatDate, canSeeBilling } from "@/lib/utils";
+import { requireOrg } from "@/lib/tenant";
 
 export default async function ClientsPage() {
   const session = await auth();
   if (!session?.user) return null;
 
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
   const where = accountVisibilityWhere(session.user.id, session.user.role, {
     productId,
+    organizationId: orgId,
   });
 
   const accounts = await prisma.account.findMany({
