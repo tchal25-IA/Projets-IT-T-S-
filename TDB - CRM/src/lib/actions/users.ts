@@ -6,11 +6,13 @@ import { canManageUsers } from "@/lib/utils";
 import { requireUser } from "@/lib/actions/helpers";
 import { parseRole } from "@/lib/access";
 import bcrypt from "bcryptjs";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 const MIN_PASSWORD = 8;
 
 export async function createUser(formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!canManageUsers(user.role)) throw new Error("Accès refusé");
 
   const email = String(formData.get("email") || "").toLowerCase().trim();
@@ -25,6 +27,7 @@ export async function createUser(formData: FormData) {
 
   await prisma.user.create({
     data: {
+      organizationId: orgId,
       email,
       fullName,
       role,
@@ -37,6 +40,7 @@ export async function createUser(formData: FormData) {
 
 export async function updateUser(formData: FormData) {
   const actor = await requireUser();
+  const orgId = await requireOrg();
   if (!canManageUsers(actor.role)) throw new Error("Accès refusé");
 
   const id = String(formData.get("id") || "");
@@ -70,28 +74,31 @@ export async function updateUser(formData: FormData) {
 
 export async function deleteUser(userId: string) {
   const actor = await requireUser();
+  const orgId = await requireOrg();
   if (!canManageUsers(actor.role)) throw new Error("Accès refusé");
   if (actor.id === userId)
     throw new Error("Vous ne pouvez pas supprimer votre propre compte");
 
-  const target = await prisma.user.findUnique({ where: { id: userId } });
+  const target = await prisma.user.findFirst({ 
+    where: orgWhere(orgId, { id: userId })
+  });
   if (!target) throw new Error("Utilisateur introuvable");
 
   await prisma.lead.updateMany({
-    where: { commercialId: userId },
+    where: orgWhere(orgId, { commercialId: userId }),
     data: { commercialId: null },
   });
   await prisma.lead.updateMany({
-    where: { apporteurId: userId },
+    where: orgWhere(orgId, { apporteurId: userId }),
     data: { apporteurId: null },
   });
-  await prisma.task.deleteMany({ where: { userId } });
-  await prisma.savedView.deleteMany({ where: { userId } });
-  await prisma.quota.deleteMany({ where: { userId } });
-  await prisma.notification.deleteMany({ where: { userId } });
-  await prisma.commission.deleteMany({ where: { userId } });
+  await prisma.task.deleteMany({ where: orgWhere(orgId, { userId }) });
+  await prisma.savedView.deleteMany({ where: orgWhere(orgId, { userId }) });
+  await prisma.quota.deleteMany({ where: orgWhere(orgId, { userId }) });
+  await prisma.notification.deleteMany({ where: orgWhere(orgId, { userId }) });
+  await prisma.commission.deleteMany({ where: orgWhere(orgId, { userId }) });
   await prisma.activity.updateMany({
-    where: { userId },
+    where: orgWhere(orgId, { userId }),
     data: { userId: null },
   });
   await prisma.user.delete({ where: { id: userId } });
@@ -101,6 +108,7 @@ export async function deleteUser(userId: string) {
 
 export async function toggleUserActive(userId: string, active: boolean) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!canManageUsers(user.role)) throw new Error("Accès refusé");
   if (user.id === userId && !active) {
     throw new Error("Vous ne pouvez pas désactiver votre propre compte");
@@ -111,6 +119,7 @@ export async function toggleUserActive(userId: string, active: boolean) {
 
 export async function upsertQuota(formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   if (!canManageUsers(user.role)) throw new Error("Accès refusé");
 
   const userId = String(formData.get("userId") || "");
@@ -128,8 +137,14 @@ export async function upsertQuota(formData: FormData) {
   }
 
   await prisma.quota.upsert({
-    where: { userId_yearMonth: { userId, yearMonth } },
-    create: { userId, yearMonth, targetCloses, targetCa },
+    where: { 
+      organizationId_userId_yearMonth: { 
+        organizationId: orgId,
+        userId, 
+        yearMonth 
+      } 
+    },
+    create: { organizationId: orgId, userId, yearMonth, targetCloses, targetCa },
     update: { targetCloses, targetCa },
   });
 
