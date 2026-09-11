@@ -40,6 +40,7 @@ async function main() {
   const adapter = new PrismaPg(pool);
   const prisma = new PrismaClient({ adapter });
 
+  // Clean up in dependency order
   await prisma.fieldHistory.deleteMany();
   await prisma.task.deleteMany();
   await prisma.savedView.deleteMany();
@@ -48,17 +49,106 @@ async function main() {
   await prisma.commission.deleteMany();
   await prisma.notification.deleteMany();
   await prisma.activity.deleteMany();
-  await prisma.dealLine.deleteMany();
+  await prisma.opportunity.deleteMany();
   await prisma.lead.deleteMany();
-  await prisma.client.deleteMany();
+  await prisma.contact.deleteMany();
+  await prisma.account.deleteMany();
+  await prisma.customFieldValue.deleteMany();
+  await prisma.customField.deleteMany();
+  await prisma.customObject.deleteMany();
+  await prisma.moduleEntitlement.deleteMany();
   await prisma.productOffering.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.commissionRule.deleteMany();
+  await prisma.crmSetting.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.organization.deleteMany();
 
+  // ============================================================================
+  // CREATE DEFAULT ORGANIZATION
+  // ============================================================================
+  console.log("Creating default organization...");
+  const org = await prisma.organization.create({
+    data: {
+      id: "org_ts_crm_default",
+      name: "T&S CRM",
+      slug: "ts-crm",
+      active: true,
+      settings: {
+        timezone: "Europe/Paris",
+        locale: "fr-FR",
+        currency: "EUR",
+      },
+    },
+  });
+  console.log(`✓ Organization created: ${org.name} (${org.slug})`);
+
+  // ============================================================================
+  // MODULE ENTITLEMENTS (Feature Flags)
+  // ============================================================================
+  console.log("Setting up module entitlements...");
+  await prisma.moduleEntitlement.createMany({
+    data: [
+      {
+        organizationId: org.id,
+        moduleType: "SALES",
+        isEnabled: true,
+        notes: "Core sales module (leads, opportunities, pipeline)",
+      },
+      {
+        organizationId: org.id,
+        moduleType: "CUSTOM_OBJECTS",
+        isEnabled: true,
+        quota: 10,
+        notes: "Up to 10 custom objects",
+      },
+      {
+        organizationId: org.id,
+        moduleType: "ADVANCED_REPORTS",
+        isEnabled: true,
+        notes: "Advanced reporting and analytics",
+      },
+      {
+        organizationId: org.id,
+        moduleType: "API_ACCESS",
+        isEnabled: true,
+        notes: "REST API access",
+      },
+    ],
+  });
+  console.log("✓ Module entitlements configured");
+
+  // ============================================================================
+  // COMMISSION RULES
+  // ============================================================================
+  await prisma.commissionRule.createMany({
+    data: [
+      {
+        organizationId: org.id,
+        roleKey: "APPORTEUR",
+        label: "Apporteur d'affaires",
+        ratePercent: 10,
+        sortOrder: 0,
+      },
+      {
+        organizationId: org.id,
+        roleKey: "COMMERCIAL",
+        label: "Commercial (close)",
+        ratePercent: 15,
+        sortOrder: 1,
+      },
+    ],
+  });
+
+  // ============================================================================
+  // USERS
+  // ============================================================================
+  console.log("Creating users...");
   const passwordHash = await bcrypt.hash("demo1234", 10);
 
   const associe = await prisma.user.create({
     data: {
+      organizationId: org.id,
       email: "associe@ts-crm.fr",
       fullName: "Thibaud Associé",
       role: "ASSOCIE",
@@ -68,6 +158,7 @@ async function main() {
 
   const dirVf = await prisma.user.create({
     data: {
+      organizationId: org.id,
       email: "direction.vf@ts-crm.fr",
       fullName: "Direction VitrineFlash",
       role: "DIRECTION_VF",
@@ -77,6 +168,7 @@ async function main() {
 
   const dirBf = await prisma.user.create({
     data: {
+      organizationId: org.id,
       email: "direction.bookflow@ts-crm.fr",
       fullName: "Direction Bookflow",
       role: "DIRECTION_BOOKFLOW",
@@ -89,6 +181,7 @@ async function main() {
     apporteurs.push(
       await prisma.user.create({
         data: {
+          organizationId: org.id,
           email: emailFromName("apporteur", i + 1),
           fullName: APPORTEUR_NAMES[i],
           role: "APPORTEUR",
@@ -103,6 +196,7 @@ async function main() {
     commerciaux.push(
       await prisma.user.create({
         data: {
+          organizationId: org.id,
           email: emailFromName("commercial", i + 1),
           fullName: COMMERCIAL_NAMES[i],
           role: "COMMERCIAL",
@@ -111,9 +205,15 @@ async function main() {
       })
     );
   }
+  console.log(`✓ Created ${2 + apporteurs.length + commerciaux.length} users`);
 
+  // ============================================================================
+  // PRODUCTS & OFFERINGS
+  // ============================================================================
+  console.log("Creating products...");
   const vf = await prisma.product.create({
     data: {
+      organizationId: org.id,
       slug: "vitrineflash",
       name: "VitrineFlash",
       description: "Création / reprise / modification de sites web (± maintenance)",
@@ -124,6 +224,7 @@ async function main() {
 
   const bookflow = await prisma.product.create({
     data: {
+      organizationId: org.id,
       slug: "bookflow",
       name: "Bookflow",
       description: "Outil de prise de RDV moderne, complet et accessible (type Calendly)",
@@ -135,6 +236,7 @@ async function main() {
   await prisma.productOffering.createMany({
     data: [
       {
+        organizationId: org.id,
         productId: vf.id,
         name: "Site vitrine one-shot",
         code: "VF-SITE",
@@ -144,6 +246,7 @@ async function main() {
         sortOrder: 0,
       },
       {
+        organizationId: org.id,
         productId: vf.id,
         name: "Maintenance Essentiel",
         code: "VF-MAINT-E",
@@ -153,6 +256,7 @@ async function main() {
         sortOrder: 1,
       },
       {
+        organizationId: org.id,
         productId: vf.id,
         name: "Maintenance Pro",
         code: "VF-MAINT-P",
@@ -162,6 +266,7 @@ async function main() {
         sortOrder: 2,
       },
       {
+        organizationId: org.id,
         productId: bookflow.id,
         name: "Bookflow Starter",
         code: "BF-START",
@@ -171,6 +276,7 @@ async function main() {
         sortOrder: 0,
       },
       {
+        organizationId: org.id,
         productId: bookflow.id,
         name: "Bookflow Pro",
         code: "BF-PRO",
@@ -180,6 +286,7 @@ async function main() {
         sortOrder: 1,
       },
       {
+        organizationId: org.id,
         productId: bookflow.id,
         name: "Bookflow Business",
         code: "BF-BIZ",
@@ -190,8 +297,65 @@ async function main() {
       },
     ],
   });
+  console.log("✓ Products and offerings created");
 
-  // Sample leads across apporteurs / commerciaux / products
+  // ============================================================================
+  // CUSTOM FIELDS (Sample extensibility)
+  // ============================================================================
+  console.log("Creating sample custom fields...");
+  const leadBudgetField = await prisma.customField.create({
+    data: {
+      organizationId: org.id,
+      objectType: "Lead",
+      apiName: "budget_estime__c",
+      label: "Budget estimé",
+      fieldType: "DECIMAL",
+      isRequired: false,
+      helpText: "Budget client pour le projet (€)",
+      sortOrder: 0,
+    },
+  });
+
+  const leadSecteurField = await prisma.customField.create({
+    data: {
+      organizationId: org.id,
+      objectType: "Lead",
+      apiName: "secteur_activite__c",
+      label: "Secteur d'activité",
+      fieldType: "PICKLIST",
+      isRequired: false,
+      picklistValues: [
+        "Commerce / Retail",
+        "Services B2B",
+        "Santé / Bien-être",
+        "Restauration",
+        "Immobilier",
+        "Industrie",
+        "Tech / Digital",
+        "Autre",
+      ],
+      sortOrder: 1,
+    },
+  });
+
+  const accountCaField = await prisma.customField.create({
+    data: {
+      organizationId: org.id,
+      objectType: "Account",
+      apiName: "ca_annuel__c",
+      label: "CA annuel estimé",
+      fieldType: "NUMBER",
+      isRequired: false,
+      helpText: "Chiffre d'affaires annuel (€)",
+      sortOrder: 0,
+    },
+  });
+  console.log("✓ Sample custom fields created");
+
+  // ============================================================================
+  // SAMPLE LEADS
+  // ============================================================================
+  console.log("Creating sample leads...");
   const leadSpecs = [
     {
       companyName: "Dupont SAS",
@@ -210,10 +374,19 @@ async function main() {
         formuleMaintenance: "12 mois",
         budget: 2000,
       },
-      dealLines: [
-        { label: "Site vitrine reprise", amountHt: 1490 },
-        { label: "Maintenance 12 mois", amountHt: 348, isRecurring: true },
+      opportunities: [
+        { name: "Site vitrine reprise", amount: 1490, stage: "PROPOSAL" as const },
+        {
+          name: "Maintenance 12 mois",
+          amount: 348,
+          stage: "QUALIFICATION" as const,
+          isRecurring: true,
+        },
       ],
+      customFields: {
+        [leadBudgetField.id]: 2000,
+        [leadSecteurField.id]: "Services B2B",
+      },
     },
     {
       companyName: "Studio Lumière",
@@ -231,9 +404,17 @@ async function main() {
         planCible: "Pro",
         demoEffectuee: true,
       },
-      dealLines: [
-        { label: "Abonnement Bookflow Pro (annuel)", amountHt: 348, isRecurring: true },
+      opportunities: [
+        {
+          name: "Abonnement Bookflow Pro (annuel)",
+          amount: 348,
+          stage: "NEGOTIATION" as const,
+          isRecurring: true,
+        },
       ],
+      customFields: {
+        [leadSecteurField.id]: "Santé / Bien-être",
+      },
     },
     {
       companyName: "Boulangerie Pain d'Or",
@@ -246,7 +427,10 @@ async function main() {
       commercialId: commerciaux[2].id,
       nextCallAt: new Date(),
       customData: { besoin: "Création" },
-      dealLines: [],
+      opportunities: [],
+      customFields: {
+        [leadSecteurField.id]: "Restauration",
+      },
     },
     {
       companyName: "Coach Élan",
@@ -258,37 +442,77 @@ async function main() {
       commercialId: commerciaux[3].id,
       estimatedValue: 228,
       customData: { casUsage: "Coach", volumeRdv: 40, demoEffectuee: false },
-      dealLines: [],
+      opportunities: [],
+      customFields: {
+        [leadBudgetField.id]: 300,
+        [leadSecteurField.id]: "Santé / Bien-être",
+      },
     },
   ];
 
   const createdLeads = [];
   for (const spec of leadSpecs) {
-    const { dealLines, ...leadData } = spec;
+    const { opportunities, customFields, ...leadData } = spec;
     const lead = await prisma.lead.create({
       data: {
+        organizationId: org.id,
         ...leadData,
         source: "Apporteur",
         customData: leadData.customData,
       },
     });
     createdLeads.push(lead);
-    if (dealLines.length) {
-      await prisma.dealLine.createMany({
-        data: dealLines.map((d) => ({
+
+    // Create opportunities
+    if (opportunities.length) {
+      await prisma.opportunity.createMany({
+        data: opportunities.map((opp) => ({
+          organizationId: org.id,
           leadId: lead.id,
-          label: d.label,
-          amountHt: d.amountHt,
-          billingStatus: "DEVIS" as const,
-          isRecurring: d.isRecurring ?? false,
+          name: opp.name,
+          amount: opp.amount,
+          stage: opp.stage,
+          isRecurring: opp.isRecurring ?? false,
+          billingStatus: "DEVIS",
         })),
       });
     }
+
+    // Store custom field values
+    if (customFields) {
+      for (const [fieldId, value] of Object.entries(customFields)) {
+        if (typeof value === "number") {
+          await prisma.customFieldValue.create({
+            data: {
+              organizationId: org.id,
+              customFieldId: fieldId,
+              recordType: "Lead",
+              recordId: lead.id,
+              valueNumber: value,
+            },
+          });
+        } else if (typeof value === "string") {
+          await prisma.customFieldValue.create({
+            data: {
+              organizationId: org.id,
+              customFieldId: fieldId,
+              recordType: "Lead",
+              recordId: lead.id,
+              valueText: value,
+            },
+          });
+        }
+      }
+    }
   }
 
-  // Closed client with full fiche (commissions, services, actors)
+  // ============================================================================
+  // CLOSED LEAD → ACCOUNT + CONTACT
+  // ============================================================================
+  console.log("Creating closed deals with accounts...");
   const closedLead = await prisma.lead.create({
     data: {
+      organizationId: org.id,
       companyName: "Atelier Nord",
       contactName: "Nina Petit",
       email: "nina@ateliernord.fr",
@@ -309,12 +533,13 @@ async function main() {
     },
   });
 
-  const client = await prisma.client.create({
+  const account = await prisma.account.create({
     data: {
+      organizationId: org.id,
       companyName: "Atelier Nord",
-      contactName: "Nina Petit",
       email: "nina@ateliernord.fr",
       phone: "06 11 22 33 44",
+      website: "https://ateliernord.fr",
       status: "EN_LIVRAISON",
       notes: "Site vitrine 5 pages — livraison prévue sous 3 semaines",
       qualification: {
@@ -327,25 +552,55 @@ async function main() {
     },
   });
 
-  await prisma.lead.update({
-    where: { id: closedLead.id },
-    data: { clientId: client.id },
+  await prisma.contact.create({
+    data: {
+      organizationId: org.id,
+      accountId: account.id,
+      firstName: "Nina",
+      lastName: "Petit",
+      email: "nina@ateliernord.fr",
+      phone: "06 11 22 33 44",
+      title: "Gérante",
+      isPrimary: true,
+    },
   });
 
-  await prisma.dealLine.createMany({
+  // Custom field for account
+  await prisma.customFieldValue.create({
+    data: {
+      organizationId: org.id,
+      customFieldId: accountCaField.id,
+      recordType: "Account",
+      recordId: account.id,
+      valueNumber: 250000,
+    },
+  });
+
+  await prisma.lead.update({
+    where: { id: closedLead.id },
+    data: { accountId: account.id },
+  });
+
+  const oppsClosedLead = await prisma.opportunity.createMany({
     data: [
       {
+        organizationId: org.id,
         leadId: closedLead.id,
-        clientId: client.id,
-        label: "Site vitrine 5 pages",
-        amountHt: 1490,
+        accountId: account.id,
+        name: "Site vitrine 5 pages",
+        amount: 1490,
+        stage: "CLOSED_WON",
+        closeDate: new Date(),
         billingStatus: "FACTURE",
       },
       {
+        organizationId: org.id,
         leadId: closedLead.id,
-        clientId: client.id,
-        label: "Maintenance 12 mois",
-        amountHt: 348,
+        accountId: account.id,
+        name: "Maintenance 12 mois",
+        amount: 348,
+        stage: "CLOSED_WON",
+        closeDate: new Date(),
         billingStatus: "A_FACTURER",
         isRecurring: true,
       },
@@ -356,7 +611,8 @@ async function main() {
   await prisma.commission.createMany({
     data: [
       {
-        clientId: client.id,
+        organizationId: org.id,
+        accountId: account.id,
         leadId: closedLead.id,
         userId: apporteurs[0].id,
         label: "Commission apporteur",
@@ -366,7 +622,8 @@ async function main() {
         status: "A_VERSER",
       },
       {
-        clientId: client.id,
+        organizationId: org.id,
+        accountId: account.id,
         leadId: closedLead.id,
         userId: commerciaux[0].id,
         label: "Commission commercial (close)",
@@ -378,9 +635,10 @@ async function main() {
     ],
   });
 
-  // Bookflow closed client
+  // Bookflow closed account
   const closedBf = await prisma.lead.create({
     data: {
+      organizationId: org.id,
       companyName: "Cabinet Horizon",
       contactName: "Marc Olivier",
       email: "marc@cabinethorizon.fr",
@@ -400,10 +658,10 @@ async function main() {
     },
   });
 
-  const clientBf = await prisma.client.create({
+  const accountBf = await prisma.account.create({
     data: {
+      organizationId: org.id,
       companyName: "Cabinet Horizon",
-      contactName: "Marc Olivier",
       email: "marc@cabinethorizon.fr",
       status: "ACTIF",
       notes: "Abonnement Bookflow Pro actif",
@@ -415,17 +673,31 @@ async function main() {
     },
   });
 
-  await prisma.lead.update({
-    where: { id: closedBf.id },
-    data: { clientId: clientBf.id },
+  await prisma.contact.create({
+    data: {
+      organizationId: org.id,
+      accountId: accountBf.id,
+      firstName: "Marc",
+      lastName: "Olivier",
+      email: "marc@cabinethorizon.fr",
+      isPrimary: true,
+    },
   });
 
-  await prisma.dealLine.create({
+  await prisma.lead.update({
+    where: { id: closedBf.id },
+    data: { accountId: accountBf.id },
+  });
+
+  await prisma.opportunity.create({
     data: {
+      organizationId: org.id,
       leadId: closedBf.id,
-      clientId: clientBf.id,
-      label: "Bookflow Pro — annuel",
-      amountHt: 348,
+      accountId: accountBf.id,
+      name: "Bookflow Pro — annuel",
+      amount: 348,
+      stage: "CLOSED_WON",
+      closeDate: new Date(),
       billingStatus: "PAYE",
       isRecurring: true,
     },
@@ -434,7 +706,8 @@ async function main() {
   await prisma.commission.createMany({
     data: [
       {
-        clientId: clientBf.id,
+        organizationId: org.id,
+        accountId: accountBf.id,
         leadId: closedBf.id,
         userId: apporteurs[4].id,
         label: "Commission apporteur",
@@ -444,7 +717,8 @@ async function main() {
         status: "VERSEE",
       },
       {
-        clientId: clientBf.id,
+        organizationId: org.id,
+        accountId: accountBf.id,
         leadId: closedBf.id,
         userId: commerciaux[4].id,
         label: "Commission commercial (close)",
@@ -456,10 +730,11 @@ async function main() {
     ],
   });
 
-  // Extra assigned leads for other commerciaux so each has something
+  // Extra assigned leads for other commerciaux
   for (let i = 5; i < 10; i++) {
     await prisma.lead.create({
       data: {
+        organizationId: org.id,
         companyName: `Prospect ${i + 1} SARL`,
         contactName: `Contact ${i + 1}`,
         email: `prospect${i + 1}@exemple.fr`,
@@ -474,85 +749,107 @@ async function main() {
       },
     });
   }
+  console.log(`✓ Created ${createdLeads.length + 7} leads and 2 accounts`);
 
+  // ============================================================================
+  // ACTIVITIES
+  // ============================================================================
   await prisma.activity.createMany({
     data: [
       {
+        organizationId: org.id,
         leadId: createdLeads[0].id,
         userId: commerciaux[0].id,
         type: "APPEL",
         note: "Premier contact — intéressé par une reprise WordPress.",
       },
       {
+        organizationId: org.id,
         leadId: createdLeads[0].id,
         userId: commerciaux[0].id,
         type: "RDV",
         note: "RDV démo posé.",
       },
       {
+        organizationId: org.id,
         leadId: closedLead.id,
         userId: commerciaux[0].id,
         type: "STATUT",
-        note: "Deal closé — client créé avec prestations et commissions.",
+        note: "Deal closé — account créé avec opportunités et commissions.",
       },
       {
+        organizationId: org.id,
         leadId: closedBf.id,
         userId: commerciaux[4].id,
         type: "STATUT",
-        note: "Bookflow Pro signé — client actif.",
+        note: "Bookflow Pro signé — account actif.",
       },
     ],
   });
 
+  // ============================================================================
+  // NOTIFICATIONS
+  // ============================================================================
   await prisma.notification.createMany({
     data: [
       {
+        organizationId: org.id,
         userId: associe.id,
         title: "Bienvenue Associé",
         body: "Vous avez accès à l'ensemble du CRM (VitrineFlash + Bookflow).",
         link: "/dashboard",
       },
       {
+        organizationId: org.id,
         userId: dirVf.id,
         title: "Pilotage VitrineFlash",
         body: "Votre vue est filtrée sur le produit VitrineFlash.",
         link: "/dashboard",
       },
       {
+        organizationId: org.id,
         userId: dirBf.id,
         title: "Pilotage Bookflow",
         body: "Votre vue est filtrée sur le produit Bookflow.",
         link: "/dashboard",
       },
       {
+        organizationId: org.id,
         userId: commerciaux[0].id,
         title: "Leads à appeler",
         body: "Des leads vous sont attribués dans la file d'appels.",
         link: "/appels",
       },
       {
+        organizationId: org.id,
         userId: apporteurs[0].id,
         title: "Lead converti",
-        body: "Votre apport Atelier Nord est passé en client.",
-        link: `/clients/${client.id}`,
+        body: "Votre apport Atelier Nord est passé en account.",
+        link: `/accounts/${account.id}`,
       },
     ],
   });
 
-  // Multi-produits : intérêts VF + Bookflow
+  // ============================================================================
+  // LEAD INTERESTS (Multi-produits)
+  // ============================================================================
   await prisma.leadInterest.createMany({
     data: [
-      { leadId: createdLeads[0].id, productSlug: "vitrineflash" },
-      { leadId: createdLeads[0].id, productSlug: "bookflow" },
-      { leadId: createdLeads[1].id, productSlug: "bookflow" },
-      { leadId: closedLead.id, productSlug: "vitrineflash" },
-      { leadId: closedBf.id, productSlug: "bookflow" },
+      { organizationId: org.id, leadId: createdLeads[0].id, productSlug: "vitrineflash" },
+      { organizationId: org.id, leadId: createdLeads[0].id, productSlug: "bookflow" },
+      { organizationId: org.id, leadId: createdLeads[1].id, productSlug: "bookflow" },
+      { organizationId: org.id, leadId: closedLead.id, productSlug: "vitrineflash" },
+      { organizationId: org.id, leadId: closedBf.id, productSlug: "bookflow" },
     ],
   });
 
+  // ============================================================================
+  // QUOTAS
+  // ============================================================================
   const yearMonth = new Date().toISOString().slice(0, 7);
   await prisma.quota.createMany({
     data: commerciaux.slice(0, 5).map((c) => ({
+      organizationId: org.id,
       userId: c.id,
       yearMonth,
       targetCloses: 4,
@@ -560,9 +857,13 @@ async function main() {
     })),
   });
 
+  // ============================================================================
+  // TASKS
+  // ============================================================================
   await prisma.task.createMany({
     data: [
       {
+        organizationId: org.id,
         title: "Relancer Dupont SAS — devis reprise",
         userId: commerciaux[0].id,
         leadId: createdLeads[0].id,
@@ -570,6 +871,7 @@ async function main() {
         priority: "HIGH",
       },
       {
+        organizationId: org.id,
         title: "Préparer démo Bookflow Studio Lumière",
         userId: commerciaux[1].id,
         leadId: createdLeads[1].id,
@@ -577,6 +879,7 @@ async function main() {
         priority: "MEDIUM",
       },
       {
+        organizationId: org.id,
         title: "Appeler Boulangerie Pain d'Or",
         userId: commerciaux[2].id,
         leadId: createdLeads[2].id,
@@ -584,9 +887,10 @@ async function main() {
         priority: "HIGH",
       },
       {
+        organizationId: org.id,
         title: "Suivi livraison Atelier Nord",
         userId: commerciaux[0].id,
-        clientId: client.id,
+        accountId: account.id,
         leadId: closedLead.id,
         dueAt: new Date(Date.now() + 5 * 86400_000),
         priority: "MEDIUM",
@@ -594,8 +898,12 @@ async function main() {
     ],
   });
 
+  // ============================================================================
+  // SAVED VIEWS
+  // ============================================================================
   await prisma.savedView.create({
     data: {
+      organizationId: org.id,
       name: "Relances urgentes (partagée)",
       entity: "LEAD",
       isShared: true,
@@ -604,12 +912,50 @@ async function main() {
     },
   });
 
-  console.log("Seed OK — mot de passe: demo1234");
-  console.log("associe@ts-crm.fr");
-  console.log("direction.vf@ts-crm.fr");
-  console.log("direction.bookflow@ts-crm.fr");
-  console.log("apporteur1@ts-crm.fr … apporteur10@ts-crm.fr");
-  console.log("commercial1@ts-crm.fr … commercial10@ts-crm.fr");
+  // ============================================================================
+  // CRM SETTINGS
+  // ============================================================================
+  await prisma.crmSetting.createMany({
+    data: [
+      {
+        organizationId: org.id,
+        key: "lead_sources",
+        value: ["Apporteur", "Import CSV", "Site web", "Prospection", "Référence", "Autre"],
+      },
+      {
+        organizationId: org.id,
+        key: "company_info",
+        value: {
+          name: "T&S Digital",
+          siret: "123 456 789 00012",
+          address: "12 Rue de la Paix, 75002 Paris",
+          phone: "01 23 45 67 89",
+          email: "contact@ts-digital.fr",
+        },
+      },
+    ],
+  });
+
+  console.log("\n========================================");
+  console.log("✅ Seed completed successfully!");
+  console.log("========================================");
+  console.log("\n📋 Default Organization:");
+  console.log(`   Name: ${org.name}`);
+  console.log(`   Slug: ${org.slug}`);
+  console.log(`   ID: ${org.id}`);
+  console.log("\n🔑 Demo accounts (password: demo1234):");
+  console.log("   • associe@ts-crm.fr");
+  console.log("   • direction.vf@ts-crm.fr");
+  console.log("   • direction.bookflow@ts-crm.fr");
+  console.log("   • apporteur1@ts-crm.fr … apporteur10@ts-crm.fr");
+  console.log("   • commercial1@ts-crm.fr … commercial10@ts-crm.fr");
+  console.log("\n📊 Data summary:");
+  console.log(`   • ${2 + apporteurs.length + commerciaux.length} users`);
+  console.log(`   • ${createdLeads.length + 7} leads`);
+  console.log(`   • 2 accounts (Atelier Nord, Cabinet Horizon)`);
+  console.log("   • 3 sample custom fields (extensibility demo)");
+  console.log("   • 4 module entitlements");
+  console.log("\n========================================\n");
 
   await prisma.$disconnect();
   await pool.end();
