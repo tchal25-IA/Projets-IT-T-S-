@@ -4,13 +4,15 @@ import { markAllNotificationsRead, markNotificationRead } from "@/lib/actions";
 import { PageHeader, Card, Badge, Button } from "@/components/ui";
 import { formatDateTime } from "@/lib/utils";
 import Link from "next/link";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function NotificationsPage() {
   const session = await auth();
   if (!session?.user) return null;
 
+  const orgId = await requireOrg();
   const notifications = await prisma.notification.findMany({
-    where: { userId: session.user.id },
+    where: orgWhere(orgId, { userId: session.user.id }),
     orderBy: { createdAt: "desc" },
   });
 
