@@ -646,7 +646,7 @@ export default async function LeadDetailPage({
         />
 
         <RelatedRail
-          dealLines={dealLines}
+          dealLines={opportunities}
           commissions={commissions}
           tasks={lead.tasks}
           nextCallAt={lead.nextCallAt}

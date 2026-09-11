@@ -4,7 +4,7 @@ import type {
   LeadStatus,
   Role,
   BillingStatus,
-  ClientStatus,
+  AccountStatus,
   CommissionStatus,
 } from "@/generated/prisma/client";
 

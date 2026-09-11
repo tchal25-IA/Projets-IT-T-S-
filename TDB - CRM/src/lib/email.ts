@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { escapeHtml } from "@/lib/access";
+import { requireOrg } from "@/lib/tenant";
 
 type SendEmailOpts = {
   to: string;
@@ -49,8 +50,10 @@ export async function sendCrmEmail(opts: SendEmailOpts): Promise<{
   }
 
   if (opts.leadId) {
+    const orgId = await requireOrg();
     await prisma.activity.create({
       data: {
+        organizationId: orgId,
         leadId: opts.leadId,
         userId: opts.userId ?? null,
         type: "EMAIL",
