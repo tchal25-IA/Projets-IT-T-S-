@@ -5,9 +5,10 @@ import type { BillingStatus, TaskPriority } from "@/generated/prisma/client";
 
 type Line = {
   id: string;
-  label: string;
-  amountHt: number;
-  billingStatus: BillingStatus;
+  name: string;  // Opportunity.name
+  amount: number;  // Opportunity.amount
+  billingStatus: BillingStatus | null;
+  isRecurring?: boolean;
 };
 
 type Commission = {

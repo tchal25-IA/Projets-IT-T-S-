@@ -73,7 +73,7 @@ export function BillingPanel({
         <div key={d.id} className="rounded-md border border-stone-200 p-3 text-sm">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-medium">{d.label}</p>
+              <p className="font-medium">{d.name}</p>
               <Badge
                 tone={
                   d.billingStatus === "PAYE"
@@ -83,14 +83,14 @@ export function BillingPanel({
                       : "neutral"
                 }
               >
-                {BILLING_LABELS[d.billingStatus]}
+                {d.billingStatus ? BILLING_LABELS[d.billingStatus] : "Devis"}
               </Badge>
             </div>
-            <p className="font-semibold">{formatEuro(d.amountHt)}</p>
+            <p className="font-semibold">{formatEuro(d.amount)}</p>
           </div>
           {canEdit ? (
             <div className="mt-2">
-              <BillingActions id={d.id} status={d.billingStatus} showPay />
+              <BillingActions id={d.id} status={d.billingStatus ?? "DEVIS"} showPay />
             </div>
           ) : null}
         </div>
