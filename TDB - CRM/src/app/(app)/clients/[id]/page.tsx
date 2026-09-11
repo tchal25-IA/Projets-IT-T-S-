@@ -64,7 +64,7 @@ export default async function ClientDetailPage({
           },
         },
       },
-      dealLines: { orderBy: { createdAt: "asc" } },
+      opportunities: { orderBy: { createdAt: "asc" } },
       commissions: { include: { user: true }, orderBy: { createdAt: "asc" } },
     },
   });
