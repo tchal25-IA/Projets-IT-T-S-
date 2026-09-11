@@ -15,15 +15,24 @@ export async function notify(
   link?: string
 ) {
   const { prisma } = await import("@/lib/db");
+  const { requireOrg } = await import("@/lib/tenant");
+  const orgId = await requireOrg();
   await prisma.notification.create({
-    data: { userId, title, body, link },
+    data: { 
+      organizationId: orgId,
+      userId, 
+      title, 
+      body, 
+      link 
+    },
   });
 }
 
 /** Invalide les surfaces CRM liées aux leads / pipeline / facturation. */
 export function revalidateCrm(opts?: {
   leadId?: string | null;
-  clientId?: string | null;
+  accountId?: string | null;
+  clientId?: string | null; // Legacy alias
 }) {
   revalidatePath("/", "layout");
   revalidatePath("/dashboard");
@@ -31,10 +40,16 @@ export function revalidateCrm(opts?: {
   revalidatePath("/pipeline");
   revalidatePath("/appels");
   revalidatePath("/clients");
+  revalidatePath("/accounts");
   revalidatePath("/facturation");
   revalidatePath("/taches");
   revalidatePath("/stats");
   revalidatePath("/notifications");
   if (opts?.leadId) revalidatePath(`/leads/${opts.leadId}`);
-  if (opts?.clientId) revalidatePath(`/clients/${opts.clientId}`);
+  
+  const accountId = opts?.accountId || opts?.clientId;
+  if (accountId) {
+    revalidatePath(`/clients/${accountId}`);
+    revalidatePath(`/accounts/${accountId}`);
+  }
 }
