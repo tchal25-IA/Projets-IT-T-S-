@@ -20,7 +20,7 @@ type DealLineRow = {
   id: string;
   name: string;  // Changed from 'label' for Opportunity model
   amount: number;  // Changed from 'amountHt' for Opportunity model
-  billingStatus: BillingStatus;
+  billingStatus: BillingStatus | null;  // Nullable in Opportunity
   isRecurring: boolean;
   notes?: string | null;
   // Legacy aliases for backward compatibility

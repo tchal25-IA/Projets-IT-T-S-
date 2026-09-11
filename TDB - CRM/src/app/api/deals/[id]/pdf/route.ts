@@ -26,7 +26,7 @@ export async function GET(
           {
             label: line.name,
             amountHt: line.amount,
-            billingStatus: line.billingStatus,
+            billingStatus: line.billingStatus ?? "DEVIS",
           },
         ],
       })

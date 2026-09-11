@@ -58,7 +58,7 @@ export default async function TachesPage({
       ? await prisma.user.findMany({
           where: orgWhere(orgId, {
             active: true,
-            role: { in: ["COMMERCIAL", "ASSOCIE", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] },
+            role: { in: ["COMMERCIAL", "ASSOCIE", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] as Array<"COMMERCIAL" | "ASSOCIE" | "DIRECTION_VF" | "DIRECTION_BOOKFLOW"> },
           }),
           orderBy: { fullName: "asc" },
         })

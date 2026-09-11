@@ -68,7 +68,7 @@ export default async function FacturationPage() {
             {opportunities.map((l) => (
               <tr key={l.id} className="border-b border-stone-100">
                 <td className="px-4 py-3">
-                  <p className="font-medium">{l.label}</p>
+                  <p className="font-medium">{l.name}</p>
                   {l.isRecurring ? (
                     <Badge tone="info">Récurrent</Badge>
                   ) : null}
@@ -87,11 +87,11 @@ export default async function FacturationPage() {
                           : "neutral"
                     }
                   >
-                    {BILLING_LABELS[l.billingStatus]}
+                    {BILLING_LABELS[l.billingStatus!]}
                   </Badge>
                 </td>
                 <td className="px-4 py-3">
-                  <BillingActions id={l.id} status={l.billingStatus} showPay />
+                  <BillingActions id={l.id} status={l.billingStatus!} showPay />
                 </td>
               </tr>
             ))}

@@ -41,7 +41,7 @@ export default async function LeadsPage({
 
   const savedViews = await prisma.savedView.findMany({
     where: orgWhere(orgId, {
-      entity: "LEAD",
+      entity: "LEAD" as const,
       OR: [{ userId: session.user.id }, { isShared: true }],
     }),
     orderBy: { name: "asc" },
