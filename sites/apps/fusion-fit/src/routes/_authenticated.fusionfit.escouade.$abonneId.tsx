@@ -31,6 +31,7 @@ function AbonneDetailPage() {
   const [myTemplates, setMyTemplates] = useState<DbTemplate[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const { data: completions = [] } = useAbonneProgramCompletions(abonneId, 60);
 
   useEffect(() => {
     if (!user || role !== "coach") return;
@@ -91,6 +92,18 @@ function AbonneDetailPage() {
     })();
   }, [user, role, abonneId]);
 
+  const exportSessions = useMemo(() => sessions.map(toExportSession), [sessions]);
+  const exportCompletions = useMemo(() => completions.map(toExportCompletion), [completions]);
+  const todayCheckin = useMemo(() => {
+    const iso = todayISO();
+    const row = sessions.find((s) => s.date === iso);
+    return row ? toExportSession(row) : null;
+  }, [sessions]);
+  const exportProgram =
+    prog?.id != null
+      ? { titre: prog.titre, objectif: prog.objectif || null, blocs: prog.blocs }
+      : null;
+
   async function ouvrirChat() {
     if (!user) return;
     const { data: existing } = await supabase
@@ -110,19 +123,6 @@ function AbonneDetailPage() {
   if (!loaded) return <p className="text-center mt-12 text-sm" style={{ color: "var(--ff-text-muted)" }}>Chargement…</p>;
 
   const prenom = profile?.prenom ?? "Abonné";
-  const { data: completions = [] } = useAbonneProgramCompletions(abonneId, 60);
-
-  const exportSessions = useMemo(() => sessions.map(toExportSession), [sessions]);
-  const exportCompletions = useMemo(() => completions.map(toExportCompletion), [completions]);
-  const todayCheckin = useMemo(() => {
-    const iso = todayISO();
-    const row = sessions.find((s) => s.date === iso);
-    return row ? toExportSession(row) : null;
-  }, [sessions]);
-  const exportProgram =
-    prog?.id != null
-      ? { titre: prog.titre, objectif: prog.objectif || null, blocs: prog.blocs }
-      : null;
 
   return (
     <div className="space-y-5">
