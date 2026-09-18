@@ -6,7 +6,7 @@ const FATIGUE_LABELS = ["", "Épuisé", "Fatigué", "OK", "Frais", "En pleine fo
 
 /** Historique + assiduité des validations programme (vu par le coach). */
 export function ProgrammeHistorique({ abonneId }: { abonneId: string }) {
-  const { data: completions = [], isLoading } = useAbonneProgramCompletions(abonneId, 40);
+  const { data: completions = [], isLoading } = useAbonneProgramCompletions(abonneId, 60);
 
   const validated = completions.filter((c) => c.ressenti_score != null);
   const last14 = (() => {
@@ -31,7 +31,7 @@ export function ProgrammeHistorique({ abonneId }: { abonneId: string }) {
   return (
     <section className="rounded-2xl border p-4 space-y-3" style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}>
       <p className="text-xs font-mono uppercase tracking-wider flex items-center gap-1" style={{ color: "var(--ff-cyan)" }}>
-        <Calendar className="h-3.5 w-3.5" /> Programme · validations
+        <Calendar className="h-3.5 w-3.5" /> Historique du programme
       </p>
 
       {!isLoading && (

@@ -63,12 +63,17 @@ export function useCheckins(limit = 30) {
   });
 }
 
-// Récupère la session de check-in du jour la plus récente (en cours ou terminée).
 export function useTodayCheckin() {
   const { user } = useAuth();
-  const today = new Date().toISOString().slice(0, 10);
+  const todayLocal = (() => {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  })();
   return useQuery({
-    queryKey: ["checkin-today", user?.id, today],
+    queryKey: ["checkin-today", user?.id, todayLocal],
     enabled: !!user,
     staleTime: 30_000,
     queryFn: async () => {
@@ -76,7 +81,7 @@ export function useTodayCheckin() {
         .from("check_ins")
         .select("*")
         .eq("user_id", user!.id)
-        .eq("date", today)
+        .eq("date", todayLocal)
         .order("created_at", { ascending: false })
         .limit(1)
         .maybeSingle();
@@ -90,7 +95,13 @@ export function useTodayCheckin() {
 export function useSaveCheckin() {
   const { user } = useAuth();
   const qc = useQueryClient();
-  const today = new Date().toISOString().slice(0, 10);
+  const todayLocal = (() => {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  })();
   return useMutation({
     mutationFn: async (payload: SaveCheckinPayload & { id?: string }) => {
       const { id, ...rest } = payload;
@@ -110,14 +121,14 @@ export function useSaveCheckin() {
       }
       const { data, error } = await supabase
         .from("check_ins")
-        .insert({ user_id: user!.id, date: today, ...patch })
+        .insert({ user_id: user!.id, date: todayLocal, ...patch })
         .select()
         .single();
       if (error) throw error;
       return data as CheckinRow;
     },
     onSuccess: (data) => {
-      qc.setQueryData(["checkin-today", user?.id, today], data);
+      qc.setQueryData(["checkin-today", user?.id, todayLocal], data);
       qc.invalidateQueries({ queryKey: ["checkins", user?.id] });
       qc.invalidateQueries({ queryKey: ["profile", user?.id] });
     },

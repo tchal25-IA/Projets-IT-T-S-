@@ -38,7 +38,8 @@ export function PerformanceRecap({ sessions }: { sessions: Session[] }) {
   const ressentiMoy = ressentis.length ? +(avg(ressentis)).toFixed(1) : null;
   const dureeMoy = Math.round(avg(done.map((s) => s.session_duration_sec ?? 0)) / 60);
   const nbCoach = done.filter((s) => s.session_source === "coach").length;
-  const nbBase = n - nbCoach;
+  const nbProgramme = done.filter((s) => s.session_source === "programme").length;
+  const nbBase = n - nbCoach - nbProgramme;
 
   // Complétion par activité (piliers) sur les séances "base" (ordre fixe Bouger/Respirer/Nourrir)
   const base = done.filter((s) => s.session_source !== "coach");
@@ -62,9 +63,10 @@ export function PerformanceRecap({ sessions }: { sessions: Session[] }) {
         <Stat label="Durée moy." value={`${dureeMoy} min`} color="var(--ff-amber)" />
       </div>
 
-      <div className="flex gap-2 text-[10px] font-mono uppercase" style={{ color: "var(--ff-text-muted)" }}>
+      <div className="flex gap-2 text-[10px] font-mono uppercase flex-wrap" style={{ color: "var(--ff-text-muted)" }}>
         <span className="px-2 py-1 rounded border" style={{ borderColor: "var(--ff-border)" }}>{nbBase} base</span>
         <span className="px-2 py-1 rounded border" style={{ borderColor: "var(--ff-cyan)", color: "var(--ff-cyan)" }}>{nbCoach} coach</span>
+        <span className="px-2 py-1 rounded border" style={{ borderColor: "var(--ff-amber)", color: "var(--ff-amber)" }}>{nbProgramme} programme</span>
       </div>
 
       {parActivite.length > 0 && (

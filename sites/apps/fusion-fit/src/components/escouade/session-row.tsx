@@ -36,6 +36,7 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
 
   const detail = buildSessionDetail(s, coachSession ?? null);
   const completed = new Set(s.blocs_completes ?? []);
+  const canComment = !s.id.startsWith("prog:");
 
   return (
     <div
@@ -55,6 +56,11 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
             {s.session_source === "coach" && (
               <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border" style={{ borderColor: "var(--ff-cyan)", color: "var(--ff-cyan)" }}>
                 séance coach
+              </span>
+            )}
+            {s.session_source === "programme" && (
+              <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border" style={{ borderColor: "var(--ff-amber)", color: "var(--ff-amber)" }}>
+                programme
               </span>
             )}
             {!s.session_ended && (
@@ -143,8 +149,8 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
         </div>
       )}
 
-      {/* Commentaire du coach */}
-      {!editing && comment && (
+      {/* Commentaire du coach (uniquement sur de vrais check_ins) */}
+      {canComment && !editing && comment && (
         <div className="rounded-md border p-2 mt-1" style={{ borderColor: "var(--ff-cyan)", background: "oklch(0.78 0.16 198 / 8%)" }}>
           <p className="text-[10px] font-mono uppercase mb-0.5 flex items-center gap-1" style={{ color: "var(--ff-cyan)" }}>
             <MessageSquare className="h-3 w-3" /> Ton commentaire (visible par l&apos;abonné)
@@ -155,7 +161,7 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
           </button>
         </div>
       )}
-      {!editing && !comment && (
+      {canComment && !editing && !comment && (
         <button
           onClick={() => { setDraft(""); setEditing(true); }}
           className="flex items-center gap-1 text-[11px] mt-1"
@@ -164,7 +170,7 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
           <MessageSquare className="h-3 w-3" /> Ajouter un commentaire
         </button>
       )}
-      {editing && (
+      {canComment && editing && (
         <div className="space-y-1.5 mt-1">
           <textarea
             value={draft}
@@ -195,6 +201,14 @@ export function SessionRow({ s, abonneId }: { s: Session; abonneId: string }) {
 type DetailBlock = { pilier: string; titre: string; exercises: string[] };
 
 function buildSessionDetail(s: Session, coachSession: CoachSession | null): DetailBlock[] {
+  if (s.session_source === "programme") {
+    const titre = s.objectif_du_jour?.replace(/^[^·]+·\s*/, "") || "Séance programme";
+    return [{
+      pilier: "Programme",
+      titre,
+      exercises: s.ressenti_note ? [`Note : ${s.ressenti_note}`] : ["Séance du programme hebdomadaire"],
+    }];
+  }
   if (s.session_source === "coach" && coachSession?.blocs?.length) {
     return coachSession.blocs.map((b) => ({
       pilier: b.pilier,

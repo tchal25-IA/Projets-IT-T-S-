@@ -16,6 +16,7 @@ import { ProgramEditor } from "@/components/escouade/program-editor";
 import type { Profile, Program, Session, DbTemplate } from "@/components/escouade/types";
 import { buildObjectifOptions } from "@/lib/objectifs";
 import { todayISO } from "@/lib/dates";
+import { mergeArchiveSessions } from "@/lib/archive-sessions";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade/$abonneId")({
   component: AbonneDetailPage,
@@ -94,11 +95,15 @@ function AbonneDetailPage() {
 
   const exportSessions = useMemo(() => sessions.map(toExportSession), [sessions]);
   const exportCompletions = useMemo(() => completions.map(toExportCompletion), [completions]);
+  const archiveSessions = useMemo(
+    () => mergeArchiveSessions(sessions, completions),
+    [sessions, completions],
+  );
   const todayCheckin = useMemo(() => {
     const iso = todayISO();
-    const row = sessions.find((s) => s.date === iso);
+    const row = archiveSessions.find((s) => s.date === iso);
     return row ? toExportSession(row) : null;
-  }, [sessions]);
+  }, [archiveSessions]);
   const exportProgram =
     prog?.id != null
       ? { titre: prog.titre, objectif: prog.objectif || null, blocs: prog.blocs }
@@ -138,7 +143,7 @@ function AbonneDetailPage() {
 
       <AbonneHeader profile={profile} prenom={prenom} onChat={ouvrirChat} />
 
-      <PerformanceRecap sessions={sessions} />
+      <PerformanceRecap sessions={archiveSessions} />
 
       <ExportRoutinesPanel
         athleteName={prenom}
@@ -163,15 +168,15 @@ function AbonneDetailPage() {
           <Smile className="h-3.5 w-3.5" /> Archive des séances
         </p>
         <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
-          Ouvre une session pour voir le détail des blocs et exercices réalisés.
+          Check-ins + séances de programme validées. Ouvre une session pour le détail.
         </p>
-        {sessions.length === 0 ? (
+        {archiveSessions.length === 0 ? (
           <p className="text-xs" style={{ color: "var(--ff-text-muted)" }}>
             Aucune session enregistrée pour le moment.
           </p>
         ) : (
           <div className="space-y-2 max-h-[32rem] overflow-y-auto pr-1">
-            {sessions.map((s) => (
+            {archiveSessions.map((s) => (
               <SessionRow key={s.id} s={s} abonneId={abonneId} />
             ))}
           </div>

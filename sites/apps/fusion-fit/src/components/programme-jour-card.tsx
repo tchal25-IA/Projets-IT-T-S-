@@ -126,18 +126,23 @@ export function ProgrammeJourCard({
 
   async function demarrer() {
     if (!program) return;
-    const startedAt = new Date().toISOString();
-    setSessionStartedAt(startedAt);
-    setNow(Date.now());
-    await validate({
-      programId: program.id,
-      coachId: program.coach_id,
-      jour: today,
-      titre: titreSeance,
-      sessionStartedAt: startedAt,
-      sessionEndedAt: null,
-      sessionDurationSec: null,
-    });
+    try {
+      const startedAt = new Date().toISOString();
+      setSessionStartedAt(startedAt);
+      setNow(Date.now());
+      await validate({
+        programId: program.id,
+        coachId: program.coach_id,
+        jour: today,
+        titre: titreSeance,
+        sessionStartedAt: startedAt,
+        sessionEndedAt: null,
+        sessionDurationSec: null,
+      });
+    } catch (e) {
+      setSessionStartedAt(null);
+      alert(e instanceof Error ? e.message : "Impossible de démarrer la séance");
+    }
   }
 
   async function terminer() {

@@ -42,19 +42,20 @@ export function useMyProgramCompletions(programId: string | undefined, limit = 1
 }
 
 // Historique des validations d'un abonné, vu par son coach.
-export function useAbonneProgramCompletions(abonneId: string | undefined, limit = 20) {
+export function useAbonneProgramCompletions(abonneId: string | undefined, limit = 60) {
   const { user } = useAuth();
   return useQuery({
-    queryKey: ["program-completions", "coach-view", user?.id, abonneId],
+    queryKey: ["program-completions", "coach-view", user?.id, abonneId, limit],
     enabled: !!user && !!abonneId,
     staleTime: 15_000,
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("program_completions")
         .select("*")
         .eq("abonne_id", abonneId!)
         .order("date", { ascending: false })
         .limit(limit);
+      if (error) throw new Error(error.message);
       return (data ?? []) as ProgramCompletion[];
     },
   });
@@ -112,11 +113,85 @@ export function useValidateProgramDay() {
         .select()
         .single();
       if (error) throw new Error(error.message);
+
+      // Miroir check_in pour que l'archive coach / stats restent à jour
+      // quand l'athlète suit le programme hebdo (sans routine de base).
+      await mirrorProgrammeToCheckin({
+        userId: user!.id,
+        date: row.date,
+        titre: row.titre,
+        jour: row.jour,
+        ressentiScore: row.ressenti_score ?? null,
+        ressentiNote: row.ressenti_note ?? null,
+        sessionStartedAt: row.session_started_at ?? null,
+        sessionEndedAt: row.session_ended_at ?? null,
+        sessionDurationSec: row.session_duration_sec ?? null,
+      });
+
       return data as ProgramCompletion;
     },
     onSuccess: (_d, vars) => {
       qc.invalidateQueries({ queryKey: ["program-completions", "mine", user?.id, vars.programId] });
       qc.invalidateQueries({ queryKey: ["program-completions", "coach-view"] });
+      qc.invalidateQueries({ queryKey: ["checkins", user?.id] });
+      qc.invalidateQueries({ queryKey: ["checkin-today", user?.id] });
     },
   });
+}
+
+/** Crée/met à jour un check_in « programme » sans écraser une séance base/coach déjà faite. */
+async function mirrorProgrammeToCheckin(p: {
+  userId: string;
+  date: string;
+  titre: string;
+  jour: string;
+  ressentiScore: number | null;
+  ressentiNote: string | null;
+  sessionStartedAt: string | null;
+  sessionEndedAt: string | null;
+  sessionDurationSec: number | null;
+}) {
+  const { data: existing } = await supabase
+    .from("check_ins")
+    .select("id, session_source, session_ended")
+    .eq("user_id", p.userId)
+    .eq("date", p.date)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  // Ne pas écraser une vraie séance check-in / perso coach
+  if (existing && existing.session_source && existing.session_source !== "programme") {
+    return;
+  }
+
+  const validated = p.ressentiScore != null;
+  const ended = validated || !!p.sessionEndedAt;
+  const patch = {
+    user_id: p.userId,
+    date: p.date,
+    temps: 2,
+    energie: 3,
+    humeur: 3,
+    objectif_du_jour: `${p.jour} · ${p.titre}`,
+    blocs_completes: validated ? [0] : [],
+    nb_blocs: 1,
+    serenite: validated ? 100 : ended ? 60 : 30,
+    session_started_at: p.sessionStartedAt,
+    session_ended_at: p.sessionEndedAt,
+    session_duration_sec: p.sessionDurationSec,
+    session_ended: ended,
+    ressenti_score: p.ressentiScore,
+    ressenti_note: p.ressentiNote,
+    session_source: "programme",
+  };
+
+  if (existing?.id) {
+    const { error } = await supabase.from("check_ins").update(patch).eq("id", existing.id);
+    if (error) console.warn("[mirrorProgrammeToCheckin]", error.message);
+    return;
+  }
+
+  const { error } = await supabase.from("check_ins").insert(patch);
+  if (error) console.warn("[mirrorProgrammeToCheckin]", error.message);
 }
