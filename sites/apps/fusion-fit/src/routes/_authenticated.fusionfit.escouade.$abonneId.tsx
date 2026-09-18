@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Smile } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { useAbonneProgramCompletions } from "@/hooks/use-program-completions";
 import { FatigueAnalysisCard } from "@/components/fatigue-analysis-card";
+import { ExportRoutinesPanel, toExportCompletion, toExportSession } from "@/components/export-routines-panel";
 import type { Bloc } from "@/data/program-templates";
 import { AbonneHeader } from "@/components/escouade/abonne-header";
 import { PerformanceRecap } from "@/components/escouade/performance-recap";
@@ -13,6 +15,7 @@ import { SeancePersoEditor } from "@/components/escouade/seance-perso-editor";
 import { ProgramEditor } from "@/components/escouade/program-editor";
 import type { Profile, Program, Session, DbTemplate } from "@/components/escouade/types";
 import { buildObjectifOptions } from "@/lib/objectifs";
+import { todayISO } from "@/lib/dates";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade/$abonneId")({
   component: AbonneDetailPage,
@@ -107,6 +110,19 @@ function AbonneDetailPage() {
   if (!loaded) return <p className="text-center mt-12 text-sm" style={{ color: "var(--ff-text-muted)" }}>Chargement…</p>;
 
   const prenom = profile?.prenom ?? "Abonné";
+  const { data: completions = [] } = useAbonneProgramCompletions(abonneId, 60);
+
+  const exportSessions = useMemo(() => sessions.map(toExportSession), [sessions]);
+  const exportCompletions = useMemo(() => completions.map(toExportCompletion), [completions]);
+  const todayCheckin = useMemo(() => {
+    const iso = todayISO();
+    const row = sessions.find((s) => s.date === iso);
+    return row ? toExportSession(row) : null;
+  }, [sessions]);
+  const exportProgram =
+    prog?.id != null
+      ? { titre: prog.titre, objectif: prog.objectif || null, blocs: prog.blocs }
+      : null;
 
   return (
     <div className="space-y-5">
@@ -123,6 +139,16 @@ function AbonneDetailPage() {
       <AbonneHeader profile={profile} prenom={prenom} onChat={ouvrirChat} />
 
       <PerformanceRecap sessions={sessions} />
+
+      <ExportRoutinesPanel
+        athleteName={prenom}
+        coachLabel="Coach"
+        compact
+        program={exportProgram}
+        sessions={exportSessions}
+        completions={exportCompletions}
+        todayCheckin={todayCheckin}
+      />
 
       <ProgrammeHistorique abonneId={abonneId} />
 

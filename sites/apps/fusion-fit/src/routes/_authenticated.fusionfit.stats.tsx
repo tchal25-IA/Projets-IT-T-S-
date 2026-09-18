@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine } from "recharts";
 import { format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -7,10 +8,13 @@ import { BarChart3, Flame, Brain, Zap, CalendarCheck, TrendingUp, ClipboardList,
 import { useCheckins, type CheckinRow } from "@/hooks/use-checkins";
 import { useMyProgramCompletions } from "@/hooks/use-program-completions";
 import { useMyProgram } from "@/hooks/use-program";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 import { FatigueAnalysisCard } from "@/components/fatigue-analysis-card";
 import { WeightTracker } from "@/components/weight-tracker";
+import { ExportRoutinesPanel, toExportCompletion, toExportSession } from "@/components/export-routines-panel";
 import { FF, PILIER_COLORS } from "@/lib/ff-colors";
-import { JOURS_FR, blocsForJour, todayJourFr } from "@/lib/dates";
+import { JOURS_FR, blocsForJour, todayISO, todayJourFr } from "@/lib/dates";
 import { generateRoutine, splitFormat } from "@/lib/routine-generator";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/stats")({
@@ -33,8 +37,28 @@ function getNiveau(total: number) {
 }
 
 function SuiviPage() {
-  const { data: checkins = [], isLoading } = useCheckins(30);
+  const { user } = useAuth();
+  const { data: checkins = [], isLoading } = useCheckins(60);
   const { data: program, isLoading: loadingProg } = useMyProgram();
+  const { data: completions = [] } = useMyProgramCompletions(program?.id, 60);
+
+  const { data: prenom } = useQuery({
+    queryKey: ["profile-prenom", user?.id],
+    enabled: !!user,
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("prenom").eq("user_id", user!.id).maybeSingle();
+      return data?.prenom ?? "Athlète";
+    },
+  });
+
+  const exportSessions = useMemo(() => checkins.map(toExportSession), [checkins]);
+  const exportCompletions = useMemo(() => completions.map(toExportCompletion), [completions]);
+  const todayCheckin = useMemo(() => {
+    const iso = todayISO();
+    const row = checkins.find((c) => c.date === iso);
+    return row ? toExportSession(row) : null;
+  }, [checkins]);
 
   return (
     <div className="space-y-5">
@@ -62,6 +86,18 @@ function SuiviPage() {
       ) : (
         <ProgrammeSemaine program={program} />
       )}
+
+      <ExportRoutinesPanel
+        athleteName={prenom ?? "Athlète"}
+        program={
+          program
+            ? { titre: program.titre, objectif: program.objectif, blocs: program.blocs }
+            : null
+        }
+        sessions={exportSessions}
+        completions={exportCompletions}
+        todayCheckin={todayCheckin}
+      />
 
       {/* Analyse IA fatigue */}
       <FatigueAnalysisCard audience="abonne" />
