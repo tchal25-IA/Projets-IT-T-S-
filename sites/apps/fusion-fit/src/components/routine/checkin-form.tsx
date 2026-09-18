@@ -177,8 +177,8 @@ export function CheckinForm({
         )}
       </Section>
 
-      {/* CTA base uniquement si pas de perso prioritaire (hebdo se gère via ProgrammeJourCard) */}
-      {seance.kind !== "perso" && (
+      {/* CTA base uniquement si pas de perso ni programme hebdo du jour */}
+      {seance.kind === "base" && (
         <button disabled={!canGenerate} onClick={() => onGenerate("base")}
           className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold uppercase tracking-widest border transition-all"
           style={{
@@ -189,8 +189,20 @@ export function CheckinForm({
             cursor: canGenerate ? "pointer" : "not-allowed",
           }}>
           <Play className="h-4 w-4" />
-          {seance.kind === "hebdo" ? "Ou générer une routine de base" : "Générer ma routine"}
+          Générer ma routine
           <ChevronRight className="h-4 w-4" />
+        </button>
+      )}
+      {seance.kind === "hebdo" && (
+        <p className="text-center text-[11px]" style={{ color: FF.textMuted }}>
+          Valide d&apos;abord ton programme du jour ci-dessus. Tu pourras générer une routine de base en secours après le check-in.
+        </p>
+      )}
+      {seance.kind === "hebdo" && canGenerate && (
+        <button onClick={() => onGenerate("base")}
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold uppercase tracking-widest border"
+          style={{ borderColor: FF.border, color: FF.textMuted, background: FF.surface }}>
+          Ou générer une routine de base
         </button>
       )}
 

@@ -1,4 +1,4 @@
-import { Play, RotateCcw, CheckCircle2, Circle, Info, Timer, Square, Shuffle } from "lucide-react";
+import { Play, RotateCcw, CheckCircle2, Circle, Info, Timer, Square } from "lucide-react";
 import { tipFor, scalingFor, splitFormat, type RoutineBlock } from "@/lib/routine-generator";
 import { FF, PILIER_COLORS } from "@/lib/ff-colors";
 import { formatDuration, blockDone, type ExerciseState } from "@/lib/routine-utils";
@@ -177,16 +177,6 @@ export function RoutinePlayer({
                       >
                         {ex}
                       </span>
-                      {scaling && (
-                        <button
-                          onClick={() => onToggleScaling(tipKey)}
-                          aria-label="Alternative / scaling"
-                          className="flex-shrink-0"
-                          style={{ color: expandedScaling.has(tipKey) ? FF.cyan : FF.textMuted }}
-                        >
-                          <Shuffle className="h-3.5 w-3.5" />
-                        </button>
-                      )}
                       {tip && (
                         <button
                           onClick={() => onToggleTip(tipKey)}
@@ -198,15 +188,15 @@ export function RoutinePlayer({
                         </button>
                       )}
                     </div>
+                    {scaling && (
+                      <p className="ml-7 mt-0.5 text-[11px] leading-relaxed rounded-lg px-2 py-1.5"
+                        style={{ color: FF.cyan, background: FF.cyanBg }}>
+                        🔄 Alternative / Scaling · {scaling}
+                      </p>
+                    )}
                     {tip && expandedTips.has(tipKey) && (
                       <p className="ml-7 mt-0.5 text-[11px] leading-relaxed" style={{ color: FF.textMuted }}>
                         {tip}
-                      </p>
-                    )}
-                    {scaling && expandedScaling.has(tipKey) && (
-                      <p className="ml-7 mt-0.5 text-[11px] leading-relaxed rounded-lg px-2 py-1.5"
-                        style={{ color: FF.cyan, background: FF.cyanBg }}>
-                        🔄 {scaling}
                       </p>
                     )}
                   </li>

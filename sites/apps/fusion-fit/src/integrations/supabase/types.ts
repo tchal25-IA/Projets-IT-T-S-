@@ -430,6 +430,7 @@ export type Database = {
           coach_id: string
           created_at: string
           date: string
+          fatigue_score: number | null
           id: string
           jour: string
           program_id: string
@@ -446,6 +447,7 @@ export type Database = {
           coach_id: string
           created_at?: string
           date?: string
+          fatigue_score?: number | null
           id?: string
           jour: string
           program_id: string
@@ -462,6 +464,7 @@ export type Database = {
           coach_id?: string
           created_at?: string
           date?: string
+          fatigue_score?: number | null
           id?: string
           jour?: string
           program_id?: string

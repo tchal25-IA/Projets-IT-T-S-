@@ -9,6 +9,8 @@ export type CoachExercise = {
   consigne: string | null;
   tags: string[];
   scaling: string | null;
+  media_url: string | null;
+  media_kind: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -43,6 +45,8 @@ export function useSaveCoachExercise() {
       consigne?: string | null;
       tags?: string[];
       scaling?: string | null;
+      media_url?: string | null;
+      media_kind?: string | null;
     }) => {
       const row = {
         coach_id: user!.id,
@@ -50,6 +54,8 @@ export function useSaveCoachExercise() {
         consigne: payload.consigne?.trim() || null,
         tags: payload.tags ?? [],
         scaling: payload.scaling?.trim() || null,
+        media_url: payload.media_url?.trim() || null,
+        media_kind: payload.media_kind?.trim() || null,
         updated_at: new Date().toISOString(),
       };
       if (payload.id) {
@@ -67,7 +73,7 @@ export function useSaveCoachExercise() {
       return data as CoachExercise;
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["coach-exercises", user?.id] });
+      qc.invalidateQueries({ queryKey: ["coach-exercises"] });
     },
   });
 }

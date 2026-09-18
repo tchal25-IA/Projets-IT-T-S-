@@ -327,6 +327,7 @@ export type AthleteStats = {
   last_checkin: string | null;
   avg_energie: number | null;
   avg_humeur: number | null;
+  last_message_at: string | null;
 };
 
 export function useAthletes() {
@@ -334,7 +335,7 @@ export function useAthletes() {
   return useQuery({
     queryKey: ["athletes", user?.id],
     enabled: role === "coach" && !!user,
-    staleTime: 60_000,
+    staleTime: 30_000,
     queryFn: async () => {
       const { data: assigns } = await supabase
         .from("coach_assignments")
@@ -353,7 +354,18 @@ export function useAthletes() {
         .select("user_id, energie, humeur, created_at")
         .in("user_id", ids);
 
-      return (profs ?? []).map((p): AthleteStats => {
+      const { data: convs } = await supabase
+        .from("conversations")
+        .select("abonne_id, last_message_at")
+        .eq("coach_id", user!.id)
+        .in("abonne_id", ids);
+
+      const lastMsg: Record<string, string | null> = {};
+      for (const c of (convs ?? []) as Array<{ abonne_id: string; last_message_at: string | null }>) {
+        lastMsg[c.abonne_id] = c.last_message_at;
+      }
+
+      const list = (profs ?? []).map((p): AthleteStats => {
         const mine = (checks ?? []).filter((c) => c.user_id === p.user_id);
         const total = mine.length;
         const avg = (k: "energie" | "humeur") =>
@@ -373,8 +385,17 @@ export function useAthletes() {
           last_checkin: last,
           avg_energie: avg("energie"),
           avg_humeur: avg("humeur"),
+          last_message_at: lastMsg[p.user_id] ?? null,
         };
       });
+
+      // Tri : activité récente (message > check-in) en tête
+      list.sort((a, b) => {
+        const ta = a.last_message_at || a.last_checkin || "";
+        const tb = b.last_message_at || b.last_checkin || "";
+        return tb.localeCompare(ta);
+      });
+      return list;
     },
   });
 }

@@ -8,6 +8,8 @@ export type EscouadeAbonne = {
   email: string | null;
   objectif_principal: string | null;
   avatar_url: string | null;
+  /** Timestamp ISO de dernière activité (message / check-in / maj profil). */
+  last_activity_at?: string | null;
 };
 export type EscouadeInvit = {
   id: string;
@@ -47,9 +49,55 @@ export function useEscouadeData() {
       if (ids.length) {
         const { data: profs } = await supabase
           .from("profiles")
-          .select("user_id, prenom, email, objectif_principal, avatar_url")
+          .select("user_id, prenom, email, objectif_principal, avatar_url, updated_at")
           .in("user_id", ids);
-        abonnes = (profs as EscouadeAbonne[]) ?? [];
+
+        // Dernière activité : max(dernier message reçu/envoyé, dernier check-in, maj profil)
+        const activity: Record<string, string> = {};
+        for (const p of (profs ?? []) as Array<{ user_id: string; updated_at?: string | null }>) {
+          if (p.updated_at) activity[p.user_id] = p.updated_at;
+        }
+
+        const { data: convs } = await supabase
+          .from("conversations")
+          .select("abonne_id, last_message_at")
+          .eq("coach_id", user.id)
+          .in("abonne_id", ids);
+        for (const c of (convs ?? []) as Array<{ abonne_id: string; last_message_at: string | null }>) {
+          if (!c.last_message_at) continue;
+          const prev = activity[c.abonne_id];
+          if (!prev || c.last_message_at > prev) activity[c.abonne_id] = c.last_message_at;
+        }
+
+        const { data: checks } = await supabase
+          .from("check_ins")
+          .select("user_id, created_at")
+          .in("user_id", ids)
+          .order("created_at", { ascending: false })
+          .limit(ids.length * 3);
+        for (const c of (checks ?? []) as Array<{ user_id: string; created_at: string }>) {
+          const prev = activity[c.user_id];
+          if (!prev || c.created_at > prev) activity[c.user_id] = c.created_at;
+        }
+
+        const { data: comps } = await supabase
+          .from("program_completions")
+          .select("abonne_id, updated_at")
+          .eq("coach_id", user.id)
+          .in("abonne_id", ids)
+          .order("updated_at", { ascending: false })
+          .limit(ids.length * 3);
+        for (const c of (comps ?? []) as Array<{ abonne_id: string; updated_at: string }>) {
+          const prev = activity[c.abonne_id];
+          if (!prev || c.updated_at > prev) activity[c.abonne_id] = c.updated_at;
+        }
+
+        abonnes = ((profs as EscouadeAbonne[]) ?? []).map((a) => ({
+          ...a,
+          last_activity_at: activity[a.user_id] ?? null,
+        }));
+        // Plus récent en tête
+        abonnes.sort((a, b) => (b.last_activity_at ?? "").localeCompare(a.last_activity_at ?? ""));
       }
 
       const { data: inv } = await supabase

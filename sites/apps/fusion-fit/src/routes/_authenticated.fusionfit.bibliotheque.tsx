@@ -362,14 +362,32 @@ function ExercicesPanel() {
   const { mutateAsync: delEx } = useDeleteCoachExercise();
   const [nom, setNom] = useState("");
   const [consigne, setConsigne] = useState("");
+  const [scaling, setScaling] = useState("");
+  const [mediaUrl, setMediaUrl] = useState("");
   const [open, setOpen] = useState(true);
 
   async function ajouter() {
     if (!nom.trim()) return;
     try {
-      await saveEx({ nom, consigne });
+      const url = mediaUrl.trim();
+      const kind = !url
+        ? null
+        : /\.(jpg|jpeg|png|webp|gif)(\?|$)/i.test(url)
+          ? "image"
+          : /youtu\.?be|vimeo|\.mp4/i.test(url)
+            ? "video"
+            : "url";
+      await saveEx({
+        nom,
+        consigne,
+        scaling: scaling || null,
+        media_url: url || null,
+        media_kind: kind,
+      });
       setNom("");
       setConsigne("");
+      setScaling("");
+      setMediaUrl("");
     } catch (e) {
       alert(e instanceof Error ? e.message : "Erreur");
     }
@@ -395,22 +413,37 @@ function ExercicesPanel() {
       {open && (
         <>
           <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
-            Base commune : conserve les mouvements que tu réutilises dans tes programmes hebdo.
+            Associe une démo (lien YouTube / photo) et un scaling à chaque mouvement — visibles automatiquement dans la Routine de l&apos;athlète.
           </p>
           <div className="space-y-2">
             <input
               value={nom}
               onChange={(e) => setNom(e.target.value)}
-              placeholder="Nom de l'exercice"
+              placeholder="Nom de l'exercice (ex: Back Squat)"
               className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none"
               style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
             />
             <textarea
               value={consigne}
               onChange={(e) => setConsigne(e.target.value)}
-              placeholder="Consigne / scaling (optionnel)"
+              placeholder="Consigne technique (optionnel)"
               rows={2}
               className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-y min-h-[3.5rem]"
+              style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
+            />
+            <textarea
+              value={scaling}
+              onChange={(e) => setScaling(e.target.value)}
+              placeholder="Alternative / Scaling (ex: épaule sensible → landmine press)"
+              rows={2}
+              className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none resize-y min-h-[3.5rem]"
+              style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
+            />
+            <input
+              value={mediaUrl}
+              onChange={(e) => setMediaUrl(e.target.value)}
+              placeholder="Lien démo (YouTube, photo HTTPS…)"
+              className="w-full px-3 py-2 rounded-lg border bg-transparent text-sm outline-none"
               style={{ borderColor: "var(--ff-border)", color: "var(--ff-text)" }}
             />
             <button
@@ -428,19 +461,35 @@ function ExercicesPanel() {
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" style={{ color: "var(--ff-cyan)" }} />
           ) : (
-            <ul className="space-y-1.5 max-h-48 overflow-y-auto">
+            <ul className="space-y-1.5 max-h-64 overflow-y-auto">
               {exercises.map((ex) => (
                 <li
                   key={ex.id}
                   className="flex items-start justify-between gap-2 rounded-lg border p-2"
                   style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}
                 >
-                  <div className="min-w-0">
+                  <div className="min-w-0 space-y-0.5">
                     <p className="text-sm font-semibold">{ex.nom}</p>
                     {ex.consigne && (
                       <p className="text-[11px] whitespace-pre-line" style={{ color: "var(--ff-text-muted)" }}>
                         {ex.consigne}
                       </p>
+                    )}
+                    {ex.scaling && (
+                      <p className="text-[11px]" style={{ color: "var(--ff-cyan)" }}>
+                        Scaling · {ex.scaling}
+                      </p>
+                    )}
+                    {ex.media_url && (
+                      <a
+                        href={ex.media_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-mono underline"
+                        style={{ color: "var(--ff-amber)" }}
+                      >
+                        Voir la démo
+                      </a>
                     )}
                   </div>
                   <button

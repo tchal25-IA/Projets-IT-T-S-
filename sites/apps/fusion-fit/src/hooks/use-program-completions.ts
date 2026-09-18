@@ -13,6 +13,7 @@ export type ProgramCompletion = {
   titre: string;
   ressenti_score: number | null;
   ressenti_note: string | null;
+  fatigue_score: number | null;
   session_started_at: string | null;
   session_ended_at: string | null;
   session_duration_sec: number | null;
@@ -70,6 +71,7 @@ export function useValidateProgramDay() {
       titre: string;
       ressentiScore?: number | null;
       ressentiNote?: string | null;
+      fatigueScore?: number | null;
       date?: string;
       sessionStartedAt?: string | null;
       sessionEndedAt?: string | null;
@@ -85,6 +87,7 @@ export function useValidateProgramDay() {
         titre: string;
         ressenti_score?: number | null;
         ressenti_note?: string | null;
+        fatigue_score?: number | null;
         session_started_at?: string | null;
         session_ended_at?: string | null;
         session_duration_sec?: number | null;
@@ -98,6 +101,7 @@ export function useValidateProgramDay() {
       };
       if ("ressentiScore" in p) row.ressenti_score = p.ressentiScore ?? null;
       if ("ressentiNote" in p) row.ressenti_note = p.ressentiNote ?? null;
+      if ("fatigueScore" in p) row.fatigue_score = p.fatigueScore ?? null;
       if ("sessionStartedAt" in p) row.session_started_at = p.sessionStartedAt ?? null;
       if ("sessionEndedAt" in p) row.session_ended_at = p.sessionEndedAt ?? null;
       if ("sessionDurationSec" in p) row.session_duration_sec = p.sessionDurationSec ?? null;

@@ -192,7 +192,10 @@ function CoachMessagerie() {
   const sorted = [...athletes].sort((a, b) => {
     const ua = unreadByPeer[a.user_id] ? 1 : 0;
     const ub = unreadByPeer[b.user_id] ? 1 : 0;
-    return ub - ua;
+    if (ub !== ua) return ub - ua;
+    const ta = a.last_message_at || a.last_checkin || "";
+    const tb = b.last_message_at || b.last_checkin || "";
+    return tb.localeCompare(ta);
   });
 
   return (

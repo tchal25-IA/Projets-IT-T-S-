@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-rout
 import { useState } from "react";
 import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle, ClipboardList } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { useAthletes } from "@/hooks/use-messages";
+import { useAthletes, useUnreadByPeer } from "@/hooks/use-messages";
 import { notify } from "@/hooks/use-notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { QrCode } from "@/components/qr-code";
@@ -16,6 +16,7 @@ import {
 import { PageSkeleton } from "@/components/ui-skeleton";
 import { useTrainingSlots } from "@/hooks/use-creneaux";
 import { hasQuestionnaireSass } from "@/hooks/use-checkins";
+import { FF } from "@/lib/ff-colors";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade")({
   component: EscouadePage,
@@ -27,6 +28,7 @@ function EscouadePage() {
   // Sous-route active (fiche abonné) → on rend l'Outlet à la place de la liste.
   const onDetail = loc.pathname !== "/fusionfit/escouade" && loc.pathname !== "/fusionfit/escouade/";
   const { data, isLoading } = useEscouadeData();
+  const { data: unreadByPeer = {} } = useUnreadByPeer();
   const abonnes = data?.abonnes ?? [];
   const invits = data?.invits ?? [];
   const squads = data?.squads ?? [];
@@ -342,19 +344,42 @@ function EscouadePage() {
           const squadNames = squads
             .filter((s) => members.some((m) => m.squad_id === s.id && m.abonne_id === a.user_id))
             .map((s) => s.nom);
+          const unread = !!unreadByPeer[a.user_id];
           return (
             <Link
               key={a.user_id}
               to="/fusionfit/escouade/$abonneId"
               params={{ abonneId: a.user_id }}
               className="flex items-center gap-3 rounded-2xl border p-3 hover:opacity-90 transition"
-              style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}
+              style={{
+                background: unread ? "oklch(0.78 0.18 55 / 10%)" : "var(--ff-surface)",
+                borderColor: unread ? "var(--ff-amber)" : "var(--ff-border)",
+              }}
             >
-              <AvatarUploader userId={a.user_id} avatarPath={a.avatar_url} size={40} />
+              <div className="relative">
+                <AvatarUploader userId={a.user_id} avatarPath={a.avatar_url} size={40} />
+                {unread && (
+                  <span
+                    className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border"
+                    style={{ background: FF.amber, borderColor: "var(--ff-surface)" }}
+                    aria-label="Nouveau message"
+                  />
+                )}
+              </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-sm">{a.prenom}</p>
+                <p className="font-bold text-sm flex items-center gap-2">
+                  {a.prenom}
+                  {unread && (
+                    <span
+                      className="min-w-[16px] h-4 px-1 rounded-full text-[9px] font-bold grid place-items-center"
+                      style={{ background: FF.amber, color: "#0a0e1a" }}
+                    >
+                      1
+                    </span>
+                  )}
+                </p>
                 <p className="text-xs truncate" style={{ color: "var(--ff-text-muted)" }}>
-                  {a.objectif_principal || a.email || "—"}
+                  {unread ? "Nouveau message" : (a.objectif_principal || a.email || "—")}
                 </p>
                 {squadNames.length > 0 && (
                   <p className="text-[10px] mt-0.5" style={{ color: "var(--ff-green)" }}>
