@@ -54,14 +54,17 @@ export function useCreateCalendarEvent() {
       eventType?: string;
     }) => {
       if (!user) throw new Error("Non connecté");
+      const duration = input.durationMin ?? 60;
+      const rpe = input.rpePlanned ?? null;
       const { error } = await supabase.from("calendar_events").insert({
         coach_id: user.id,
         athlete_id: input.athleteId ?? null,
         event_type: input.eventType ?? "session",
         title: input.title.trim(),
         starts_at: input.startsAt,
-        duration_min: input.durationMin ?? 60,
-        rpe_planned: input.rpePlanned ?? null,
+        duration_min: duration,
+        rpe_planned: rpe,
+        load_ua: rpe != null ? rpe * duration : null,
         status: "planned",
       });
       if (error) throw new Error(error.message);
