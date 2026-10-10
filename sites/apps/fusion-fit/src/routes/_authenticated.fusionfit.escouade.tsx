@@ -1,8 +1,8 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useState } from "react";
-import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, CalendarClock, AlertTriangle, ClipboardList } from "lucide-react";
+import { Users, Plus, Copy, Check, ChevronRight, QrCode as QrIcon, Trash2, UserPlus, Flag, ClipboardList } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { useAthletes, useUnreadByPeer } from "@/hooks/use-messages";
+import { useUnreadByPeer } from "@/hooks/use-messages";
 import { notify } from "@/hooks/use-notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { QrCode } from "@/components/qr-code";
@@ -14,9 +14,9 @@ import {
   useSquadMutations,
 } from "@/hooks/use-escouade";
 import { PageSkeleton } from "@/components/ui-skeleton";
-import { useTrainingSlots } from "@/hooks/use-creneaux";
 import { hasQuestionnaireSass } from "@/hooks/use-checkins";
 import { FF } from "@/lib/ff-colors";
+import { CoachDashboard3s } from "@/components/escouade/coach-dashboard-3s";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/escouade")({
   component: EscouadePage,
@@ -132,7 +132,7 @@ function EscouadePage() {
       </header>
 
       {/* Dashboard : agenda de la semaine + alertes fatigue */}
-      <CoachDashboard nbAbonnes={abonnes.length} />
+      <CoachDashboard3s nbAbonnes={abonnes.length} />
 
       <button
         type="button"
@@ -396,82 +396,3 @@ function EscouadePage() {
   );
 }
 
-function CoachDashboard({ nbAbonnes }: { nbAbonnes: number }) {
-  const { data: athletes = [] } = useAthletes();
-  const { data: allSlots = [] } = useTrainingSlots();
-
-  const now = Date.now();
-  const in7d = now + 7 * 86400_000;
-  const slots = allSlots.filter((s) => {
-    const t = new Date(s.date_slot).getTime();
-    return t >= now && t <= in7d;
-  });
-
-  const alertes = athletes.filter((a) => a.avg_energie != null && a.avg_energie <= 2.5);
-  const prenomDe = (id: string) => athletes.find((a) => a.user_id === id)?.prenom ?? "Athlète";
-  const valides = slots.filter((s) => s.status === "valide");
-  const enAttente = slots.filter((s) => s.status === "propose");
-
-  return (
-    <section
-      className="rounded-2xl border p-4 space-y-3"
-      style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}
-    >
-      <div className="grid grid-cols-3 gap-2 text-center">
-        <div className="rounded-lg border p-2" style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}>
-          <p className="text-xl font-bold tabular-nums" style={{ color: "var(--ff-cyan)" }}>{nbAbonnes}</p>
-          <p className="text-[9px] font-mono uppercase" style={{ color: "var(--ff-text-muted)" }}>abonnés</p>
-        </div>
-        <div className="rounded-lg border p-2" style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}>
-          <p className="text-xl font-bold tabular-nums" style={{ color: "var(--ff-green)" }}>{valides.length}</p>
-          <p className="text-[9px] font-mono uppercase" style={{ color: "var(--ff-text-muted)" }}>séances 7j</p>
-        </div>
-        <div className="rounded-lg border p-2" style={{ borderColor: "var(--ff-border)", background: "var(--ff-surface-2)" }}>
-          <p className="text-xl font-bold tabular-nums" style={{ color: alertes.length ? "var(--ff-red)" : "var(--ff-text-muted)" }}>{alertes.length}</p>
-          <p className="text-[9px] font-mono uppercase" style={{ color: "var(--ff-text-muted)" }}>alertes</p>
-        </div>
-      </div>
-
-      {alertes.length > 0 && (
-        <div className="rounded-lg border p-2.5" style={{ borderColor: "var(--ff-red)", background: "oklch(0.65 0.20 22 / 8%)" }}>
-          <p className="text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 mb-1" style={{ color: "var(--ff-red)" }}>
-            <AlertTriangle className="h-3 w-3" /> Fatigue détectée
-          </p>
-          {alertes.map((a) => (
-            <Link key={a.user_id} to="/fusionfit/escouade/$abonneId" params={{ abonneId: a.user_id }}
-              className="flex items-center justify-between text-xs py-1">
-              <span className="font-semibold">{a.prenom}</span>
-              <span style={{ color: "var(--ff-red)" }}>énergie {a.avg_energie}/5 →</span>
-            </Link>
-          ))}
-        </div>
-      )}
-
-      {(valides.length > 0 || enAttente.length > 0) && (
-        <div>
-          <p className="text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 mb-1.5" style={{ color: "var(--ff-cyan)" }}>
-            <CalendarClock className="h-3 w-3" /> Agenda de la semaine
-          </p>
-          <div className="space-y-1">
-            {slots.slice(0, 5).map((s) => {
-              const d = new Date(s.date_slot);
-              return (
-                <div key={s.id} className="flex items-center justify-between text-xs py-1 px-2 rounded"
-                  style={{ background: "var(--ff-surface-2)" }}>
-                  <span>
-                    {d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })} ·{" "}
-                    {d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })} · {prenomDe(s.abonne_id)}
-                  </span>
-                  <span className="text-[10px] font-mono uppercase"
-                    style={{ color: s.status === "valide" ? "var(--ff-green)" : "var(--ff-amber)" }}>
-                    {s.status === "valide" ? "validé" : "attente"}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}

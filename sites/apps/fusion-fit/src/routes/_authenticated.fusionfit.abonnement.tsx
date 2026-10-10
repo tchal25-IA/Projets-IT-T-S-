@@ -27,43 +27,49 @@ type Plan = {
   populaire?: boolean;
 };
 
+/** Grille Word Launch / Pro / Studio — IDs Stripe inchangés (decouverte / initiative / elite). */
 const PLANS: Plan[] = [
   {
     id: "decouverte",
-    nom: "Gratuit",
+    nom: "Essai · Launch",
     prix: "0 €",
-    periode: "accès de base",
+    periode: "14 jours sans CB",
     icon: Sparkles,
     couleur: FF.cyan,
-    features: ["Check-in & routine simplifiée", "Suivi de progression", "Messagerie avec ton coach"],
+    features: [
+      "Essai Launch (puis 29 € / 29 CHF)",
+      "10 athlètes actifs (plafond essai)",
+      "Modules 1, 2 et 11",
+      "Atelier · modèles limités",
+    ],
   },
   {
     id: "initiative",
-    nom: "Standard",
-    prix: "29,99 €",
-    periode: "/ mois",
+    nom: "Launch",
+    prix: "29 €",
+    periode: "/ mois · 29 CHF",
     icon: Shield,
     couleur: FF.amber,
-    populaire: true,
     features: [
-      "Tout Gratuit",
-      "3 Piliers : Bouger, Respirer, Nourrir",
-      "Programmes types & biblio coach",
-      "Créneaux d'entraînement illimités",
+      "10 athlètes actifs",
+      "Modules 1, 2 et 11",
+      "Atelier · 10 modèles",
+      "Agenda + messagerie",
     ],
   },
   {
     id: "elite",
-    nom: "Premium / VIP",
-    prix: "59,99 €",
-    periode: "/ mois",
+    nom: "Pro",
+    prix: "59 €",
+    periode: "/ mois · 65 CHF",
     icon: Crown,
     couleur: "oklch(0.80 0.20 300)",
+    populaire: true,
     features: [
-      "Tout Standard",
-      "Suivi personnalisé prioritaire",
-      "Analyse IA de la fatigue",
-      "Bilans vidéo & escouades premium",
+      "25 athlètes actifs",
+      "11 modules + WOD + Hyrox",
+      "Atelier illimité + Dashboard 3s",
+      "IA fatigue · suivi prioritaire",
     ],
   },
 ];

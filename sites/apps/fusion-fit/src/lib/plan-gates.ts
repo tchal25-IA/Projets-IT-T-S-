@@ -57,9 +57,9 @@ export function canAccessFeature(
 export function upgradeHint(feature: FeatureKey): string {
   const required = FEATURE_MIN_PLAN[feature];
   const labels: Record<PlanId, string> = {
-    decouverte: "Gratuit",
-    initiative: "Standard",
-    elite: "Premium / VIP",
+    decouverte: "Essai Launch",
+    initiative: "Launch",
+    elite: "Pro",
   };
   return `Disponible dès le plan ${labels[required]}.`;
 }

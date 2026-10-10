@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, Repeat, CalendarCheck, ClipboardList } from "lucide-react";
+import { BookOpen, MessageCircle, User, Zap, Sun, Moon, LogOut, Shield, BarChart3, Users, Repeat, CalendarCheck, ClipboardList, Wrench } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
 import { useUnreadCount } from "@/hooks/use-messages";
@@ -25,6 +25,7 @@ const NAV_ATHLETE = [
 
 const NAV_COACH = [
   { to: "/fusionfit/escouade",    label: "Athlète",     icon: Users        },
+  { to: "/fusionfit/atelier",     label: "Atelier",     icon: Wrench       },
   { to: "/fusionfit/agenda",      label: "Agenda",      icon: CalendarCheck},
   { to: "/fusionfit/messagerie",  label: "Messagerie",  icon: MessageCircle},
   { to: "/fusionfit/bibliotheque",label: "Biblio",      icon: BookOpen     },
@@ -143,11 +144,11 @@ function FusionFitShell() {
       {!hideChrome && (
       <nav className="fixed bottom-0 inset-x-0 z-30 border-t backdrop-blur-xl"
         style={{ borderColor: FF.border, background: navBg }}>
-        <div className="mx-auto max-w-md px-3 h-20 grid grid-cols-5">
+        <div className={`mx-auto max-w-md px-2 h-20 grid ${role === "coach" ? "grid-cols-6" : "grid-cols-5"}`}>
           {NAV.map((item) => {
             const active = loc.pathname === item.to || loc.pathname.startsWith(item.to + "/");
             const Icon   = item.icon;
-            const isCoachTab = item.to === "/fusionfit/escouade";
+            const isCoachTab = item.to === "/fusionfit/escouade" || item.to === "/fusionfit/atelier";
             // Le badge Messagerie compte messages ET notifications, désormais regroupés.
             const messagerieCount = item.to === "/fusionfit/messagerie" ? unread + unreadNotifs : 0;
             const showBadge = messagerieCount > 0;

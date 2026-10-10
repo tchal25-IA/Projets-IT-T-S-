@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useDeferredValue } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase as supabaseTyped } from "@/integrations/supabase/client";
+const supabase = supabaseTyped as any;
 
 export type LibraryHit = {
   id: string;
@@ -44,7 +45,7 @@ export function useLibrarySearch(
         p_limit: limit,
       });
       if (error) throw new Error(error.message);
-      return (data ?? []) as LibraryHit[];
+      return (data ?? []) as unknown as LibraryHit[];
     },
   });
 }

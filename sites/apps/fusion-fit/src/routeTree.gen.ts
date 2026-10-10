@@ -11,14 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as LandingRouteImport } from './routes/landing'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthenticatedFusionfitRouteImport } from './routes/_authenticated.fusionfit'
 import { Route as AuthenticatedFusionfitIndexRouteImport } from './routes/_authenticated.fusionfit.index'
 import { Route as AuthenticatedFusionfitAbonnementRouteImport } from './routes/_authenticated.fusionfit.abonnement'
+import { Route as AuthenticatedFusionfitAgendaRouteImport } from './routes/_authenticated.fusionfit.agenda'
+import { Route as AuthenticatedFusionfitAtelierRouteImport } from './routes/_authenticated.fusionfit.atelier'
 import { Route as AuthenticatedFusionfitBibliothequeRouteImport } from './routes/_authenticated.fusionfit.bibliotheque'
 import { Route as AuthenticatedFusionfitCoachRouteImport } from './routes/_authenticated.fusionfit.coach'
-import { Route as AuthenticatedFusionfitAgendaRouteImport } from './routes/_authenticated.fusionfit.agenda'
 import { Route as AuthenticatedFusionfitCreneauxRouteImport } from './routes/_authenticated.fusionfit.creneaux'
 import { Route as AuthenticatedFusionfitEscouadeRouteImport } from './routes/_authenticated.fusionfit.escouade'
 import { Route as AuthenticatedFusionfitMessagerieRouteImport } from './routes/_authenticated.fusionfit.messagerie'
@@ -36,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandingRoute = LandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -65,6 +72,18 @@ const AuthenticatedFusionfitAbonnementRoute =
     path: '/abonnement',
     getParentRoute: () => AuthenticatedFusionfitRoute,
   } as any)
+const AuthenticatedFusionfitAgendaRoute =
+  AuthenticatedFusionfitAgendaRouteImport.update({
+    id: '/agenda',
+    path: '/agenda',
+    getParentRoute: () => AuthenticatedFusionfitRoute,
+  } as any)
+const AuthenticatedFusionfitAtelierRoute =
+  AuthenticatedFusionfitAtelierRouteImport.update({
+    id: '/atelier',
+    path: '/atelier',
+    getParentRoute: () => AuthenticatedFusionfitRoute,
+  } as any)
 const AuthenticatedFusionfitBibliothequeRoute =
   AuthenticatedFusionfitBibliothequeRouteImport.update({
     id: '/bibliotheque',
@@ -75,12 +94,6 @@ const AuthenticatedFusionfitCoachRoute =
   AuthenticatedFusionfitCoachRouteImport.update({
     id: '/coach',
     path: '/coach',
-    getParentRoute: () => AuthenticatedFusionfitRoute,
-  } as any)
-const AuthenticatedFusionfitAgendaRoute =
-  AuthenticatedFusionfitAgendaRouteImport.update({
-    id: '/agenda',
-    path: '/agenda',
     getParentRoute: () => AuthenticatedFusionfitRoute,
   } as any)
 const AuthenticatedFusionfitCreneauxRoute =
@@ -139,13 +152,15 @@ const AuthenticatedFusionfitEscouadeAbonneIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/fusionfit': typeof AuthenticatedFusionfitRouteWithChildren
   '/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
+  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
+  '/fusionfit/atelier': typeof AuthenticatedFusionfitAtelierRoute
   '/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
-  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -159,12 +174,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
+  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
+  '/fusionfit/atelier': typeof AuthenticatedFusionfitAtelierRoute
   '/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
-  '/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -180,13 +197,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/_authenticated/fusionfit': typeof AuthenticatedFusionfitRouteWithChildren
   '/_authenticated/fusionfit/abonnement': typeof AuthenticatedFusionfitAbonnementRoute
+  '/_authenticated/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
+  '/_authenticated/fusionfit/atelier': typeof AuthenticatedFusionfitAtelierRoute
   '/_authenticated/fusionfit/bibliotheque': typeof AuthenticatedFusionfitBibliothequeRoute
   '/_authenticated/fusionfit/coach': typeof AuthenticatedFusionfitCoachRoute
-  '/_authenticated/fusionfit/agenda': typeof AuthenticatedFusionfitAgendaRoute
   '/_authenticated/fusionfit/creneaux': typeof AuthenticatedFusionfitCreneauxRoute
   '/_authenticated/fusionfit/escouade': typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   '/_authenticated/fusionfit/messagerie': typeof AuthenticatedFusionfitMessagerieRoute
@@ -202,13 +221,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/landing'
     | '/login'
     | '/signup'
     | '/fusionfit'
     | '/fusionfit/abonnement'
+    | '/fusionfit/agenda'
+    | '/fusionfit/atelier'
     | '/fusionfit/bibliotheque'
     | '/fusionfit/coach'
-    | '/fusionfit/agenda'
     | '/fusionfit/creneaux'
     | '/fusionfit/escouade'
     | '/fusionfit/messagerie'
@@ -222,12 +243,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/landing'
     | '/login'
     | '/signup'
     | '/fusionfit/abonnement'
+    | '/fusionfit/agenda'
+    | '/fusionfit/atelier'
     | '/fusionfit/bibliotheque'
     | '/fusionfit/coach'
-    | '/fusionfit/agenda'
     | '/fusionfit/creneaux'
     | '/fusionfit/escouade'
     | '/fusionfit/messagerie'
@@ -242,13 +265,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/landing'
     | '/login'
     | '/signup'
     | '/_authenticated/fusionfit'
     | '/_authenticated/fusionfit/abonnement'
+    | '/_authenticated/fusionfit/agenda'
+    | '/_authenticated/fusionfit/atelier'
     | '/_authenticated/fusionfit/bibliotheque'
     | '/_authenticated/fusionfit/coach'
-    | '/_authenticated/fusionfit/agenda'
     | '/_authenticated/fusionfit/creneaux'
     | '/_authenticated/fusionfit/escouade'
     | '/_authenticated/fusionfit/messagerie'
@@ -264,6 +289,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LandingRoute: typeof LandingRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
@@ -283,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/landing': {
+      id: '/landing'
+      path: '/landing'
+      fullPath: '/landing'
+      preLoaderRoute: typeof LandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -320,6 +353,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFusionfitAbonnementRouteImport
       parentRoute: typeof AuthenticatedFusionfitRoute
     }
+    '/_authenticated/fusionfit/agenda': {
+      id: '/_authenticated/fusionfit/agenda'
+      path: '/agenda'
+      fullPath: '/fusionfit/agenda'
+      preLoaderRoute: typeof AuthenticatedFusionfitAgendaRouteImport
+      parentRoute: typeof AuthenticatedFusionfitRoute
+    }
+    '/_authenticated/fusionfit/atelier': {
+      id: '/_authenticated/fusionfit/atelier'
+      path: '/atelier'
+      fullPath: '/fusionfit/atelier'
+      preLoaderRoute: typeof AuthenticatedFusionfitAtelierRouteImport
+      parentRoute: typeof AuthenticatedFusionfitRoute
+    }
     '/_authenticated/fusionfit/bibliotheque': {
       id: '/_authenticated/fusionfit/bibliotheque'
       path: '/bibliotheque'
@@ -332,13 +379,6 @@ declare module '@tanstack/react-router' {
       path: '/coach'
       fullPath: '/fusionfit/coach'
       preLoaderRoute: typeof AuthenticatedFusionfitCoachRouteImport
-      parentRoute: typeof AuthenticatedFusionfitRoute
-    }
-    '/_authenticated/fusionfit/agenda': {
-      id: '/_authenticated/fusionfit/agenda'
-      path: '/agenda'
-      fullPath: '/fusionfit/agenda'
-      preLoaderRoute: typeof AuthenticatedFusionfitAgendaRouteImport
       parentRoute: typeof AuthenticatedFusionfitRoute
     }
     '/_authenticated/fusionfit/creneaux': {
@@ -424,9 +464,10 @@ const AuthenticatedFusionfitEscouadeRouteWithChildren =
 
 interface AuthenticatedFusionfitRouteChildren {
   AuthenticatedFusionfitAbonnementRoute: typeof AuthenticatedFusionfitAbonnementRoute
+  AuthenticatedFusionfitAgendaRoute: typeof AuthenticatedFusionfitAgendaRoute
+  AuthenticatedFusionfitAtelierRoute: typeof AuthenticatedFusionfitAtelierRoute
   AuthenticatedFusionfitBibliothequeRoute: typeof AuthenticatedFusionfitBibliothequeRoute
   AuthenticatedFusionfitCoachRoute: typeof AuthenticatedFusionfitCoachRoute
-  AuthenticatedFusionfitAgendaRoute: typeof AuthenticatedFusionfitAgendaRoute
   AuthenticatedFusionfitCreneauxRoute: typeof AuthenticatedFusionfitCreneauxRoute
   AuthenticatedFusionfitEscouadeRoute: typeof AuthenticatedFusionfitEscouadeRouteWithChildren
   AuthenticatedFusionfitMessagerieRoute: typeof AuthenticatedFusionfitMessagerieRoute
@@ -441,10 +482,11 @@ const AuthenticatedFusionfitRouteChildren: AuthenticatedFusionfitRouteChildren =
   {
     AuthenticatedFusionfitAbonnementRoute:
       AuthenticatedFusionfitAbonnementRoute,
+    AuthenticatedFusionfitAgendaRoute: AuthenticatedFusionfitAgendaRoute,
+    AuthenticatedFusionfitAtelierRoute: AuthenticatedFusionfitAtelierRoute,
     AuthenticatedFusionfitBibliothequeRoute:
       AuthenticatedFusionfitBibliothequeRoute,
     AuthenticatedFusionfitCoachRoute: AuthenticatedFusionfitCoachRoute,
-    AuthenticatedFusionfitAgendaRoute: AuthenticatedFusionfitAgendaRoute,
     AuthenticatedFusionfitCreneauxRoute: AuthenticatedFusionfitCreneauxRoute,
     AuthenticatedFusionfitEscouadeRoute:
       AuthenticatedFusionfitEscouadeRouteWithChildren,
@@ -478,6 +520,7 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LandingRoute: LandingRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
@@ -485,13 +528,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

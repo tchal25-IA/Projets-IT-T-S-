@@ -17,6 +17,7 @@ import {
   useConversationMeta,
 } from "@/hooks/use-messages";
 import { useNotifications, useUnreadNotifCount, useMarkNotifRead } from "@/hooks/use-notifications";
+import { useJournalEntries, useAddJournalEntry } from "@/hooks/use-journal";
 import { AvatarUploader } from "@/components/avatar-uploader";
 import { supabase } from "@/integrations/supabase/client";
 import { FF } from "@/lib/ff-colors";
@@ -42,8 +43,92 @@ function MessageriePage() {
   return (
     <div className="space-y-4">
       <NotificationsPanel />
+      {role === "coach" && <JournalBordPanel />}
       {role === "coach" ? <CoachMessagerie /> : <AbonneMessagerie />}
     </div>
+  );
+}
+
+/** Journal de bord (spec Messagerie) — notes partagées / privées liées à un athlète. */
+function JournalBordPanel() {
+  const { data: athletes = [] } = useAthletes();
+  const [athleteId, setAthleteId] = useState<string>("");
+  const [body, setBody] = useState("");
+  const [category, setCategory] = useState<"note" | "sante" | "seance" | "alerte">("note");
+  const [shared, setShared] = useState(true);
+  const { data: entries = [], isLoading } = useJournalEntries(athleteId || null);
+  const add = useAddJournalEntry();
+
+  useEffect(() => {
+    if (!athleteId && athletes[0]) setAthleteId(athletes[0].user_id);
+  }, [athletes, athleteId]);
+
+  return (
+    <section className="rounded-2xl border p-4 space-y-2" style={{ background: FF.surface, borderColor: FF.border }}>
+      <p className="text-[10px] font-mono uppercase tracking-wider" style={{ color: FF.amber }}>
+        Journal de bord
+      </p>
+      <select
+        value={athleteId}
+        onChange={(e) => setAthleteId(e.target.value)}
+        className="w-full rounded-lg border bg-transparent px-2 py-1.5 text-sm outline-none"
+        style={{ borderColor: FF.border, color: FF.text }}
+      >
+        {athletes.map((a) => (
+          <option key={a.user_id} value={a.user_id}>{a.prenom}</option>
+        ))}
+      </select>
+      <div className="flex gap-1 flex-wrap">
+        {(["note", "sante", "seance", "alerte"] as const).map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setCategory(c)}
+            className="text-[9px] font-mono uppercase px-2 py-0.5 rounded-full border"
+            style={{
+              borderColor: category === c ? FF.cyan : FF.border,
+              color: category === c ? FF.cyan : FF.textMuted,
+            }}
+          >
+            {c}
+          </button>
+        ))}
+        <label className="text-[10px] ml-auto flex items-center gap-1" style={{ color: FF.textMuted }}>
+          <input type="checkbox" checked={shared} onChange={(e) => setShared(e.target.checked)} />
+          partagé
+        </label>
+      </div>
+      <textarea
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        rows={2}
+        placeholder="Note de suivi…"
+        className="w-full rounded-lg border bg-transparent px-2 py-1.5 text-sm outline-none resize-none"
+        style={{ borderColor: FF.border, color: FF.text }}
+      />
+      <button
+        type="button"
+        disabled={!body.trim() || !athleteId || add.isPending}
+        onClick={async () => {
+          await add.mutateAsync({ athleteId, body, category, isShared: shared });
+          setBody("");
+        }}
+        className="rounded-lg border px-3 py-1.5 text-xs font-semibold"
+        style={{ borderColor: FF.cyan, color: FF.cyan }}
+      >
+        Enregistrer
+      </button>
+      <div className="max-h-32 overflow-y-auto space-y-1">
+        {isLoading && <p className="text-[11px]" style={{ color: FF.textMuted }}>…</p>}
+        {entries.map((e) => (
+          <div key={e.id} className="rounded border px-2 py-1.5 text-[11px]" style={{ borderColor: FF.border }}>
+            <span className="font-mono uppercase text-[9px]" style={{ color: FF.cyan }}>{e.category}</span>
+            {!e.is_shared && <span className="ml-1 text-[9px]" style={{ color: FF.amber }}>privé</span>}
+            <p className="mt-0.5">{e.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

@@ -21,6 +21,7 @@ import {
   useRespondEvent,
 } from "@/hooks/use-events";
 import { useEscouadeData } from "@/hooks/use-escouade";
+import { useCalendarEvents, useCreateCalendarEvent } from "@/hooks/use-calendar-events";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/agenda")({
   component: AgendaPage,
@@ -260,6 +261,10 @@ function AgendaPage() {
   };
 
   const today = new Date();
+  const weekEnd = addDays(weekAnchor, 7);
+  const { data: calEvents = [] } = useCalendarEvents(weekAnchor, weekEnd);
+  const createCal = useCreateCalendarEvent();
+  const weekLoadUa = calEvents.reduce((s, e) => s + (e.load_ua ?? 0), 0);
 
   return (
     <div className="space-y-5">
@@ -270,7 +275,7 @@ function AgendaPage() {
           </p>
           <h1 className="text-2xl font-bold mt-1">Agenda</h1>
           <p className="text-xs mt-1" style={{ color: "var(--ff-text-muted)" }}>
-            Programme · créneaux 1:1 · événements groupe
+            Programme · créneaux · calendar_event · charge UA semaine : {weekLoadUa || "—"}
           </p>
         </div>
         {role === "coach" && (
@@ -296,6 +301,56 @@ function AgendaPage() {
           </div>
         )}
       </header>
+
+      {role === "coach" && (
+        <section
+          className="rounded-2xl border p-3 space-y-2"
+          style={{ background: "var(--ff-surface)", borderColor: "var(--ff-border)" }}
+        >
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] font-mono uppercase" style={{ color: "var(--ff-cyan)" }}>
+              Planification (calendar_event)
+            </p>
+            <button
+              type="button"
+              className="text-[10px] font-mono uppercase px-2 py-1 rounded border"
+              style={{ borderColor: "var(--ff-cyan)", color: "var(--ff-cyan)" }}
+              onClick={async () => {
+                const partner = partners[0]?.user_id;
+                const starts = new Date(selected);
+                starts.setHours(18, 0, 0, 0);
+                await createCal.mutateAsync({
+                  title: "Séance planifiée",
+                  athleteId: partner ?? null,
+                  startsAt: starts.toISOString(),
+                  durationMin: 60,
+                  rpePlanned: 6,
+                  eventType: "session",
+                });
+              }}
+            >
+              + séance jour sélectionné
+            </button>
+          </div>
+          {calEvents.length === 0 ? (
+            <p className="text-[11px]" style={{ color: "var(--ff-text-muted)" }}>
+              Aucun événement calendrier cette semaine. Charge interne = RPE × durée.
+            </p>
+          ) : (
+            <ul className="space-y-1">
+              {calEvents.slice(0, 6).map((e) => (
+                <li key={e.id} className="text-xs flex justify-between gap-2 rounded border px-2 py-1.5"
+                  style={{ borderColor: "var(--ff-border)" }}>
+                  <span className="truncate">{e.title}</span>
+                  <span className="font-mono text-[10px] shrink-0" style={{ color: "var(--ff-amber)" }}>
+                    {e.load_ua != null ? `${e.load_ua} UA` : "—"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
 
       {/* Semaine */}
       <section
