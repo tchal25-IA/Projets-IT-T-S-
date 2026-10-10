@@ -1,0 +1,423 @@
+[
+  {
+    "id": "FF-159",
+    "nom_fr": "SkiErg (tirage et flexion de hanches)",
+    "nom_en": "SkiErg",
+    "mots_cles": [
+      "skierg",
+      "hyrox",
+      "ergometre",
+      "tirage",
+      "flexion_hanche",
+      "cardio",
+      "station_1"
+    ],
+    "categorie": "hyrox_ergometre",
+    "materiel": [
+      "SkiErg (Concept2 ou équivalent)",
+      "Réglage du levier de résistance (damper) 4 à 6"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Triceps",
+      "Abdominaux",
+      "Fléchisseurs de hanche",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde postérieur",
+      "Grand dentelé",
+      "Érecteurs du rachis",
+      "Mollets",
+      "Avant-bras"
+    ],
+    "respiration": "Expire sur la traction (phase de poussée vers le bas), inspire pendant le retour bras levés. Ratio visé : 1 temps de traction pour 2 temps de retour.",
+    "niveau_1": "250 à 500 m à allure facile (RPE 5), damper 3 à 4. Apprendre la séquence complète : bras qui montent, flexion de hanches, traction des poignées vers le bas, puis retour contrôlé. Chercher un mouvement fluide plutôt que de la puissance. 20 à 24 coups par minute.",
+    "niveau_2": "1 000 m à allure soutenue (RPE 7), damper 5 à 6, 26 à 32 coups par minute, flexion de hanches et de genoux marquée, tirage des bras en dernier.",
+    "niveau_3": "1 000 m à allure de course (RPE 8 à 9), ou 4 x 250 m avec 45 s de repos, ou SkiErg juste après une course de 1 km (enchaînement Hyrox). Variante : SkiErg unilatéral pour corriger les asymétries.",
+    "coach_tip": "Pacing : sur les premiers mètres, reste volontairement en dessous de l'allure maximale ; installe une cadence régulière avant d'accélérer. Économie : pense « hanches et dos, puis bras » ; les bras terminent le mouvement mais ne doivent pas tout faire. Retour : laisse les bras remonter sans précipitation et garde un rythme respiratoire stable. Sous fatigue, surveille surtout le dos qui s'arrondit et les épaules qui montent. Si la technique se dégrade, réduis la cadence avant d'augmenter l'effort."
+  },
+  {
+    "id": "FF-160",
+    "nom_fr": "Rameur (fixation du buste et poussée de jambes)",
+    "nom_en": "Rowing (RowErg)",
+    "mots_cles": [
+      "rowing",
+      "rameur",
+      "hyrox",
+      "ergometre",
+      "poussee_jambes",
+      "station_5",
+      "cardio"
+    ],
+    "categorie": "hyrox_ergometre",
+    "materiel": [
+      "Rameur Concept2 (RowErg) ou équivalent",
+      "Réglage du levier de résistance (damper) 4 à 6 (drag factor 115 à 130)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Grand dorsal",
+      "Ischio-jambiers",
+      "Érecteurs du rachis"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Rhomboïdes",
+      "Abdominaux",
+      "Mollets",
+      "Avant-bras"
+    ],
+    "respiration": "Expire sur la poussée de jambes et le tirage, inspire pendant le retour (avant de la glisse). Ratio visé : 1 temps de poussée pour 2 temps de retour.",
+    "niveau_1": "500 m à allure facile (RPE 5). Apprendre l'ordre jambes → buste → bras à l'aller, puis bras → buste → jambes au retour. Garde le buste gainé et évite de tirer les épaules vers les oreilles. Cherche une cadence confortable et régulière plutôt qu'un gros tirage.",
+    "niveau_2": "1 000 m à allure soutenue (RPE 7), damper 5, 24 à 28 coups par minute, buste fixé pendant la poussée de jambes, tirage contrôlé vers les côtes basses.",
+    "niveau_3": "1 000 m à allure de course (RPE 8 à 9), ou 4 x 250 m avec 45 s de repos, ou rameur après une série de Sled Pull (enchaînement Hyrox). Variante : rameur avec pause d'une seconde à l'avant (Pause Row) pour affiner la technique.",
+    "coach_tip": "Pacing : sur 1 000 m, pars légèrement plus lentement que ton allure cible puis stabilise ; évite le sprint du premier 250 m. Technique : pousse d'abord avec les jambes, ouvre ensuite légèrement le buste, puis termine avec les bras. Au retour, ne précipite pas la récupération des jambes. Grip : mains détendues, poignets neutres. Si le rythme cardiaque monte trop vite, raccourcis légèrement l'amplitude avant de perdre la coordination."
+  },
+  {
+    "id": "FF-161",
+    "nom_fr": "Poussée de traîneau, bras tendus (poignées hautes)",
+    "nom_en": "Sled Push (Straight Arms, High Handles)",
+    "mots_cles": [
+      "sled_push",
+      "traineau",
+      "poussee",
+      "hyrox",
+      "station_2",
+      "bras_tendus",
+      "poignees_hautes"
+    ],
+    "categorie": "hyrox_poussee_tirage",
+    "materiel": [
+      "Traîneau (sled) avec disques",
+      "Surface adaptée (gazon synthétique ou sol plat)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Deltoïde antérieur",
+      "Triceps",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Grand pectoral",
+      "Ischio-jambiers",
+      "Grand dentelé",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Respiration rythmée avec les pas : expire sur 2 pas, inspire sur 2 pas, jamais de blocage prolongé.",
+    "niveau_1": "Traîneau vide ou charge légère (30 à 60 kg total), 4 × 12,5 m. Bras tendus, buste incliné, bassin engagé et pas courts. Apprends à maintenir une pression continue sur le traîneau sans bloquer la respiration. Récupère 45 à 60 s entre les longueurs si nécessaire.",
+    "niveau_2": "Charge modérée (80 à 110 kg total), 4 x 12,5 m, bras tendus ou légèrement fléchis, pas puissants et réguliers.",
+    "niveau_3": "Charge de compétition (environ 150 kg hommes et 100 kg femmes, à vérifier selon le règlement en vigueur), 50 m en continu ou 4 x 12,5 m, ou Sled Push précédé d'un SkiErg ou d'une course (enchaînement Hyrox).",
+    "coach_tip": "Pacing : accélère progressivement sur les premiers pas puis cherche une poussée continue ; évite les arrêts qui rendent la relance coûteuse. Technique : garde les bras longs et laisse les jambes produire l'essentiel de la force. Fais de petits pas qui maintiennent le centre de gravité devant le traîneau. Respire régulièrement au lieu de bloquer. Si le traîneau ne bouge plus, rapproche légèrement les pieds et réengage les jambes plutôt que de tirer uniquement avec les épaules."
+  },
+  {
+    "id": "FF-162",
+    "nom_fr": "Poussée de traîneau, bras pliés (poignées basses)",
+    "nom_en": "Sled Push (Bent Arms, Low Handles)",
+    "mots_cles": [
+      "sled_push",
+      "traineau",
+      "poussee",
+      "hyrox",
+      "poignees_basses",
+      "bras_plies",
+      "puissance"
+    ],
+    "categorie": "hyrox_poussee_tirage",
+    "materiel": [
+      "Traîneau (sled) avec disques",
+      "Surface adaptée (gazon synthétique ou sol plat)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Triceps",
+      "Deltoïde antérieur",
+      "Pectoraux"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Expire à chaque poussée, inspire entre deux pas, rythme régulier.",
+    "niveau_1": "Traîneau vide ou charge légère (30 à 60 kg total), poignées basses, 4 × 12,5 m. Garde les coudes fléchis, le buste incliné et le bassin stable. Utilise des pas courts et réguliers. Récupère 45 à 60 s entre les longueurs si nécessaire.",
+    "niveau_2": "Charge modérée (80 à 110 kg total), poignées basses, coudes fléchis, poussée par la jambe du côté de l'appui, 4 x 12,5 m.",
+    "niveau_3": "Charge de compétition (environ 150 kg hommes et 100 kg femmes, à vérifier selon le règlement en vigueur), poignées basses, 50 m. Variante : poussée à une main sur une poignée pour corriger les asymétries.",
+    "coach_tip": "Pacing : les trois premiers pas servent à mettre le traîneau en mouvement ; ensuite, conserve une cadence stable. Technique : pousse avec les jambes tout en gardant le tronc gainé ; ne cherche pas à « écraser » le traîneau avec les bras. Garde les coudes dans une position confortable et évite de laisser les épaules partir vers l'avant. Respiration : expire progressivement pendant la poussée. Si les avant-bras brûlent rapidement, vérifie que tu ne crispes pas excessivement les poignées."
+  },
+  {
+    "id": "FF-163",
+    "nom_fr": "Tirage de traîneau à la corde avec recul",
+    "nom_en": "Sled Pull (Walk-Back)",
+    "mots_cles": [
+      "sled_pull",
+      "traineau",
+      "tirage",
+      "corde",
+      "recul",
+      "hyrox",
+      "station_3",
+      "marche_arriere"
+    ],
+    "categorie": "hyrox_poussee_tirage",
+    "materiel": [
+      "Traîneau (sled) avec disques",
+      "Corde de tirage (sangle)",
+      "Surface adaptée"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Biceps",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Avant-bras (grip)"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Deltoïde postérieur",
+      "Quadriceps",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Expire sur chaque pas en arrière avec la traction, inspire pendant la reprise de corde.",
+    "niveau_1": "Traîneau vide ou charge légère (30 à 50 kg total), 4 × 12,5 m. Recule avec de petits pas en gardant la corde tendue. Apprends à utiliser le poids du corps et les jambes plutôt qu'à tirer uniquement avec les bras. Récupère 45 à 60 s entre les longueurs.",
+    "niveau_2": "Charge modérée (60 à 80 kg total), recule en alternant tirage et pas arrière, buste incliné, 4 x 12,5 m.",
+    "niveau_3": "Charge de compétition (environ 100 kg hommes et 75 kg femmes, à vérifier selon le règlement en vigueur), 50 m en continu. Variante : recul à haute cadence sur 2 x 25 m.",
+    "coach_tip": "Pacing : installe d'abord la tension dans la corde, puis recule à rythme régulier ; évite les grands à-coups. Technique : hanches légèrement en arrière, genoux souples, poitrine ouverte et corde toujours sous contrôle. Fais travailler les jambes et le bassin avant les bras. Grip : change de prise de manière fluide sans laisser la corde se détendre. Si tu dois forcer avec les biceps, ralentis et réengage davantage le poids du corps."
+  },
+  {
+    "id": "FF-164",
+    "nom_fr": "Tirage de traîneau à la corde, main sur main",
+    "nom_en": "Sled Pull (Hand-Over-Hand)",
+    "mots_cles": [
+      "sled_pull",
+      "traineau",
+      "tirage",
+      "corde",
+      "main_sur_main",
+      "hyrox",
+      "station_3",
+      "dos",
+      "grip"
+    ],
+    "categorie": "hyrox_poussee_tirage",
+    "materiel": [
+      "Traîneau (sled) avec disques",
+      "Corde de tirage",
+      "Surface adaptée"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Biceps",
+      "Rhomboïdes",
+      "Avant-bras (grip)",
+      "Trapèzes"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Deltoïde postérieur"
+    ],
+    "respiration": "Expire sur chaque traction, inspire pendant le changement de main.",
+    "niveau_1": "Traîneau vide ou charge légère (30 à 50 kg total), 4 × 12,5 m. Tire la corde main sur main en position accroupie ou semi-assise, avec des mouvements contrôlés. Garde les coudes proches du corps et évite les tirages brusques. Récupère 45 à 60 s entre les longueurs.",
+    "niveau_2": "Charge modérée (60 à 80 kg total), debout fente légère, tirage main sur main sans arrêt, 4 x 12,5 m.",
+    "niveau_3": "Charge de compétition (environ 100 kg hommes et 75 kg femmes, à vérifier selon le règlement en vigueur), 50 m en continu. Variante : tirage assis avec pieds calés (Seated Pull).",
+    "coach_tip": "Pacing : privilégie des tractions régulières et suffisamment courtes pour ne jamais perdre la tension de la corde. Technique : cale le bassin, utilise les jambes pour accompagner le recul et garde les coudes près du corps. Économie de grip : serre juste assez pour sécuriser la corde, sans écraser les poignées. Respire à chaque traction ou toutes les deux tractions. Quand la fatigue arrive, conserve la qualité des prises plutôt que d'accélérer pour finir."
+  },
+  {
+    "id": "FF-165",
+    "nom_fr": "Burpee saut en longueur",
+    "nom_en": "Burpee Broad Jump",
+    "mots_cles": [
+      "burpee_broad_jump",
+      "bbj",
+      "hyrox",
+      "station_4",
+      "burpee",
+      "saut_longueur",
+      "poids_de_corps"
+    ],
+    "categorie": "hyrox_deplacement",
+    "materiel": [
+      "Aucun",
+      "Piste de 80 m (marquage au sol)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Pectoraux",
+      "Triceps",
+      "Deltoïdes",
+      "Mollets"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Ischio-jambiers",
+      "Grand dentelé",
+      "Système cardiovasculaire"
+    ],
+    "respiration": "Expire en poussant sur le sol (relevé et saut), inspire en revenant au sol. Cadence régulière.",
+    "niveau_1": "Burpee avec retour des pieds en pas ou petit saut, puis saut en longueur contrôlé de 50 à 80 cm. Réalise 20 à 30 m à allure technique. Apprends à enchaîner sans pause : descente contrôlée, retour des pieds, stabilisation, saut.",
+    "niveau_2": "Burpee complet (poitrine au sol) puis saut en longueur de 1 à 1,2 m, enchaîné sans pause, 40 à 50 m.",
+    "niveau_3": "Burpee Broad Jump sur 80 m en continu avec saut de 1,3 à 1,6 m, ou en circuit après un Sled Pull (enchaînement Hyrox). Variante : saut en longueur avec réception à une jambe.",
+    "coach_tip": "Pacing : choisis une longueur de saut que tu peux répéter sans casser ta technique ; la régularité vaut mieux qu'un saut maximal. Économie : utilise un retour des pieds par petits pas si nécessaire pour préserver les quadriceps. À la réception, amortis avec les hanches et les genoux puis repars sans rester immobile. Garde une respiration continue. Sous fatigue, évite de chercher la distance à tout prix : un saut légèrement plus court mais constant coûte moins cher qu'une série de sauts maximaux."
+  },
+  {
+    "id": "FF-166",
+    "nom_fr": "Marche du fermier aux kettlebells",
+    "nom_en": "Farmers Carry (Kettlebells)",
+    "mots_cles": [
+      "farmers_carry",
+      "marche_fermier",
+      "kettlebell",
+      "hyrox",
+      "station_6",
+      "grip",
+      "portage"
+    ],
+    "categorie": "hyrox_deplacement",
+    "materiel": [
+      "2 kettlebells lourds",
+      "Piste de 200 m (marquage au sol)"
+    ],
+    "muscles_principaux": [
+      "Trapèzes supérieurs",
+      "Avant-bras (grip)",
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Stabilité du tronc"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Mollets",
+      "Deltoïdes"
+    ],
+    "respiration": "Respiration calme et régulière : inspire sur 2 pas, expire sur 2 pas, sans blocage prolongé.",
+    "niveau_1": "2 kettlebells de 8 à 12 kg. Marche 50 à 100 m à rythme confortable, buste droit, regard horizontal et épaules relâchées. Commence par des distances courtes et augmente progressivement avant de chercher à marcher sans pause.",
+    "niveau_2": "2 kettlebells de 16 à 20 kg, marche sur 100 à 150 m sans poser, pas courts et rapides.",
+    "niveau_3": "2 kettlebells de 24 kg (hommes) et 16 kg (femmes) pour 200 m en continu (poids indicatifs, à vérifier selon le règlement en vigueur), ou 2 kettlebells de 32 kg et 24 kg en version Pro. Variante : marche en série de 50 m avec 10 s de pause.",
+    "coach_tip": "Pacing : adopte des pas courts et rapides, mais ne transforme pas la marche en course. Grip : serre les kettlebells suffisamment pour les sécuriser, sans crisper les épaules. Garde les bras longs, les épaules basses et le tronc stable ; évite de te pencher sur les côtés. Respire normalement et regarde loin devant. Si le grip fatigue, ne secoue pas les mains en marchant : ralentis légèrement et garde une posture propre."
+  },
+  {
+    "id": "FF-167",
+    "nom_fr": "Fentes marchées au sac de sable",
+    "nom_en": "Sandbag Lunges",
+    "mots_cles": [
+      "sandbag_lunges",
+      "fentes_marchees",
+      "sac_sable",
+      "hyrox",
+      "station_7",
+      "jambes",
+      "impact"
+    ],
+    "categorie": "hyrox_impact_bas_du_corps",
+    "materiel": [
+      "Sac de sable (sandbag) de 10 à 30 kg",
+      "Piste de 100 m"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Moyen fessier",
+      "Ischio-jambiers",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Abdominaux",
+      "Érecteurs du rachis",
+      "Trapèzes"
+    ],
+    "respiration": "Respiration régulière : expire sur la poussée en avant, inspire en descendant.",
+    "niveau_1": "Fentes marchées au poids de corps ou avec un sac de 5 à 10 kg, sur 20 à 30 m. Utilise une amplitude confortable, pose le genou arrière sous contrôle et remonte en poussant dans le pied avant. Garde le buste stable et avance à cadence régulière.",
+    "niveau_2": "Sac de 10 à 20 kg sur les épaules, pas de 60 à 70 cm, genou arrière qui touche presque le sol, 50 à 70 m.",
+    "niveau_3": "Sac de 20 kg (hommes) et 10 kg (femmes) pour 100 m en continu (poids indicatifs, à vérifier selon le règlement en vigueur), ou sac de 30 kg et 20 kg en version Pro. Variante : fentes marchées avec sac plus lourd et pas plus courts.",
+    "coach_tip": "Pacing : choisis une longueur de pas qui permet de garder le bassin stable ; évite les très grands pas qui saturent rapidement les quadriceps. Technique : genou avant dans l'axe du pied, descente contrôlée, puis poussée régulière pour repartir. Avec le sac, place-le de façon stable et évite qu'il te tire vers l'avant. Respire pendant toute la série. Si les jambes tremblent, raccourcis légèrement l'amplitude plutôt que de perdre l'équilibre."
+  },
+  {
+    "id": "FF-168",
+    "nom_fr": "Lancers de médecine-ball à la cible",
+    "nom_en": "Wall Ball Shots (Hyrox)",
+    "mots_cles": [
+      "wall_ball",
+      "medecine_ball",
+      "squat",
+      "lancer",
+      "hyrox",
+      "station_8",
+      "finisher",
+      "cible"
+    ],
+    "categorie": "hyrox_finisher",
+    "materiel": [
+      "Médecine-ball (4 à 9 kg)",
+      "Mur avec cible (2,70 m à 3 m)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Deltoïdes",
+      "Triceps",
+      "Triple extension (hanche, genou, cheville)"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Trapèzes",
+      "Avant-bras"
+    ],
+    "respiration": "Inspire en bas du squat, expire pendant la poussée et le lancer vers la cible.",
+    "niveau_1": "Médecine-ball de 4 kg, cible à 2,40 m, 30 à 50 répétitions en petites séries de 5 à 10. Apprends d'abord le mouvement complet : squat contrôlé, extension des jambes et des hanches, puis lancer vers la cible. Repose-toi avant que la technique ne se dégrade.",
+    "niveau_2": "Médecine-ball de 6 kg, cible à 2,70 m, squat profond (cuisses sous la parallèle), 75 à 100 répétitions en séries de 15 à 20.",
+    "niveau_3": "Médecine-ball de 6 kg (hommes) et 4 kg (femmes) pour 100 répétitions, cible à 3 m (hommes) et 2,70 m (femmes), ou version Pro avec ballon de 9 kg et 6 kg (poids et hauteurs indicatifs, à vérifier selon le règlement en vigueur). Variante : Wall Ball enchaîné après un Sandbag Lunge (enchaînement Hyrox).",
+    "coach_tip": "Pacing : ne pars pas sur un gros bloc si tu débutes ; des séries courtes et régulières permettent de conserver la hauteur de lancer et la profondeur du squat. Économie : utilise les jambes et les hanches pour donner de la hauteur au ballon, puis laisse les bras accompagner le lancer. À la réception, récupère le ballon avec les genoux souples et enchaîne seulement si ta posture reste stable. Respire pendant le squat et expire sur l'extension. Sous fatigue, privilégie la précision et la régularité à la vitesse."
+  },
+  {
+    "id": "FF-169",
+    "nom_fr": "Course sous fatigue (course compromise)",
+    "nom_en": "Compromised Running (1 km)",
+    "mots_cles": [
+      "compromised_run",
+      "course",
+      "hyrox",
+      "running",
+      "fatigue",
+      "1km",
+      "transition"
+    ],
+    "categorie": "hyrox_deplacement",
+    "materiel": [
+      "Chaussures de course",
+      "Piste ou tapis de course"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Tibial antérieur",
+      "Stabilisateurs de la cheville",
+      "Système cardiovasculaire"
+    ],
+    "respiration": "Respiration rythmée avec les pas : inspire sur 3 pas, expire sur 2 pas, adapte selon l'intensité.",
+    "niveau_1": "1 km à allure facile (RPE 5) après un effort léger, par exemple 250 m de SkiErg. Commence par 200 m très contrôlés puis stabilise progressivement l'allure. Cherche une foulée courte et légère, avec une cadence naturelle plutôt que de forcer une fréquence précise.",
+    "niveau_2": "1 km à allure soutenue (RPE 6 à 7) après une station (par exemple Sled Push ou Burpee Broad Jump), cadence de 170 à 175 pas par minute.",
+    "niveau_3": "1 km à allure de course (RPE 8) enchaîné après une station lourde, avec 8 blocs en circuit (course, station) ; pour l'entraînement, 4 x (1 km + station) avec repos court. Variante : course après un Sled Pull ou des Sandbag Lunges.",
+    "coach_tip": "Pacing : les premiers 200 m après une station peuvent sembler anormalement difficiles ; accepte cette sensation et ne cherche pas à rattraper immédiatement ton allure habituelle. Technique : raccourcis légèrement la foulée, garde les appuis sous le centre de gravité et relâche les épaules. Respire profondément mais sans modifier brutalement le rythme. Le bon repère est une allure que tu peux tenir malgré les jambes déjà chargées. Si tu dois lutter pour conserver la technique, ralentis quelques secondes puis reconstruis progressivement."
+  }
+]

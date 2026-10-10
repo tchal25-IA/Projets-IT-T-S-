@@ -1,0 +1,2328 @@
+[
+  {
+    "id": "FF-001",
+    "nom_fr": "Cercles de bras",
+    "nom_en": "Arm Circles",
+    "mots_cles": [
+      "arm_circles",
+      "epaules",
+      "mobilite",
+      "echauffement",
+      "maison"
+    ],
+    "categorie": "warmup_mobilisation",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Articulation gléno-humérale (épaule)",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Coiffe des rotateurs"
+    ],
+    "respiration": "Inspire sur la montée des bras, expire sur la descente. Rythme fluide, sans retenir l'air.",
+    "niveau_1": "Debout, pieds écartés à la largeur des hanches, bras tendus sur les côtés. Fais de petits cercles d'environ 20 cm, 10 vers l'avant puis 10 vers l'arrière.",
+    "niveau_2": "Cercles amples, bras à hauteur d'épaules, paumes vers le bas, omoplates relâchées.",
+    "niveau_3": "Cercles maximaux avec une bouteille d'eau dans chaque main, 3 s par cercle, sans hausser les épaules.",
+    "coach_tip": "Garde les épaules basses, loin des oreilles, et la nuque relâchée. Si une douleur articulaire apparaît, réduis immédiatement le cercle : on cherche de la mobilité, jamais un forçage."
+  },
+  {
+    "id": "FF-002",
+    "nom_fr": "Chat-Vache",
+    "nom_en": "Cat-Cow",
+    "mots_cles": [
+      "cat_cow",
+      "colonne",
+      "mobilite",
+      "dos",
+      "tapis"
+    ],
+    "categorie": "warmup_mobilisation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Colonne vertébrale (flexion/extension)",
+      "Érecteurs du rachis",
+      "Grand droit de l'abdomen"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Inspire en creusant le dos (Vache), expire en l'arrondissant (Chat).",
+    "niveau_1": "À quatre pattes, mains juste sous les épaules et genoux juste sous les hanches. Arrondis doucement le dos puis creuse-le légèrement, 8 cycles lents.",
+    "niveau_2": "Amplitude maximale. En Chat, rétroversion du bassin (le pubis remonte vers le nombril) ; en Vache, antéversion (le coccyx pointe vers le plafond). 10 cycles.",
+    "niveau_3": "Même mouvement avec un bras tendu devant (alternance), ou segment par segment : bassin, thorax, puis tête, comme une vague.",
+    "coach_tip": "Bouge lentement, comme une vague, sans chercher l'amplitude maximale. Si le mouvement pince dans le dos ou le cou, réduis l'amplitude plutôt que de pousser davantage."
+  },
+  {
+    "id": "FF-003",
+    "nom_fr": "Livre ouvert",
+    "nom_en": "Open Book",
+    "mots_cles": [
+      "open_book",
+      "thoracique",
+      "rotation",
+      "mobilite",
+      "tapis"
+    ],
+    "categorie": "warmup_mobilisation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Colonne thoracique (rotation)",
+      "Obliques"
+    ],
+    "muscles_secondaires": [
+      "Grand pectoral (ouverture)",
+      "Rhomboïdes",
+      "Épaule"
+    ],
+    "respiration": "Inspire en préparation, expire lentement en ouvrant le bras.",
+    "niveau_1": "Allongé sur le côté, genoux pliés à angle droit et mains l'une contre l'autre devant toi. Ouvre lentement le bras du dessus vers l'arrière sans laisser les genoux bouger.",
+    "niveau_2": "Le regard suit la main. Les genoux restent collés (le bassin ne bascule pas). 8 répétitions par côté.",
+    "niveau_3": "Jambe du dessous tendue, celle du haut fléchie sur une bouteille posée au sol comme repère de verrouillage du bassin. Pause de 3 s bras ouvert.",
+    "coach_tip": "Les genoux restent collés : imagine une porte qui s'ouvre au niveau de la poitrine. Ne force jamais le bras au sol ; l'étirement doit rester confortable."
+  },
+  {
+    "id": "FF-004",
+    "nom_fr": "Cercles de hanches debout",
+    "nom_en": "Standing Hip Circles",
+    "mots_cles": [
+      "hip_circles",
+      "hanches",
+      "mobilite",
+      "debout"
+    ],
+    "categorie": "warmup_mobilisation",
+    "materiel": [
+      "Aucun",
+      "Chaise (appui facultatif)"
+    ],
+    "muscles_principaux": [
+      "Articulation coxo-fémorale (hanche)",
+      "Fessiers",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Adducteurs",
+      "Stabilisateurs du bassin"
+    ],
+    "respiration": "Inspire sur la montée du genou, expire sur l'ouverture et la descente.",
+    "niveau_1": "Debout, une main sur une chaise stable. Lève un genou et dessine de petits cercles avec le genou, sans bouger le haut du corps.",
+    "niveau_2": "Sans appui, grand cercle : genou levé, ouvert sur le côté, puis jambe ramenée en arrière. 8 par jambe et par sens.",
+    "niveau_3": "Sans appui, tronc stable, yeux fermés pour solliciter l'équilibre.",
+    "coach_tip": "Le tronc reste immobile : seule la hanche dessine le cercle. Si tu dois te pencher pour gagner de l'amplitude, le cercle est trop grand."
+  },
+  {
+    "id": "FF-005",
+    "nom_fr": "Étirement dynamique complet (Grand voyageur)",
+    "nom_en": "World's Greatest Stretch",
+    "mots_cles": [
+      "worlds_greatest_stretch",
+      "hanches",
+      "ischios",
+      "thoracique",
+      "mobilite"
+    ],
+    "categorie": "warmup_mobilisation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Fléchisseurs de hanche (psoas)",
+      "Ischio-jambiers",
+      "Colonne thoracique"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Adducteurs",
+      "Pectoraux"
+    ],
+    "respiration": "Inspire dans la position basse, expire à chaque transition ou rotation.",
+    "niveau_1": "Fais un grand pas en avant, pose les mains au sol à l'intérieur du pied avant et garde le genou arrière posé sur le tapis. Reste 3 s puis change de côté.",
+    "niveau_2": "Depuis la fente, coude vers la cheville, puis rotation : le bras du dessus monte vers le plafond. 5 par côté.",
+    "niveau_3": "Genou arrière décollé du sol, ajoute une extension de la jambe avant (pointe vers le haut, talon au sol) entre chaque rotation.",
+    "coach_tip": "Avance lentement et ne cherche jamais à écraser le bassin vers le sol. Si le genou avant ou arrière fait mal, raccourcis la fente et reste dans une amplitude confortable."
+  },
+  {
+    "id": "FF-006",
+    "nom_fr": "Marche de la chenille",
+    "nom_en": "Inchworm",
+    "mots_cles": [
+      "inchworm",
+      "ischios",
+      "gainage",
+      "epaules",
+      "activation"
+    ],
+    "categorie": "warmup_activation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers (étirement)",
+      "Abdominaux",
+      "Épaules"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Triceps",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire en marchant vers la planche, inspire en revenant vers les pieds.",
+    "niveau_1": "Debout, genoux légèrement pliés. Marche avec les mains vers l'avant jusqu'à avoir les mains sous les épaules et le corps droit, puis ramène les mains vers les pieds en 3 petits pas.",
+    "niveau_2": "Jambes quasi tendues, ajoute 2 s de gainage en planche, bassin aligné (sans creux lombaire).",
+    "niveau_3": "Ajoute une pompe en position de planche, ou lève une jambe à chaque répétition.",
+    "coach_tip": "En planche, serre les fessiers et le ventre comme si ton corps était une planche rigide. Si le bas du dos se creuse, arrête d'avancer les mains et raccourcis le mouvement."
+  },
+  {
+    "id": "FF-007",
+    "nom_fr": "Chien-Oiseau",
+    "nom_en": "Bird-Dog",
+    "mots_cles": [
+      "bird_dog",
+      "core",
+      "lombaires",
+      "stabilite",
+      "activation"
+    ],
+    "categorie": "warmup_activation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Transverse de l'abdomen",
+      "Fessiers"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Multifides",
+      "Ischio-jambiers"
+    ],
+    "respiration": "Inspire au repos, expire en tendant bras et jambe opposés.",
+    "niveau_1": "À quatre pattes, tends doucement une jambe vers l'arrière en gardant la pointe du pied au sol, puis fais pareil avec un bras. Alterne, 6 fois de chaque côté.",
+    "niveau_2": "Bras et jambe opposés tendus simultanément, alignés avec le dos, tenue de 3 s. Le bassin ne pivote pas.",
+    "niveau_3": "Coude et genou se rejoignent sous le ventre (crunch), puis extension. Pose une bouteille sur le bas du dos pour contrôler la stabilité.",
+    "coach_tip": "Imagine un verre d'eau posé sur le bas du dos : il ne doit pas se renverser. Si le bassin tourne, réduis la longueur du bras ou de la jambe."
+  },
+  {
+    "id": "FF-008",
+    "nom_fr": "Coquillage",
+    "nom_en": "Clamshell",
+    "mots_cles": [
+      "clamshell",
+      "fessiers",
+      "moyen_fessier",
+      "hanches",
+      "activation"
+    ],
+    "categorie": "warmup_activation",
+    "materiel": [
+      "Tapis",
+      "Bande élastique (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Moyen fessier",
+      "Rotateurs externes de hanche"
+    ],
+    "muscles_secondaires": [
+      "Petit fessier",
+      "Obliques"
+    ],
+    "respiration": "Expire en ouvrant le genou, inspire en refermant.",
+    "niveau_1": "Allongé sur le côté, genoux pliés, pieds l'un sur l'autre. Sans décoller les pieds, ouvre doucement le genou du dessus puis referme-le.",
+    "niveau_2": "Bassin empilé à la verticale (aucun roulis en arrière). Ouvre jusqu'à la limite où le bassin reste immobile. 12 par côté.",
+    "niveau_3": "Maintiens le genou en haut 3 s et ajoute un décollement des pieds, ou utilise une bande élastique au-dessus des genoux.",
+    "coach_tip": "Le bassin reste empilé, comme deux assiettes posées l'une sur l'autre. Si tu dois rouler en arrière pour ouvrir davantage, réduis l'amplitude."
+  },
+  {
+    "id": "FF-009",
+    "nom_fr": "Pompes scapulaires",
+    "nom_en": "Scapular Push-Ups",
+    "mots_cles": [
+      "scapular_push_up",
+      "omoplates",
+      "grand_dentele",
+      "epaules",
+      "activation"
+    ],
+    "categorie": "warmup_activation",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand dentelé",
+      "Articulation scapulo-thoracique (omoplates)"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes inférieurs",
+      "Pectoraux",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en repoussant le sol, inspire en rapprochant les omoplates.",
+    "niveau_1": "À genoux, mains au sol sous les épaules et bras tendus. Sans plier les coudes, rapproche puis éloigne les omoplates pour faire descendre puis remonter légèrement la poitrine.",
+    "niveau_2": "En planche haute, même mouvement, corps rigide. 10 répétitions.",
+    "niveau_3": "En planche haute, pieds surélevés sur une chaise, ou tenue de 3 s en protraction maximale (omoplates écartées).",
+    "coach_tip": "Les coudes restent verrouillés sans être poussés à l'extrême : seules les omoplates glissent. Si une douleur apparaît devant l'épaule, arrête et réduis l'amplitude."
+  },
+  {
+    "id": "FF-010",
+    "nom_fr": "Sauts étoilés",
+    "nom_en": "Jumping Jacks",
+    "mots_cles": [
+      "jumping_jacks",
+      "cardio",
+      "echauffement",
+      "corps_entier",
+      "maison"
+    ],
+    "categorie": "warmup_cardio",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Mollets",
+      "Quadriceps",
+      "Deltoïdes",
+      "Abducteurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Abdominaux",
+      "Système cardiovasculaire"
+    ],
+    "respiration": "Rythmée et continue : inspire sur 2 sauts, expire sur 2 sauts.",
+    "niveau_1": "Sans sauter : fais un pas de côté à droite puis à gauche pendant que les bras montent au-dessus de la tête. Garde un rythme facile et continu.",
+    "niveau_2": "Saut classique, réception sur l'avant du pied, genoux souples. 30 à 40 s.",
+    "niveau_3": "Squat Jack : pieds écartés en squat, bras joints. Ou Jack en tempo rapide pendant 45 s.",
+    "coach_tip": "Atterrissages doux et genoux souples : même sans saut, pose le pied silencieusement. Une douleur au genou ou à la cheville = retour à une marche simple."
+  },
+  {
+    "id": "FF-011",
+    "nom_fr": "Montées de genoux",
+    "nom_en": "High Knees",
+    "mots_cles": [
+      "high_knees",
+      "cardio",
+      "flechisseurs_hanche",
+      "coordination"
+    ],
+    "categorie": "warmup_cardio",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Fléchisseurs de hanche (psoas, droit fémoral)",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Abdominaux",
+      "Fessiers"
+    ],
+    "respiration": "Expire sur chaque genou droit, inspire sur le gauche (cadence régulière).",
+    "niveau_1": "Marche sur place en levant chaque genou jusqu'à environ la hauteur de la hanche. Le bras opposé avance en même temps.",
+    "niveau_2": "Course sur place, genoux à hauteur de hanche, buste droit, appuis légers. 30 s.",
+    "niveau_3": "Sprint sur place à fréquence maximale, ou alternance 10 s à fond / 10 s de récupération active (× 4).",
+    "coach_tip": "Reste grand et évite de te pencher en arrière pour monter le genou. Si tu perds le contrôle, ralentis : la hauteur compte moins que la posture."
+  },
+  {
+    "id": "FF-012",
+    "nom_fr": "Talons-fesses",
+    "nom_en": "Butt Kicks",
+    "mots_cles": [
+      "butt_kicks",
+      "ischios",
+      "cardio",
+      "echauffement"
+    ],
+    "categorie": "warmup_cardio",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers (flexion du genou)"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Quadriceps",
+      "Fessiers"
+    ],
+    "respiration": "Cadence régulière : inspire 2 foulées, expire 2 foulées.",
+    "niveau_1": "Marche sur place en ramenant doucement un talon vers la fesse à chaque pas. Garde le buste droit et reste sans impact.",
+    "niveau_2": "Course sur place, talons qui touchent les fessiers, buste droit. 30 s.",
+    "niveau_3": "Alterne 10 talons-fesses et 10 montées de genoux sans pause, ou progresse en avant sur 5 m.",
+    "coach_tip": "Les genoux restent sous les hanches : ce sont les talons qui montent. Garde les appuis légers et ralentis si tu commences à taper au sol."
+  },
+  {
+    "id": "FF-013",
+    "nom_fr": "Pompes",
+    "nom_en": "Push-Up",
+    "mots_cles": [
+      "push_up",
+      "pectoraux",
+      "triceps",
+      "poussee",
+      "maison"
+    ],
+    "categorie": "poussee",
+    "materiel": [
+      "Aucun",
+      "Chaise ou table basse (Niveau 1)"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Deltoïde antérieur",
+      "Triceps brachial",
+      "Articulations de l'épaule et du coude"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Transverse de l'abdomen",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "respiration": "Inspire pendant la descente, expire pendant la poussée.",
+    "niveau_1": "Place les mains sur une chaise très stable ou une table basse. Garde le corps droit, plie les coudes vers l'arrière à environ 45° et rapproche la poitrine du support.",
+    "niveau_2": "Mains au sol, légèrement plus larges que les épaules. Descends jusqu'à frôler le sol, gainage serré (pas de creux lombaire, bassin neutre), puis repousse jusqu'à l'extension complète des coudes.",
+    "niveau_3": "Pompe déclinée (pieds sur la chaise), ou pompe explosive : poussée assez puissante pour décoller les mains, réception coudes souples. Variante : tempo 3-1-1.",
+    "coach_tip": "Le corps doit rester droit comme une planche. Utilise uniquement un support qui ne glisse pas : s'il bouge, ne fais pas la série."
+  },
+  {
+    "id": "FF-014",
+    "nom_fr": "Pompes diamant",
+    "nom_en": "Diamond Push-Up",
+    "mots_cles": [
+      "diamond_push_up",
+      "triceps",
+      "pectoraux",
+      "poussee",
+      "maison"
+    ],
+    "categorie": "poussee",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Triceps brachial",
+      "Partie interne du grand pectoral",
+      "Articulation du coude"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde antérieur",
+      "Grand dentelé",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "À genoux, place les mains rapprochées sous la poitrine, pouces et index formant un petit triangle. Plie les coudes près du corps et descends seulement un peu.",
+    "niveau_2": "Sur les pieds, même placement des mains. Coudes près du corps, amplitude complète. Si les poignets tirent, élargis légèrement l'écart des mains.",
+    "niveau_3": "Pieds surélevés sur la chaise, ou pompe diamant explosive avec décollage des mains.",
+    "coach_tip": "Garde les coudes près des côtes et les poignets confortables. Si le triangle des mains force les poignets, écarte légèrement les mains : la technique passe avant le nom de l'exercice."
+  },
+  {
+    "id": "FF-015",
+    "nom_fr": "Dips sur chaise",
+    "nom_en": "Chair Dips",
+    "mots_cles": [
+      "chair_dips",
+      "triceps",
+      "epaules",
+      "poussee",
+      "chaise"
+    ],
+    "categorie": "poussee",
+    "materiel": [
+      "Chaise stable (adossée à un mur)",
+      "Tapis antidérapant conseillé"
+    ],
+    "muscles_principaux": [
+      "Triceps brachial",
+      "Deltoïde antérieur",
+      "Articulations du coude et de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Grand pectoral (portion basse)",
+      "Grand dorsal",
+      "Trapèzes inférieurs"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Vérifie que la chaise est stable et bloquée contre un mur. Mains sur le bord, jambes pliées et pieds proches de la chaise, descends seulement un peu en gardant les épaules basses.",
+    "niveau_2": "Jambes tendues, talons au sol, descente jusqu'à ce que les coudes atteignent 90°. Évite que les épaules passent sous le niveau des coudes.",
+    "niveau_3": "Pieds posés sur une seconde chaise, ou dip à une jambe levée. Tempo lent (4 s de descente). Variante explosive : poussée avec décollage des mains.",
+    "coach_tip": "Chaise bloquée contre un mur, impératif. Garde les épaules loin des oreilles et ne descends pas profondément : douleur à l'avant de l'épaule = arrêt immédiat."
+  },
+  {
+    "id": "FF-016",
+    "nom_fr": "Pompes en V inversé",
+    "nom_en": "Pike Push-Up",
+    "mots_cles": [
+      "pike_push_up",
+      "epaules",
+      "deltoides",
+      "poussee_verticale",
+      "maison"
+    ],
+    "categorie": "poussee",
+    "materiel": [
+      "Aucun",
+      "Chaise (Niveau 3)"
+    ],
+    "muscles_principaux": [
+      "Deltoïde antérieur et moyen",
+      "Triceps brachial",
+      "Articulation de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes supérieurs",
+      "Grand dentelé",
+      "Partie haute du pectoral",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant la tête vers le sol, expire en repoussant.",
+    "niveau_1": "Mets-toi en position de V : mains au sol, hanches hautes et jambes presque tendues. Plie légèrement les coudes pour rapprocher la tête du sol, sans la poser.",
+    "niveau_2": "Descends la tête entre les mains, coudes à 45° du buste, jusqu'à frôler le sol, puis remonte en poussant. Garde les hanches hautes tout au long du mouvement.",
+    "niveau_3": "Pieds surélevés sur la chaise (le buste devient plus vertical). Version avancée : pompe en équilibre sur les mains contre un mur.",
+    "coach_tip": "Garde les hanches hautes comme le toit d'une maison et la tête entre les bras. Ne cherche pas le sol à tout prix : si les épaules pincent, réduis la profondeur."
+  },
+  {
+    "id": "FF-017",
+    "nom_fr": "Pompes archer",
+    "nom_en": "Archer Push-Up",
+    "mots_cles": [
+      "archer_push_up",
+      "pectoraux",
+      "unilateral",
+      "poussee",
+      "avance"
+    ],
+    "categorie": "poussee",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Triceps brachial (bras fléchi)",
+      "Articulations de l'épaule et du coude"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde antérieur",
+      "Obliques",
+      "Grand dentelé"
+    ],
+    "respiration": "Inspire en descendant d'un côté, expire en remontant.",
+    "niveau_1": "Commence avec les mains très écartées sur une chaise stable. Plie surtout le coude d'un côté pendant que l'autre bras reste presque tendu, puis change de côté.",
+    "niveau_2": "Au sol, même mouvement. Le bras tendu sert de guide, la poussée vient du bras fléchi. 5 par côté.",
+    "niveau_3": "Le bras tendu repose sur une bouteille d'eau (peu de soutien) ou la main du bras tendu se lève du sol : vers la pompe à un bras.",
+    "coach_tip": "Le bras qui reste tendu ne doit presque pas porter ton poids. Descends seulement tant que l'épaule reste stable ; douleur ou perte de contrôle = reviens au niveau inférieur."
+  },
+  {
+    "id": "FF-018",
+    "nom_fr": "Rowing inversé sous table",
+    "nom_en": "Inverted Row (Table Row)",
+    "mots_cles": [
+      "inverted_row",
+      "dos",
+      "grand_dorsal",
+      "tirage",
+      "table",
+      "maison"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "Table solide (table basse robuste pour le Niveau 1)",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes moyens et inférieurs",
+      "Articulations de l'épaule (extension) et du coude (flexion)"
+    ],
+    "muscles_secondaires": [
+      "Biceps brachial",
+      "Deltoïde postérieur",
+      "Avant-bras",
+      "Abdominaux",
+      "Fessiers"
+    ],
+    "respiration": "Expire en tirant la poitrine vers la table, inspire en redescendant en contrôle.",
+    "niveau_1": "Utilise uniquement une table lourde et parfaitement stable. Allonge-toi dessous, genoux pliés, saisis le bord à deux mains et tire doucement la poitrine vers la table sur une petite amplitude.",
+    "niveau_2": "Jambes tendues, talons au sol, corps rigide comme une planche. Tire jusqu'à ce que la poitrine touche le bord de la table, coudes à 45° du buste. Pause de 1 s en haut, descente en 2 s.",
+    "niveau_3": "Pieds surélevés sur une chaise (corps à l'horizontale), ou rowing à une main sur de petites séries. Variante : tempo 4 s de descente, ou prise en supination.",
+    "coach_tip": "La table doit être lourde, stable et non vitrée. Tire la poitrine, pas le menton, et arrête immédiatement si la table bouge : aucune répétition ne vaut une chute."
+  },
+  {
+    "id": "FF-019",
+    "nom_fr": "Superman",
+    "nom_en": "Superman",
+    "mots_cles": [
+      "superman",
+      "lombaires",
+      "dos",
+      "chaine_posterieure",
+      "tapis"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Grand fessier",
+      "Trapèzes inférieurs",
+      "Extension de la colonne et de la hanche"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde postérieur",
+      "Ischio-jambiers",
+      "Rhomboïdes"
+    ],
+    "respiration": "Expire en décollant bras et jambes, inspire en redescendant.",
+    "niveau_1": "Allongé sur le ventre, bras le long du corps et front tourné vers le sol. Décolle légèrement le haut de la poitrine, sans lever la tête, puis repose-la.",
+    "niveau_2": "Bras tendus devant, décolle simultanément bras, poitrine et jambes. Regard vers le sol, nuque neutre. Tiens 2 s en haut. 12 répétitions.",
+    "niveau_3": "Superman nageur : alterne bras droit/jambe gauche, puis inverse, avec battements rapides. Ou tenue de 20 à 30 s, bras en Y.",
+    "coach_tip": "Imagine que tu allonges le corps plutôt que de le cambrer. Ne lève pas le menton : une nuque longue protège le cou et garde le mouvement contrôlé."
+  },
+  {
+    "id": "FF-020",
+    "nom_fr": "Rowing penché aux bouteilles",
+    "nom_en": "Bent-Over Bottle Row",
+    "mots_cles": [
+      "bent_over_row",
+      "bouteilles",
+      "dos",
+      "tirage",
+      "lest"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "2 bouteilles d'eau (0,5 L à 1,5 L, remplies d'eau ou de sable)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes moyens",
+      "Extension de l'épaule",
+      "Flexion du coude"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Deltoïde postérieur",
+      "Érecteurs du rachis",
+      "Ischio-jambiers (gainage isométrique)"
+    ],
+    "respiration": "Expire en tirant les bouteilles vers les hanches, inspire en les redescendant.",
+    "niveau_1": "Debout, pieds écartés à la largeur des hanches, genoux légèrement pliés et dos droit. Penche le buste comme pour regarder le sol puis tire deux petites bouteilles vers la taille.",
+    "niveau_2": "Buste incliné à 60 à 75°, bouteilles plus lourdes (1 à 1,5 L). Coudes qui frôlent les côtes, pause de 1 s en haut, descente en 2 s.",
+    "niveau_3": "Tempo lent (3 s de montée, 3 s de descente), ou rowing alterné avec rotation du buste à chaque tirage. Remplis les bouteilles pour augmenter la charge.",
+    "coach_tip": "Dos plat comme une table, regard vers le sol. Si tu dois redresser le buste pour finir la répétition, les bouteilles sont trop lourdes."
+  },
+  {
+    "id": "FF-021",
+    "nom_fr": "Rowing à un bras avec appui",
+    "nom_en": "Single-Arm Row (Supported)",
+    "mots_cles": [
+      "single_arm_row",
+      "dos",
+      "unilateral",
+      "chaise",
+      "bouteille"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "Chaise",
+      "1 bouteille d'eau lestée"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèze moyen",
+      "Articulation de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Deltoïde postérieur",
+      "Obliques",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire en tirant le coude vers le plafond, inspire en descendant.",
+    "niveau_1": "Une main et un genou sur une chaise stable, dos droit. Avec l'autre main, tire une bouteille légère vers ta hanche sans tourner le buste, puis change de côté.",
+    "niveau_2": "Une main appuyée sur la chaise, pied opposé reculé, buste parallèle au sol, bouteille de 1,5 L. Coude haut, trajectoire vers la hanche. 10 à 12 par côté.",
+    "niveau_3": "Sans appui de la main libre (gainage), ou avec rotation du buste au sommet pour ouvrir la poitrine. Pause de 2 s en haut.",
+    "coach_tip": "Le dos reste immobile comme une table et le coude glisse vers la hanche. Si l'épaule tourne avec le bras, diminue la charge et l'amplitude."
+  },
+  {
+    "id": "FF-022",
+    "nom_fr": "Y-T-W allongé",
+    "nom_en": "Prone Y-T-W",
+    "mots_cles": [
+      "ytw",
+      "omoplates",
+      "deltoide_posterieur",
+      "posture",
+      "tapis"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "Tapis",
+      "Bouteilles légères (en option)"
+    ],
+    "muscles_principaux": [
+      "Trapèzes inférieurs et moyens",
+      "Deltoïde postérieur",
+      "Rhomboïdes",
+      "Articulation scapulo-thoracique"
+    ],
+    "muscles_secondaires": [
+      "Coiffe des rotateurs",
+      "Érecteurs du rachis",
+      "Fessiers"
+    ],
+    "respiration": "Expire en levant les bras, inspire en les reposant.",
+    "niveau_1": "Allongé sur le ventre, front posé sur le sol. Lève doucement les bras en forme de Y, puis repose-les. Commence par 6 répétitions avant de passer aux formes T et W.",
+    "niveau_2": "Enchaîne Y (bras en V), T (bras en croix), W (coudes pliés, omoplates serrées), sans reposer les bras. Poitrine légèrement décollée, 6 par lettre.",
+    "niveau_3": "Ajoute une bouteille d'eau dans chaque main, ou tiens chaque lettre 5 s. Variante : le buste est décollé en continu.",
+    "coach_tip": "Garde le front au sol et soulève les bras sans hausser les épaules. Petit mouvement propre > grand mouvement avec douleur ou compensation."
+  },
+  {
+    "id": "FF-023",
+    "nom_fr": "Rowing à la serviette",
+    "nom_en": "Towel Door Row",
+    "mots_cles": [
+      "towel_row",
+      "dos",
+      "biceps",
+      "porte",
+      "serviette",
+      "tirage"
+    ],
+    "categorie": "tirage",
+    "materiel": [
+      "Serviette solide",
+      "Porte fermée, solide, qui s'ouvre vers l'extérieur"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Biceps brachial",
+      "Articulations de l'épaule et du coude"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde postérieur",
+      "Avant-bras (grip)",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en tirant, inspire en revenant.",
+    "niveau_1": "N'utilise que si la porte et la poignée sont très solides. Ferme la porte à clé, vérifie le nœud et tire d'abord doucement avant de mettre ton poids dans la serviette.",
+    "niveau_2": "Plus incliné vers l'arrière (corps à 45° du sol), pieds près de la porte. Tire jusqu'à ce que les mains touchent la poitrine.",
+    "niveau_3": "À une main, ou pieds proches de la porte pour un corps presque horizontal. Variante : tempo lent 3-1-3.",
+    "coach_tip": "Sécurité absolue : porte fermée à clé, poignée et nœud vérifiés, puis test progressif avant de te pencher. Au moindre doute, abandonne cet exercice et choisis une variante sûre."
+  },
+  {
+    "id": "FF-024",
+    "nom_fr": "Squat au poids de corps",
+    "nom_en": "Air Squat",
+    "mots_cles": [
+      "air_squat",
+      "quadriceps",
+      "fessiers",
+      "jambes",
+      "squat",
+      "maison"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Aucun",
+      "Chaise (Niveau 1)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Articulations de la hanche et du genou"
+    ],
+    "muscles_secondaires": [
+      "Adducteurs",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Place une chaise derrière toi. Descends lentement jusqu'à effleurer l'assise avec les fesses, puis relève-toi en poussant dans les pieds. Les bras peuvent rester devant pour l'équilibre.",
+    "niveau_2": "Pieds à largeur d'épaules, pointes légèrement ouvertes. Descends jusqu'à ce que les cuisses soient parallèles au sol, poitrine haute, talons collés au sol, puis pousse le sol pour remonter. Extension de hanche complète en haut (fessiers serrés).",
+    "niveau_3": "Squat avec pause de 3 s en bas et tempo 3-1-1, ou squat à une jambe vers la chaise (progression du squat pistolet : jambe tendue devant, descente contrôlée, assise sur la chaise).",
+    "coach_tip": "Imagine une chaise derrière toi et recule les fesses vers elle. Les genoux suivent la direction des orteils ; douleur vive ou perte d'équilibre = remonte."
+  },
+  {
+    "id": "FF-025",
+    "nom_fr": "Fentes arrière / avant",
+    "nom_en": "Reverse Lunge / Forward Lunge",
+    "mots_cles": [
+      "lunge",
+      "fentes",
+      "quadriceps",
+      "fessiers",
+      "unilateral",
+      "maison"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Aucun",
+      "Chaise ou mur (équilibre, Niveau 1)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche",
+      "Genou"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Adducteurs",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Debout près d'une chaise, recule un pied et descends doucement jusqu'à une petite profondeur. Repousse le sol pour revenir debout, puis change de jambe.",
+    "niveau_2": "Fente arrière sans appui, genou arrière qui frôle le sol, genou avant au-dessus de la cheville, buste droit. Alterne les jambes, 10 par côté.",
+    "niveau_3": "Fente sautée (Jump Lunge) : change de jambe en l'air, réception souple. Ou fente marchée sur 6 à 8 m avec bouteilles lestées.",
+    "coach_tip": "Imagine deux rails parallèles sous tes pieds : le genou arrière descend entre eux, sans partir vers l'intérieur. Tiens-toi à la chaise plutôt que de perdre l'équilibre."
+  },
+  {
+    "id": "FF-026",
+    "nom_fr": "Squat bulgare",
+    "nom_en": "Bulgarian Split Squat",
+    "mots_cles": [
+      "bulgarian_split_squat",
+      "quadriceps",
+      "fessiers",
+      "unilateral",
+      "chaise"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Chaise solide ou canapé",
+      "Bouteilles (en option)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier (jambe avant)",
+      "Hanche",
+      "Genou"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Adducteurs",
+      "Fléchisseurs de hanche (étirement de la jambe arrière)",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "Commence avec le pied arrière posé au sol ou sur un support très bas et une main sur un appui. Descends légèrement sur la jambe avant, puis remonte, 6 à 8 fois par côté.",
+    "niveau_2": "Cou-de-pied arrière posé sur l'assise d'une chaise, pied avant à environ 60 cm. Descends verticalement jusqu'à ce que la cuisse avant soit parallèle au sol. 8 à 10 par côté.",
+    "niveau_3": "Bouteilles lestées dans les mains, tempo lent (4 s de descente), ou pause de 3 s en bas. Variante explosive : poussée avec décollage du pied avant.",
+    "coach_tip": "Descends comme dans un ascenseur, sans t'effondrer vers l'avant. Le support arrière doit être bas et stable ; si le genou ou la hanche fait mal, réduis l'amplitude."
+  },
+  {
+    "id": "FF-027",
+    "nom_fr": "Fente latérale",
+    "nom_en": "Lateral Lunge",
+    "mots_cles": [
+      "lateral_lunge",
+      "adducteurs",
+      "fessiers",
+      "plan_frontal",
+      "mobilite"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Adducteurs",
+      "Hanche (abduction/adduction)",
+      "Genou"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en te déplaçant sur le côté, expire en revenant.",
+    "niveau_1": "Fais un petit pas sur le côté et plie la jambe qui reçoit le poids, tandis que l'autre jambe reste presque tendue. Reviens au centre puis change de côté.",
+    "niveau_2": "Grand pas latéral, fesses vers l'arrière, jambe d'appui fléchie jusqu'à parallèle, l'autre jambe tendue (pied à plat). Poitrine haute, pousse le sol pour revenir. 8 par côté.",
+    "niveau_3": "Bouteille tenue contre la poitrine, ou fente latérale sautée (changement de côté en l'air). Enchaîne avec une fente arrière dans un cycle fente en étoile.",
+    "coach_tip": "Pense à envoyer les fesses vers l'arrière du côté où tu descends. Le pied reste entier au sol et le genou suit les orteils ; ne cherche pas la profondeur à tout prix."
+  },
+  {
+    "id": "FF-028",
+    "nom_fr": "Montée sur chaise",
+    "nom_en": "Step-Up",
+    "mots_cles": [
+      "step_up",
+      "quadriceps",
+      "fessiers",
+      "unilateral",
+      "chaise",
+      "equilibre"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Chaise très stable (appuyée contre un mur) ou marche d'escalier"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche",
+      "Genou"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Ischio-jambiers",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en montant, inspire en redescendant.",
+    "niveau_1": "Utilise une marche basse et parfaitement stable, de 15 à 20 cm. Pose tout le pied dessus, monte en te tenant à un mur si besoin, puis redescends lentement.",
+    "niveau_2": "Chaise standard (40 cm), monte en poussant avec la jambe haute uniquement (la jambe du sol ne pousse pas), redescends en 3 s. 8 à 10 par côté.",
+    "niveau_3": "Montée explosive avec genou haut, ou bouteilles lestées dans les mains. Variante : montée avec saut, réception sur la jambe d'appui.",
+    "coach_tip": "Chaise ou marche parfaitement stable, jamais glissante. Pose tout le pied avant de pousser et garde une main sur un mur si l'équilibre est incertain."
+  },
+  {
+    "id": "FF-029",
+    "nom_fr": "Chaise murale",
+    "nom_en": "Wall Sit",
+    "mots_cles": [
+      "wall_sit",
+      "quadriceps",
+      "isometrique",
+      "endurance",
+      "mur"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Mur"
+    ],
+    "muscles_principaux": [
+      "Quadriceps (isométrie)",
+      "Grand fessier",
+      "Genou et hanche (angle fixe)"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Adducteurs",
+      "Mollets",
+      "Transverse de l'abdomen"
+    ],
+    "respiration": "Respiration régulière et fluide, sans jamais bloquer l'air (inspire par le nez, expire par la bouche).",
+    "niveau_1": "Dos contre un mur, pieds légèrement en avant. Descends seulement jusqu'à une position confortable, comme si tu allais t'asseoir sur une chaise. Tiens 20 à 30 s.",
+    "niveau_2": "Descends jusqu'à 90° (cuisses parallèles au sol, genoux au-dessus des chevilles), dos plaqué, pieds à largeur de hanches. Tiens 30 à 60 s.",
+    "niveau_3": "Tiens une jambe tendue devant toi (30 s par côté), ou ajoute une bouteille lestée sur les cuisses. Variante : élévation des talons (travail des mollets).",
+    "coach_tip": "Regarde un point fixe et respire sans bloquer. Si les genoux tremblent fortement ou si la position devient douloureuse, remonte avant l'échec."
+  },
+  {
+    "id": "FF-030",
+    "nom_fr": "Squat sauté",
+    "nom_en": "Jump Squat",
+    "mots_cles": [
+      "jump_squat",
+      "explosif",
+      "pliometrie",
+      "jambes",
+      "cardio"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Aucun",
+      "Sol antidérapant, tapis conseillé"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Triple extension (hanche, genou, cheville)"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire sur la poussée et le saut.",
+    "niveau_1": "Commence sans décoller les pieds : descends en squat puis remonte sur la pointe des pieds. Garde les genoux souples et alignés avec les orteils.",
+    "niveau_2": "Descends en squat, puis saute le plus haut possible, bras qui aident l'impulsion. Réception pieds à plat, genoux fléchis (amortis), enchaîne en douceur. 8 à 10 répétitions.",
+    "niveau_3": "Saut en longueur (avec réception stable), ou saut avec rotation de 180°. Variante : squat sauté chronométré, 30 s à intensité maximale.",
+    "coach_tip": "Atterris comme un chat : silencieux, genoux souples, poids réparti sur tout le pied. Si la réception devient bruyante, repasse à la version sans saut."
+  },
+  {
+    "id": "FF-031",
+    "nom_fr": "Élévation des mollets",
+    "nom_en": "Calf Raise",
+    "mots_cles": [
+      "calf_raise",
+      "mollets",
+      "cheville",
+      "equilibre",
+      "marche"
+    ],
+    "categorie": "jambes",
+    "materiel": [
+      "Marche d'escalier ou livre épais (en option)"
+    ],
+    "muscles_principaux": [
+      "Gastrocnémien (jumeaux)",
+      "Soléaire",
+      "Articulation de la cheville (flexion plantaire)"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs des orteils",
+      "Stabilisateurs de la cheville"
+    ],
+    "respiration": "Expire en montant, inspire en redescendant.",
+    "niveau_1": "Debout près d'un mur, monte lentement sur les deux pointes de pieds, reste 1 s en haut puis redescends jusqu'au sol.",
+    "niveau_2": "Pointes sur le bord d'une marche, talons dans le vide. Descends bas (étirement), monte haut (contraction). 12 à 15 répétitions, tempo 2-1-2.",
+    "niveau_3": "À une jambe, avec bouteille dans la main libre. Variante : sauts de mollets sans plier les genoux (pogo).",
+    "coach_tip": "Monte droit comme si le sommet du crâne voulait toucher le plafond. Ne rebondis pas en bas : une montée contrôlée protège les chevilles."
+  },
+  {
+    "id": "FF-032",
+    "nom_fr": "Pont fessier",
+    "nom_en": "Glute Bridge",
+    "mots_cles": [
+      "glute_bridge",
+      "fessiers",
+      "ischios",
+      "chaine_posterieure",
+      "tapis"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Transverse de l'abdomen",
+      "Adducteurs",
+      "Quadriceps"
+    ],
+    "respiration": "Inspire en bas, expire en montant le bassin.",
+    "niveau_1": "Allongé sur le dos, genoux pliés et pieds à plat à la largeur des hanches. Pousse dans les pieds pour monter le bassin, puis redescends lentement, 12 à 15 fois.",
+    "niveau_2": "Pause de 2 s en haut, fessiers serrés, bassin en légère rétroversion (le nombril s'enfonce vers les côtes), côtes basses. Pousse dans les talons. 12 à 15 répétitions.",
+    "niveau_3": "Pont à une jambe (l'autre jambe tendue, cuisses alignées), ou pont avec pieds surélevés sur une chaise. Variante : bouteille posée sur le bassin.",
+    "coach_tip": "Imagine que tu écrases doucement une noix entre les fessiers en haut. Si les lombaires prennent le relais, baisse un peu le bassin et serre davantage les fessiers."
+  },
+  {
+    "id": "FF-033",
+    "nom_fr": "Poussée de hanche sur chaise",
+    "nom_en": "Hip Thrust (Chair)",
+    "mots_cles": [
+      "hip_thrust",
+      "fessiers",
+      "chaise",
+      "extension_hanche",
+      "chaine_posterieure"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Chaise très stable, adossée à un mur",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Extension de hanche en grande amplitude"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Quadriceps",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en poussant les hanches vers le plafond, inspire en descendant.",
+    "niveau_1": "Utilise une chaise lourde et bloquée contre un mur. Le haut du dos repose sur le bord de l'assise, pieds à plat. Monte le bassin jusqu'à aligner épaules, hanches et genoux, sans forcer l'amplitude.",
+    "niveau_2": "Descente complète du bassin (frôle le sol), poussée jusqu'à l'alignement épaules-hanches-genoux. Menton légèrement rentré, regard vers l'avant. Pause de 2 s en haut. 12 répétitions.",
+    "niveau_3": "À une jambe, ou avec bouteilles lestées sur le bassin. Variante : tempo 3-2-1 (3 s de descente, 2 s de pause, 1 s de poussée).",
+    "coach_tip": "Chaise bloquée contre un mur, bord sous les omoplates et jamais sous le cou. Monte en serrant les fessiers sans hypercambrer le bas du dos."
+  },
+  {
+    "id": "FF-034",
+    "nom_fr": "Bonjour",
+    "nom_en": "Good Morning",
+    "mots_cles": [
+      "good_morning",
+      "ischios",
+      "lombaires",
+      "charniere_hanche",
+      "debout"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Aucun",
+      "Bouteille (en option)"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Érecteurs du rachis",
+      "Hanche (flexion/extension)"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Adducteurs",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en reculant les hanches, expire en les ramenant devant.",
+    "niveau_1": "Debout, genoux légèrement pliés. Recule les fesses comme pour fermer une porte avec elles, laisse le buste s'incliner et garde le dos droit, puis reviens debout.",
+    "niveau_2": "Mains derrière la tête (coudes ouverts), buste incliné à 45° à 60°, dos droit. Remonte en poussant les hanches vers l'avant. 10 à 12 répétitions.",
+    "niveau_3": "Bouteille tenue contre la poitrine, ou tempo lent (4 s de descente). Variante : Good Morning sur une jambe (progression vers le soulevé de terre roumain à une jambe).",
+    "coach_tip": "Ferme une porte avec tes fesses : elles reculent avant que le buste ne s'incline. Si le dos s'arrondit, réduis l'inclinaison."
+  },
+  {
+    "id": "FF-035",
+    "nom_fr": "Soulevé de terre roumain à une jambe",
+    "nom_en": "Single-Leg Romanian Deadlift",
+    "mots_cles": [
+      "single_leg_rdl",
+      "ischios",
+      "fessiers",
+      "equilibre",
+      "unilateral"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Aucun",
+      "1 ou 2 bouteilles d'eau (en option)"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Stabilisateurs de la cheville"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Une main sur un mur ou une chaise, garde une jambe légèrement pliée et l'autre pied juste derrière sur la pointe. Penche le buste en reculant les fesses, puis reviens sans tourner le bassin.",
+    "niveau_2": "Sans appui, jambe libre qui s'élève derrière, tendue, en ligne avec le buste (comme une balance). Hanches face au sol, sans pivoter. 8 par côté.",
+    "niveau_3": "Bouteilles lestées dans chaque main, ou yeux fermés pour solliciter l'équilibre. Variante : tempo 3-1-3.",
+    "coach_tip": "Imagine un phare posé sur ton bassin : il doit rester orienté vers le sol. Utilise l'appui au début et arrête si le genou d'appui devient instable."
+  },
+  {
+    "id": "FF-036",
+    "nom_fr": "Flexion de jambe glissée (serviette)",
+    "nom_en": "Slider Hamstring Curl",
+    "mots_cles": [
+      "hamstring_curl",
+      "ischios",
+      "serviette",
+      "glissement",
+      "chaine_posterieure"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Serviette ou chaussettes sur sol lisse",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Flexion du genou",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Mollets",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en étendant les jambes, expire en les ramenant.",
+    "niveau_1": "Allongé sur le dos, monte le bassin comme pour un pont fessier, pieds posés sur une serviette. Fais glisser les pieds de quelques centimètres vers l'avant puis ramène-les lentement.",
+    "niveau_2": "Pont fessier, glisse les deux pieds vers l'avant jusqu'à jambes presque tendues, puis ramène lentement les talons vers les fesses, bassin haut tout le long. 8 à 10 répétitions.",
+    "niveau_3": "À une jambe (l'autre levée), ou tempo lent (4 s à l'aller, 2 s au retour). Variante : progression vers la flexion nordique (descente contrôlée vers l'avant à genoux, pieds bloqués sous un meuble lourd).",
+    "coach_tip": "C'est très exigeant pour l'arrière des cuisses : avance par petits glissements et garde le bassin levé seulement si tu contrôles le mouvement. Si tu crampes, réduis l'amplitude."
+  },
+  {
+    "id": "FF-037",
+    "nom_fr": "Extension de hanche à quatre pattes",
+    "nom_en": "Donkey Kick",
+    "mots_cles": [
+      "donkey_kick",
+      "fessiers",
+      "quatre_pattes",
+      "extension_hanche",
+      "tapis"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en poussant la jambe vers le plafond, inspire en revenant.",
+    "niveau_1": "À quatre pattes, plie un genou à 90° et pousse le talon vers le plafond sur une petite amplitude. Garde le ventre légèrement serré et le bassin stable.",
+    "niveau_2": "Pousse le talon vers le plafond jusqu'à aligner la cuisse avec le dos, sans cambrer les lombaires. Serre le fessier 1 s en haut. 12 à 15 par côté.",
+    "niveau_3": "Bouteille coincée entre le mollet et la cuisse, ou pause de 3 s en haut. Variante : pulses (10 petites impulsions en haut).",
+    "coach_tip": "Pousse le talon vers le plafond comme si tu voulais laisser une empreinte, sans creuser le bas du dos. Le mouvement doit venir de la hanche, pas d'un élan."
+  },
+  {
+    "id": "FF-038",
+    "nom_fr": "Ouverture de hanche à quatre pattes",
+    "nom_en": "Fire Hydrant",
+    "mots_cles": [
+      "fire_hydrant",
+      "moyen_fessier",
+      "abduction",
+      "hanches",
+      "quatre_pattes"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Moyen fessier",
+      "Petit fessier",
+      "Abduction de hanche"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Rotateurs externes",
+      "Obliques",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en ouvrant la jambe sur le côté, inspire en revenant.",
+    "niveau_1": "À quatre pattes, garde un genou plié et ouvre lentement la jambe sur le côté sur une petite amplitude. Le bassin reste face au sol.",
+    "niveau_2": "Ouvre jusqu'à ce que la cuisse soit parallèle au sol. Le bassin reste immobile, comme un chien devant une borne d'incendie. 12 à 15 par côté.",
+    "niveau_3": "Tiens la jambe levée 3 s, ou ajoute un cercle de hanche (genou qui trace un cercle vers l'arrière). Variante : bouteille derrière le genou.",
+    "coach_tip": "Imagine une bouteille posée sur le bas du dos : elle ne doit pas tomber. Si elle bascule, réduis l'ouverture de la jambe."
+  },
+  {
+    "id": "FF-039",
+    "nom_fr": "Marche du fermier",
+    "nom_en": "Farmer's Walk",
+    "mots_cles": [
+      "farmers_walk",
+      "grip",
+      "trapezes",
+      "posture",
+      "bouteilles",
+      "portage"
+    ],
+    "categorie": "chaine_posterieure",
+    "materiel": [
+      "2 bouteilles d'eau lourdes (1,5 L ou remplies de sable) ou 2 sacs"
+    ],
+    "muscles_principaux": [
+      "Trapèzes supérieurs",
+      "Muscles de l'avant-bras (grip)",
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Stabilité du tronc"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Mollets",
+      "Deltoïdes"
+    ],
+    "respiration": "Respiration calme et rythmée (inspire 2 pas, expire 2 pas), sans bloquer l'air.",
+    "niveau_1": "Tiens deux bouteilles légères près des cuisses et marche lentement sur 10 m. Garde le buste droit, les épaules basses et les bras immobiles.",
+    "niveau_2": "Bouteilles lourdes, 20 à 30 m, pas réguliers. Garde le tronc immobile, abdominaux serrés, ne penche pas du côté lesté.",
+    "niveau_3": "Marche sur les pointes de pieds, ou marche à une main (Suitcase Carry) avec une seule bouteille : le tronc lutte contre l'inclinaison. Variante : montée d'escalier avec les bouteilles.",
+    "coach_tip": "Grandis-toi comme si un fil tirait le sommet du crâne vers le plafond. Les épaules restent basses et les charges proches du corps ; si tu penches d'un côté, allège."
+  },
+  {
+    "id": "FF-040",
+    "nom_fr": "Planche sur avant-bras",
+    "nom_en": "Forearm Plank",
+    "mots_cles": [
+      "plank",
+      "gainage",
+      "abdominaux",
+      "core",
+      "isometrique",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Obliques",
+      "Stabilité lombaire (anti-extension)"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Deltoïdes",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "respiration": "Respiration courte et régulière : inspire par le nez 2 s, expire par la bouche 2 s, ventre toujours rentré.",
+    "niveau_1": "À genoux, appuie-toi sur les avant-bras. Garde la tête, le dos et les hanches alignés, puis serre doucement les fesses et le ventre. Tiens 20 à 30 s.",
+    "niveau_2": "Sur les orteils, corps rigide en ligne droite, coudes sous les épaules, fessiers serrés, bassin en légère rétroversion. Tiens 30 à 60 s.",
+    "niveau_3": "Planche avec levée alternée d'un bras ou d'une jambe (anti-rotation), ou RKC Plank : serre tout le corps à 100 % pendant 10 à 20 s. Variante : pieds sur une chaise.",
+    "coach_tip": "Imagine une planche à repasser : ni ventre qui tombe, ni fesses qui montent. Si le bas du dos se creuse, pose les genoux et récupère."
+  },
+  {
+    "id": "FF-041",
+    "nom_fr": "Planche latérale",
+    "nom_en": "Side Plank",
+    "mots_cles": [
+      "side_plank",
+      "obliques",
+      "moyen_fessier",
+      "gainage_lateral",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Carré des lombes",
+      "Stabilité latérale de la colonne (anti-flexion latérale)"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Deltoïde (épaule d'appui)",
+      "Grand dentelé",
+      "Adducteurs"
+    ],
+    "respiration": "Respiration régulière sans blocage, ventre rentré.",
+    "niveau_1": "Sur le côté, appuie-toi sur un avant-bras et garde les genoux pliés. Soulève le bassin jusqu'à former une ligne entre l'épaule, la hanche et le genou. Tiens 15 à 20 s.",
+    "niveau_2": "Jambes tendues, pieds empilés (ou décalés pour plus de stabilité), corps en ligne droite. 20 à 40 s par côté.",
+    "niveau_3": "Jambe du dessus levée (étoile), ou Side Plank Dips (descends la hanche vers le sol et remonte). Variante : appui sur la main, bras tendu.",
+    "coach_tip": "Pousse le sol avec l'avant-bras comme si tu voulais l'éloigner de toi. Si l'épaule s'écrase ou fait mal, pose le genou et réduis la durée."
+  },
+  {
+    "id": "FF-042",
+    "nom_fr": "Insecte mort",
+    "nom_en": "Dead Bug",
+    "mots_cles": [
+      "dead_bug",
+      "transverse",
+      "anti_extension",
+      "coordination",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Stabilité lombo-pelvienne"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche",
+      "Obliques",
+      "Deltoïdes"
+    ],
+    "respiration": "Expire en étendant bras et jambe opposés (en vidant les poumons), inspire en revenant.",
+    "niveau_1": "Allongé sur le dos, genoux pliés au-dessus des hanches et bras vers le plafond. Tends une jambe jusqu'à frôler le sol avec le talon, puis ramène-la sans laisser le bas du dos se décoller.",
+    "niveau_2": "Étends bras droit et jambe gauche simultanément, sans décoller le bas du dos du sol (rétroversion légère). 8 à 10 par côté.",
+    "niveau_3": "Une bouteille dans chaque main, bras tendus, ou pause de 3 s en extension. Variante : ralentis à 5 s par répétition.",
+    "coach_tip": "Le bas du dos reste lourd au sol comme collé par un aimant. S'il se décolle, ramène la jambe plus haut : contrôle avant amplitude."
+  },
+  {
+    "id": "FF-043",
+    "nom_fr": "Position du bateau creux",
+    "nom_en": "Hollow Body Hold",
+    "mots_cles": [
+      "hollow_body",
+      "abdominaux",
+      "gymnastique",
+      "anti_extension",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand droit de l'abdomen",
+      "Transverse",
+      "Fléchisseurs de hanche",
+      "Flexion lombaire contrôlée"
+    ],
+    "muscles_secondaires": [
+      "Obliques",
+      "Quadriceps",
+      "Adducteurs",
+      "Grand dentelé"
+    ],
+    "respiration": "Respiration courte et régulière, ventre contracté.",
+    "niveau_1": "Allongé sur le dos, genoux pliés au-dessus des hanches. Soulève légèrement la tête et les épaules, garde le bas du dos au sol et tiens 15 à 20 s.",
+    "niveau_2": "Jambes tendues à 45°, bras tendus au-dessus de la tête, bas du dos collé au sol (rétroversion), tête et épaules décollées. Tiens 20 à 40 s.",
+    "niveau_3": "Hollow Rock : balancier avec le corps rigide comme un bateau. Ou jambes plus basses (30°). Variante : bouteille dans les mains.",
+    "coach_tip": "Règle d'or : le bas du dos reste collé au sol. Dès qu'il se décolle, remonte les jambes ou repose les épaules."
+  },
+  {
+    "id": "FF-044",
+    "nom_fr": "Crunch",
+    "nom_en": "Crunch",
+    "mots_cles": [
+      "crunch",
+      "grand_droit",
+      "abdominaux",
+      "flexion",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand droit de l'abdomen",
+      "Flexion de la colonne"
+    ],
+    "muscles_secondaires": [
+      "Obliques",
+      "Transverse"
+    ],
+    "respiration": "Expire en montant les épaules (en vidant les poumons), inspire en redescendant.",
+    "niveau_1": "Allongé sur le dos, genoux pliés et pieds au sol, mains posées sur les cuisses. Soulève seulement la tête et le haut des épaules en faisant glisser les mains vers les genoux.",
+    "niveau_2": "Mains croisées sur la poitrine, décolle les omoplates du sol, menton légèrement rentré (une balle de tennis entre menton et poitrine), bas du dos au sol. 12 à 15 répétitions.",
+    "niveau_3": "Crunch jambes tendues à la verticale, ou avec bouteille tendue au plafond. Variante : pause de 2 s en haut.",
+    "coach_tip": "Ne tire jamais sur la nuque : imagine que les côtes glissent vers le bassin. Si le cou fatigue, diminue l'amplitude et ralentis."
+  },
+  {
+    "id": "FF-045",
+    "nom_fr": "Crunch vélo",
+    "nom_en": "Bicycle Crunch",
+    "mots_cles": [
+      "bicycle_crunch",
+      "obliques",
+      "rotation",
+      "abdominaux",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Obliques interne et externe",
+      "Grand droit",
+      "Rotation et flexion de la colonne"
+    ],
+    "muscles_secondaires": [
+      "Transverse",
+      "Fléchisseurs de hanche",
+      "Quadriceps"
+    ],
+    "respiration": "Expire à chaque torsion (coude vers le genou opposé), inspire au centre.",
+    "niveau_1": "Allongé sur le dos, genoux pliés au-dessus des hanches. Approche lentement le coude droit du genou gauche puis inverse, en tournant le haut du corps sans tirer sur la nuque.",
+    "niveau_2": "Jambes qui pédalent, coude opposé vers le genou, épaule qui décolle du sol. Tempo lent (2 s par côté). 12 à 16 répétitions au total.",
+    "niveau_3": "Jambe tendue plus basse (30 à 45°), ou crunch vélo rapide pendant 30 s. Variante : pause de 1 s à chaque torsion.",
+    "coach_tip": "Imagine que ta poitrine tourne vers le genou opposé, plutôt que de tirer le coude vers lui. Garde le bas du dos stable et ralentis si tu perds la rotation."
+  },
+  {
+    "id": "FF-046",
+    "nom_fr": "Relevé de jambes",
+    "nom_en": "Lying Leg Raise",
+    "mots_cles": [
+      "leg_raise",
+      "abdominaux_bas",
+      "flechisseurs_hanche",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand droit (portion basse)",
+      "Fléchisseurs de hanche (psoas)",
+      "Flexion de hanche"
+    ],
+    "muscles_secondaires": [
+      "Transverse",
+      "Obliques",
+      "Quadriceps"
+    ],
+    "respiration": "Expire en levant les jambes, inspire en les descendant.",
+    "niveau_1": "Allongé sur le dos, genoux pliés et mains sous les fesses. Ramène les genoux vers la poitrine, puis éloigne-les lentement sans creuser le bas du dos.",
+    "niveau_2": "Jambes tendues, monte à la verticale, descends lentement jusqu'à 10 à 20 cm du sol, bas du dos collé au sol. 8 à 12 répétitions.",
+    "niveau_3": "Leg Raise avec pause de 3 s en bas, ou jambes qui battent à 10 cm du sol (Flutter Kicks) pendant 30 s. Variante : bouteille entre les pieds.",
+    "coach_tip": "Le bas du dos reste en contact avec le sol. Si tu dois cambrer pour descendre les jambes, remonte-les ou plie davantage les genoux."
+  },
+  {
+    "id": "FF-047",
+    "nom_fr": "Grimpeur de montagne lent",
+    "nom_en": "Slow Mountain Climbers",
+    "mots_cles": [
+      "mountain_climbers",
+      "core",
+      "gainage_dynamique",
+      "epaules",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Obliques",
+      "Transverse",
+      "Fléchisseurs de hanche",
+      "Stabilité du tronc"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Grand dentelé",
+      "Triceps",
+      "Quadriceps"
+    ],
+    "respiration": "Expire à chaque genou ramené, inspire en poussant la jambe en arrière.",
+    "niveau_1": "En position de planche haute, mains sous les épaules. Ramène un genou vers la poitrine puis replace-le avant de changer de jambe, lentement, 8 fois de chaque côté.",
+    "niveau_2": "Alterne les genoux contrôlés, hanches stables, sans lever le bassin. 12 à 16 au total.",
+    "niveau_3": "Genou vers le coude opposé (obliques), ou mains sur des bouteilles (instables). Variante : tempo lent 3 s par répétition.",
+    "coach_tip": "Imagine un verre d'eau sur le bas du dos : il reste horizontal. Si les hanches montent ou tournent, ralentis avant d'accélérer."
+  },
+  {
+    "id": "FF-048",
+    "nom_fr": "Planche avec touche d'épaule",
+    "nom_en": "Plank Shoulder Tap",
+    "mots_cles": [
+      "shoulder_tap",
+      "anti_rotation",
+      "core",
+      "epaules",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Transverse",
+      "Obliques",
+      "Grand droit",
+      "Stabilité anti-rotation"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Grand dentelé",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "respiration": "Expire à chaque touche, inspire en reposant la main.",
+    "niveau_1": "En planche sur les genoux, mains sous les épaules. Touche doucement l'épaule opposée avec une main, repose-la puis change de côté, sans faire tourner les hanches.",
+    "niveau_2": "Planche haute sur les orteils, pieds écartés à largeur d'épaules (plus de stabilité). Touche l'épaule opposée sans balancer le bassin. 10 par côté.",
+    "niveau_3": "Pieds joints (instabilité maximale), ou touche avec pause de 2 s. Variante : touche d'une bouteille posée à 30 cm.",
+    "coach_tip": "Le bassin doit rester comme une statue pendant que la main bouge. Écarte un peu les pieds si tu bascules trop, et arrête en cas de douleur d'épaule ou de poignet."
+  },
+  {
+    "id": "FF-049",
+    "nom_fr": "Planche inversée",
+    "nom_en": "Reverse Plank",
+    "mots_cles": [
+      "reverse_plank",
+      "chaine_posterieure",
+      "fessiers",
+      "epaules",
+      "tapis"
+    ],
+    "categorie": "core",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Deltoïde postérieur",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Trapèzes",
+      "Abdominaux"
+    ],
+    "respiration": "Respiration régulière, sans bloquer l'air.",
+    "niveau_1": "Assis, mains derrière toi et genoux pliés. Pousse dans les mains et les pieds pour soulever le bassin, puis garde le corps confortable et stable 15 à 20 s.",
+    "niveau_2": "Jambes tendues, pousse le bassin jusqu'à l'alignement épaules-hanches-pieds, tête neutre. 20 à 40 s.",
+    "niveau_3": "Levée alternée d'une jambe tendue, ou pieds sur une chaise. Variante : sur les avant-bras.",
+    "coach_tip": "Pousse le sol avec les mains et serre les fessiers pour garder les hanches hautes. Si les épaules tirent, réduis la hauteur ou arrête."
+  },
+  {
+    "id": "FF-050",
+    "nom_fr": "Burpee",
+    "nom_en": "Burpee",
+    "mots_cles": [
+      "burpee",
+      "cardio",
+      "metcon",
+      "corps_entier",
+      "explosif",
+      "maison"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Aucun",
+      "Tapis conseillé"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Pectoraux",
+      "Deltoïdes",
+      "Triceps",
+      "Hanches, genoux, épaules, coudes"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Mollets",
+      "Ischio-jambiers",
+      "Système cardiovasculaire"
+    ],
+    "respiration": "Expire en descendant au sol, inspire en remontant, expire sur le saut. Trouve un rythme régulier, sans retenir l'air.",
+    "niveau_1": "Sans saut : accroupis-toi, pose les mains au sol, recule un pied puis l'autre jusqu'à une planche, avance les pieds un par un et relève-toi. Pas de pompe au début.",
+    "niveau_2": "Descends en squat, jette les pieds en arrière (planche), pompe poitrine au sol, reviens en squat en sautant les pieds, saute avec les bras en l'air. Mains à plat, dos plat.",
+    "niveau_3": "Burpee Tuck Jump (saut groupé genoux à la poitrine), burpee avec saut en longueur, ou burpee poitrine au sol. Variante : burpee à une jambe.",
+    "coach_tip": "Priorité sécurité : mains stables, dos contrôlé et aucun saut si la réception n'est pas maîtrisée. Un burpee lent et propre vaut mieux qu'une répétition précipitée."
+  },
+  {
+    "id": "FF-051",
+    "nom_fr": "Grimpeurs",
+    "nom_en": "Mountain Climbers",
+    "mots_cles": [
+      "mountain_climbers",
+      "cardio",
+      "core",
+      "metcon",
+      "gainage_dynamique"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Fléchisseurs de hanche",
+      "Grand droit",
+      "Obliques",
+      "Quadriceps",
+      "Hanches et épaules"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Triceps",
+      "Grand dentelé",
+      "Mollets"
+    ],
+    "respiration": "Cadence rapide mais régulière : expire sur chaque genou ramené (ou tous les 2 genoux).",
+    "niveau_1": "Place les mains sur une chaise stable et garde le corps droit. Ramène lentement un genou vers la poitrine puis l'autre, sans laisser les hanches monter.",
+    "niveau_2": "Planche haute au sol, ramène les genoux vers la poitrine rapidement, hanches au niveau des épaules. 30 s.",
+    "niveau_3": "Genoux croisés vers le coude opposé (Cross-Body), grimpeurs sur bouteilles (mains instables) ou Spiderman Climbers. Variante : tempo sprint 20 s.",
+    "coach_tip": "Garde les épaules au-dessus des mains et le ventre légèrement serré. Si les hanches montent comme une tente, ralentis ou remonte les mains sur un support plus haut."
+  },
+  {
+    "id": "FF-052",
+    "nom_fr": "Patineur (sauts latéraux)",
+    "nom_en": "Skater Jump",
+    "mots_cles": [
+      "skater",
+      "lateral",
+      "cardio",
+      "metcon",
+      "equilibre",
+      "plyometrie"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Aucun",
+      "Sol antidérapant"
+    ],
+    "muscles_principaux": [
+      "Moyen et grand fessier",
+      "Quadriceps",
+      "Adducteurs",
+      "Mollets",
+      "Hanche, genou, cheville"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Obliques",
+      "Stabilisateurs de cheville"
+    ],
+    "respiration": "Expire à chaque saut latéral, inspire à la réception.",
+    "niveau_1": "Sans sauter, fais un pas de côté et ramène l'autre jambe derrière toi en gardant le genou souple. Alterne droite et gauche avec les bras opposés.",
+    "niveau_2": "Saute latéralement d'une jambe à l'autre, réception sur une jambe fléchie, jambe arrière qui passe derrière. 12 à 20 répétitions.",
+    "niveau_3": "Saut plus long (distance maximale) avec toucher du sol, ou saut avec pause d'équilibre de 1 s à chaque réception. Variante : Curtsy Skater (jambe arrière croisée).",
+    "coach_tip": "Atterris comme sur de la glace : pied silencieux, genou souple et aligné avec les orteils. Commence sans saut avant d'ajouter de la vitesse."
+  },
+  {
+    "id": "FF-053",
+    "nom_fr": "Saut groupé",
+    "nom_en": "Tuck Jump",
+    "mots_cles": [
+      "tuck_jump",
+      "explosif",
+      "pliometrie",
+      "cardio",
+      "avance"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Aucun",
+      "Tapis conseillé"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Fléchisseurs de hanche",
+      "Triple extension puis flexion rapide"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Ischio-jambiers",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire en préparant le saut, expire sur la poussée.",
+    "niveau_1": "Sans saut, monte un genou vers la poitrine puis l'autre, ou fais un demi-squat suivi d'une montée sur la pointe des pieds. Garde un rythme contrôlé.",
+    "niveau_2": "Saute en ramenant les genoux vers la poitrine (cuisses à hauteur de hanches au minimum), réception amortie, genoux souples. 6 à 10 répétitions, avec pause de 1 à 2 s entre chacune.",
+    "niveau_3": "Sauts groupés enchaînés sans pause (20 à 30 s), ou saut groupé avec réception en squat profond. Variante : saut par-dessus une bouteille couchée.",
+    "coach_tip": "Exercice à impact élevé : la réception doit rester silencieuse et stable. Dès que tu ne contrôles plus l'atterrissage, repasse à la version sans saut."
+  },
+  {
+    "id": "FF-054",
+    "nom_fr": "Marche de l'ours",
+    "nom_en": "Bear Crawl",
+    "mots_cles": [
+      "bear_crawl",
+      "corps_entier",
+      "core",
+      "epaules",
+      "locomotion",
+      "silencieux"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Tapis",
+      "Sol dégagé de 3 à 4 m"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Quadriceps",
+      "Abdominaux (transverse)",
+      "Grand dentelé",
+      "Stabilité du tronc"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Fessiers",
+      "Mollets",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Respiration régulière, jamais bloquée (expire tous les 2 pas).",
+    "niveau_1": "À quatre pattes, soulève les genoux de quelques centimètres seulement. Tiens 10 à 20 s, puis avance de 2 à 3 petits pas sans balancer les hanches.",
+    "niveau_2": "Avance en alternant main droite/pied gauche puis main gauche/pied droit, genoux proches du sol (5 cm), dos plat. 3 à 5 m aller, 3 à 5 m retour.",
+    "niveau_3": "Marche de l'ours en arrière ou latérale, ou avec une bouteille posée sur le dos (elle ne doit pas tomber). Variante : touche d'épaule à chaque pas.",
+    "coach_tip": "Garde le dos stable comme une table basse. Si les genoux touchent le sol ou si les hanches se balancent fortement, rapproche les mains et ralentis."
+  },
+  {
+    "id": "FF-055",
+    "nom_fr": "Planche jacks",
+    "nom_en": "Plank Jacks",
+    "mots_cles": [
+      "plank_jacks",
+      "cardio",
+      "core",
+      "adducteurs",
+      "epaules"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Abdominaux",
+      "Deltoïdes",
+      "Abducteurs et adducteurs de hanche",
+      "Stabilité du tronc"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Triceps",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire à chaque ouverture des jambes, inspire à la fermeture.",
+    "niveau_1": "En planche haute, écarte un pied sur le côté puis l'autre, puis ramène-les de la même façon. Commence sans sauter et garde les épaules au-dessus des mains.",
+    "niveau_2": "Planche haute, saute en écartant les pieds à largeur d'épaules, puis ramène-les ensemble, comme un Jumping Jack horizontal. 20 à 30 répétitions.",
+    "niveau_3": "Planche jacks avec pompe tous les 4 jacks, ou planche jacks sur avant-bras. Variante : Plank Jack Tuck (genoux vers la poitrine après chaque jack).",
+    "coach_tip": "Les épaules restent au-dessus des mains et les hanches face au sol. Si le bassin se balance, fais la version pas à pas plutôt qu'en saut."
+  },
+  {
+    "id": "FF-056",
+    "nom_fr": "Boxe dans le vide",
+    "nom_en": "Shadow Boxing",
+    "mots_cles": [
+      "shadow_boxing",
+      "cardio",
+      "epaules",
+      "coordination",
+      "silencieux"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Triceps",
+      "Pectoraux",
+      "Obliques",
+      "Épaules, coudes, rotation du tronc"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Mollets",
+      "Abdominaux",
+      "Grand dorsal (retrait du bras)"
+    ],
+    "respiration": "Expire sur chaque frappe (souffle court), inspire en revenant en garde.",
+    "niveau_1": "Debout, genoux légèrement pliés, garde les mains près du visage. Lance doucement un poing puis l'autre sans verrouiller les coudes et sans chercher la vitesse.",
+    "niveau_2": "Combinaisons direct gauche, direct droit, crochet gauche, crochet droit, avec pivot du pied arrière, déplacements légers. 45 à 60 s.",
+    "niveau_3": "4 à 6 coups rapides par seconde pendant 20 s, ou enchaînement avec esquives (flexion de genou, buste incliné) et squats. Variante : bouteilles de 0,5 L dans les mains.",
+    "coach_tip": "Ne verrouille jamais le coude et ne frappe pas à pleine vitesse. Imagine que tu frappes une cible souple à quelques centimètres devant toi ; arrête si l'épaule ou le coude devient douloureux."
+  },
+  {
+    "id": "FF-057",
+    "nom_fr": "Saut en étoile",
+    "nom_en": "Star Jump",
+    "mots_cles": [
+      "star_jump",
+      "jumping_jacks",
+      "cardio",
+      "explosif",
+      "corps_entier"
+    ],
+    "categorie": "metcon",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Deltoïdes",
+      "Triple extension"
+    ],
+    "muscles_secondaires": [
+      "Abducteurs de hanche",
+      "Abdominaux",
+      "Trapèzes"
+    ],
+    "respiration": "Inspire en préparant le saut, expire à l'ouverture en étoile.",
+    "niveau_1": "Descends en demi-squat puis remonte en ouvrant les bras et les jambes sans décoller les pieds. Garde les genoux souples et alignés avec les orteils.",
+    "niveau_2": "Squat, puis saut explosif en écartant jambes et bras en étoile, réception en squat amorti. 8 à 12 répétitions.",
+    "niveau_3": "Saut avec rotation de 180°, ou saut plus haut avec réception immédiate en burpee. Variante : Star Jump chronométré, 20 s à fond.",
+    "coach_tip": "Ouvre le corps comme une étoile sans chercher la hauteur. Si tu sautes, réceptionne silencieusement, genoux souples ; sinon reste sur la version sans impact."
+  },
+  {
+    "id": "FF-058",
+    "nom_fr": "Marche de récupération",
+    "nom_en": "Recovery Walk",
+    "mots_cles": [
+      "recovery_walk",
+      "retour_calme",
+      "cardio",
+      "recuperation",
+      "maison"
+    ],
+    "categorie": "cooldown_retour_calme",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Système cardiovasculaire",
+      "Mollets",
+      "Quadriceps",
+      "Chevilles",
+      "Genoux"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Muscles respiratoires",
+      "Stabilisateurs du tronc"
+    ],
+    "respiration": "Inspire par le nez sur 4 pas, expire par la bouche sur 6 pas. L'expiration plus longue que l'inspiration ralentit le cœur.",
+    "niveau_1": "Marche très lentement sur place ou dans la pièce pendant 2 minutes. Laisse les bras bouger naturellement et cherche à retrouver une respiration calme.",
+    "niveau_2": "Marche lente, bras qui se balancent librement, épaules relâchées, 2 à 3 minutes. Le rythme cardiaque descend sous 100 battements/minute.",
+    "niveau_3": "Marche lente avec cercles d'épaules vers l'arrière et inspiration profonde bras levés, 3 minutes. Variante : marche yeux fermés (près d'un mur).",
+    "coach_tip": "Ne t'arrête pas brutalement après un effort intense : marche jusqu'à retrouver une respiration confortable. Si tu es étourdi, ralentis et assieds-toi en sécurité si nécessaire."
+  },
+  {
+    "id": "FF-059",
+    "nom_fr": "Respiration abdominale (diaphragmatique)",
+    "nom_en": "Diaphragmatic Breathing (90-90)",
+    "mots_cles": [
+      "diaphragmatic_breathing",
+      "respiration",
+      "relaxation",
+      "parasympathique",
+      "tapis"
+    ],
+    "categorie": "cooldown_retour_calme",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Diaphragme",
+      "Transverse de l'abdomen",
+      "Plancher pelvien"
+    ],
+    "muscles_secondaires": [
+      "Intercostaux",
+      "Muscles respiratoires accessoires",
+      "Trapèzes supérieurs (relâchement)"
+    ],
+    "respiration": "C'est l'exercice : inspire par le nez en gonflant le ventre, expire lentement par la bouche en le dégonflant.",
+    "niveau_1": "Allongé sur le dos, genoux pliés, une main sur le ventre. Inspire tranquillement par le nez pendant 4 s en laissant le ventre se soulever, puis expire pendant 6 s.",
+    "niveau_2": "Jambes allongées sur une chaise (position 90-90, mollets sur l'assise), mains sur les côtes basses. Inspire 4 s en écartant les côtes, expire 6 à 8 s en les refermant. 10 cycles.",
+    "niveau_3": "Ajoute une pause de 2 s à la fin de l'expiration (poumons vides). Variante : une bouteille posée sur le ventre, qui monte et descend doucement. 12 cycles.",
+    "coach_tip": "Imagine que tes côtes basses s'ouvrent comme un accordéon à l'inspiration. Ne force jamais une grande inspiration ; si tu es étourdi, reprends une respiration normale."
+  },
+  {
+    "id": "FF-060",
+    "nom_fr": "Posture de l'enfant",
+    "nom_en": "Child's Pose",
+    "mots_cles": [
+      "child_pose",
+      "decompression",
+      "dos",
+      "lombaires",
+      "relaxation",
+      "tapis"
+    ],
+    "categorie": "cooldown_decompression",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis (étirement)",
+      "Grand dorsal",
+      "Fessiers",
+      "Flexion de hanche et de genou"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Triceps",
+      "Muscles des chevilles"
+    ],
+    "respiration": "Inspire dans le dos, en sentant les côtes s'écarter à l'arrière, expire en relâchant les fesses vers les talons.",
+    "niveau_1": "À genoux, assieds doucement les fesses vers les talons et avance les bras ou garde-les le long du corps. Pose le front sur un coussin et reste 30 s sans forcer.",
+    "niveau_2": "Bras tendus devant, front au sol, fesses vers les talons. Marche des mains vers l'avant à chaque expiration. Tiens 45 à 60 s.",
+    "niveau_3": "Genoux écartés (posture de l'enfant large), poitrine vers le sol, ou marche des mains d'un côté pour étirer le grand dorsal latéral. Variante : tiens 90 s.",
+    "coach_tip": "L'étirement doit être doux, jamais douloureux dans les genoux ou les hanches. Utilise un coussin sous les fesses ou le front pour éviter de forcer."
+  },
+  {
+    "id": "FF-061",
+    "nom_fr": "Genoux à la poitrine",
+    "nom_en": "Knees-to-Chest",
+    "mots_cles": [
+      "knees_to_chest",
+      "lombaires",
+      "decompression",
+      "dos",
+      "tapis"
+    ],
+    "categorie": "cooldown_decompression",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis lombaire",
+      "Grand fessier",
+      "Flexion de hanche",
+      "Flexion lombaire"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Carré des lombes"
+    ],
+    "respiration": "Inspire en desserrant légèrement, expire en rapprochant les genoux de la poitrine.",
+    "niveau_1": "Allongé sur le dos, garde une jambe pliée et ramène doucement l'autre genou vers la poitrine. Tiens 30 s puis change de côté, sans tirer fort sur le genou.",
+    "niveau_2": "Ramène les deux genoux vers la poitrine, mains sur les tibias, bas du dos qui s'aplatit contre le sol. Tiens 30 à 45 s.",
+    "niveau_3": "Happy Baby : saisis l'extérieur des pieds, genoux ouverts vers les aisselles, balance doucement de gauche à droite. Tiens 45 à 60 s.",
+    "coach_tip": "Ramène le genou avec les mains sans tirer brusquement. Le bas du dos reste confortable ; si la position augmente une douleur lombaire ou nerveuse, relâche immédiatement."
+  },
+  {
+    "id": "FF-062",
+    "nom_fr": "Torsion allongée",
+    "nom_en": "Supine Spinal Twist",
+    "mots_cles": [
+      "supine_twist",
+      "rotation",
+      "decompression",
+      "colonne",
+      "tapis"
+    ],
+    "categorie": "cooldown_decompression",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Érecteurs du rachis",
+      "Carré des lombes",
+      "Rotation lombaire et thoracique"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Grand pectoral (bras ouvert)",
+      "Bandelette ilio-tibiale"
+    ],
+    "respiration": "Inspire au centre, expire en laissant les genoux tomber un peu plus d'un côté.",
+    "niveau_1": "Allongé sur le dos, genoux pliés et bras ouverts sur les côtés. Laisse les deux genoux tomber doucement vers un côté, avec un coussin sous eux si nécessaire. Tiens 30 s puis change.",
+    "niveau_2": "Genoux ramenés à la poitrine puis basculés d'un côté, épaules plaquées au sol, regard du côté opposé. 45 à 60 s par côté.",
+    "niveau_3": "Jambe du dessus tendue (Reclined Twist), ou jambe croisée sur le genou opposé avec main qui tire doucement sur le genou. Variante : tiens 90 s.",
+    "coach_tip": "Les épaules restent lourdes au sol, comme collées par deux aimants. Ne pousse pas les genoux vers le sol : laisse simplement leur poids créer une rotation douce."
+  },
+  {
+    "id": "FF-063",
+    "nom_fr": "Cobra (Sphinx)",
+    "nom_en": "Cobra / Sphinx Pose",
+    "mots_cles": [
+      "cobra",
+      "sphinx",
+      "extension",
+      "abdominaux",
+      "decompression",
+      "tapis"
+    ],
+    "categorie": "cooldown_decompression",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis (extension douce)",
+      "Étirement du grand droit et des fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes inférieurs",
+      "Grand fessier",
+      "Deltoïdes postérieurs"
+    ],
+    "respiration": "Inspire en montant le buste, expire en relâchant les épaules loin des oreilles.",
+    "niveau_1": "Allongé sur le ventre, pose les avant-bras au sol sous les épaules et soulève doucement la poitrine. Garde le bassin au sol et le regard vers l'avant, sans chercher à monter haut.",
+    "niveau_2": "Mains sous les épaules, pousse le sol pour décoller le buste (Cobra), bassin au sol, bras légèrement fléchis. Tiens 20 à 30 s.",
+    "niveau_3": "Cobra avec bras tendus (extension plus profonde), ou Seal Pose avec le buste haut. Variante : alterne Cobra et posture de l'enfant 6 fois (flux dynamique).",
+    "coach_tip": "Cherche la longueur, pas la hauteur : imagine que le sommet du crâne avance. Un pincement lombaire est un signal d'arrêt, pas une sensation à traverser."
+  },
+  {
+    "id": "FF-064",
+    "nom_fr": "Jambes au mur",
+    "nom_en": "Legs Up the Wall",
+    "mots_cles": [
+      "legs_up_wall",
+      "recuperation",
+      "circulation",
+      "relaxation",
+      "mur"
+    ],
+    "categorie": "cooldown_decompression",
+    "materiel": [
+      "Mur",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers (étirement doux)",
+      "Système veineux et lymphatique (retour veineux)"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Plancher pelvien",
+      "Mollets"
+    ],
+    "respiration": "Respiration abdominale lente, 4 s d'inspiration, 6 s d'expiration.",
+    "niveau_1": "Allongé sur le dos près d'un mur, place les jambes contre le mur et garde les genoux légèrement souples. Laisse les bras reposer au sol et reste 1 à 2 min.",
+    "niveau_2": "Fesses collées au mur, jambes tendues à la verticale, bras relâchés au sol. Tiens 3 à 5 min.",
+    "niveau_3": "Jambes écartées en V (adducteurs), ou plantes des pieds jointes (Butterfly at the Wall). Variante : bouteille posée sur le ventre pour guider la respiration.",
+    "coach_tip": "Reste dans une position confortable et ne cherche pas à coller les fesses au mur. Si des fourmillements, engourdissements ou douleurs apparaissent, sors de la position."
+  },
+  {
+    "id": "FF-065",
+    "nom_fr": "Étirement du canapé (fléchisseurs de hanche et quadriceps)",
+    "nom_en": "Couch Stretch",
+    "mots_cles": [
+      "couch_stretch",
+      "psoas",
+      "quadriceps",
+      "flechisseurs_hanche",
+      "canape",
+      "mobilite"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Canapé, chaise ou mur",
+      "Tapis ou coussin pour le genou"
+    ],
+    "muscles_principaux": [
+      "Quadriceps (droit fémoral)",
+      "Psoas-iliaque",
+      "Extension de hanche",
+      "Flexion de genou"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Abdominaux (rétroversion)",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire dans la position, expire en serrant le fessier de la jambe étirée (rétroversion du bassin).",
+    "niveau_1": "En fente basse, pose le genou arrière sur un coussin et le pied arrière sur un support stable. Garde le buste droit, serre légèrement la fesse arrière et tiens 30 s par côté.",
+    "niveau_2": "Genou arrière au sol contre le canapé ou le mur, pied arrière appuyé contre le dossier, genou avant à 90°. Redresse le buste, rentre le ventre, serre le fessier arrière. 45 à 60 s par côté.",
+    "niveau_3": "Buste vertical avec bras levés, ou rapproche le genou arrière du mur pour intensifier. Variante : attrape le pied arrière avec la main du même côté.",
+    "coach_tip": "Serre doucement la fesse de la jambe arrière et garde le ventre actif : cela évite de compenser avec les lombaires. L'étirement doit être devant la hanche et la cuisse, jamais douloureux."
+  },
+  {
+    "id": "FF-066",
+    "nom_fr": "Posture du pigeon",
+    "nom_en": "Pigeon Pose",
+    "mots_cles": [
+      "pigeon",
+      "fessiers",
+      "piriforme",
+      "rotateurs_hanche",
+      "etirement",
+      "tapis"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Tapis",
+      "Coussin sous la hanche (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Piriforme",
+      "Rotateurs externes de hanche",
+      "Rotation externe de hanche"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche (jambe arrière)",
+      "Moyen fessier",
+      "Adducteurs"
+    ],
+    "respiration": "Expire en avançant le buste vers l'avant, inspire pour allonger le dos.",
+    "niveau_1": "Allongé sur le dos, pose une cheville sur le genou opposé. Attrape doucement l'arrière de la cuisse et ramène la jambe vers toi jusqu'à sentir l'étirement dans la fesse.",
+    "niveau_2": "Pigeon au sol : genou avant plié devant, tibia en diagonale, jambe arrière étendue. Buste droit, mains au sol de chaque côté. 45 à 60 s par côté.",
+    "niveau_3": "Pigeon avec buste incliné vers l'avant, front posé sur les avant-bras (Sleeping Pigeon). Variante : pigeon avec le pied arrière tiré vers la fesse.",
+    "coach_tip": "Si la tension se déplace vers le genou, ne force pas. Reviens à la version allongée et garde la cheville soutenue plutôt que de chercher une position plus profonde."
+  },
+  {
+    "id": "FF-067",
+    "nom_fr": "Étirement des ischio-jambiers allongé",
+    "nom_en": "Supine Hamstring Stretch",
+    "mots_cles": [
+      "hamstring_stretch",
+      "ischios",
+      "souplesse",
+      "serviette",
+      "tapis"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Serviette ou sangle",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Flexion de hanche",
+      "Extension du genou"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Grand fessier",
+      "Nerf sciatique (mobilité neurale)"
+    ],
+    "respiration": "Expire en tirant doucement la jambe vers toi, inspire en relâchant légèrement.",
+    "niveau_1": "Allongé sur le dos, lève une jambe avec le genou légèrement plié et tiens l'arrière de la cuisse avec les mains. Approche doucement la jambe de toi sans forcer.",
+    "niveau_2": "Jambe tendue à la verticale, serviette autour du pied, tire doucement vers toi, genou légèrement fléchi si nécessaire. Tiens 45 à 60 s par côté.",
+    "niveau_3": "Ajoute un mouvement de flexion/extension de cheville (Nerve Glide) ou croise la jambe vers l'épaule opposée. Variante : jambe au mur dans l'encadrement d'une porte.",
+    "coach_tip": "Le bassin reste lourd au sol et le genou peut rester légèrement plié. Cherche une tension musculaire progressive ; toute sensation électrique ou engourdissement = relâche immédiatement."
+  },
+  {
+    "id": "FF-068",
+    "nom_fr": "Étirement des pectoraux (encadrement de porte)",
+    "nom_en": "Doorway Chest Stretch",
+    "mots_cles": [
+      "chest_stretch",
+      "pectoraux",
+      "epaules",
+      "posture",
+      "porte"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Encadrement de porte ou mur"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Petit pectoral",
+      "Deltoïde antérieur",
+      "Abduction et rotation externe de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Biceps (portion longue)",
+      "Muscles antérieurs du cou"
+    ],
+    "respiration": "Inspire en gonflant la poitrine, expire en avançant légèrement le corps.",
+    "niveau_1": "Debout dans une porte stable, place un avant-bras sur le montant avec le coude à environ 90°. Fais un petit pas en avant jusqu'à sentir l'étirement de la poitrine.",
+    "niveau_2": "Bras à 90° d'abduction, coude à hauteur d'épaule, avance en gardant le dos neutre (pas de cambrure). 45 s par côté.",
+    "niveau_3": "Modifie la hauteur du bras (plus haut : fibres inférieures ; plus bas : fibres supérieures), ou étire les deux bras ensemble contre un mur. Variante : tourne le buste dans la direction opposée.",
+    "coach_tip": "Garde l'épaule basse et avance seulement de quelques centimètres. L'étirement doit être dans la poitrine, jamais sous forme de pincement à l'avant de l'épaule."
+  },
+  {
+    "id": "FF-069",
+    "nom_fr": "Étirement des mollets au mur",
+    "nom_en": "Wall Calf Stretch",
+    "mots_cles": [
+      "calf_stretch",
+      "mollets",
+      "cheville",
+      "etirement",
+      "mur"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Mur"
+    ],
+    "muscles_principaux": [
+      "Gastrocnémien (jumeaux)",
+      "Soléaire",
+      "Flexion dorsale de la cheville"
+    ],
+    "muscles_secondaires": [
+      "Tendon d'Achille",
+      "Fascia plantaire"
+    ],
+    "respiration": "Expire en poussant le talon vers le sol.",
+    "niveau_1": "Face à un mur, une jambe devant et l'autre derrière. Garde le talon arrière au sol et le pied dirigé vers l'avant, puis avance légèrement le bassin.",
+    "niveau_2": "Pied arrière plus éloigné, talon bien plaqué au sol, jambe arrière tendue (cible les jumeaux). 45 s. Puis fléchis légèrement le genou arrière (cible le soléaire). 30 s.",
+    "niveau_3": "Pointe du pied surélevée sur un livre ou le mur, ou chien tête en bas avec talons qui descendent alternativement. Variante : étirement en fente basse.",
+    "coach_tip": "Le talon arrière reste au sol et les orteils pointent droit devant. N'écrase pas le genou avant : avance doucement le bassin jusqu'à une tension confortable."
+  },
+  {
+    "id": "FF-070",
+    "nom_fr": "Papillon (étirement des adducteurs)",
+    "nom_en": "Butterfly Stretch",
+    "mots_cles": [
+      "butterfly_stretch",
+      "adducteurs",
+      "hanches",
+      "souplesse",
+      "tapis"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Tapis",
+      "Coussin sous les genoux (en option)"
+    ],
+    "muscles_principaux": [
+      "Adducteurs (long, court, grand)",
+      "Abduction et rotation externe de hanche"
+    ],
+    "muscles_secondaires": [
+      "Psoas",
+      "Rotateurs externes",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Expire en laissant les genoux s'ouvrir vers le sol.",
+    "niveau_1": "Assis dos contre un mur, colle les plantes des pieds et laisse les genoux s'ouvrir naturellement. Garde le dos confortable et reste 30 s.",
+    "niveau_2": "Pieds plus proches du bassin, dos droit, penche légèrement le buste vers l'avant en gardant la colonne neutre. 45 à 60 s.",
+    "niveau_3": "Penche le buste vers l'avant avec le front vers les pieds, ou Butterfly allongé sur le dos (genoux ouverts, plantes jointes). Variante : coudes en appui sur les cuisses.",
+    "coach_tip": "Laisse les genoux s'ouvrir sous l'effet du poids des jambes. Ne les pousse jamais vers le sol avec les mains : la tension doit rester douce et régulière."
+  },
+  {
+    "id": "FF-071",
+    "nom_fr": "Étirement bras croisé et triceps",
+    "nom_en": "Cross-Body Shoulder & Overhead Triceps Stretch",
+    "mots_cles": [
+      "shoulder_stretch",
+      "triceps",
+      "deltoides",
+      "etirement",
+      "debout"
+    ],
+    "categorie": "cooldown_etirements",
+    "materiel": [
+      "Aucun"
+    ],
+    "muscles_principaux": [
+      "Deltoïde postérieur",
+      "Triceps brachial (chef long)",
+      "Adduction horizontale de l'épaule",
+      "Flexion du coude"
+    ],
+    "muscles_secondaires": [
+      "Infra-épineux",
+      "Petit rond",
+      "Grand dorsal"
+    ],
+    "respiration": "Inspire en grandissant, expire en approfondissant doucement l'étirement.",
+    "niveau_1": "Amène un bras tendu devant toi puis en travers de la poitrine. Avec l'autre main, tiens doucement le bras au-dessus du coude, 30 s par côté.",
+    "niveau_2": "Triceps : un bras plié derrière la tête, coude vers le plafond, l'autre main pousse doucement sur le coude. Alterne avec le bras croisé. 30 à 45 s par côté.",
+    "niveau_3": "Cow Face Arms : une main passe par-dessus l'épaule, l'autre par-dessous, essaie d'attraper les doigts (ou utilise une serviette entre les mains). Variante : tiens 60 s.",
+    "coach_tip": "Tiens le bras au-dessus du coude et garde l'épaule basse. Ne tire pas sur l'articulation : l'étirement doit se sentir dans l'arrière de l'épaule ou le triceps."
+  },
+  {
+    "id": "FF-072",
+    "nom_fr": "Relaxation finale",
+    "nom_en": "Savasana / Final Relaxation",
+    "mots_cles": [
+      "savasana",
+      "relaxation",
+      "retour_calme",
+      "systeme_nerveux",
+      "tapis"
+    ],
+    "categorie": "cooldown_relaxation",
+    "materiel": [
+      "Tapis",
+      "Couverture (en option)"
+    ],
+    "muscles_principaux": [
+      "Système nerveux parasympathique",
+      "Diaphragme",
+      "Relâchement global"
+    ],
+    "muscles_secondaires": [
+      "Tous les groupes musculaires sollicités pendant la séance"
+    ],
+    "respiration": "Respiration naturelle, ventre qui se gonfle doucement, sans effort.",
+    "niveau_1": "Allongé sur le dos, jambes et bras relâchés, paumes vers le ciel. Ferme les yeux et relâche progressivement le corps des pieds jusqu'à la tête pendant 1 à 2 min.",
+    "niveau_2": "Même position, 3 à 5 min. Compte tes expirations de 1 à 10, puis recommence. Si tu t'égares, reprends à 1.",
+    "niveau_3": "5 à 10 min avec scan corporel guidé (pieds, mollets, cuisses, bassin, ventre, poitrine, mains, épaules, mâchoire, front). Variante : coussin sous les genoux, bouteille posée sur le ventre.",
+    "coach_tip": "Laisse le poids du corps s'enfoncer dans le sol et ne cherche pas à contrôler chaque respiration. Si une douleur ou une gêne inhabituelle apparaît, change de position plutôt que de la supporter."
+  }
+]

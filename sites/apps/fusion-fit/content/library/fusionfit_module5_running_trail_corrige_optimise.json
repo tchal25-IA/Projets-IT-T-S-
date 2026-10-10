@@ -1,0 +1,763 @@
+[
+  {
+    "id": "RUN-001",
+    "type_fiche": "Gamme Athlétique",
+    "nom_fr": "Montées de genoux",
+    "nom_en": "High Knees (Skipping)",
+    "mots_cles": [
+      "montees_genoux",
+      "skipping",
+      "gammes",
+      "echauffement",
+      "frequence"
+    ],
+    "categorie": "Gammes",
+    "description_detaillee": "Gamme de course sur place ou en progression avec élévation rapide des genoux à hauteur de hanche. L'appui se fait sur l'avant-pied, très bref, avec le buste droit et les bras qui oscillent en opposition. Le but est d'entraîner la fréquence de foulée et la coordination, pas la vitesse d'avancement.",
+    "application_pratique": "Échauffement : 2 à 3 passages de 15 à 20 m ou 20 s, avant une séance rapide (fractionné, côtes). Repos : retour en marchant.",
+    "muscles_ou_systeme_sollicite": [
+      "Fléchisseurs de hanche (psoas, droit fémoral)",
+      "Quadriceps",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "coach_tip": "Reste grand et relâché : genou monte, pied revient vite sous le bassin, bras en opposition. Cherche la coordination et la fréquence, pas la hauteur maximale. Si le buste part en arrière ou si les appuis deviennent bruyants, réduis l’amplitude."
+  },
+  {
+    "id": "RUN-002",
+    "type_fiche": "Gamme Athlétique",
+    "nom_fr": "Talons-fesses",
+    "nom_en": "Butt Kicks",
+    "mots_cles": [
+      "talons_fesses",
+      "gammes",
+      "ischios",
+      "echauffement"
+    ],
+    "categorie": "Gammes",
+    "description_detaillee": "Gamme où le talon remonte vers la fesse à chaque foulée, avec un appui bref sous le centre de gravité. Elle sollicite la flexion de genou et favorise un retour de jambe actif sous le bassin plutôt qu'une jambe qui traîne derrière.",
+    "application_pratique": "Échauffement : 2 à 3 passages de 15 à 20 m, en enchaînement avec les montées de genoux (10 m de chaque).",
+    "muscles_ou_systeme_sollicite": [
+      "Ischio-jambiers",
+      "Mollets",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "coach_tip": "Garde le bassin stable et les genoux sous les hanches : le talon remonte vite vers la fesse sans tirer la cuisse vers l’arrière. Mouvement léger et rythmé ; si tu crispes les épaules, ralentis."
+  },
+  {
+    "id": "RUN-003",
+    "type_fiche": "Gamme Athlétique",
+    "nom_fr": "Griffés du sol",
+    "nom_en": "Pawing (Ground Claw Drill)",
+    "mots_cles": [
+      "griffes",
+      "sol",
+      "pawing",
+      "gammes",
+      "pose_pied",
+      "foulee"
+    ],
+    "categorie": "Gammes",
+    "description_detaillee": "Gamme qui apprend à poser le pied sous le bassin en le ramenant vers l'arrière, comme si tu griffais le sol. La jambe avant se balance, le pied passe sous la hanche et 'tire' le sol vers l'arrière, ce qui limite l'attaque trop en avant du corps.",
+    "application_pratique": "Échauffement ou séance technique : 2 à 3 passages de 15 à 20 m à allure lente, en fin d'échauffement avant des accélérations.",
+    "muscles_ou_systeme_sollicite": [
+      "Ischio-jambiers",
+      "Fessiers",
+      "Mollets",
+      "Muscles stabilisateurs de la cheville"
+    ],
+    "coach_tip": "Imagine que ton pied « gratte » le sol vers l’arrière juste sous le bassin. Cherche un contact léger et silencieux, sans forcer la poussée. Si le pied se pose loin devant, réduis l’allure et l’amplitude."
+  },
+  {
+    "id": "RUN-004",
+    "type_fiche": "Gamme Athlétique",
+    "nom_fr": "Ciseaux",
+    "nom_en": "Scissors (Leg Swing Drill)",
+    "mots_cles": [
+      "ciseaux",
+      "gammes",
+      "balancement_jambes",
+      "mobilite",
+      "foulee"
+    ],
+    "categorie": "Gammes",
+    "description_detaillee": "Gamme qui travaille l'alternance rapide jambe avant, jambe arrière avec un bassin stable. Elle développe l'amplitude de foulée et la coordination, en limitant l'élan excessif du buste. Les appuis restent courts sur l'avant-pied.",
+    "application_pratique": "Échauffement : 2 passages de 15 à 20 m ou 2 x 20 s, à intensité modérée, avant des éducatifs plus rapides.",
+    "muscles_ou_systeme_sollicite": [
+      "Fléchisseurs de hanche",
+      "Ischio-jambiers",
+      "Fessiers",
+      "Abdominaux (stabilité du bassin)"
+    ],
+    "coach_tip": "Garde le buste vertical et le bassin calme pendant que les jambes alternent rapidement. Les bras accompagnent le rythme sans tourner les épaules. Mieux vaut une petite amplitude bien coordonnée qu’un geste forcé."
+  },
+  {
+    "id": "RUN-005",
+    "type_fiche": "Gamme Athlétique",
+    "nom_fr": "Propulsions mollets",
+    "nom_en": "Calf Bounds (Ankle Hops)",
+    "mots_cles": [
+      "propulsions_mollets",
+      "bondissements",
+      "pogo",
+      "gammes",
+      "cheville",
+      "raideur"
+    ],
+    "categorie": "Gammes",
+    "description_detaillee": "Gamme de bonds courts sur l'avant-pied, genoux quasi tendus, avec une cheville raide qui utilise l'élasticité du tendon d'Achille. Elle améliore la rigidité de la cheville et la restitution d'énergie à chaque appui.",
+    "application_pratique": "Échauffement avancé ou séance de renfort : 2 à 3 passages de 15 à 20 m ou 3 x 10 bonds, avec récupération de 1 min.",
+    "muscles_ou_systeme_sollicite": [
+      "Mollets (gastrocnémiens, soléaire)",
+      "Tendon d'Achille",
+      "Muscles intrinsèques du pied",
+      "Quadriceps"
+    ],
+    "coach_tip": "Reste léger sur l’avant-pied et garde la cheville tonique sans verrouiller les genoux. Commence par peu de bonds et augmente progressivement. Une douleur inhabituelle au mollet ou au tendon est un signal pour arrêter."
+  },
+  {
+    "id": "RUN-006",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Renforcement du tibial antérieur",
+    "nom_en": "Tibialis Raise (Toe Raise)",
+    "mots_cles": [
+      "tibial_anterieur",
+      "renforcement",
+      "tibia",
+      "cheville",
+      "prevention",
+      "shin_splints"
+    ],
+    "categorie": "Renforcement",
+    "description_detaillee": "Exercice de relevé de la pointe de pied contre résistance (dos contre un mur, talons au sol). Il renforce le tibial antérieur, muscle de la face avant de la jambe qui contrôle la descente du pied à la pose et participe à la prévention des douleurs de tibia.",
+    "application_pratique": "2 à 3 séries de 15 à 25 répétitions, 2 à 3 fois par semaine, en fin de séance ou en renforcement dédié. Progression : debout contre un mur, puis avec lest léger.",
+    "muscles_ou_systeme_sollicite": [
+      "Tibial antérieur",
+      "Muscles releveurs des orteils",
+      "Stabilisateurs de la cheville"
+    ],
+    "coach_tip": "Garde le dos en contact avec le mur et monte la pointe du pied sans décoller le talon. Contrôle surtout la descente, lentement. Cherche une amplitude confortable plutôt que de compenser avec les hanches."
+  },
+  {
+    "id": "RUN-007",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Renforcement du pied (court pied)",
+    "nom_en": "Short Foot Exercise",
+    "mots_cles": [
+      "short_foot",
+      "pied",
+      "voute",
+      "plantaire",
+      "renforcement",
+      "intrinseque"
+    ],
+    "categorie": "Renforcement",
+    "description_detaillee": "Exercice où l'on rapproche la tête du premier métatarsien du talon sans plier les orteils, pour activer les muscles intrinsèques du pied et soutenir la voûte plantaire. Il améliore la stabilité du pied à la pose.",
+    "application_pratique": "3 x 10 tenues de 5 s par pied, assis ou debout, 3 fois par semaine, en échauffement ou en fin de séance.",
+    "muscles_ou_systeme_sollicite": [
+      "Muscles intrinsèques du pied",
+      "Tibial postérieur",
+      "Muscles stabilisateurs de la cheville"
+    ],
+    "coach_tip": "Ne recroqueville pas les orteils : rapproche doucement l’avant-pied du talon en gardant le pied posé. La voûte se soulève sans crispation. Si tu sens surtout les orteils, relâche et recommence plus petit."
+  },
+  {
+    "id": "RUN-008",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Équilibre unipodal",
+    "nom_en": "Single-Leg Balance",
+    "mots_cles": [
+      "equilibre",
+      "unipodal",
+      "proprioception",
+      "cheville",
+      "stabilite",
+      "prevention"
+    ],
+    "categorie": "Renforcement",
+    "description_detaillee": "Tenue en appui sur une jambe pour travailler la proprioception et la stabilité de la cheville, du genou et du bassin. En course, chaque foulée est un appui unipodal : cette stabilité réduit le risque d'entorse et améliore l'efficacité de la pose.",
+    "application_pratique": "3 x 30 à 45 s par jambe, 3 fois par semaine, en échauffement ou en fin de séance. Progression : yeux fermés, sur surface instable ou avec mouvements des bras.",
+    "muscles_ou_systeme_sollicite": [
+      "Moyen fessier",
+      "Stabilisateurs de la cheville",
+      "Quadriceps",
+      "Abdominaux"
+    ],
+    "coach_tip": "Cherche une colonne stable : bassin horizontal, genou dans l’axe du deuxième/du milieu du pied. Commence près d’un support si nécessaire. Pour progresser, ajoute les mouvements des bras avant de supprimer les repères visuels."
+  },
+  {
+    "id": "RUN-009",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Fréquence de foulée (cadence)",
+    "nom_en": "Stride Cadence (SPM)",
+    "mots_cles": [
+      "cadence",
+      "frequence_foulee",
+      "180ppm",
+      "spm",
+      "foulee",
+      "efficacite"
+    ],
+    "categorie": "Foulée",
+    "description_detaillee": "Nombre de pas par minute (ppm ou SPM). Une cadence autour de 170 à 180 ppm est souvent citée comme repère d'efficacité pour beaucoup de coureurs, mais elle dépend de l'allure, de la taille et du niveau. Augmenter légèrement la cadence raccourcit la foulée et réduit le temps de contact et l'impact par pas.",
+    "application_pratique": "Mesure : montre GPS ou compte de pas sur 30 s multipliés par 2. Travail : augmenter la cadence de 3 à 5 % sur 1 à 2 séances par semaine (métronome ou musique à 170 à 180 BPM), sans forcer l'allure.",
+    "muscles_ou_systeme_sollicite": [
+      "Système neuromusculaire",
+      "Mollets",
+      "Quadriceps",
+      "Fléchisseurs de hanche"
+    ],
+    "coach_tip": "Ne poursuis pas un chiffre universel : mesure d’abord ta cadence naturelle à allure facile. Une hausse progressive de quelques pourcents suffit ; laisse la foulée devenir légèrement plus courte et plus silencieuse sans accélérer volontairement."
+  },
+  {
+    "id": "RUN-010",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Pose de pied : médio-pied ou attaque talon",
+    "nom_en": "Foot Strike (Midfoot vs Heel Strike)",
+    "mots_cles": [
+      "pose_pied",
+      "mediopied",
+      "attaque_talon",
+      "foot_strike",
+      "foulee"
+    ],
+    "categorie": "Foulée",
+    "description_detaillee": "La pose de pied désigne la zone du pied qui touche le sol en premier. Le médio-pied tend à réduire l'effet de freinage et à répartir les contraintes, alors que l'attaque talon est fréquente aux allures lentes. Il n'existe pas une pose unique idéale : l'essentiel est de poser le pied sous le centre de gravité plutôt que loin devant.",
+    "application_pratique": "Observe ta foulée en vidéo (de profil) à plusieurs allures. Si tu veux modifier la pose, fais-le très progressivement (5 à 10 % de ton volume sur 6 à 8 semaines) et combine avec le renfort des mollets et du pied.",
+    "muscles_ou_systeme_sollicite": [
+      "Mollets",
+      "Tibial antérieur",
+      "Muscles intrinsèques du pied",
+      "Quadriceps"
+    ],
+    "coach_tip": "Ne force pas une attaque médio-pied ou avant-pied. Cherche surtout une pose proche du centre de gravité et évite de tendre la jambe loin devant. Toute modification de foulée doit être progressive, notamment pour laisser aux mollets et aux tendons le temps de s’adapter."
+  },
+  {
+    "id": "RUN-011",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Oscillation verticale",
+    "nom_en": "Vertical Oscillation",
+    "mots_cles": [
+      "oscillation_verticale",
+      "rebond",
+      "foulee",
+      "efficacite",
+      "economie_course"
+    ],
+    "categorie": "Foulée",
+    "description_detaillee": "Mouvement de montée et descente du centre de gravité à chaque foulée. Un rebond excessif consomme de l'énergie qui ne sert pas à avancer. Beaucoup de montres affichent cette donnée en centimètres (ordre de grandeur de 6 à 10 cm selon les appareils et les coureurs).",
+    "application_pratique": "Surveille cette donnée sur tes sorties à allure stable, plutôt que sur une séance rapide. Travaille avec les gammes (montées de genoux, griffés) et la cadence pour réduire le rebond.",
+    "muscles_ou_systeme_sollicite": [
+      "Mollets",
+      "Quadriceps",
+      "Fessiers",
+      "Abdominaux (gainage)"
+    ],
+    "coach_tip": "Cherche une course souple et silencieuse plutôt qu’une réduction forcée des centimètres affichés par la montre. Garde tête et épaules stables, sans tasser le corps. Compare la donnée à allure et terrain similaires avant d’en tirer une conclusion."
+  },
+  {
+    "id": "RUN-012",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Posture et bras en course",
+    "nom_en": "Running Posture & Arm Swing",
+    "mots_cles": [
+      "posture",
+      "bras",
+      "course",
+      "buste",
+      "inclinaison",
+      "foulee",
+      "gainage"
+    ],
+    "categorie": "Foulée",
+    "description_detaillee": "La posture de course combine un buste droit, légèrement incliné vers l'avant depuis les chevilles, un bassin neutre, des épaules relâchées et des bras fléchis à environ 90° qui oscillent d'avant en arrière en équilibrant la rotation du tronc.",
+    "application_pratique": "À contrôler en échauffement et en fin de séance, à chaque fois que la fatigue modifie la posture. Complément : gainage et renforcement du tronc 2 fois par semaine.",
+    "muscles_ou_systeme_sollicite": [
+      "Abdominaux",
+      "Érecteurs du rachis",
+      "Deltoïdes",
+      "Fessiers"
+    ],
+    "coach_tip": "Grandis-toi sans te raidir : légère inclinaison depuis les chevilles, épaules basses et mains relâchées. Les bras accompagnent la foulée d’avant en arrière, sans croiser fortement devant la poitrine. Quand la fatigue arrive, corrige d’abord la posture avant de chercher à accélérer."
+  },
+  {
+    "id": "RUN-013",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Pacing en côte",
+    "nom_en": "Uphill Pacing",
+    "mots_cles": [
+      "pacing",
+      "cote",
+      "montee",
+      "allure",
+      "effort",
+      "frequence_cardiaque",
+      "strategie"
+    ],
+    "categorie": "Stratégie",
+    "description_detaillee": "En côte, l'allure ne se mesure plus en min/km mais en effort (cardiaque ou ressenti). On raccourcit la foulée, on augmente légèrement la cadence, et on garde un buste légèrement incliné. Le coût énergétique d'une pente est plus élevé, donc l'allure baisse naturellement.",
+    "application_pratique": "En séance de côtes : 6 à 10 x 30 à 45 s en côte à 5 à 8 % avec retour en trottinant. En course : régule à l'effort perçu, pas à l'allure.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Système aérobie"
+    ],
+    "coach_tip": "En côte, pilote à l’effort plutôt qu’au chrono au kilomètre. Raccourcis la foulée, garde un rythme régulier et utilise activement les bras. Si la respiration devient désordonnée trop tôt, ralentis : l’objectif est de préserver les jambes pour la suite."
+  },
+  {
+    "id": "RUN-014",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Pacing en descente",
+    "nom_en": "Downhill Pacing",
+    "mots_cles": [
+      "pacing",
+      "descente",
+      "allure",
+      "freinage",
+      "excentrique",
+      "quadriceps",
+      "strategie"
+    ],
+    "categorie": "Stratégie",
+    "description_detaillee": "En descente, la gravité aide à avancer mais sollicite fortement les quadriceps en travail excentrique. L'objectif est de maîtriser la vitesse sans freiner à chaque pas : foulée courte, appuis rapides, bassin sous le buste et regard 5 à 10 m devant.",
+    "application_pratique": "En entraînement : séries de 6 à 10 descentes de 30 à 60 s à pente modérée (5 à 8 %), à allure contrôlée, 1 fois par semaine. En course : économise les cuisses en début de descente si la course est longue.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps (travail excentrique)",
+      "Fessiers",
+      "Tibial antérieur",
+      "Muscles stabilisateurs de la cheville"
+    ],
+    "coach_tip": "Laisse la pente accélérer naturellement sans te laisser embarquer. Garde le bassin sous le buste, les appuis courts et le regard porté sur la trajectoire. Évite de freiner en te penchant en arrière : mieux vaut réduire légèrement la vitesse tout en restant fluide."
+  },
+  {
+    "id": "RUN-015",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "VO2 max",
+    "nom_en": "VO2 max (Maximal Oxygen Uptake)",
+    "mots_cles": [
+      "vo2max",
+      "consommation_oxygene",
+      "physiologie",
+      "aerobie",
+      "performance"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Quantité maximale d'oxygène que ton organisme peut consommer par minute, exprimée en ml/min/kg. C'est un indicateur de la puissance du système aérobie. Elle dépend de la génétique et de l'entraînement, et se mesure en laboratoire ou s'estime par des tests de terrain.",
+    "application_pratique": "Se travaille avec de l'intermittent à haute intensité (30/30, 3 à 5 min à 90 à 95 % VMA). Une à deux séances par semaine, avec récupération suffisante.",
+    "muscles_ou_systeme_sollicite": [
+      "Système cardio-respiratoire",
+      "Système aérobie",
+      "Muscles locomoteurs"
+    ],
+    "coach_tip": "La VO2 max est un indicateur, pas l’objectif unique. Les séances très intenses demandent de la récupération : garde une vraie différence entre les jours faciles et les jours de qualité. Cherche une progression régulière plutôt que d’ajouter de l’intensité à chaque séance."
+  },
+  {
+    "id": "RUN-016",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "VMA (Vitesse Maximale Aérobie)",
+    "nom_en": "MAS (Maximal Aerobic Speed)",
+    "mots_cles": [
+      "vma",
+      "vitesse_maximale_aerobie",
+      "test",
+      "physiologie",
+      "intervalles"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Vitesse de course à laquelle la VO2 max est atteinte. Elle sert de référence pour définir les intensités des fractionnés (par exemple 100 % VMA, 90 % VMA). Elle peut s'estimer avec des tests de terrain (test Léger-Boucher, VAMEVAL, test de 6 minutes).",
+    "application_pratique": "Mesure : une fois toutes les 6 à 8 semaines. Utilisation : calcul des allures de fractionné (par exemple 30/30 à 100 à 105 % VMA, long à 90 à 95 % VMA).",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Système cardio-respiratoire",
+      "Muscles locomoteurs"
+    ],
+    "coach_tip": "Une VMA utile doit être mesurée dans des conditions comparables et suffisamment frais. Utilise ensuite la valeur comme repère, pas comme obligation absolue : chaleur, vent, fatigue et terrain peuvent imposer d’ajuster l’allure."
+  },
+  {
+    "id": "RUN-017",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Seuil anaérobie / VT2",
+    "nom_en": "Anaerobic Threshold / VT2 (Second Ventilatory Threshold)",
+    "mots_cles": [
+      "seuil_anaerobie",
+      "vt2",
+      "seuil",
+      "lactate",
+      "tempo",
+      "physiologie",
+      "allure"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Intensité au-delà de laquelle le lactate s'accumule plus vite qu'il n'est éliminé et où la respiration s'accélère nettement. L'allure au seuil est celle que l'on peut tenir environ 45 à 60 minutes à l'entraînement. Les termes seuil lactique, SV2 et VT2 sont souvent utilisés pour désigner la même zone.",
+    "application_pratique": "Séances au seuil : 3 x 10 min à allure seuil avec 2 min de récupération active, ou 2 x 20 min. Une séance par semaine environ, en dehors des périodes d'affûtage.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Métabolisme du lactate",
+      "Muscles locomoteurs"
+    ],
+    "coach_tip": "Au seuil, vise un effort dur mais contrôlé et stable, pas un test maximal. Tu dois pouvoir produire quelques mots, mais pas tenir une conversation. Si tu pars trop vite et que la respiration s’emballe dès le premier bloc, ralentis immédiatement plutôt que de subir la fin de séance."
+  },
+  {
+    "id": "RUN-018",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Endurance fondamentale (EF / Z2)",
+    "nom_en": "Easy Aerobic Running (Zone 2)",
+    "mots_cles": [
+      "endurance_fondamentale",
+      "ef",
+      "z2",
+      "zone2",
+      "aerobie",
+      "base",
+      "volume"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Allure faible et confortable, qui développe le système aérobie sans fatigue excessive. En fréquence cardiaque, elle correspond en général à une zone basse (environ 60 à 75 % de la FC max, valeur indicative). Elle constitue la base du volume d'entraînement.",
+    "application_pratique": "Représente 70 à 80 % du volume hebdomadaire de la plupart des plans. Sorties de 30 à 90 min, ou plus selon l'objectif. En échauffement : 10 à 15 min d'EF avant une séance de qualité.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Fibres musculaires de type I",
+      "Système cardio-vasculaire"
+    ],
+    "coach_tip": "L’EF doit sembler presque trop facile au début. Utilise le test de parole et accepte de ralentir avec la chaleur, les côtes ou la fatigue. La qualité de cette zone vient de la régularité et du volume accumulé, pas de la recherche d’une allure minimale."
+  },
+  {
+    "id": "RUN-019",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Fartlek",
+    "nom_en": "Fartlek (Speed Play)",
+    "mots_cles": [
+      "fartlek",
+      "jeu_allures",
+      "variation_allure",
+      "seance",
+      "fractionne_libre"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Séance de course à variations d'allure libres (fartlek signifie 'jeu de vitesse' en suédois). Elle alterne des phases rapides et lentes sans structure rigide, ou selon une trame simple, pour travailler plusieurs filières en douceur.",
+    "application_pratique": "Exemples : 40 min avec alternance 1 min rapide / 2 min lente, ou 'à la sensation' avec points de repère (arbres, poteaux). Une séance par semaine pour varier.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Système neuromusculaire",
+      "Métabolisme du lactate"
+    ],
+    "coach_tip": "Dans un fartlek, garde une vraie récupération entre les accélérations. Les phases rapides sont soutenues mais maîtrisées, jamais des sprints improvisés. Utilise le terrain comme repère et termine avec la sensation d’avoir encore un peu de contrôle."
+  },
+  {
+    "id": "RUN-020",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Intervallique court (30/30)",
+    "nom_en": "Short Intervals (30/30)",
+    "mots_cles": [
+      "intermittent",
+      "30_30",
+      "intervalles",
+      "courts",
+      "vma",
+      "vo2max",
+      "fractionne"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Séance intermittente qui alterne 30 s d'effort à 100 à 105 % VMA et 30 s de récupération (trot lent ou marche). La récupération courte permet d'accumuler un volume élevé à haute intensité, avec une sollicitation forte du système aérobie.",
+    "application_pratique": "Exemple : 2 séries de 10 à 12 répétitions de 30/30, avec 3 à 4 min de repos entre les séries. Une séance par semaine environ, après un échauffement de 15 à 20 min.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "VO2 max",
+      "Système neuromusculaire",
+      "Muscles locomoteurs"
+    ],
+    "coach_tip": "Pars légèrement en dessous de ce que tu crois pouvoir tenir pour conserver la qualité sur toute la série. Les 30 secondes rapides doivent rester régulières et les 30 secondes lentes doivent réellement permettre de récupérer. Si la vitesse s’effondre, réduis l’intensité plutôt que de forcer."
+  },
+  {
+    "id": "RUN-021",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Intervallique long",
+    "nom_en": "Long Intervals",
+    "mots_cles": [
+      "intervalles",
+      "longs",
+      "vma",
+      "seuil",
+      "fractionne",
+      "puissance_aerobie"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Séance qui alterne des efforts de 3 à 8 minutes à 90 à 95 % de la VMA (ou à allure seuil selon l'objectif) avec des récupérations de 1 à 3 minutes. Elle développe la puissance et l'endurance aérobie à haute intensité.",
+    "application_pratique": "Exemples : 4 à 5 x 1 000 m à 90 à 95 % VMA avec 1 min 30 de trot, ou 3 x 8 min à allure seuil avec 2 min de récupération. Une séance par semaine environ.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "VO2 max",
+      "Seuil anaérobie",
+      "Muscles locomoteurs"
+    ],
+    "coach_tip": "Cherche une allure homogène sur toutes les répétitions. La première doit sembler contrôlée : tu dois pouvoir reproduire l’effort sans explosion finale. Une baisse nette de vitesse ou une technique qui se dégrade indique qu’il faut réduire l’intensité ou arrêter la série."
+  },
+  {
+    "id": "RUN-022",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Fréquence cardiaque maximale et zones d'entraînement",
+    "nom_en": "Maximum Heart Rate & Training Zones",
+    "mots_cles": [
+      "fc_max",
+      "zones_entrainement",
+      "frequence_cardiaque",
+      "z1",
+      "z2",
+      "z3",
+      "z4",
+      "z5"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "La fréquence cardiaque maximale (FC max) est le nombre maximal de battements par minute atteint lors d'un effort intense. Les zones d'entraînement (Z1 à Z5) découpent l'intensité en pourcentages de la FC max ou de la FC de réserve, et servent à cibler les adaptations. Les formules théoriques sont approximatives : la FC max se mesure par test.",
+    "application_pratique": "Définis tes zones à partir d'une FC max mesurée (test progressif) ou observée en course. Utilise-les pour cadrer les séances : Z1 à Z2 en EF, Z3 à Z4 au seuil, Z5 en intermittent.",
+    "muscles_ou_systeme_sollicite": [
+      "Système cardio-vasculaire",
+      "Système aérobie"
+    ],
+    "coach_tip": "Utilise la FC comme un repère, pas comme un pilote automatique. Chaleur, stress, fatigue et déshydratation peuvent modifier la fréquence à effort identique. Croise toujours la donnée avec l’allure, le terrain et ton RPE."
+  },
+  {
+    "id": "RUN-023",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Échelle d'effort perçu (RPE)",
+    "nom_en": "Rating of Perceived Exertion (RPE)",
+    "mots_cles": [
+      "rpe",
+      "effort_percu",
+      "ressenti",
+      "echelle",
+      "intensite",
+      "borg"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Échelle subjective de 1 à 10 qui mesure l'intensité ressentie d'un effort (1 = très facile, 10 = effort maximal). Elle complète la fréquence cardiaque et l'allure, surtout sur terrain varié ou par temps chaud.",
+    "application_pratique": "À utiliser dans toutes les séances : EF à RPE 3 à 4, seuil à RPE 7 à 8, intermittent à RPE 8 à 9. Note ton RPE après chaque séance pour suivre ta charge.",
+    "muscles_ou_systeme_sollicite": [
+      "Système nerveux central",
+      "Perception de l'effort",
+      "Système aérobie"
+    ],
+    "coach_tip": "Le RPE sert à ajuster la séance quand les chiffres deviennent trompeurs. Note ton ressenti après chaque entraînement et compare-le dans des conditions similaires. Si une allure habituellement facile devient anormalement dure, prends le signal au sérieux et adapte la séance."
+  },
+  {
+    "id": "RUN-024",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Sortie longue",
+    "nom_en": "Long Run",
+    "mots_cles": [
+      "sortie_longue",
+      "long_run",
+      "endurance",
+      "volume",
+      "trail",
+      "marathon"
+    ],
+    "categorie": "Physiologie",
+    "description_detaillee": "Séance hebdomadaire la plus longue, à allure confortable (EF), qui développe l'endurance, l'utilisation des graisses et la résistance musculaire. Sa durée dépend de la distance préparée (de 1 h 15 à 3 h ou plus).",
+    "application_pratique": "Une sortie par semaine, représentant 25 à 35 % du volume hebdomadaire. Augmente la durée de 10 % par semaine environ, avec une semaine allégée toutes les 3 à 4 semaines.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Fibres musculaires de type I",
+      "Métabolisme des graisses"
+    ],
+    "coach_tip": "Pars volontairement en dedans et garde une allure confortable sur la majorité de la sortie. Utilise la fin pour tester ton alimentation, ton hydratation et ton équipement, surtout en trail. Une sortie longue réussie se termine avec encore de la maîtrise, pas vidé."
+  },
+  {
+    "id": "RUN-025",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Dénivelé positif et négatif (D+ / D-)",
+    "nom_en": "Elevation Gain / Loss (D+ / D-)",
+    "mots_cles": [
+      "denivele",
+      "d_plus",
+      "d_moins",
+      "trail",
+      "altitude",
+      "profil",
+      "gestion"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Le D+ est le cumul des mètres gravis, le D- celui des mètres descendus sur un parcours. Ensemble avec la distance, ils déterminent la difficulté d'un trail. Le D+ sollicite surtout le système cardio-respiratoire et les quadriceps, le D- les quadriceps en travail excentrique.",
+    "application_pratique": "Prépare un parcours en le découpant en sections avec leur D+ et leur D-. En entraînement : sorties avec D+ progressif (par exemple 300 à 1 000 m selon l'objectif) et séances de descente spécifiques.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Système aérobie"
+    ],
+    "coach_tip": "Ne programme pas une sortie uniquement en kilomètres : regarde aussi le D+ et le D-. Anticipe le temps d’effort, les montées et surtout la fatigue musculaire des descentes. Pour progresser, augmente le dénivelé progressivement plutôt que de tout charger sur une seule sortie."
+  },
+  {
+    "id": "RUN-026",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Kilomètre-effort",
+    "nom_en": "Effort-Kilometer (Km-Effort)",
+    "mots_cles": [
+      "kilometre_effort",
+      "km_effort",
+      "trail",
+      "denivele",
+      "distance",
+      "equivalente"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Unité qui convertit une course en trail en distance équivalente à plat : 1 km-effort = 1 km + 100 m de D+. Par exemple, 20 km avec 1 000 m de D+ valent 30 km-effort. Cette conversion donne un ordre de grandeur de la difficulté.",
+    "application_pratique": "Utilise-le pour comparer des courses et planifier la charge d'entraînement (par exemple en km-effort par semaine).",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Quadriceps",
+      "Mollets"
+    ],
+    "coach_tip": "Utilise le kilomètre-effort comme un outil de comparaison, pas comme une mesure exacte de difficulté. La pente, la technicité, l’altitude et la météo peuvent modifier fortement le coût réel. Compare surtout des parcours de profil similaire."
+  },
+  {
+    "id": "RUN-027",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Course en montée",
+    "nom_en": "Uphill Running Technique",
+    "mots_cles": [
+      "course_montee",
+      "trail",
+      "technique",
+      "cote",
+      "foulee",
+      "cadence",
+      "buste"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "En montée, on raccourcit la foulée, on augmente la cadence et on penche légèrement le buste vers l'avant depuis les chevilles. Les bras travaillent plus et aident à la propulsion, les appuis restent sur l'avant-pied ou le médio-pied.",
+    "application_pratique": "Court en montée tant que l'allure reste plus rapide que la marche dynamique, ou jusqu'à ce que la FC dépasse ta zone cible. Séances de côtes : 6 à 10 x 30 à 45 s, récupération en descente.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Système aérobie"
+    ],
+    "coach_tip": "En montée, raccourcis la foulée et garde une cadence régulière. Penche légèrement le corps depuis les chevilles et laisse les bras participer à la propulsion. Dès que courir devient moins économique que marcher vite, change de stratégie sans attendre d’être épuisé."
+  },
+  {
+    "id": "RUN-028",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Marche dynamique en montée",
+    "nom_en": "Power Hiking",
+    "mots_cles": [
+      "marche_dynamique",
+      "power_hiking",
+      "montee",
+      "trail",
+      "mains_sur_cuisses",
+      "economie"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Marche rapide et active en montée, souvent plus économique que la course sur les pentes raides (au-delà de 10 à 15 %). On pousse sur les jambes, buste légèrement incliné, parfois avec les mains sur les cuisses ou des bâtons pour soulager les jambes.",
+    "application_pratique": "À utiliser en course sur les montées longues et raides. À l'entraînement : séries de 10 à 20 min de marche dynamique en côte à intensité soutenue.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Système aérobie"
+    ],
+    "coach_tip": "Marche vite plutôt que de lutter contre une pente trop raide. Garde des pas courts, pousse activement avec les jambes et utilise les bras ou les bâtons si le terrain le permet. Le bon rythme est celui qui te permet de tenir la montée sans faire exploser l’effort."
+  },
+  {
+    "id": "RUN-029",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Descente engagée",
+    "nom_en": "Technical Downhill Running",
+    "mots_cles": [
+      "descente_engagee",
+      "descente",
+      "trail",
+      "technique",
+      "terrain_technique",
+      "pente",
+      "freinage"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Technique de descente rapide avec des appuis courts et fréquents, un regard 5 à 10 m devant, les bras légèrement écartés pour l'équilibre et le bassin sous le buste. L'objectif est de maîtriser la vitesse sans freiner à chaque pas, tout en réduisant l'impact.",
+    "application_pratique": "Séance : 6 à 10 descentes de 30 à 60 s sur pente modérée, à allure contrôlée, avec récupération en montant. En course : accélère sur les passages roulants et ralentis sur les passages techniques.",
+    "muscles_ou_systeme_sollicite": [
+      "Quadriceps (travail excentrique)",
+      "Fessiers",
+      "Tibial antérieur",
+      "Stabilisateurs de la cheville"
+    ],
+    "coach_tip": "En descente, regarde la trajectoire plutôt que tes pieds et garde des appuis courts et réactifs. Laisse le bassin accompagner le mouvement sans te jeter en avant ni freiner en arrière. Sur terrain technique, privilégie la ligne sûre à la vitesse pure."
+  },
+  {
+    "id": "RUN-030",
+    "type_fiche": "Mouvement",
+    "nom_fr": "Utilisation des bâtons",
+    "nom_en": "Trail Running Poles Technique",
+    "mots_cles": [
+      "batons",
+      "trail",
+      "montee",
+      "descente",
+      "technique",
+      "marche_nordique",
+      "denivele"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Les bâtons permettent de répartir l'effort sur les bras et le haut du corps en montée raide et de gagner en stabilité en descente. En montée, on plante les bâtons alternativement ou ensemble (double bâton) et on pousse dessus. En plat ou en descente, on peut les ranger ou les utiliser pour l'équilibre. Vérifie le règlement de la course : l'usage est parfois restreint.",
+    "application_pratique": "Entraîne-toi avec les bâtons sur des montées de 10 à 20 min avant la course. Apprends à les ranger et à les sortir rapidement sans s'arrêter.",
+    "muscles_ou_systeme_sollicite": [
+      "Triceps",
+      "Deltoïdes",
+      "Grand dorsal",
+      "Quadriceps",
+      "Système aérobie"
+    ],
+    "coach_tip": "Entraîne-toi avec tes bâtons avant la course : prise, poussée, changement de rythme et rangement doivent devenir automatiques. Garde les poignets souples dans les dragonnes et évite de planter les bâtons trop loin devant, surtout en descente. Vérifie toujours les règles spécifiques de ton épreuve."
+  },
+  {
+    "id": "RUN-031",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Nutrition et hydratation en trail",
+    "nom_en": "Trail Fueling & Hydration",
+    "mots_cles": [
+      "nutrition",
+      "hydratation",
+      "trail",
+      "ravitaillement",
+      "glucides",
+      "gel",
+      "boisson"
+    ],
+    "categorie": "Stratégie",
+    "description_detaillee": "En trail long, le ravitaillement est un facteur clé. Une approche courante consiste à prendre des glucides de façon régulière (30 à 60 g par heure selon la tolérance) et à boire de petites quantités fréquemment (selon la chaleur et la transpiration). Les valeurs sont indicatives et se testent à l'entraînement.",
+    "application_pratique": "Teste ta stratégie pendant les sorties longues : gels, barres, boissons, aliments solides. Prends un ravitaillement toutes les 30 à 45 min environ.",
+    "muscles_ou_systeme_sollicite": [
+      "Système aérobie",
+      "Métabolisme énergétique",
+      "Système digestif"
+    ],
+    "coach_tip": "Teste toute ta stratégie nutrition/hydratation à l’entraînement, jamais pour la première fois en course. Fractionne les prises et adapte-les à la durée, à la chaleur et à ta tolérance. N’attends pas d’être complètement déshydraté ou affamé pour réagir."
+  },
+  {
+    "id": "RUN-032",
+    "type_fiche": "Concept-Lexique",
+    "nom_fr": "Terrain technique",
+    "nom_en": "Technical Terrain",
+    "mots_cles": [
+      "terrain_technique",
+      "racines",
+      "cailloux",
+      "trail",
+      "pose_pied",
+      "equilibre",
+      "proprioception"
+    ],
+    "categorie": "Trail",
+    "description_detaillee": "Terrain irrégulier (racines, cailloux, pierriers, boue) qui impose de poser le pied avec précision et d'adapter la foulée. On travaille la vigilance visuelle, des appuis courts et la stabilité de la cheville.",
+    "application_pratique": "Intègre des sorties sur sentiers techniques une fois par semaine et des exercices de proprioception (équilibre unipodal, gammes) en échauffement.",
+    "muscles_ou_systeme_sollicite": [
+      "Stabilisateurs de la cheville",
+      "Moyen fessier",
+      "Quadriceps",
+      "Muscles intrinsèques du pied"
+    ],
+    "coach_tip": "Sur terrain technique, regarde la ligne quelques mètres devant toi et laisse la vision périphérique guider les appuis immédiats. Raccourcis la foulée, garde les genoux légèrement fléchis et reste disponible pour corriger un pied. Quand la technicité augmente, ralentir peut être la meilleure façon de rester efficace."
+  }
+]

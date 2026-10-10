@@ -1,0 +1,358 @@
+[
+  {
+    "id": "YOG-001",
+    "nom_fr": "Chien tête en bas",
+    "nom_en": "Downward-Facing Dog (Adho Mukha Svanasana)",
+    "mots_cles": [
+      "chien_tete_en_bas",
+      "downward_dog",
+      "yoga",
+      "ischios",
+      "epaules",
+      "mobilite"
+    ],
+    "categorie": "yoga_mobilite",
+    "materiel": [
+      "Tapis de yoga",
+      "Blocs (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Mollets",
+      "Deltoïdes",
+      "Grand dorsal",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Quadriceps",
+      "Transverse de l'abdomen",
+      "Grand fessier"
+    ],
+    "respiration": "Inspire en préparant et en allongeant la colonne ; expire en poussant activement le sol et en reculant les hanches. Respiration régulière et sans apnée, sur 5 à 8 cycles.",
+    "niveau_1": "Genoux fléchis, talons décollés, mains sous les épaules : pousse le sol et recule les hanches pour allonger le dos. Tiens 5 cycles de respiration.",
+    "niveau_2": "Jambes progressivement plus longues sans arrondir le dos, talons dirigés vers le sol sans les forcer. Tiens 5 à 8 cycles.",
+    "niveau_3": "Chien à une jambe levée avec bassin stable, ou enchaînement chien - planche - chien. Priorité à la longueur de la colonne et au contrôle des épaules.",
+    "coach_tip": "Alignement : cherche un V inversé sans forcer les talons au sol. Pousse le sol, éloigne les épaules des oreilles et garde la colonne longue ; plie les genoux si nécessaire plutôt que d'arrondir le dos. Centrage : légère activation du transverse et du plancher pelvien pour stabiliser le bassin, sans rentrer le ventre au point de bloquer la respiration. Souffle : utilise l'expiration pour approfondir la longueur du dos, jamais pour forcer l'amplitude. Sécurité : aucune douleur vive à l'épaule ou au dos ; réduis l'amplitude si les ischio-jambiers limitent la position."
+  },
+  {
+    "id": "YOG-002",
+    "nom_fr": "Guerrier I et Guerrier II",
+    "nom_en": "Warrior I & II (Virabhadrasana I & II)",
+    "mots_cles": [
+      "guerrier",
+      "warrior",
+      "virabhadrasana",
+      "yoga",
+      "jambes",
+      "hanches",
+      "equilibre"
+    ],
+    "categorie": "yoga_mobilite",
+    "materiel": [
+      "Tapis de yoga",
+      "Mur (facultatif pour l'équilibre)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Adducteurs",
+      "Deltoïdes",
+      "Psoas"
+    ],
+    "muscles_secondaires": [
+      "Transverse de l'abdomen",
+      "Érecteurs du rachis",
+      "Mollets",
+      "Moyen fessier"
+    ],
+    "respiration": "Inspire pour allonger la colonne et ouvrir la poitrine ; expire en ancrant les pieds et en stabilisant le bassin. Respiration lente et continue pendant toute la tenue.",
+    "niveau_1": "Fente courte, mains sur les hanches ou bras ouverts selon l'équilibre. Garde le genou avant dans l'axe du pied. 3 à 5 cycles par posture et par côté.",
+    "niveau_2": "Guerrier I : bras levés et bassin orienté vers l'avant autant que confortable. Guerrier II : bassin ouvert, bras en croix, genou avant stable. 5 cycles par posture et par côté.",
+    "niveau_3": "Enchaînement contrôlé Guerrier I - Guerrier II - Guerrier inversé, ou tenue de 8 à 10 cycles. N'approfondis la fente que si l'alignement reste stable.",
+    "coach_tip": "Alignement : genou avant dans l'axe du deuxième orteil et cheville stable ; évite que le genou s'effondre vers l'intérieur. En Guerrier I, garde le bassin aussi orienté vers l'avant que ta mobilité le permet sans forcer ; en Guerrier II, laisse le bassin s'ouvrir latéralement. Centrage : transverse et plancher pelvien engagés modérément pour stabiliser le tronc, sans rigidifier le souffle. Souffle : inspire pour créer de l'espace dans la colonne, expire pour t'ancrer. Sécurité : si le genou ou la hanche devient douloureux, raccourcis la fente."
+  },
+  {
+    "id": "YOG-003",
+    "nom_fr": "Posture du pigeon (ouverture de hanche)",
+    "nom_en": "Pigeon Pose (Eka Pada Rajakapotasana)",
+    "mots_cles": [
+      "pigeon",
+      "pigeon_pose",
+      "yoga",
+      "hanches",
+      "fessiers",
+      "piriforme",
+      "mobilite"
+    ],
+    "categorie": "yoga_mobilite",
+    "materiel": [
+      "Tapis de yoga",
+      "Coussin ou bloc sous la hanche (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Piriforme",
+      "Rotateurs externes de hanche",
+      "Psoas"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Adducteurs",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire pour allonger la colonne ; expire pour relâcher progressivement les tissus autour de la hanche, sans pousser activement vers l'amplitude. Respiration lente, régulière et jamais bloquée.",
+    "niveau_1": "Figure 4 sur le dos : cheville sur le genou opposé, ramène doucement les jambes vers toi. 30 à 45 s par côté.",
+    "niveau_2": "Pigeon au sol avec buste droit et mains en appui, bassin soutenu par un coussin si nécessaire. 45 à 60 s par côté.",
+    "niveau_3": "Pigeon en flexion avant (Sleeping Pigeon) si le genou reste confortable, ou maintien plus long jusqu'à 90 s. Ne cherche pas une amplitude forcée.",
+    "coach_tip": "Alignement : cherche un bassin aussi horizontal que possible ; utilise un coussin ou un bloc sous la fesse du côté de la jambe avant si le bassin bascule. Ne force pas le tibia avant dans une position extrême. Centrage : maintien léger du transverse et du plancher pelvien pour protéger la région lombopelvienne. Souffle : laisse l'expiration diminuer progressivement la tension, sans chercher à gagner brutalement de l'amplitude. Sécurité : une douleur au genou n'est pas une sensation d'étirement acceptable ; repasse en Figure 4 sur le dos si besoin."
+  },
+  {
+    "id": "YOG-004",
+    "nom_fr": "Cobra et chien tête en haut (extension thoracique)",
+    "nom_en": "Cobra & Upward-Facing Dog (Bhujangasana & Urdhva Mukha Svanasana)",
+    "mots_cles": [
+      "cobra",
+      "chien_tete_en_haut",
+      "upward_dog",
+      "yoga",
+      "extension_thoracique",
+      "dos",
+      "mobilite"
+    ],
+    "categorie": "yoga_mobilite",
+    "materiel": [
+      "Tapis de yoga",
+      "Couverture roulée (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Trapèzes inférieurs",
+      "Grand fessier",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Grand pectoral",
+      "Psoas",
+      "Transverse de l'abdomen",
+      "Deltoïde postérieur"
+    ],
+    "respiration": "Inspire pour créer de la longueur et ouvrir progressivement la poitrine ; expire en stabilisant le tronc et en relâchant les épaules. Respiration continue, sans chercher une amplitude supplémentaire à chaque souffle.",
+    "niveau_1": "Sphinx : avant-bras sous les épaules, sternum légèrement projeté vers l'avant, extension douce. 5 cycles de respiration.",
+    "niveau_2": "Cobra : mains sous les épaules, bassin au sol, bras partiellement fléchis ; monte seulement jusqu'à garder les épaules basses et les lombaires confortables. 2 à 3 répétitions de 5 cycles.",
+    "niveau_3": "Chien tête en haut avec cuisses décollées uniquement si l'extension est contrôlée sans compression lombaire. Variante : transition contrôlée vers Chien tête en bas.",
+    "coach_tip": "Alignement : privilégie l'extension thoracique et répartis l'extension sur toute la colonne plutôt que de comprimer les lombaires. Dans Cobra, les mains aident mais ne poussent pas le buste à hauteur maximale ; dans Chien tête en haut, garde les épaules basses et le cou neutre. Centrage : active légèrement le transverse et les fessiers pour limiter la compression lombaire, sans verrouiller le bassin. Souffle : inspire pour ouvrir l'avant du corps, expire pour stabiliser. Sécurité : tout pincement lombaire impose de réduire l'amplitude ou de revenir au Sphinx."
+  },
+  {
+    "id": "YOG-005",
+    "nom_fr": "Salutation au soleil (enchaînement fluide)",
+    "nom_en": "Sun Salutation (Surya Namaskar A)",
+    "mots_cles": [
+      "salutation_soleil",
+      "sun_salutation",
+      "surya_namaskar",
+      "yoga",
+      "vinyasa",
+      "souffle",
+      "mobilite"
+    ],
+    "categorie": "yoga_mobilite",
+    "materiel": [
+      "Tapis de yoga"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Grand dorsal",
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Grand droit"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Grand pectoral",
+      "Grand fessier",
+      "Érecteurs du rachis",
+      "Mollets"
+    ],
+    "respiration": "Coordonne les transitions avec le souffle : inspire pour monter les bras et allonger le buste ; expire pour la flexion avant et les phases de poussée. En planche et Chaturanga, garde une respiration courte mais continue ; ne force jamais l'apnée.",
+    "niveau_1": "Version simplifiée : bras levés, flexion avant genoux fléchis, fente basse, Chien tête en bas, puis retour. 3 tours lents.",
+    "niveau_2": "Salutation A avec planche et Chaturanga adapté (genoux au sol si nécessaire), Cobra ou Chien tête en haut, puis Chien tête en bas. 5 tours fluides.",
+    "niveau_3": "Salutation A/B enchaînées avec transitions contrôlées et Chaturanga complet uniquement si la technique est maîtrisée. 6 à 8 tours, sans sacrifier le souffle ni l'alignement.",
+    "coach_tip": "Alignement : garde les genoux souples dans la flexion avant, les épaules au-dessus des poignets en planche et les coudes proches du tronc en Chaturanga. Ne descends pas plus bas que ce que tu peux contrôler sans perdre l'alignement des épaules. Centrage : transverse et plancher pelvien actifs pour stabiliser le bassin pendant les transitions. Souffle : un mouvement peut suivre une respiration, mais la qualité prime sur la cadence ; ralentis si le souffle devient saccadé. Sécurité : remplace Chaturanga par genoux-poitrine-menton ou genoux au sol si le contrôle scapulaire n'est pas suffisant."
+  },
+  {
+    "id": "YOG-006",
+    "nom_fr": "Les cent (centrage et respiration)",
+    "nom_en": "The Hundred (Pilates)",
+    "mots_cles": [
+      "hundred",
+      "the_hundred",
+      "pilates",
+      "respiration",
+      "centrage",
+      "abdominaux",
+      "transverse"
+    ],
+    "categorie": "pilates_renforcement",
+    "materiel": [
+      "Tapis de Pilates"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Obliques",
+      "Diaphragme",
+      "Plancher pelvien"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche",
+      "Quadriceps",
+      "Deltoïdes",
+      "Grand dentelé"
+    ],
+    "respiration": "Respiration latérale thoracique : inspire en ouvrant les côtes vers les côtés et l'arrière, expire en rapprochant doucement la paroi abdominale profonde de la colonne sans écraser le thorax. 5 battements à l'inspiration, 5 à l'expiration, sans apnée.",
+    "niveau_1": "Pieds au sol ou jambes en tabletop, tête posée, bras qui battent doucement. 5 cycles de respiration 5/5.",
+    "niveau_2": "Tête et épaules décollées si la nuque reste confortable, jambes en tabletop ou à environ 45°. 100 battements avec respiration 5/5.",
+    "niveau_3": "Jambes plus basses, jusqu'à environ 30 à 45°, uniquement si le bassin reste stable et la respiration fluide. 100 battements contrôlés.",
+    "coach_tip": "Alignement : nuque longue, menton légèrement rentré et épaules éloignées des oreilles. Le bassin reste stable ; utilise une rétroversion seulement dans la mesure nécessaire pour maintenir une position lombaire confortable, sans plaquer agressivement le dos. Centrage : engage le transverse et le plancher pelvien à l'expiration tout en gardant les côtes mobiles. Souffle : conserve le rythme 5/5 ; si la nuque tire ou si les lombaires se creusent, remonte les jambes ou pose la tête. Sécurité : la qualité du centrage prime sur les 100 battements."
+  },
+  {
+    "id": "YOG-007",
+    "nom_fr": "Étirement d'une jambe et de deux jambes",
+    "nom_en": "Single Leg Stretch & Double Leg Stretch (Pilates)",
+    "mots_cles": [
+      "single_leg_stretch",
+      "double_leg_stretch",
+      "pilates",
+      "controle_abdominal",
+      "coordination",
+      "abdominaux"
+    ],
+    "categorie": "pilates_renforcement",
+    "materiel": [
+      "Tapis de Pilates"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Transverse de l'abdomen",
+      "Obliques",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Deltoïdes",
+      "Plancher pelvien",
+      "Grand dentelé"
+    ],
+    "respiration": "Single Leg Stretch : expire lors du changement de jambe, inspire pour préparer le suivant. Double Leg Stretch : inspire pendant l'allongement des bras et des jambes, expire pour revenir. Respiration latérale thoracique, sans apnée.",
+    "niveau_1": "Single Leg Stretch tête posée, mains sur les tibias, alternance lente. 6 répétitions par côté.",
+    "niveau_2": "Single Leg Stretch tête et épaules décollées si confortable, puis Double Leg Stretch avec bras et jambes qui s'allongent. 8 à 10 répétitions de chaque.",
+    "niveau_3": "Jambes plus basses et tempo lent, ou enchaînement des deux exercices sans pause. Réduis l'amplitude si le bassin ou les lombaires perdent le contrôle.",
+    "coach_tip": "Alignement : garde le bassin stable et la nuque longue ; la jambe ne descend que jusqu'au point où le bassin reste contrôlé. Centrage : à l'expiration, engage le transverse et le plancher pelvien sans pousser le ventre vers l'extérieur ni bloquer le diaphragme. Souffle : privilégie une expiration complète et régulière plutôt qu'un mouvement plus grand. Sécurité : si les lombaires se décollent ou si la nuque fatigue, augmente l'angle des jambes ou repose la tête."
+  },
+  {
+    "id": "YOG-008",
+    "nom_fr": "Déroulé du dos (Roll-Up)",
+    "nom_en": "Roll-Up (Pilates)",
+    "mots_cles": [
+      "roll_up",
+      "deroule_dos",
+      "pilates",
+      "articulation_vertebrale",
+      "abdominaux",
+      "souplesse"
+    ],
+    "categorie": "pilates_renforcement",
+    "materiel": [
+      "Tapis de Pilates",
+      "Sangle ou serviette (Niveau 1)"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Transverse de l'abdomen",
+      "Fléchisseurs de hanche",
+      "Obliques"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Quadriceps",
+      "Plancher pelvien"
+    ],
+    "respiration": "Inspire pour préparer et allonger les bras ; expire pendant l'enroulement et la descente contrôlée. Garde une respiration latérale thoracique fluide, sans apnée.",
+    "niveau_1": "Roll-Up assisté avec sangle ou serviette, genoux légèrement fléchis, remontée à l'amplitude contrôlée. 4 à 5 répétitions.",
+    "niveau_2": "Roll-Up complet si la colonne s'articule sans élan, jambes tendues ou légèrement fléchies selon la mobilité. 6 à 8 répétitions.",
+    "niveau_3": "Roll-Up non assisté avec tempo lent, 4 à 5 s à la montée et à la descente. N'ajoute la difficulté que si le contrôle reste constant.",
+    "coach_tip": "Alignement : initie le Roll-Up par une flexion séquentielle de la colonne, sans tirer sur la tête ni lancer les bras. Les jambes restent stables et les épaules relâchées. Centrage : active le transverse et le plancher pelvien avant le départ, puis maintiens le contrôle pendant toute la trajectoire. Souffle : utilise l'expiration pour faciliter l'enroulement et le contrôle abdominal. Sécurité : si les pieds se soulèvent ou si tu dois donner de l'élan, utilise la sangle ou plie les genoux ; ne force jamais la flexion lombaire."
+  },
+  {
+    "id": "YOG-009",
+    "nom_fr": "La nage (chaîne postérieure)",
+    "nom_en": "Swimming (Pilates)",
+    "mots_cles": [
+      "swimming",
+      "nage",
+      "pilates",
+      "chaine_posterieure",
+      "dos",
+      "fessiers",
+      "gainage"
+    ],
+    "categorie": "pilates_renforcement",
+    "materiel": [
+      "Tapis de Pilates"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Grand fessier",
+      "Trapèzes inférieurs",
+      "Ischio-jambiers"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde postérieur",
+      "Transverse de l'abdomen",
+      "Plancher pelvien",
+      "Rhomboïdes"
+    ],
+    "respiration": "Respiration latérale thoracique régulière : inspire sur 5 battements alternés, expire sur 5 battements. Garde le ventre légèrement actif sans bloquer la respiration.",
+    "niveau_1": "Allongé sur le ventre, soulève un bras et la jambe opposée sans chercher la hauteur. Pause 2 à 3 s. 6 répétitions par côté.",
+    "niveau_2": "Bras et jambes décollés, battements alternés lents et réguliers, nuque longue. 5 à 10 cycles de respiration.",
+    "niveau_3": "Battements alternés plus rapides avec amplitude modérée, 20 à 30 s. La hauteur reste limitée pour éviter l'hyperextension lombaire.",
+    "coach_tip": "Alignement : garde la nuque dans le prolongement de la colonne et limite la hauteur des bras et des jambes à ce que le bassin puisse rester stable. Le mouvement vient de l'extension de hanche et d'épaule, pas d'une hyperextension lombaire. Centrage : transverse et plancher pelvien actifs pour maintenir le tronc comme une base stable. Souffle : reste sur un rythme continu ; ralentis les battements si la respiration devient saccadée. Sécurité : si le bas du dos se comprime, diminue l'amplitude ou reviens au niveau 1."
+  },
+  {
+    "id": "YOG-010",
+    "nom_fr": "Pont d'épaules (fessiers et ischio-jambiers)",
+    "nom_en": "Shoulder Bridge (Pilates)",
+    "mots_cles": [
+      "shoulder_bridge",
+      "pont_epaules",
+      "pilates",
+      "fessiers",
+      "ischios",
+      "bassin",
+      "mobilite"
+    ],
+    "categorie": "pilates_renforcement",
+    "materiel": [
+      "Tapis de Pilates"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Transverse de l'abdomen"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Adducteurs",
+      "Plancher pelvien",
+      "Grand droit"
+    ],
+    "respiration": "Inspire en préparant et expire pour initier l'élévation du bassin ; inspire en haut sans relâcher le centrage, puis expire pendant la descente contrôlée. Respiration latérale thoracique, sans apnée.",
+    "niveau_1": "Pont classique : pieds parallèles, genoux dans l'axe des hanches, montée du bassin jusqu'à une ligne confortable. Pause 2 s. 8 à 10 répétitions.",
+    "niveau_2": "Pont articulé : déroule la colonne à la montée et à la descente, pause de 2 s en haut, sans cambrer. 8 à 10 répétitions.",
+    "niveau_3": "Pont avec extension alternée d'une jambe si le bassin reste parfaitement stable, puis progression éventuelle vers le pont à une jambe. 6 à 8 répétitions par côté.",
+    "coach_tip": "Alignement : pieds parallèles, genoux dans l'axe des hanches et bassin stable. Monte jusqu'à une ligne épaules-hanches-genoux sans chercher une hauteur maximale ; garde la nuque neutre et évite de projeter les côtes vers l'avant. Centrage : engage le transverse et le plancher pelvien avant de monter, puis utilise les fessiers pour produire l'extension de hanche plutôt que de cambrer les lombaires. Souffle : expire pendant l'effort et conserve un souffle continu. Sécurité : pour les variantes unilatérales, ne progresse que si le bassin reste horizontal et sans douleur."
+  }
+]

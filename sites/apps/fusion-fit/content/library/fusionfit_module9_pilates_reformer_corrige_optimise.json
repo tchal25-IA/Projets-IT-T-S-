@@ -1,0 +1,300 @@
+[
+  {
+    "id": "REF-001",
+    "nom_fr": "Travail des pieds sur le Reformer",
+    "nom_en": "Footwork (Reformer)",
+    "mots_cles": [
+      "footwork",
+      "reformer",
+      "pilates",
+      "jambes",
+      "alignement",
+      "pousses"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Barre à pieds (footbar)",
+      "Appui-tête et cale-épaules réglés"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Triceps sural"
+    ],
+    "muscles_secondaires": [
+      "Transverse de l'abdomen",
+      "Adducteurs",
+      "Muscles intrinsèques du pied"
+    ],
+    "respiration": "Inspire pour préparer et organiser le centre ; expire pendant la poussée du chariot ; inspire pour accompagner son retour sous contrôle. Garde une respiration latérale régulière, sans apnée ni poussée du bassin.",
+    "niveau_1": "Ressorts offrant une résistance stable et suffisamment confortable pour contrôler le chariot ; talons puis avant-pieds, amplitude réduite au départ, 8 à 10 répétitions par position. Priorité à l'alignement genou-cheville-pied et à un retour silencieux du chariot.",
+    "niveau_2": "Résistance permettant une extension complète sans verrouillage des genoux ; enchaîne talons, avant-pieds, V Pilates et pieds parallèles, 8 à 10 répétitions par position. Maintiens le bassin stable et évite toute amplitude qui fait basculer le bassin.",
+    "niveau_3": "Réduis légèrement la résistance pour augmenter l'exigence de contrôle, ou passe au travail unilatéral si l'alignement reste constant. Variante : tempo lent, par exemple 4 secondes à l'aller et 4 secondes au retour, ou prances avec amplitude maîtrisée.",
+    "coach_tip": "Réglage : vérifie la barre à pieds, l'appui-tête et la position des cale-épaules avant de charger les ressorts. Posture : bassin et cage thoracique organisés, nuque longue, épaules relâchées ; genoux orientés dans l'axe du deuxième orteil. Centre : maintiens une légère tension abdominale sans plaquer volontairement le bas du dos. Mécanique : pousse le chariot par une extension coordonnée de hanche et de genou, puis freine activement son retour. Sécurité : ne verrouille pas les genoux et ne laisse jamais le chariot revenir en butée."
+  },
+  {
+    "id": "REF-002",
+    "nom_fr": "Les cent sur Reformer",
+    "nom_en": "The Hundred (Reformer)",
+    "mots_cles": [
+      "hundred",
+      "reformer",
+      "pilates",
+      "respiration",
+      "centrage",
+      "sangles",
+      "abdominaux"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Sangles de bras",
+      "Appui-tête réglé"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit de l'abdomen",
+      "Obliques",
+      "Diaphragme",
+      "Plancher pelvien"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche",
+      "Grand dorsal",
+      "Deltoïdes",
+      "Triceps brachial"
+    ],
+    "respiration": "Inspire sur 5 battements de bras et expire sur les 5 suivants, pour 10 cycles et 100 battements. Utilise une respiration latéro-costale : les côtes s'ouvrent à l'inspiration sans perdre l'organisation du bassin et du tronc.",
+    "niveau_1": "Résistance légère à modérée adaptée au contrôle des sangles ; tête posée, genoux en tabletop, bras effectuant de petits battements réguliers. Commence par 3 à 5 cycles respiratoires avant d'augmenter le volume.",
+    "niveau_2": "Décolle tête et épaules seulement si la flexion du tronc reste confortable ; jambes en tabletop puis plus éloignées du tronc selon le contrôle. Réalise jusqu'à 10 cycles respiratoires, sans modifier la position du bassin ni accélérer les battements.",
+    "niveau_3": "Augmente progressivement le bras de levier des jambes ou la demande des sangles, plutôt que de rechercher une charge élevée. Variante : jambes plus basses ou verticales selon l'objectif, uniquement si la cage thoracique et le bassin restent stables.",
+    "coach_tip": "Réglage : sécurise les sangles et choisis une résistance qui permet de garder les bras réguliers sans tirer les épaules vers les oreilles. Posture : sternum ouvert, nuque longue, regard vers les genoux si la tête est levée. Centre : expire pour renforcer le contrôle abdominal sans écraser volontairement les lombaires. Mécanique : les battements restent courts, rythmiques et indépendants du mouvement du chariot. Sécurité : si la nuque fatigue, repose la tête ; si le bassin bascule ou que les lombaires se creusent, rapproche les jambes du vertical."
+  },
+  {
+    "id": "REF-003",
+    "nom_fr": "Étirements de genoux",
+    "nom_en": "Knee Stretches (Reformer)",
+    "mots_cles": [
+      "knee_stretches",
+      "reformer",
+      "pilates",
+      "dos_rond",
+      "dos_plat",
+      "genoux",
+      "abdominaux"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Barre à pieds (footbar)",
+      "Cale-épaules"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Transverse de l'abdomen",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche",
+      "Grand dentelé",
+      "Érecteurs du rachis",
+      "Deltoïdes"
+    ],
+    "respiration": "Inspire pendant le déplacement du chariot vers l'arrière ; expire pendant son retour vers la barre, en maintenant la forme du tronc et une pression abdominale régulière. Évite de retenir le souffle, surtout lorsque la résistance augmente.",
+    "niveau_1": "Résistance permettant un mouvement fluide ; commence en dos plat avec une amplitude courte, 8 à 10 répétitions. Le déplacement vient principalement de l'ouverture et de la fermeture de l'angle de hanche, sans modifier inutilement la colonne.",
+    "niveau_2": "Passe au Round Back avec une flexion globale contrôlée du rachis et une rétroversion modérée du bassin. Le chariot avance et recule depuis les hanches, 10 à 12 répétitions, sans chercher à rapprocher excessivement les genoux de la barre.",
+    "niveau_3": "Genoux décollés du chariot sur une très faible hauteur si la stabilité du tronc est acquise, avec résistance adaptée et amplitude contrôlée. Variante : alterner Flat Back et Round Back sans accélérer le retour du chariot.",
+    "coach_tip": "Réglage : choisis une résistance assez importante pour stabiliser le mouvement, mais pas au point de tirer le bassin vers l'arrière. Posture : mains stables sur la barre, épaules basses, nuque longue ; distingue clairement Flat Back et Round Back au lieu de les mélanger. Centre : garde le tronc actif pendant tout le cycle. Mécanique : le chariot se déplace par les hanches et les jambes, sans poussée des épaules. Sécurité : limite l'amplitude si les genoux arrivent trop près de la barre, si le dos perd sa forme ou si le chariot devient incontrôlable."
+  },
+  {
+    "id": "REF-004",
+    "nom_fr": "Grand étirement (planche sur Reformer)",
+    "nom_en": "Long Stretch (Reformer)",
+    "mots_cles": [
+      "long_stretch",
+      "reformer",
+      "pilates",
+      "planche",
+      "gainage",
+      "epaules",
+      "abdominaux"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Barre à pieds (footbar)",
+      "Cale-épaules"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Deltoïdes",
+      "Grand dentelé",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Pectoraux",
+      "Grand dorsal"
+    ],
+    "respiration": "Inspire pendant l'éloignement du chariot ; expire pendant le retour vers la barre, en maintenant une expiration active mais sans apnée. Garde la cage thoracique empilée au-dessus du bassin pendant tout le déplacement.",
+    "niveau_1": "Résistance stable et confortable ; commence par une planche avec les genoux sur le chariot ou une tenue isométrique de 10 à 20 secondes sans déplacement. Répète 3 à 5 fois avec récupération suffisante.",
+    "niveau_2": "Long Stretch en planche complète, mains sous ou légèrement devant les épaules, pieds contre les cale-épaules. Déplace le chariot sur une amplitude modérée de 20 à 30 cm sans laisser le bassin s'affaisser ; 6 à 8 répétitions.",
+    "niveau_3": "Augmente progressivement l'amplitude ou ajoute une pause de 2 à 3 secondes en position éloignée, uniquement si le tronc reste stable. Variante : introduire Up Stretch ou Down Stretch séparément avant de les enchaîner.",
+    "coach_tip": "Réglage : sélectionne une résistance qui permette de freiner le chariot dans les deux directions ; vérifie l'appui des pieds contre les cale-épaules. Posture : corps organisé de la tête aux talons, épaules stables au-dessus des mains, nuque dans l'axe. Centre : maintiens une tension abdominale et fessière suffisante pour empêcher l'extension lombaire. Mécanique : déplace le chariot avec les épaules et les hanches coordonnées, sans déplacer le corps en bloc. Sécurité : réduis l'amplitude ou passe à la version genoux si les poignets, épaules ou lombaires deviennent douloureux."
+  },
+  {
+    "id": "REF-005",
+    "nom_fr": "Éléphant",
+    "nom_en": "Elephant (Reformer)",
+    "mots_cles": [
+      "elephant",
+      "reformer",
+      "pilates",
+      "ischios",
+      "dos_rond",
+      "abdominaux",
+      "etirement"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Barre à pieds (footbar)",
+      "Cale-épaules"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit de l'abdomen",
+      "Grand dorsal",
+      "Ischio-jambiers"
+    ],
+    "muscles_secondaires": [
+      "Triceps sural",
+      "Deltoïdes",
+      "Grand dentelé",
+      "Grand fessier"
+    ],
+    "respiration": "Inspire pour préparer la position ; expire pendant l'éloignement du chariot en maintenant la flexion de hanche et l'organisation du tronc ; inspire pour accompagner le retour sous contrôle. La respiration reste fluide, sans chercher à forcer l'expiration.",
+    "niveau_1": "Résistance stable, mains sur la barre, pieds contre les cale-épaules et genoux légèrement fléchis. Commence par une petite amplitude, 6 à 8 répétitions, en privilégiant la stabilité des épaules et la mobilité du chariot.",
+    "niveau_2": "Augmente progressivement l'extension des genoux si le bassin reste haut et la colonne contrôlée. Le chariot se déplace principalement par l'action coordonnée des hanches et des épaules ; 8 à 10 répétitions sans forcer les talons vers le bas.",
+    "niveau_3": "Réduis légèrement la résistance ou augmente l'amplitude seulement si le contrôle reste constant. Variante : travail unilatéral ou tempo lent, mais sans ajouter de rotation du bassin si elle perturbe l'alignement.",
+    "coach_tip": "Réglage : assure-toi que la barre et les cale-épaules sont correctement positionnés et que la résistance laisse le chariot revenir sans à-coups. Posture : colonne en flexion globale contrôlée, hanches hautes, épaules stables et tête relâchée entre les bras. Centre : maintiens une tension abdominale qui soutient la flexion sans tirer le nombril de façon excessive. Mécanique : initie le déplacement avec les hanches et contrôle activement le retour. Sécurité : ne force ni l'extension des genoux ni l'abaissement des talons ; fléchis davantage les genoux si la tension des ischio-jambiers arrondit excessivement le bas du dos."
+  },
+  {
+    "id": "REF-006",
+    "nom_fr": "Sirène",
+    "nom_en": "Mermaid (Reformer)",
+    "mots_cles": [
+      "mermaid",
+      "reformer",
+      "pilates",
+      "flexion_laterale",
+      "obliques",
+      "mobilite",
+      "etirement"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Barre à pieds (footbar)",
+      "Coussin d'assise (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Carré des lombes",
+      "Grand dorsal",
+      "Intercostaux"
+    ],
+    "muscles_secondaires": [
+      "Transverse de l'abdomen",
+      "Deltoïdes",
+      "Grand dentelé",
+      "Adducteurs"
+    ],
+    "respiration": "Inspire pour créer de la longueur dans le côté du tronc ; expire pendant l'inclinaison latérale et le déplacement contrôlé du chariot ; inspire pour revenir. Cherche une expansion costale du côté qui s'ouvre sans forcer l'amplitude.",
+    "niveau_1": "Résistance légère à modérée ; installe une assise stable de côté avec un support sous le bassin si nécessaire. Réalise une inclinaison latérale de faible amplitude, 5 à 6 répétitions par côté, sans chercher la profondeur.",
+    "niveau_2": "Ajoute le bras au-dessus de la tête et augmente progressivement le déplacement du chariot, en gardant la colonne longue et le bassin organisé. Réalise 6 à 8 répétitions par côté avec un retour lent et maîtrisé.",
+    "niveau_3": "Ajoute une rotation thoracique légère seulement si l'inclinaison latérale reste stable et indolore, ou utilise un tempo plus lent. La résistance n'est augmentée que si le chariot reste parfaitement contrôlé.",
+    "coach_tip": "Réglage : choisis une résistance qui permette de déplacer le chariot sans tirer brutalement sur l'épaule. Posture : crée d'abord de la longueur axiale, puis l'inclinaison ; stabilise le bassin et laisse la mobilité venir de la colonne thoracique. Centre : engage doucement les abdominaux pour éviter l'effondrement latéral. Mécanique : la main sur la barre guide le chariot tandis que le tronc contrôle la flexion. Sécurité : utilise un coussin si l'assise comprime le bassin et réduis l'amplitude en cas de douleur lombaire ou d'épaule."
+  },
+  {
+    "id": "REF-007",
+    "nom_fr": "Série de la petite caisse",
+    "nom_en": "Short Box Series (Reformer)",
+    "mots_cles": [
+      "short_box",
+      "reformer",
+      "pilates",
+      "dos_rond",
+      "dos_plat",
+      "rotation",
+      "abdominaux",
+      "sangles"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Boîte (box) courte",
+      "Sangle de pieds",
+      "Barre de traction (pole)"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Transverse de l'abdomen",
+      "Obliques",
+      "Érecteurs du rachis"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs de hanche",
+      "Fessiers",
+      "Grand dorsal",
+      "Deltoïdes"
+    ],
+    "respiration": "Inspire pour préparer et grandir dans la position assise ; expire pendant l'enroulement, l'inclinaison ou la rotation selon la variante ; inspire pour revenir à la verticale avec contrôle. Maintiens une respiration latéro-costale sans perdre la stabilité du bassin.",
+    "niveau_1": "Résistance légère ; assis sur la boîte, pieds sécurisés sous la sangle et colonne organisée. Commence par le Round Back sur une petite amplitude, 6 à 8 répétitions, sans utiliser le bâton.",
+    "niveau_2": "Introduis progressivement Flat Back, Side to Side et Tree, en gardant le bassin stable et en différenciant flexion, inclinaison et rotation. Réalise 4 à 6 répétitions de chaque variante avant d'augmenter le volume.",
+    "niveau_3": "Augmente l'amplitude ou utilise le bâton au-dessus de la tête seulement si la position du bassin et du tronc reste maîtrisée. Pour Tree, augmente progressivement l'extension de la jambe ; pour les rotations, privilégie la qualité de la rotation thoracique plutôt qu'une amplitude maximale.",
+    "coach_tip": "Réglage : vérifie la position de la box et la tension de la sangle de pieds avant de commencer ; les pieds doivent rester sécurisés sans être tirés vers l'avant. Posture : grandis-toi sur les ischions et garde le cou détendu. Centre : maintiens une tension abdominale continue, particulièrement avant de quitter la verticale. Mécanique : contrôle la descente et la remontée sans élan ; en rotation, le bassin reste stable pendant que le tronc tourne. Sécurité : évite les flexions profondes si elles sont contre-indiquées ou inconfortables et réduis l'amplitude dès que le contrôle lombopelvien se dégrade."
+  },
+  {
+    "id": "REF-008",
+    "nom_fr": "Cercles de jambes dans les sangles",
+    "nom_en": "Leg Circles (Feet in Straps)",
+    "mots_cles": [
+      "leg_circles",
+      "reformer",
+      "pilates",
+      "hanches",
+      "mobilite",
+      "stabilite",
+      "sangles"
+    ],
+    "categorie": "pilates_reformer",
+    "materiel": [
+      "Reformer Pilates",
+      "Sangles de jambes",
+      "Appui-tête réglé"
+    ],
+    "muscles_principaux": [
+      "Fléchisseurs de hanche",
+      "Grand fessier",
+      "Adducteurs",
+      "Ischio-jambiers"
+    ],
+    "muscles_secondaires": [
+      "Transverse de l'abdomen",
+      "Plancher pelvien",
+      "Quadriceps",
+      "Obliques"
+    ],
+    "respiration": "Inspire sur une partie du cercle et expire sur l'autre, sans imposer un découpage rigide. Garde une respiration fluide et latéro-costale tout en maintenant la stabilité du bassin et du tronc.",
+    "niveau_1": "Résistance légère à modérée ; jambes dans les sangles, petits cercles confortables, 5 à 6 répétitions dans chaque sens. Priorité à l'absence de mouvement parasite du bassin et à la tension régulière des sangles.",
+    "niveau_2": "Augmente progressivement l'amplitude des cercles avec jambes tendues, uniquement si le bassin et la cage thoracique restent stables. Réalise 6 à 8 cercles par sens avec un retour contrôlé vers le centre.",
+    "niveau_3": "Augmente légèrement l'amplitude ou utilise un tempo plus lent plutôt que de cumuler amplitude et résistance. Variante : unilatéral avec l'autre jambe fléchie, si le bassin reste stable et que la tension de la sangle demeure constante.",
+    "coach_tip": "Réglage : place les sangles de façon symétrique et choisis une résistance qui maintient une tension continue sans tirer brutalement les jambes. Posture : bassin neutre ou légèrement organisé selon la mobilité individuelle, épaules stables contre les cale-épaules, nuque longue. Centre : engage les abdominaux sans chercher à écraser les lombaires. Mécanique : le cercle part de l'articulation coxo-fémorale tandis que le bassin reste immobile ; freine le mouvement sur tout le trajet. Sécurité : réduis immédiatement l'amplitude si le bassin roule ou si les lombaires se creusent, et ne laisse jamais les sangles revenir sans contrôle."
+  }
+]

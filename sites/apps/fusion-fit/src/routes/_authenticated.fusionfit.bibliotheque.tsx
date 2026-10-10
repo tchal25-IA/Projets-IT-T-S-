@@ -11,6 +11,7 @@ import {
 } from "@/hooks/use-coach-exercises";
 import { syncAssignedProgramsFromTemplate, normalizeProgramBlocs } from "@/lib/program-sync";
 import { JOURS_FR } from "@/lib/dates";
+import { LibraryInstantSearch } from "@/components/bibliotheque/library-instant-search";
 
 export const Route = createFileRoute("/_authenticated/fusionfit/bibliotheque")({
   component: BibliothequePage,
@@ -147,6 +148,8 @@ function BibliothequePage() {
 
   return (
     <div className="space-y-5">
+      <LibraryInstantSearch />
+
       <ExercicesPanel />
 
       <header className="flex items-start justify-between gap-3">

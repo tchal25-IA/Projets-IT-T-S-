@@ -1,0 +1,274 @@
+[
+  {
+    "id": "POS-001",
+    "nom_fr": "Décompression lombaire, jambes sur chaise",
+    "nom_en": "Lumbar Decompression (90-90 Legs on Chair)",
+    "mots_cles": [
+      "decompression",
+      "lombaires",
+      "90_90",
+      "chaise",
+      "relaxation",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Tapis",
+      "Chaise ou canapé",
+      "Coussin (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis lombaire (relâchement)",
+      "Carré des lombes (relâchement)",
+      "Diaphragme"
+    ],
+    "muscles_secondaires": [
+      "Psoas-iliaque (relâchement selon le confort)",
+      "Ischio-jambiers",
+      "Fessiers",
+      "Transverse de l’abdomen"
+    ],
+    "respiration": "Allonge la nuque et laisse les côtes s’ouvrir sur les côtés à l’inspiration nasale, sans pousser volontairement le ventre. À l’expiration, laisse les côtes redescendre et relâche progressivement les tensions lombaires. Garde un souffle silencieux et continu, sans forcer ni retenir l’air.",
+    "niveau_1": "Allonge-toi sur le dos, mollets soutenus par une chaise afin que hanches et genoux soient proches de 90°. Bras relâchés, nuque confortable. Reste 1 à 2 min en respirant calmement, sans chercher à plaquer le dos au sol.",
+    "niveau_2": "Même position, mains sur les côtes basses pour sentir leur expansion latérale. À chaque expiration, relâche les muscles du dos et laisse le bassin se poser naturellement, sans pousser ni accentuer la rétroversion. 3 à 5 min selon le confort.",
+    "niveau_3": "Prolonge jusqu’à 5 à 8 min uniquement si la position reste confortable, ou place un petit coussin sous la tête. Explore une très légère bascule du bassin à l’expiration, sans contraction forcée ni charge posée sur le ventre.",
+    "coach_tip": "Installation : soutiens toute la longueur des mollets, garde la nuque neutre et laisse les épaules lourdes. Objectif : réduire temporairement l’effort postural et favoriser le relâchement, sans prétendre « décompresser » ou réaligner les vertèbres de façon garantie. Respire dans les côtes basses ; l’expiration peut aider à relâcher, mais ne force pas le dos contre le sol. Arrête en cas de douleur croissante, d’engourdissement ou de douleur irradiant dans la jambe ; demande un avis médical si ces symptômes persistent."
+  },
+  {
+    "id": "POS-002",
+    "nom_fr": "Chat-vache (mobilité du rachis)",
+    "nom_en": "Cat-Cow (Spinal Mobility)",
+    "mots_cles": [
+      "chat_vache",
+      "cat_cow",
+      "rachis",
+      "mobilite",
+      "dos",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Grand droit de l’abdomen",
+      "Transverse de l’abdomen"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Trapèzes",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Inspire doucement en laissant le sternum avancer et le bassin basculer légèrement en antéversion (vache), sans comprimer les lombaires. Expire en arrondissant progressivement le dos et en orientant le bassin en rétroversion (chat). Laisse le souffle accompagner le mouvement, sans apnée.",
+    "niveau_1": "À quatre pattes, mains sous les épaules et genoux sous les hanches. Mobilise doucement le bassin et la colonne sur une petite amplitude confortable. Effectue 6 à 8 cycles lents.",
+    "niveau_2": "Augmente progressivement l’amplitude sans aller en fin de course forcée : coordonne bassin, thorax puis tête, et inversement. 8 à 12 cycles avec respiration régulière.",
+    "niveau_3": "Segmente le mouvement comme une vague, ou pratique la variante assise sur une chaise en mobilisant le bassin et le haut du dos. N’ajoute le mouvement d’un bras que si le tronc reste stable. 6 à 8 répétitions contrôlées.",
+    "coach_tip": "Garde les mains ancrées, les coudes souples et la nuque dans le prolongement du rachis. Initie le mouvement par le bassin puis laisse la colonne suivre ; évite de jeter la tête en arrière ou de chercher une cambrure maximale. Respire lentement et répartis la mobilité entre les régions thoracique et lombaire selon ton confort. Réduis l’amplitude si une douleur apparaît et utilise un support sous les genoux si nécessaire."
+  },
+  {
+    "id": "POS-003",
+    "nom_fr": "Ouverture des fléchisseurs de hanche",
+    "nom_en": "Half-Kneeling Hip Flexor Stretch",
+    "mots_cles": [
+      "flechisseurs_hanche",
+      "psoas",
+      "hip_flexor",
+      "etirement",
+      "assis_prolonge",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Tapis ou coussin pour le genou"
+    ],
+    "muscles_principaux": [
+      "Psoas-iliaque",
+      "Droit fémoral"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Transverse de l’abdomen",
+      "Érecteurs du rachis",
+      "Tenseur du fascia lata"
+    ],
+    "respiration": "Grandis-toi à l’inspiration en gardant les côtes au-dessus du bassin. À l’expiration, contracte doucement le fessier de la jambe arrière et avance légèrement le bassin, sans cambrer les lombaires. Respire dans les côtes basses pendant l’étirement.",
+    "niveau_1": "Place un genou sur un coussin et l’autre pied devant, genou au-dessus de la cheville. Garde le buste vertical et effectue une légère rétroversion du bassin. Avance-le de quelques centimètres jusqu’à sentir un étirement modéré devant la hanche arrière. 20 à 30 s par côté.",
+    "niveau_2": "Maintiens le bassin stable, le fessier arrière légèrement contracté et les côtes basses. Si la position reste confortable, lève les bras sans laisser les lombaires se creuser. 30 à 45 s par côté, en respirant librement.",
+    "niveau_3": "Augmente légèrement l’étirement en reculant le pied arrière contre un support bas, uniquement si le genou et le dos le tolèrent. N’utilise la variante type Couch Stretch qu’avec un appui stable et une amplitude maîtrisée. 20 à 30 s par côté ; la profondeur n’est pas un objectif en soi.",
+    "coach_tip": "Le bassin avance en bloc, sans basculer vers l’avant ; la sensation doit rester à l’avant de la hanche ou de la cuisse arrière, pas dans les lombaires ni le genou. Garde les côtes empilées au-dessus du bassin et contracte doucement le fessier arrière. Ne rebondis pas et ne force pas la durée. Une gêne articulaire, des fourmillements ou une douleur vive imposent d’interrompre ou d’adapter l’exercice."
+  },
+  {
+    "id": "POS-004",
+    "nom_fr": "Mobilité thoracique allongée",
+    "nom_en": "Thoracic Mobility (Open Book)",
+    "mots_cles": [
+      "mobilite_thoracique",
+      "open_book",
+      "rotation",
+      "thoracique",
+      "dos_haut",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Tapis",
+      "Coussin (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Colonne thoracique (rotation)",
+      "Obliques",
+      "Muscles intercostaux"
+    ],
+    "muscles_secondaires": [
+      "Grand pectoral (ouverture)",
+      "Rhomboïdes",
+      "Deltoïde postérieur",
+      "Grand dentelé"
+    ],
+    "respiration": "Inspire en préparant les bras devant toi. Expire lentement en ouvrant le bras supérieur et en laissant la rotation se répartir dans le haut du dos ; inspire au retour. Garde un souffle fluide et n’utilise pas l’expiration pour forcer l’amplitude.",
+    "niveau_1": "Allonge-toi sur le côté, hanches et genoux fléchis, genoux superposés et bras tendus devant. Ouvre doucement le bras supérieur dans une amplitude confortable, puis reviens. 5 à 6 répétitions par côté.",
+    "niveau_2": "Laisse le regard suivre la main et maintiens les genoux empilés pour limiter la rotation du bassin. Marque une pause de 1 à 2 s dans l’ouverture confortable. 6 à 8 répétitions par côté.",
+    "niveau_3": "Allonge progressivement le bras et prolonge la pause jusqu’à 3 s si la respiration reste fluide. Une variante « Thread the Needle » peut remplacer l’exercice, sans chercher une rotation maximale. Évite d’ajouter des charges.",
+    "coach_tip": "Stabilise le bassin avec les genoux superposés et laisse la rotation venir principalement du haut du dos, sans tirer sur l’épaule ni forcer le bras vers le sol. Laisse les côtes bouger avec la respiration et garde la nuque détendue. Si le genou supérieur se décolle, réduis l’amplitude ou place un coussin entre les genoux. Arrête si une douleur à l’épaule, au cou ou au dos apparaît."
+  },
+  {
+    "id": "POS-005",
+    "nom_fr": "Anges contre le mur (fixateurs d'omoplate)",
+    "nom_en": "Wall Angels (Scapular Stabilizers)",
+    "mots_cles": [
+      "wall_angels",
+      "omoplates",
+      "trapeze_inferieur",
+      "posture",
+      "epaules",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Mur libre",
+      "Tapis antidérapant (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Trapèzes inférieurs",
+      "Grand dentelé",
+      "Rhomboïdes",
+      "Deltoïde postérieur"
+    ],
+    "muscles_secondaires": [
+      "Rotateurs externes (coiffe)",
+      "Érecteurs du rachis",
+      "Transverse de l'abdomen",
+      "Triceps"
+    ],
+    "respiration": "Inspire en faisant glisser les bras vers le haut sans hausser les épaules. Expire en les redescendant et en gardant les côtes empilées au-dessus du bassin. Respire sans apnée et sans plaquer de force le bas du dos au mur.",
+    "niveau_1": "Dos près du mur, pieds légèrement avancés et genoux souples. Place les bras en W dans une amplitude confortable, même si les poignets ou les coudes ne touchent pas le mur. Fais glisser les bras sur une courte distance. 6 à 8 répétitions lentes.",
+    "niveau_2": "Fais monter les bras vers un Y aussi loin que possible sans hausser les épaules ni cambrer le dos. Le contact avec le mur est facultatif : privilégie un mouvement fluide et contrôlé. 8 à 10 répétitions.",
+    "niveau_3": "Ajoute une pause de 2 s dans la position haute confortable ou utilise une mini-bande très légère autour des poignets si tu gardes le contrôle des omoplates. 6 à 8 répétitions ; arrête la montée avant toute compensation.",
+    "coach_tip": "Pense à faire tourner les omoplates vers le haut et à les laisser glisser sur la cage thoracique, plutôt qu’à les serrer constamment vers l’arrière et le bas. Garde la nuque longue, les côtes calmes et les épaules loin des oreilles. Ne force pas le contact des poignets ou des coudes avec le mur : réduis l’amplitude si tu cambres ou ressens un pincement. Interromps en cas de douleur ou de fourmillements."
+  },
+  {
+    "id": "POS-006",
+    "nom_fr": "Activation des fessiers (pont et coquillage)",
+    "nom_en": "Glute Activation (Bridge & Clamshell)",
+    "mots_cles": [
+      "fessiers",
+      "pont_fessier",
+      "clamshell",
+      "activation",
+      "hanches",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Tapis",
+      "Mini-bande (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Moyen fessier",
+      "Rotateurs externes de hanche"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Transverse de l'abdomen",
+      "Quadriceps"
+    ],
+    "respiration": "Inspire en position basse. Expire pendant la montée du bassin ou l’ouverture du genou, en engageant doucement les abdominaux sans bloquer le souffle. Inspire en revenant lentement à la position de départ.",
+    "niveau_1": "Pont fessier : allongé sur le dos, pieds à largeur de bassin et genoux fléchis, expire en montant le bassin jusqu’à aligner épaules, hanches et genoux sans cambrer. Fais 8 à 12 répétitions, puis 8 à 10 coquillages de chaque côté.",
+    "niveau_2": "Au pont, marque une pause de 2 s en haut en gardant les côtes basses et le bassin de niveau. Pour le coquillage, ouvre le genou supérieur sans rouler le bassin vers l’arrière. 10 à 12 répétitions par exercice et par côté.",
+    "niveau_3": "Ajoute une mini-bande au-dessus des genoux si l’alignement reste stable. Le pont à une jambe n’est indiqué que si le bassin ne pivote pas et si aucune douleur n’apparaît. 6 à 8 répétitions contrôlées par côté.",
+    "coach_tip": "Au pont, pousse dans les pieds et monte par l’extension des hanches ; arrête avant que les lombaires prennent le relais. Au coquillage, garde les pieds ensemble et le bassin empilé, avec une ouverture limitée mais maîtrisée. La brûlure musculaire peut arriver, mais une douleur articulaire ou lombaire n’est pas un objectif : réduis l’amplitude ou arrête."
+  },
+  {
+    "id": "POS-007",
+    "nom_fr": "Rétraction cervicale (double menton)",
+    "nom_en": "Chin Tuck (Cervical Retraction)",
+    "mots_cles": [
+      "chin_tuck",
+      "retraction_cervicale",
+      "nuque",
+      "posture",
+      "cervicales",
+      "bureau"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Mur ou chaise",
+      "Serviette roulée (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Fléchisseurs profonds du cou",
+      "Long du cou",
+      "Trapèzes inférieurs"
+    ],
+    "muscles_secondaires": [
+      "Sterno-cléido-mastoïdien",
+      "Rhomboïdes",
+      "Érecteurs du rachis",
+      "Grand dentelé"
+    ],
+    "respiration": "Inspire calmement en position neutre. Expire en faisant glisser doucement la tête vers l’arrière, comme pour créer un léger double menton, sans incliner le regard vers le bas. Maintiens 3 à 5 s en continuant à respirer, puis relâche.",
+    "niveau_1": "Assis ou debout, regard horizontal et épaules relâchées. Fais reculer la tête à l’horizontale sans baisser le menton ni pousser fort contre le mur. Tiens 2 à 3 s, puis relâche. 6 à 8 répétitions.",
+    "niveau_2": "Réalise une rétraction cervicale de faible amplitude, maintenue 4 à 5 s, sans tension excessive des muscles superficiels du cou. 8 à 10 répétitions avec une respiration régulière.",
+    "niveau_3": "Allongé sur le dos, tête soutenue si nécessaire, effectue la même petite rétraction et tiens 5 à 8 s. N’ajoute pas de résistance manuelle sans encadrement qualifié. 6 à 8 répétitions, sans provoquer de symptômes.",
+    "coach_tip": "Le mouvement est un recul horizontal de la tête, pas une flexion du cou ni une pression forte contre le mur. Garde les mâchoires détendues, le regard horizontal et les épaules relâchées. Recherche une contraction légère et précise, pas un étirement intense. Arrête en cas de vertige, douleur aiguë, engourdissement ou fourmillements ; demande conseil à un professionnel si les symptômes persistent."
+  },
+  {
+    "id": "POS-008",
+    "nom_fr": "Micro-pause active au bureau",
+    "nom_en": "Desk Micro-Break Routine",
+    "mots_cles": [
+      "micro_pause",
+      "bureau",
+      "desk_worker",
+      "routine",
+      "mobilite",
+      "posture",
+      "sedentarite"
+    ],
+    "categorie": "postural_bureau",
+    "materiel": [
+      "Chaise de bureau",
+      "Mur ou bureau pour l'appui"
+    ],
+    "muscles_principaux": [
+      "Trapèzes",
+      "Fléchisseurs de hanche",
+      "Érecteurs du rachis",
+      "Grand pectoral (étirement)"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Mollets",
+      "Deltoïdes",
+      "Transverse de l'abdomen"
+    ],
+    "respiration": "Pendant toute la pause, inspire doucement par le nez en laissant les côtes basses s’élargir, puis expire un peu plus longtemps sans forcer. L’objectif est de relâcher les tensions et de bouger régulièrement, pas d’imposer un rythme respiratoire rigide.",
+    "niveau_1": "Toutes les 30 à 60 min environ, lève-toi 2 min : marche sur place, fais 5 à 8 rotations d’épaules et mobilise doucement les chevilles. Remplace les inclinaisons forcées du cou par de petits mouvements confortables dans plusieurs directions.",
+    "niveau_2": "Routine de 4 à 5 min : marche 1 min, ouverture douce des pectoraux contre un mur 20 à 30 s, 6 à 8 cycles de chat-vache assis, 6 à 8 rétractions cervicales et 8 à 10 levers de chaise contrôlés.",
+    "niveau_3": "Routine de 8 à 10 min : marche dynamique 2 min, étirement des fléchisseurs de hanche 20 à 30 s par côté, 8 Wall Angels adaptés et 10 ponts fessiers au sol si l’espace le permet. Choisis des mouvements sans douleur et alterne les positions plutôt que de chercher une posture parfaite.",
+    "coach_tip": "Fais de la variété et de la fréquence les priorités : change de position, lève-toi régulièrement et ajuste écran, chaise et clavier à ton confort. Il n’existe pas une posture unique à maintenir toute la journée ; les pauses actives réduisent l’immobilité mais ne garantissent pas à elles seules la prévention des TMS/RSI. Évite les amplitudes forcées et adapte chaque mouvement à tes symptômes. Si les douleurs persistent ou s’aggravent, demande un avis professionnel."
+  }
+]

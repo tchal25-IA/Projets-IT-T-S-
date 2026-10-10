@@ -1,0 +1,302 @@
+[
+  {
+    "id": "BOX-001",
+    "nom_fr": "Garde et déplacements",
+    "nom_en": "Boxing Stance & Footwork",
+    "mots_cles": [
+      "garde",
+      "stance",
+      "deplacements",
+      "jeu_de_jambes",
+      "boxe",
+      "equilibre"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Bandes de mains (conseillées)",
+      "Gants (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Abdominaux",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Obliques",
+      "Adducteurs",
+      "Stabilisateurs de la cheville",
+      "Trapèzes"
+    ],
+    "respiration": "Respire de façon régulière et discrète pendant les déplacements : expire légèrement lors des changements d'appui ou d'accélération, inspire entre deux actions. Ne bloque jamais la respiration et garde le tronc disponible pour pivoter.",
+    "niveau_1": "Garde de base : pied avant légèrement orienté vers l'intérieur, pied arrière ouvert, appuis décalés plutôt que sur une même ligne, genoux souples et poids réparti entre les deux jambes. 30 s de garde puis petits pas avant/arrière.",
+    "niveau_2": "Déplacements en garde : pas glissés avant, arrière et latéraux, sans croiser les pieds ; le pied qui va dans la direction du déplacement part en premier et l'autre reprend la distance. 3 × 1 min.",
+    "niveau_3": "Déplacements rapides avec changements de direction, pivots et feintes, en conservant la largeur de garde. Variante : 20 à 30 s de corde à sauter entre les séquences.",
+    "coach_tip": "Garde : menton légèrement rentré, regard horizontal, poings à hauteur des pommettes, coudes proches du tronc et épaules relâchées. Appuis : reste sur l'avant/milieu du pied, sans monter sur la pointe en permanence ; conserve une base stable et évite de croiser les pieds. Centre : gainage tonique sans rigidifier le tronc. Sécurité : genoux souples, surface stable et dégagée, changements de direction progressifs au début."
+  },
+  {
+    "id": "BOX-002",
+    "nom_fr": "Directs (jab et cross)",
+    "nom_en": "Jab & Cross (Straight Punches)",
+    "mots_cles": [
+      "jab",
+      "cross",
+      "directs",
+      "boxe",
+      "coup_droit",
+      "pivot"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Bandes de mains",
+      "Gants",
+      "Sac de frappe (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Triceps",
+      "Pectoraux",
+      "Obliques",
+      "Grand dentelé"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Abdominaux",
+      "Avant-bras"
+    ],
+    "respiration": "Expire brièvement et vivement au moment de l'impact ou de la fin de l'extension, puis inspire pendant le retour en garde et la préparation du coup suivant. Évite toute apnée.",
+    "niveau_1": "Jab et cross dans le vide, lentement, sans élan, en gardant l'autre main devant le menton. 3 x 20 coups, repos 30 s.",
+    "niveau_2": "Jab-cross enchaînés avec pivot du pied arrière et rotation du bassin, retour rapide en garde. 3 x 1 min à rythme régulier.",
+    "niveau_3": "Directs rapides en séries courtes, avec retour systématique en garde, ou travail au sac avec déplacements. Variante : jab-cross puis recul d'un pas. N'utilise pas de charges tenues en main pour accélérer les frappes.",
+    "coach_tip": "Jab : frappe directe avec la main avant en gardant l'épaule protectrice et ramène immédiatement le poing au visage. Cross : initie la rotation depuis le pied arrière et la hanche, puis transfère le poids sans laisser le genou s'effondrer vers l'intérieur. Poignet dans l'axe de l'avant-bras, coude jamais verrouillé. Vitesse = relâchement + retour rapide, pas tension permanente. Garde la main opposée au visage et réduis l'amplitude si l'épaule tire."
+  },
+  {
+    "id": "BOX-003",
+    "nom_fr": "Crochets",
+    "nom_en": "Hooks",
+    "mots_cles": [
+      "crochet",
+      "hook",
+      "boxe",
+      "rotation",
+      "obliques",
+      "pivot"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Bandes de mains",
+      "Gants",
+      "Sac de frappe (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Deltoïdes",
+      "Pectoraux",
+      "Grand dentelé",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Biceps",
+      "Avant-bras"
+    ],
+    "respiration": "Expire brièvement et vivement à l'impact du crochet, puis inspire pendant le retour en garde. Le souffle accompagne la rotation sans bloquer la cage thoracique.",
+    "niveau_1": "Crochet lent dans le vide, coude à 90°, rotation du buste et du pied, 3 x 15 coups par côté, repos 30 s.",
+    "niveau_2": "Crochet avant et arrière avec pivot complet du pied et rotation du bassin, enchaînés en alternance. 3 x 1 min.",
+    "niveau_3": "Crochets rapides en séries courtes, crochet au corps avec flexion contrôlée des jambes, ou travail au sac. Variante : esquive puis crochet, en conservant le retour en garde après chaque frappe.",
+    "coach_tip": "Le crochet part d'une base stable : rotation du pied, du genou et de la hanche, puis transmission vers le tronc et le bras. Coude et poing restent sur une trajectoire circulaire compacte, sans tirer le bras en arrière. Poignet neutre, épaule basse et omoplate contrôlée. Ne cherche pas une amplitude maximale : la vitesse vient de la rotation coordonnée et du relâchement. Stoppe en cas de douleur d'épaule, coude ou poignet."
+  },
+  {
+    "id": "BOX-004",
+    "nom_fr": "Uppercuts",
+    "nom_en": "Uppercuts",
+    "mots_cles": [
+      "uppercut",
+      "boxe",
+      "poussee_jambes",
+      "rotation",
+      "corps_a_corps"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Bandes de mains",
+      "Gants",
+      "Sac de frappe (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Obliques",
+      "Deltoïde antérieur",
+      "Biceps"
+    ],
+    "muscles_secondaires": [
+      "Pectoraux",
+      "Triceps",
+      "Mollets",
+      "Abdominaux",
+      "Avant-bras"
+    ],
+    "respiration": "Expire brièvement et vivement pendant la montée de l'uppercut et à l'impact, puis inspire au retour en garde. Garde une respiration continue entre les répétitions.",
+    "niveau_1": "Uppercut lent dans le vide, genoux légèrement fléchis, poing qui monte de bas en haut devant la poitrine. 3 x 15 coups par côté, repos 30 s.",
+    "niveau_2": "Uppercuts alternés avec poussée des jambes et rotation du bassin, poing qui monte le long du corps, retour en garde. 3 x 1 min.",
+    "niveau_3": "Uppercuts rapides en séries courtes, combo uppercut-crochet, ou travail au sac avec déplacement. Variante : uppercut au corps avec flexion modérée des jambes, sans projeter le buste vers l'avant.",
+    "coach_tip": "L'uppercut reste compact : le poing monte près du corps, avec une légère flexion du coude et une rotation coordonnée du pied, du genou et de la hanche. Pousse le sol plutôt que de soulever l'épaule. Garde le menton protégé et la main opposée en garde. N'exagère ni la flexion des genoux ni l'extension du bras ; poignet neutre et coude non verrouillé à la fin du geste."
+  },
+  {
+    "id": "BOX-005",
+    "nom_fr": "Esquives rotatives",
+    "nom_en": "Slips & Rotational Dodges (Bob and Weave)",
+    "mots_cles": [
+      "esquive",
+      "rotative",
+      "slip",
+      "bob_and_weave",
+      "boxe",
+      "defense",
+      "mobilite"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Corde tendue ou partenaire (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Obliques",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Adducteurs",
+      "Deltoïdes",
+      "Stabilisateurs de la cheville"
+    ],
+    "respiration": "Expire brièvement pendant le déplacement d'esquive ou à la remontée vers la position de frappe, puis inspire pendant la préparation suivante. Ne bloque pas la respiration.",
+    "niveau_1": "Esquive à faible amplitude : flexion légère des genoux et déplacement de la tête de quelques centimètres hors de la ligne, sans pencher le buste. Mains en garde. 3 × 10 de chaque côté.",
+    "niveau_2": "Slip et bob-and-weave contrôlés : fléchis les genoux et les hanches pour sortir de la ligne, puis remonte dans une garde stable. 3 × 1 min.",
+    "niveau_3": "Esquives enchaînées avec contre-attaque (jab-cross à la sortie), sous une corde placée à hauteur adaptée, ou avec feintes d'un partenaire. Variante : sortie latérale avec pivot du pied.",
+    "coach_tip": "Le slip déplace surtout la tête latéralement ; le bob-and-weave ajoute une flexion coordonnée des genoux et des hanches. Garde les pieds actifs, le regard horizontal et les mains proches du visage. Ne plonge pas en avant et ne cherche pas une profondeur excessive. Centre ton équilibre au-dessus des appuis avant de contre-attaquer. Sécurité : amplitude progressive et arrêt immédiat en cas de douleur au genou, à la hanche ou au dos."
+  },
+  {
+    "id": "BOX-006",
+    "nom_fr": "Combinaisons sur sac de frappe",
+    "nom_en": "Heavy Bag Combos",
+    "mots_cles": [
+      "sac_de_frappe",
+      "combo",
+      "heavy_bag",
+      "boxe",
+      "cardio",
+      "enchainement"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Sac de frappe lourd",
+      "Gants de boxe",
+      "Bandes de mains",
+      "Chronomètre"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Pectoraux",
+      "Obliques",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Grand dentelé",
+      "Mollets",
+      "Abdominaux",
+      "Avant-bras"
+    ],
+    "respiration": "Expire brièvement sur chaque impact ou courte séquence de frappes, puis inspire pendant les transitions et déplacements. Sur une reprise longue, privilégie un rythme respiratoire régulier plutôt qu'une apnée de puissance.",
+    "niveau_1": "Combinaisons simples (jab-cross, puis jab-cross-crochet), 3 reprises de 1 min à intensité modérée, 1 min de repos entre les reprises.",
+    "niveau_2": "Combinaisons enchaînées (jab-cross-crochet-cross), avec déplacement autour du sac, 4 reprises de 2 min, 1 min de repos.",
+    "niveau_3": "Combinaisons de 5 à 6 coups avec esquive, uppercuts et frappes au corps, 5 reprises de 3 min à haute intensité. Variante : intervalles 30 s à fond / 30 s récupération active.",
+    "coach_tip": "Garde haute entre les combinaisons, regard sur le sac et appuis suffisamment écartés pour absorber les rotations. Chaque frappe part du sol et du bassin avant d'être transmise au bras ; relâche la main et l'épaule entre les impacts. Reviens en garde après chaque coup et ne reste pas collé au sac. Bandes correctement posées, gants adaptés et poignets alignés avec les avant-bras. Réduis l'intensité dès que la technique se dégrade."
+  },
+  {
+    "id": "BOX-007",
+    "nom_fr": "Plongeon et frappe",
+    "nom_en": "Sprawl & Punch",
+    "mots_cles": [
+      "sprawl",
+      "sprawl_and_punch",
+      "cardio_combat",
+      "mma",
+      "explosif",
+      "metcon"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Aucun",
+      "Tapis",
+      "Gants (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Abdominaux",
+      "Pectoraux",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Obliques",
+      "Mollets",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire pendant la projection des jambes et sur chaque frappe, inspire pendant la remontée et la réorganisation de la garde. Respire continuellement, sans apnée lors de la transition au sol.",
+    "niveau_1": "Sprawl sans saut : pose les mains, recule un pied après l'autre, reviens en garde, puis 2 coups (jab-cross). 8 à 10 répétitions.",
+    "niveau_2": "Sprawl avec projection contrôlée des jambes en arrière, mains sous ou légèrement devant les épaules, bassin proche du sol, puis retour par une position stable avant d'enchaîner jab-cross-crochet. 8 à 10 répétitions, 3 séries.",
+    "niveau_3": "Sprawl explosif avec combinaison de 4 coups à la remontée, ou en circuit (30 s de travail, 15 s de repos, 8 tours). Variante : sprawl avec sprint sur 5 m.",
+    "coach_tip": "Le sprawl se fait sur un tapis : mains stables sous les épaules, jambes projetées en arrière sans forcer l'hyperextension lombaire, puis retour par un appui maîtrisé. À la remontée, réinstalle d'abord une base de boxe stable avant de frapper. Sécurité : amortis les poignets, contrôle la réception des pieds, évite de laisser le bassin s'écraser au sol et arrête si une douleur apparaît aux poignets, épaules, genoux ou lombaires."
+  },
+  {
+    "id": "BOX-008",
+    "nom_fr": "Corde à sauter de boxeur",
+    "nom_en": "Boxing Jump Rope",
+    "mots_cles": [
+      "corde_a_sauter",
+      "jump_rope",
+      "boxe",
+      "cardio",
+      "coordination",
+      "mollets"
+    ],
+    "categorie": "fit_boxing",
+    "materiel": [
+      "Corde à sauter (légère ou speed rope)",
+      "Surface amortissante"
+    ],
+    "muscles_principaux": [
+      "Mollets",
+      "Soléaire",
+      "Quadriceps",
+      "Avant-bras"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Abdominaux",
+      "Fessiers",
+      "Stabilisateurs de la cheville"
+    ],
+    "respiration": "Respire régulièrement selon le rythme des sauts : expiration brève et naturelle sur plusieurs rotations, inspiration entre les séquences. Ne synchronise pas la respiration sur un nombre fixe de sauts si cela perturbe le rythme.",
+    "niveau_1": "Saut à deux pieds, rythme lent, 30 s, avec 30 s de repos, 4 à 5 séries.",
+    "niveau_2": "Saut alterné, en transférant le poids d'un pied à l'autre avec de petits rebonds et les poignets qui entraînent la corde. 3 × 1 min, repos 30 s.",
+    "niveau_3": "Rythme plus rapide, doubles sauts ou variations de pas uniquement si les rebonds restent légers et réguliers. Variante : 30 s de corde puis 30 s de shadow boxing, 4 à 6 cycles.",
+    "coach_tip": "Tiens-toi grand, coudes proches du tronc, poignets souples et regard horizontal. La corde est entraînée principalement par les poignets et les avant-bras ; les épaules restent relâchées. Saute bas, réceptionne silencieusement sur l'avant/milieu du pied et garde les genoux souples. Augmente la cadence seulement si la hauteur de saut et l'alignement restent constants. Utilise une surface adaptée et stoppe en cas de douleur aux mollets, tendons d'Achille ou tibias."
+  }
+]

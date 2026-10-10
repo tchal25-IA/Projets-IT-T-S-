@@ -1,0 +1,2070 @@
+[
+  {
+    "id": "FF-073",
+    "nom_fr": "Passe-bâton aux épaules",
+    "nom_en": "Shoulder Pass-Through",
+    "mots_cles": [
+      "pass_through",
+      "epaules",
+      "mobilite",
+      "baton",
+      "barre_a_vide",
+      "elastique"
+    ],
+    "categorie": "salle_warmup_mobilisation",
+    "materiel": [
+      "Bâton, barre à vide ou élastique long"
+    ],
+    "muscles_principaux": [
+      "Articulation gléno-humérale (épaule)",
+      "Grand pectoral (étirement)",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Rhomboïdes",
+      "Grand dorsal"
+    ],
+    "respiration": "Inspire en passant le bâton au-dessus de la tête, expire en le ramenant derrière le dos.",
+    "niveau_1": "Debout, tiens le bâton très largement devant toi, bras tendus sans forcer. Passe-le au-dessus de la tête puis reviens, avec une petite amplitude au début. 8 répétitions.",
+    "niveau_2": "Prise un peu plus étroite, passage complet devant-derrière sans plier les coudes. 10 répétitions.",
+    "niveau_3": "Barre à vide, prise la plus étroite possible sans douleur, tempo 3 s par passage. Ne force jamais : si les coudes plient, élargis la prise.",
+    "coach_tip": "Imagine que tes mains dessinent un grand arc autour de ta tête : aucune douleur ne doit être forcée. Si les coudes veulent plier, élargis la prise."
+  },
+  {
+    "id": "FF-074",
+    "nom_fr": "Halo au kettlebell",
+    "nom_en": "Kettlebell Halo",
+    "mots_cles": [
+      "kettlebell_halo",
+      "epaules",
+      "thoracique",
+      "mobilite",
+      "kettlebell"
+    ],
+    "categorie": "salle_warmup_mobilisation",
+    "materiel": [
+      "Kettlebell léger (4 à 12 kg)"
+    ],
+    "muscles_principaux": [
+      "Articulation de l'épaule",
+      "Deltoïdes",
+      "Trapèzes"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Grand dentelé",
+      "Abdominaux (stabilisation)"
+    ],
+    "respiration": "Respiration régulière : expire sur la partie arrière du cercle, inspire sur la partie avant.",
+    "niveau_1": "Debout, tiens le kettlebell par les poignées contre la poitrine. Fais un petit cercle autour de la tête sans bouger le buste. 5 tours dans chaque sens.",
+    "niveau_2": "Cercles complets autour de la tête, coudes près du corps, buste immobile, côtes basses. 8 par sens.",
+    "niveau_3": "Halo à genoux (semi-agenouillé) pour supprimer l'aide des jambes, charge plus lourde, tempo lent 4 s par tour. Variante : halo à une main.",
+    "coach_tip": "Garde les côtes empilées au-dessus du bassin : le kettlebell tourne autour de la tête, pas ton dos autour du kettlebell."
+  },
+  {
+    "id": "FF-075",
+    "nom_fr": "Squat de mobilité au goblet",
+    "nom_en": "Goblet Prying Squat",
+    "mots_cles": [
+      "goblet_pry",
+      "hanches",
+      "chevilles",
+      "mobilite",
+      "squat",
+      "kettlebell"
+    ],
+    "categorie": "salle_warmup_mobilisation",
+    "materiel": [
+      "Kettlebell ou haltère léger (contrepoids)"
+    ],
+    "muscles_principaux": [
+      "Articulation de la hanche",
+      "Cheville (dorsiflexion)",
+      "Adducteurs (étirement)"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Fessiers",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire en descendant, expire en bougeant dans le fond du squat sans retenir l'air.",
+    "niveau_1": "Tiens un poids léger contre la poitrine. Descends en squat à une hauteur confortable et utilise doucement les coudes pour écarter les genoux. 6 répétitions.",
+    "niveau_2": "Squat profond maintenu en bas, coudes qui écartent les genoux, balancement doux d'un côté à l'autre. 30 s.",
+    "niveau_3": "Squat profond pieds rapprochés, un talon qui se soulève alternativement (rotation du bassin), ou tenue 60 s avec charge de 12 à 16 kg.",
+    "coach_tip": "Utilise le poids comme une petite béquille : cherche une descente confortable, pas le record de profondeur. Les genoux suivent la direction des orteils."
+  },
+  {
+    "id": "FF-076",
+    "nom_fr": "Demi-relevé turc",
+    "nom_en": "Half Get-Up",
+    "mots_cles": [
+      "half_get_up",
+      "kettlebell",
+      "epaule",
+      "stabilite",
+      "mobilite",
+      "turkish"
+    ],
+    "categorie": "salle_warmup_mobilisation",
+    "materiel": [
+      "Kettlebell léger",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Stabilisateurs de l'épaule (coiffe des rotateurs)",
+      "Obliques",
+      "Grand dentelé"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Transverse de l'abdomen"
+    ],
+    "respiration": "Expire en montant jusqu'au coude, inspire en revenant au sol.",
+    "niveau_1": "Allongé sur le dos, bras droit vers le plafond, plie la jambe du même côté. Roule jusqu'à poser le coude sans laisser le bras tomber. 3 répétitions par côté.",
+    "niveau_2": "Avec kettlebell léger au-dessus de la poitrine, bras vertical, du sol jusqu'à la main au sol. 3 à 4 par côté.",
+    "niveau_3": "Charge modérée, pause de 2 s à chaque étape (coude, main, puis retour contrôlé). Variante : aller jusqu'au pont fessier (Bridge).",
+    "coach_tip": "Imagine que ton poing porte un verre d'eau : il doit rester droit au-dessus de l'épaule pendant toute la montée."
+  },
+  {
+    "id": "FF-077",
+    "nom_fr": "Tirage élastique en ouverture",
+    "nom_en": "Band Pull-Apart",
+    "mots_cles": [
+      "band_pull_apart",
+      "omoplates",
+      "deltoide_posterieur",
+      "elastique",
+      "activation"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Élastique léger ou moyen"
+    ],
+    "muscles_principaux": [
+      "Deltoïde postérieur",
+      "Rhomboïdes",
+      "Trapèzes moyens"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes inférieurs",
+      "Coiffe des rotateurs"
+    ],
+    "respiration": "Expire en écartant les bras, inspire en revenant lentement.",
+    "niveau_1": "Debout, tiens l'élastique devant la poitrine, bras presque tendus. Écarte les mains jusqu'à ouvrir la poitrine sans hausser les épaules. 12 répétitions.",
+    "niveau_2": "Élastique moyen, écarte jusqu'à toucher la poitrine, omoplates serrées 1 s. 15 répétitions.",
+    "niveau_3": "Élastique épais ou prise étroite, tempo lent 3-1-3, ou variante bras levés en diagonale (angle de 45°).",
+    "coach_tip": "Écarte l'élastique comme si tu voulais ouvrir une grande porte avec tes omoplates, sans hausser les épaules vers les oreilles."
+  },
+  {
+    "id": "FF-078",
+    "nom_fr": "Rotation externe à la poulie",
+    "nom_en": "Cable External Rotation",
+    "mots_cles": [
+      "rotation_externe",
+      "coiffe_rotateurs",
+      "poulie",
+      "elastique",
+      "epaule",
+      "activation"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Poulie basse ou élastique accroché"
+    ],
+    "muscles_principaux": [
+      "Infra-épineux",
+      "Petit rond",
+      "Rotation externe de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde postérieur",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire en ouvrant l'avant-bras, inspire en revenant.",
+    "niveau_1": "Coude collé au flanc, avant-bras devant toi. Avec une charge très légère, ouvre la main vers l'extérieur sans décoller le coude. 12 répétitions par bras.",
+    "niveau_2": "Même position, amplitude complète, tempo 2-1-2, 15 répétitions par bras.",
+    "niveau_3": "Position à genoux avec bras à 90° d'abduction (coude à hauteur d'épaule) pour travailler la rotation en position plus exigeante. Variante : tenue de 5 s en fin de course.",
+    "coach_tip": "Le coude est une charnière collée au corps : seul l'avant-bras tourne. Si l'épaule bouge, réduis la charge et l'amplitude."
+  },
+  {
+    "id": "FF-079",
+    "nom_fr": "Marche latérale à l'élastique",
+    "nom_en": "Banded Lateral Walk",
+    "mots_cles": [
+      "lateral_walk",
+      "moyen_fessier",
+      "hanches",
+      "elastique",
+      "activation"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Mini-bande ou élastique de cheville"
+    ],
+    "muscles_principaux": [
+      "Moyen fessier",
+      "Petit fessier",
+      "Abduction de hanche"
+    ],
+    "muscles_secondaires": [
+      "Tenseur du fascia lata",
+      "Quadriceps",
+      "Abdominaux"
+    ],
+    "respiration": "Respiration régulière, expire à chaque pas latéral.",
+    "niveau_1": "Place la mini-bande au-dessus des genoux. Fléchis légèrement les jambes et fais 8 petits pas sur le côté en gardant les pieds parallèles.",
+    "niveau_2": "Bande aux chevilles ou sous les genoux, demi-squat, pas lents, pieds parallèles. 10 pas par côté.",
+    "niveau_3": "Bande épaisse aux chevilles, squat plus profond, pas continus sans croiser les pieds, ou combinaison avec squat tous les 4 pas.",
+    "coach_tip": "Imagine que tu marches dans une pièce très basse : reste gainé et garde la tension de la bande sans laisser les genoux rentrer."
+  },
+  {
+    "id": "FF-080",
+    "nom_fr": "Bonjour à la barre à vide",
+    "nom_en": "Empty Bar Good Morning",
+    "mots_cles": [
+      "good_morning",
+      "barre_a_vide",
+      "charniere_hanche",
+      "ischios",
+      "activation"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Barre olympique à vide (20 kg) ou bâton"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Érecteurs du rachis"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Abdominaux",
+      "Trapèzes"
+    ],
+    "respiration": "Inspire en reculant les hanches, expire en les ramenant vers l'avant.",
+    "niveau_1": "Place un bâton sur les épaules, pieds écartés comme pour marcher. Recule les fesses et incline le buste sans arrondir le dos, puis reviens debout. 8 répétitions.",
+    "niveau_2": "Barre à vide sur le haut du dos (position basse sur les trapèzes), buste incliné à 45°, dos plat. 10 répétitions.",
+    "niveau_3": "Barre à vide avec tempo 4-1-1 (4 s de descente, pause 1 s), ou charge légère en plus (barre de 25 à 30 kg), amplitude jusqu'à la parallèle du buste.",
+    "coach_tip": "Imagine que tes fesses veulent toucher un mur derrière toi : recule-les sans transformer le mouvement en flexion du dos."
+  },
+  {
+    "id": "FF-081",
+    "nom_fr": "Complexe barre à vide",
+    "nom_en": "Empty Bar Complex",
+    "mots_cles": [
+      "barbell_complex",
+      "barre_a_vide",
+      "echauffement",
+      "technique",
+      "activation",
+      "corps_entier"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Barre olympique à vide (20 kg)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Deltoïdes",
+      "Trapèzes"
+    ],
+    "muscles_secondaires": [
+      "Grand dorsal",
+      "Triceps",
+      "Abdominaux",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Expire sur l'effort de chaque mouvement, inspire entre les répétitions.",
+    "niveau_1": "Avec un bâton ou une barre légère, fais 5 répétitions de chaque mouvement prévu, lentement et sans enchaîner trop vite : soulevé de terre, rowing, développé, squat avant.",
+    "niveau_2": "Même enchaînement sans reposer la barre : soulevé de terre, rowing, épaulé de force (hang clean), développé, squat. 5 répétitions de chaque.",
+    "niveau_3": "Même complexe avec barre de 25 à 30 kg (barre plus charge légère), tempo rapide, transitions fluides. Variante : ajoute un Thruster en fin de complexe.",
+    "coach_tip": "La barre doit circuler sans te bousculer : si tu dois accélérer ou compenser pour finir l'enchaînement, allège ou ralentis."
+  },
+  {
+    "id": "FF-082",
+    "nom_fr": "Pont fessier à l'élastique",
+    "nom_en": "Banded Glute Bridge",
+    "mots_cles": [
+      "glute_bridge",
+      "fessiers",
+      "elastique",
+      "activation",
+      "hanches"
+    ],
+    "categorie": "salle_warmup_activation",
+    "materiel": [
+      "Élastique ou mini-bande",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Moyen fessier",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abducteurs",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire en bas, expire en montant le bassin.",
+    "niveau_1": "Allongé sur le dos, genoux pliés et bande au-dessus des genoux. Pousse les pieds dans le sol, monte le bassin, puis redescends sans cambrer. 12 répétitions.",
+    "niveau_2": "Bande moyenne, pause de 2 s en haut, genoux écartés au maximum sans que le bassin pivote. 12 à 15 répétitions.",
+    "niveau_3": "Pont à une jambe avec bande, ou pont avec pieds surélevés sur un banc et bande épaisse. Tempo 3-2-1.",
+    "coach_tip": "En haut, pense à rapprocher le pubis du nombril plutôt qu'à jeter les côtes vers le plafond : serre les fessiers, pas les lombaires."
+  },
+  {
+    "id": "FF-083",
+    "nom_fr": "Développé couché à la barre",
+    "nom_en": "Barbell Bench Press",
+    "mots_cles": [
+      "bench_press",
+      "developpe_couche",
+      "pectoraux",
+      "barre",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "Barre olympique",
+      "Banc plat",
+      "Rack avec supports de sécurité",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Deltoïde antérieur",
+      "Triceps brachial",
+      "Épaule et coude"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Avant-bras",
+      "Fessiers (appui au banc)"
+    ],
+    "respiration": "Inspire en descendant la barre vers la poitrine, expire en poussant (ne bloque jamais l'air plus de 2 s).",
+    "niveau_1": "Allongé sur le banc, pieds bien au sol et omoplates posées. Avec une barre très légère et un pareur, descends-la sous contrôle vers la poitrine puis pousse-la. 10 répétitions.",
+    "niveau_2": "Charge modérée (RPE 7), prise à 1,5 fois la largeur d'épaules, omoplates serrées, pieds au sol, descente jusqu'à toucher la poitrine, poussée en ligne droite. 6 à 10 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8 à 9), tempo 3-1-1 avec pause de 1 s sur la poitrine (Paused Bench), ou pyramide de séries (5-3-1). Variante : prise serrée pour les triceps.",
+    "coach_tip": "La barre doit descendre comme un ascenseur contrôlé. Jamais de barre non sécurisée au-dessus de la poitrine : pareur ou sécurités indispensables."
+  },
+  {
+    "id": "FF-084",
+    "nom_fr": "Développé couché aux haltères",
+    "nom_en": "Dumbbell Bench Press",
+    "mots_cles": [
+      "dumbbell_bench_press",
+      "pectoraux",
+      "halteres",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "2 haltères",
+      "Banc plat"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Deltoïde antérieur",
+      "Triceps brachial"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Stabilisateurs de l'épaule"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "Allongé sur le banc, un haltère dans chaque main et pieds au sol. Descends les haltères jusqu'à une amplitude confortable, puis pousse-les vers le haut. 10 à 12 répétitions.",
+    "niveau_2": "Haltères modérés, coudes à 45° du buste, amplitude complète (étirement du pectoral en bas), haltères qui se rapprochent en haut. 8 à 12 répétitions.",
+    "niveau_3": "Haltères lourds, tempo 4-1-1, ou développé alterné (un bras à la fois, l'autre reste tendu en haut). Variante : prise neutre (paumes face à face).",
+    "coach_tip": "Imagine que tu repousses le plafond avec les paumes : poignets droits, épaules stables et aucune descente précipitée."
+  },
+  {
+    "id": "FF-085",
+    "nom_fr": "Développé incliné aux haltères",
+    "nom_en": "Incline Dumbbell Press",
+    "mots_cles": [
+      "incline_press",
+      "pectoraux_superieurs",
+      "halteres",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "2 haltères",
+      "Banc incliné (30 à 45°)"
+    ],
+    "muscles_principaux": [
+      "Faisceau claviculaire du grand pectoral",
+      "Deltoïde antérieur",
+      "Triceps brachial"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Stabilisateurs de l'épaule"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "Installe le banc avec une faible inclinaison. Haltères près de la poitrine, poignets droits : descends doucement puis pousse vers le haut. 10 à 12 répétitions.",
+    "niveau_2": "Banc à 30°, haltères modérés, amplitude complète, haltères qui montent au-dessus des épaules. 8 à 12 répétitions.",
+    "niveau_3": "Banc à 30°, haltères lourds, tempo 3-1-1, ou développé incliné avec rotation (paumes qui passent de face à neutre en montant). Variante : unilatéral.",
+    "coach_tip": "Garde les omoplates ancrées au banc et pense à pousser les haltères vers le plafond, pas à les lancer l'un contre l'autre."
+  },
+  {
+    "id": "FF-086",
+    "nom_fr": "Développé militaire à la barre",
+    "nom_en": "Barbell Overhead Press",
+    "mots_cles": [
+      "overhead_press",
+      "developpe_militaire",
+      "epaules",
+      "barre",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "Barre olympique",
+      "Rack",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Deltoïde antérieur et moyen",
+      "Triceps brachial",
+      "Épaule"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes supérieurs",
+      "Grand dentelé",
+      "Abdominaux et fessiers (gainage)"
+    ],
+    "respiration": "Inspire en bas, bloque brièvement l'air (Valsalva court) pour stabiliser le tronc, expire en haut.",
+    "niveau_1": "Debout, barre légère au niveau des clavicules. Serre les fessiers et les abdominaux, puis pousse la barre au-dessus de la tête en passant près du visage. 8 répétitions.",
+    "niveau_2": "Charge modérée, barre sur les clavicules, pousse en passant la tête sous la barre (la tête avance en haut), verrouillage complet. 6 à 10 répétitions.",
+    "niveau_3": "Charge lourde, ou strict press à une jambe, ou Push Press (impulsion des jambes) pour dépasser la charge stricte. Variante : tempo 3-1-1.",
+    "coach_tip": "Imagine que tu veux traverser le plafond avec la barre tout en gardant les fesses serrées : pas de grand mouvement de compensation dans le bas du dos."
+  },
+  {
+    "id": "FF-087",
+    "nom_fr": "Développé épaules assis aux haltères",
+    "nom_en": "Seated Dumbbell Shoulder Press",
+    "mots_cles": [
+      "shoulder_press",
+      "epaules",
+      "halteres",
+      "assis",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "2 haltères",
+      "Banc à dossier vertical"
+    ],
+    "muscles_principaux": [
+      "Deltoïde antérieur et moyen",
+      "Triceps brachial"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes supérieurs",
+      "Grand dentelé",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en poussant au-dessus de la tête, inspire en descendant.",
+    "niveau_1": "Assis, dos soutenu par le dossier, un haltère dans chaque main. Pousse au-dessus de la tête puis redescends jusqu'à une hauteur confortable. 10 à 12 répétitions.",
+    "niveau_2": "Haltères modérés, coudes à 45° du plan frontal, poussée complète, haltères qui se rapprochent en haut. 8 à 12 répétitions.",
+    "niveau_3": "Haltères lourds, tempo lent, ou version debout (Standing Press) pour solliciter le gainage. Variante : développé Arnold (rotation des paumes).",
+    "coach_tip": "Tes avant-bras restent presque verticaux sous les haltères : si le dos quitte le dossier, diminue la charge."
+  },
+  {
+    "id": "FF-088",
+    "nom_fr": "Écarté à la poulie vis-à-vis",
+    "nom_en": "Cable Fly",
+    "mots_cles": [
+      "cable_fly",
+      "pectoraux",
+      "poulie",
+      "isolation",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "Poulies hautes (vis-à-vis) ou deux élastiques"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral (portion sternale)",
+      "Adduction horizontale de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Deltoïde antérieur",
+      "Biceps (portion courte)",
+      "Grand dentelé"
+    ],
+    "respiration": "Expire en rapprochant les mains, inspire en ouvrant lentement.",
+    "niveau_1": "Debout entre les poulies, un pied légèrement devant l'autre. Coudes légèrement fléchis et presque immobiles, rapproche les mains devant la poitrine. 12 à 15 répétitions.",
+    "niveau_2": "Charge modérée, ouverture complète (étirement du pectoral), mains qui se croisent en bas de la poitrine. 10 à 15 répétitions.",
+    "niveau_3": "Écarté unilatéral (un bras à la fois) avec rotation du buste, ou poulies basses (pectoraux supérieurs), tempo 3-1-3. Variante : écarté en pause 2 s.",
+    "coach_tip": "Imagine que tu enlaces un gros arbre : les bras se rapprochent en arc, sans transformer le mouvement en poussée des mains."
+  },
+  {
+    "id": "FF-089",
+    "nom_fr": "Extension triceps à la poulie",
+    "nom_en": "Triceps Pushdown",
+    "mots_cles": [
+      "triceps_pushdown",
+      "triceps",
+      "poulie",
+      "isolation",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "Poulie haute",
+      "Barre droite, corde ou V-bar"
+    ],
+    "muscles_principaux": [
+      "Triceps brachial (3 chefs)",
+      "Extension du coude"
+    ],
+    "muscles_secondaires": [
+      "Anconé",
+      "Avant-bras",
+      "Abdominaux (stabilisation)"
+    ],
+    "respiration": "Expire en poussant vers le bas, inspire en remontant lentement.",
+    "niveau_1": "Debout face à la poulie, coudes près des côtes. Pousse la poignée vers le bas en dépliant les coudes, puis remonte lentement sans laisser les coudes partir en avant. 12 à 15 répétitions.",
+    "niveau_2": "Charge modérée, extension complète, coudes fixes, tempo 2-1-2. 10 à 15 répétitions.",
+    "niveau_3": "Charge lourde avec corde (écarte les mains en bas), ou extension à un bras. Variante : drop set (réduis la charge de 20 % sans pause).",
+    "coach_tip": "Garde les coudes comme deux charnières vissées aux côtes : seuls les avant-bras voyagent. Si tu te penches, allège."
+  },
+  {
+    "id": "FF-090",
+    "nom_fr": "Dips aux barres parallèles",
+    "nom_en": "Parallel Bar Dips",
+    "mots_cles": [
+      "dips",
+      "barres_paralleles",
+      "triceps",
+      "pectoraux",
+      "poussee",
+      "salle"
+    ],
+    "categorie": "salle_poussee",
+    "materiel": [
+      "Barres parallèles ou station de dips",
+      "Ceinture de lestage (Niveau 3)"
+    ],
+    "muscles_principaux": [
+      "Triceps brachial",
+      "Grand pectoral (portion basse)",
+      "Deltoïde antérieur"
+    ],
+    "muscles_secondaires": [
+      "Grand dorsal",
+      "Trapèzes inférieurs",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Utilise une machine ou un élastique pour alléger ton poids. Tiens les barres, garde les épaules basses et descends seulement jusqu'à une profondeur confortable. 8 à 10 répétitions.",
+    "niveau_2": "Dips au poids de corps, coudes proches du corps (focus triceps) ou buste penché en avant (focus pectoraux), descente à 90°. 6 à 12 répétitions.",
+    "niveau_3": "Dips lestés (5 à 20 kg à la ceinture), ou tempo 4 s de descente, ou dips en bague/barres instables. Variante : explosif.",
+    "coach_tip": "Les épaules doivent rester libres : descends seulement aussi bas que tu peux sans pincement ni traction douloureuse à l'avant de l'épaule."
+  },
+  {
+    "id": "FF-091",
+    "nom_fr": "Traction",
+    "nom_en": "Pull-Up",
+    "mots_cles": [
+      "pull_up",
+      "traction",
+      "dos",
+      "grand_dorsal",
+      "biceps",
+      "barre",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Barre de traction",
+      "Élastique d'assistance ou machine (Niveau 1)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes inférieurs",
+      "Biceps brachial",
+      "Épaule et coude"
+    ],
+    "muscles_secondaires": [
+      "Grand rond",
+      "Brachial",
+      "Avant-bras",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en montant le menton au-dessus de la barre, inspire en redescendant.",
+    "niveau_1": "Avec une assistance adaptée, pars bras tendus sans relâcher complètement les épaules. Tire les coudes vers le sol jusqu'à amener le menton au-dessus de la barre, puis redescends lentement. 5 à 8 répétitions.",
+    "niveau_2": "Traction stricte, prise pronation un peu plus large que les épaules, départ bras tendus, menton au-dessus de la barre, descente contrôlée. 5 à 10 répétitions.",
+    "niveau_3": "Traction lestée (5 à 15 kg), ou traction à une seule main assistée, ou tractions explosives (poitrine à la barre). Variante : prise supination (Chin-Up).",
+    "coach_tip": "Pense 'coudes vers les côtes' plutôt que 'menton vers la barre'. Contrôle la descente : ne te laisse pas tomber."
+  },
+  {
+    "id": "FF-092",
+    "nom_fr": "Rowing penché à la barre",
+    "nom_en": "Barbell Bent-Over Row",
+    "mots_cles": [
+      "barbell_row",
+      "rowing",
+      "dos",
+      "barre",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Barre olympique",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes moyens",
+      "Extension de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Deltoïde postérieur",
+      "Érecteurs du rachis",
+      "Ischio-jambiers (gainage)"
+    ],
+    "respiration": "Inspire en bas, expire en tirant la barre vers le nombril.",
+    "niveau_1": "Debout, fléchis légèrement les genoux et penche le buste en gardant le dos neutre. Tire la barre vers le bas du ventre sans donner d'à-coup. 10 répétitions.",
+    "niveau_2": "Charge modérée, buste incliné à 30 à 45° (presque parallèle), tire la barre vers le nombril, coudes serrés. 8 à 10 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8), prise en supination (Yates Row), ou Pendlay Row (barre qui revient au sol à chaque répétition). Variante : tempo 3-1-1.",
+    "coach_tip": "Ton dos est une table, la barre un tiroir : tire le tiroir vers toi sans arrondir la table ni donner d'élan avec le buste."
+  },
+  {
+    "id": "FF-093",
+    "nom_fr": "Rowing haltère à un bras",
+    "nom_en": "Dumbbell Row",
+    "mots_cles": [
+      "dumbbell_row",
+      "rowing",
+      "dos",
+      "unilateral",
+      "halteres",
+      "banc",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Haltère",
+      "Banc"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes moyens",
+      "Épaule"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Deltoïde postérieur",
+      "Obliques",
+      "Avant-bras"
+    ],
+    "respiration": "Expire en tirant le coude vers le plafond, inspire en descendant.",
+    "niveau_1": "Une main et un genou sur le banc, dos stable. Avec l'autre main, tire l'haltère vers ta hanche puis redescends-le lentement. 10 à 12 répétitions par bras.",
+    "niveau_2": "Une main sur le banc, pied opposé au sol, haltère modéré, coude haut, trajectoire vers la hanche. 8 à 12 par bras.",
+    "niveau_3": "Haltère lourd, pause de 2 s en haut, ou rowing sans appui de la main libre (Renegade Row). Variante : Meadows Row (barre dans un coin).",
+    "coach_tip": "Imagine que ton coude cherche ta poche arrière : l'haltère suit, mais ce n'est pas la main qui décide de la trajectoire."
+  },
+  {
+    "id": "FF-094",
+    "nom_fr": "Tirage poitrine à la poulie",
+    "nom_en": "Lat Pulldown",
+    "mots_cles": [
+      "lat_pulldown",
+      "tirage_vertical",
+      "grand_dorsal",
+      "poulie",
+      "machine",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Poulie haute avec barre large",
+      "Cuissards de maintien"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand rond",
+      "Trapèzes inférieurs",
+      "Biceps"
+    ],
+    "muscles_secondaires": [
+      "Rhomboïdes",
+      "Brachial",
+      "Avant-bras"
+    ],
+    "respiration": "Expire en tirant la barre vers la clavicule, inspire en remontant.",
+    "niveau_1": "Assis à la machine, bloque les cuisses sous les supports. Tire la barre vers le haut de la poitrine en amenant les coudes vers les côtés du corps. 12 répétitions.",
+    "niveau_2": "Charge modérée, tire jusqu'à la clavicule, omoplates basses, coudes vers les hanches. 8 à 12 répétitions.",
+    "niveau_3": "Charge lourde, tempo 3-1-3, ou prise neutre/étroite, ou tirage à un bras. Variante : tirage derrière la nuque à éviter, privilégie le devant.",
+    "coach_tip": "Imagine que tes coudes descendent vers tes poches arrière. Ne tire pas derrière la nuque : garde la barre devant toi."
+  },
+  {
+    "id": "FF-095",
+    "nom_fr": "Rowing poulie basse assis",
+    "nom_en": "Seated Cable Row",
+    "mots_cles": [
+      "cable_row",
+      "rowing",
+      "dos",
+      "poulie",
+      "assis",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Poulie basse avec poignée en V ou barre droite",
+      "Banc ou assise"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Rhomboïdes",
+      "Trapèzes moyens"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Deltoïde postérieur",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Expire en tirant vers le ventre, inspire en laissant les bras s'étendre.",
+    "niveau_1": "Assis, pieds calés et dos droit. Tire la poignée vers le ventre en rapprochant doucement les omoplates, puis tends les bras sans t'affaisser. 12 répétitions.",
+    "niveau_2": "Charge modérée, tire en rapprochant les omoplates, pause de 1 s en fin de course. 10 à 12 répétitions.",
+    "niveau_3": "Charge lourde, prise large et haute (travail du haut du dos), ou rowing à un bras avec rotation. Variante : tempo 3-1-3.",
+    "coach_tip": "Évite de transformer le rowing en balançoire : le buste reste stable et les mains ne voyagent que parce que les coudes tirent."
+  },
+  {
+    "id": "FF-096",
+    "nom_fr": "Tirage visage à la poulie",
+    "nom_en": "Face Pull",
+    "mots_cles": [
+      "face_pull",
+      "deltoide_posterieur",
+      "coiffe_rotateurs",
+      "poulie",
+      "corde",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "Poulie haute avec corde",
+      "Élastique (alternative)"
+    ],
+    "muscles_principaux": [
+      "Deltoïde postérieur",
+      "Rhomboïdes",
+      "Rotateurs externes (coiffe)"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes moyens et inférieurs",
+      "Biceps"
+    ],
+    "respiration": "Expire en tirant la corde vers le visage, inspire en revenant.",
+    "niveau_1": "Face à la poulie, corde à hauteur du visage. Tire la corde vers ton front en écartant les mains, puis reviens lentement. 15 répétitions avec une charge très légère.",
+    "niveau_2": "Charge légère à modérée, tire vers le visage en écartant les poignées, pouces vers l'arrière, pause de 1 s. 12 à 15 répétitions.",
+    "niveau_3": "Charge modérée, ajoute une rotation externe en fin de mouvement (double biceps), ou face pull à genoux. Variante : tenue de 3 s.",
+    "coach_tip": "Tire la corde vers ton visage comme si tu voulais montrer les poignets derrière les oreilles : charge légère et mouvement propre avant tout."
+  },
+  {
+    "id": "FF-097",
+    "nom_fr": "Curl biceps aux haltères",
+    "nom_en": "Dumbbell Curl",
+    "mots_cles": [
+      "dumbbell_curl",
+      "biceps",
+      "halteres",
+      "isolation",
+      "tirage",
+      "salle"
+    ],
+    "categorie": "salle_tirage",
+    "materiel": [
+      "2 haltères"
+    ],
+    "muscles_principaux": [
+      "Biceps brachial",
+      "Brachial",
+      "Flexion du coude"
+    ],
+    "muscles_secondaires": [
+      "Brachio-radial",
+      "Avant-bras",
+      "Deltoïde antérieur"
+    ],
+    "respiration": "Expire en montant, inspire en descendant.",
+    "niveau_1": "Debout, haltères le long du corps, coudes près des côtes. Plie un coude pour monter l'haltère sans bouger l'épaule, puis redescends. 10 répétitions par bras.",
+    "niveau_2": "Haltères modérés, supination en montant (paumes vers le haut), descente en 3 s. 8 à 12 répétitions.",
+    "niveau_3": "Haltères lourds, curl marteau (paumes neutres), ou curl concentré, ou tempo 4-1-1. Variante : 21s (7 bas, 7 haut, 7 complet).",
+    "coach_tip": "Imagine que tes coudes sont collés à deux punaises sur tes côtes : si les épaules avancent ou le corps se balance, allège."
+  },
+  {
+    "id": "FF-098",
+    "nom_fr": "Squat goblet",
+    "nom_en": "Goblet Squat",
+    "mots_cles": [
+      "goblet_squat",
+      "squat",
+      "kettlebell",
+      "halteres",
+      "quadriceps",
+      "fessiers",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Kettlebell ou haltère (tenu contre la poitrine)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Adducteurs",
+      "Abdominaux",
+      "Érecteurs du rachis",
+      "Trapèzes supérieurs"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Debout, tiens le kettlebell contre la poitrine. Descends en squat en gardant les talons au sol et les genoux dans la direction des pieds, puis remonte. 10 répétitions.",
+    "niveau_2": "Charge modérée (16 à 24 kg), squat profond (cuisses sous la parallèle), coudes à l'intérieur des genoux, talons au sol. 8 à 12 répétitions.",
+    "niveau_3": "Charge lourde (24 à 32 kg), pause de 3 s en bas, ou tempo 4-2-1. Variante : Goblet Squat à genoux surélevés (box).",
+    "coach_tip": "Pense 'genoux suivent les orteils' et 'pieds lourds au sol'. Le kettlebell t'aide à rester droit, mais ne doit pas masquer une perte d'équilibre."
+  },
+  {
+    "id": "FF-099",
+    "nom_fr": "Squat arrière à la barre",
+    "nom_en": "Barbell Back Squat",
+    "mots_cles": [
+      "back_squat",
+      "squat",
+      "barre",
+      "quadriceps",
+      "fessiers",
+      "rack",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Barre olympique",
+      "Rack avec supports de sécurité",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Adducteurs",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Inspire en haut et bloque l'air (gainage), descends, expire en poussant au passage du point bas.",
+    "niveau_1": "Barre légère sur le haut du dos, pieds stables et écartés confortablement. Descends en squat en gardant le poids réparti sur tout le pied, puis remonte. 8 à 10 répétitions.",
+    "niveau_2": "Charge modérée (RPE 7), squat jusqu'à la cuisse parallèle ou en dessous, genoux alignés avec les pieds, pression sur tout le pied. 5 à 8 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8 à 9), tempo 3-1-1 avec pause de 2 s en bas (Paused Squat), ou séries lourdes 5-3-1. Variante : position basse (Low Bar) pour plus de charge.",
+    "coach_tip": "Avant de descendre, prends une grande inspiration et verrouille le tronc. La sécurité du rack doit être réglée avant la série, jamais après."
+  },
+  {
+    "id": "FF-100",
+    "nom_fr": "Squat avant à la barre",
+    "nom_en": "Barbell Front Squat",
+    "mots_cles": [
+      "front_squat",
+      "squat",
+      "barre",
+      "quadriceps",
+      "rack",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Barre olympique",
+      "Rack",
+      "Disques et pinces",
+      "Sangles ou prise croisée"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Trapèzes supérieurs",
+      "Deltoïde antérieur"
+    ],
+    "respiration": "Inspire en haut, bloque l'air, descends, expire en remontant.",
+    "niveau_1": "Place la barre sur l'avant des épaules avec les coudes hauts. Descends en gardant le buste droit et les talons au sol, puis remonte. 6 à 8 répétitions.",
+    "niveau_2": "Charge modérée, prise Clean (coudes hauts, barre sur les deltoïdes), buste vertical, squat profond. 5 à 8 répétitions.",
+    "niveau_3": "Charge lourde, pause de 2 s en bas, ou complexe avec 3 squats + 1 développé. Variante : squat avant avec tempo 4-1-1.",
+    "coach_tip": "Imagine que tes coudes portent une étagère : ils restent hauts pendant la descente pour empêcher la barre de rouler vers l'avant."
+  },
+  {
+    "id": "FF-101",
+    "nom_fr": "Soulevé de terre à la barre",
+    "nom_en": "Barbell Deadlift",
+    "mots_cles": [
+      "deadlift",
+      "souleve_de_terre",
+      "barre",
+      "chaine_posterieure",
+      "fessiers",
+      "ischios",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Barre olympique",
+      "Disques et pinces",
+      "Plateforme ou sol propre"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Trapèzes",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Grand dorsal",
+      "Avant-bras",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire et bloque l'air avant de tirer, expire en haut après le verrouillage.",
+    "niveau_1": "Barre surélevée ou kettlebell devant toi. Fléchis les genoux, recule légèrement les hanches, garde le dos stable et pousse le sol pour te redresser. 6 à 8 répétitions.",
+    "niveau_2": "Barre au sol, charge modérée (RPE 7), barre contre les jambes, dos plat, pousse le sol avec les pieds, verrouillage hanches et genoux. 5 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8 à 9), prise mixte ou crochet (Hook Grip), ou Deficit Deadlift (debout sur un disque). Variante : tempo 3 s de descente.",
+    "coach_tip": "Garde la barre proche de toi comme si elle devait raser tes jambes. Si elle s'éloigne, arrête et réinstalle ta position plutôt que de tirer avec le dos."
+  },
+  {
+    "id": "FF-102",
+    "nom_fr": "Soulevé de terre roumain à la barre",
+    "nom_en": "Barbell Romanian Deadlift",
+    "mots_cles": [
+      "romanian_deadlift",
+      "rdl",
+      "ischios",
+      "fessiers",
+      "barre",
+      "charniere_hanche",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Barre olympique",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Érecteurs du rachis"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Avant-bras",
+      "Abdominaux",
+      "Grand dorsal"
+    ],
+    "respiration": "Inspire en reculant les hanches, expire en les ramenant.",
+    "niveau_1": "Debout avec la barre contre les cuisses, genoux légèrement pliés. Recule les fesses en faisant glisser la barre le long des jambes, puis pousse les hanches vers l'avant. 8 à 10 répétitions.",
+    "niveau_2": "Charge modérée, descente jusqu'à mi-tibia (étirement des ischios), dos plat, hanches qui reculent. 8 à 10 répétitions.",
+    "niveau_3": "Charge lourde, tempo 4-1-1, ou RDL à une jambe avec haltère. Variante : Stiff-Leg Deadlift (jambes quasi tendues).",
+    "coach_tip": "Imagine que tu veux fermer une porte avec tes fesses : elles reculent, la barre reste collée aux jambes et les genoux bougent juste assez."
+  },
+  {
+    "id": "FF-103",
+    "nom_fr": "Swing au kettlebell",
+    "nom_en": "Kettlebell Swing",
+    "mots_cles": [
+      "kettlebell_swing",
+      "swing",
+      "hanches",
+      "explosif",
+      "chaine_posterieure",
+      "kettlebell",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Kettlebell (12 à 32 kg)"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Extension de hanche explosive"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Trapèzes",
+      "Abdominaux",
+      "Avant-bras"
+    ],
+    "respiration": "Expire fort en haut du swing (poussée de hanches), inspire en laissant redescendre le kettlebell.",
+    "niveau_1": "Commence par apprendre à reculer les hanches. Avec un kettlebell léger, laisse-le partir entre les jambes puis pousse fort le sol et les hanches pour le faire monter devant toi. 10 répétitions.",
+    "niveau_2": "Kettlebell modéré (16 à 24 kg), Swing à deux mains jusqu'à hauteur d'yeux, hanches qui poussent, bras passifs. 15 à 20 répétitions.",
+    "niveau_3": "Kettlebell lourd (24 à 32 kg), ou Swing à une main, ou American Swing (au-dessus de la tête). Variante : EMOM 10 min de 10 swings.",
+    "coach_tip": "Le kettlebell est une pendule lancée par les hanches : tes bras guident la trajectoire, ils ne soulèvent pas la charge. Aucun squat profond au swing."
+  },
+  {
+    "id": "FF-104",
+    "nom_fr": "Thruster",
+    "nom_en": "Thruster",
+    "mots_cles": [
+      "thruster",
+      "squat",
+      "developpe",
+      "corps_entier",
+      "metcon",
+      "barre",
+      "halteres",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Barre olympique ou 2 haltères ou kettlebell"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Deltoïdes",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Trapèzes",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire en bas, expire pendant la poussée verticale (squat et développé en un seul mouvement).",
+    "niveau_1": "Tiens la charge devant les épaules. Descends en squat, puis pousse le sol pour te relever et continue le même mouvement en poussant la charge au-dessus de la tête. 8 répétitions.",
+    "niveau_2": "Charge modérée, mouvement fluide : squat avant, puis élan des jambes qui propulse le développé. 8 à 12 répétitions.",
+    "niveau_3": "Charge lourde, ou Thruster avec cluster (2 squats pour 1 développé), ou en circuit à haute intensité (21-15-9). Variante : Thruster à une main avec kettlebell.",
+    "coach_tip": "Pousse d'abord le sol avec les jambes : laisse l'élan monter la charge avant de finir avec les bras. Si les bras poussent seuls, le poids est trop lourd."
+  },
+  {
+    "id": "FF-105",
+    "nom_fr": "Tirage poulie entre les jambes",
+    "nom_en": "Cable Pull-Through",
+    "mots_cles": [
+      "pull_through",
+      "charniere_hanche",
+      "fessiers",
+      "ischios",
+      "poulie",
+      "salle"
+    ],
+    "categorie": "salle_squat_charniere",
+    "materiel": [
+      "Poulie basse avec corde"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Charnière de hanche"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Abdominaux",
+      "Adducteurs"
+    ],
+    "respiration": "Inspire en reculant les hanches, expire en les poussant vers l'avant.",
+    "niveau_1": "Face opposée à la poulie, corde entre les jambes. Recule les fesses avec les genoux légèrement fléchis, puis pousse les hanches vers l'avant pour revenir debout. 12 répétitions.",
+    "niveau_2": "Charge modérée, recule les hanches jusqu'à sentir l'étirement des ischios, puis pousse les hanches à fond en serrant les fessiers. 12 à 15 répétitions.",
+    "niveau_3": "Charge lourde, tempo lent 3-1-1, ou Pull-Through à une jambe. Variante : explosif avec impulsion des hanches.",
+    "coach_tip": "Imagine que tu fermes une porte avec les fesses derrière toi : garde les bras détendus et laisse les hanches produire le mouvement."
+  },
+  {
+    "id": "FF-106",
+    "nom_fr": "Fente marchée aux haltères",
+    "nom_en": "Dumbbell Walking Lunge",
+    "mots_cles": [
+      "walking_lunge",
+      "fente_marchee",
+      "halteres",
+      "unilateral",
+      "quadriceps",
+      "fessiers",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "2 haltères",
+      "Espace de 8 à 10 m"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "Debout, fais un pas en avant puis descends jusqu'à ce que les deux genoux soient confortablement fléchis. Pousse dans le pied avant pour avancer et recommence. 10 pas par jambe.",
+    "niveau_2": "Haltères modérés (8 à 16 kg chacun), pas longs, genou arrière qui frôle le sol, buste vertical. 10 à 12 pas par jambe.",
+    "niveau_3": "Haltères lourds, ou barre sur le dos (Barbell Walking Lunge), ou fente marchée avec rotation. Variante : fente avec pause de 2 s en bas.",
+    "coach_tip": "Pose tout le pied avant au sol et imagine un rail sous ton genou : il avance dans la même direction que les orteils, sans s'effondrer vers l'intérieur."
+  },
+  {
+    "id": "FF-107",
+    "nom_fr": "Squat bulgare aux haltères",
+    "nom_en": "Dumbbell Bulgarian Split Squat",
+    "mots_cles": [
+      "bulgarian_split_squat",
+      "unilateral",
+      "halteres",
+      "quadriceps",
+      "fessiers",
+      "banc",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "2 haltères",
+      "Banc"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Adducteurs",
+      "Fléchisseurs de hanche",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en poussant.",
+    "niveau_1": "Un pied derrière sur un banc bas, l'autre bien à plat devant. Descends lentement en gardant le pied avant stable, puis pousse le sol pour remonter. 8 répétitions par jambe.",
+    "niveau_2": "Haltères modérés (8 à 16 kg), pied arrière sur le banc, descente verticale. 8 à 10 par jambe.",
+    "niveau_3": "Haltères lourds, tempo 4-1-1, ou kettlebell en Goblet. Variante : barre sur le dos pour plus de charge.",
+    "coach_tip": "Le pied avant est ton ancre. Descends comme un ascenseur, puis pousse le sol pour remonter sans rebondir sur la jambe arrière."
+  },
+  {
+    "id": "FF-108",
+    "nom_fr": "Montée sur banc aux haltères",
+    "nom_en": "Dumbbell Step-Up",
+    "mots_cles": [
+      "step_up",
+      "unilateral",
+      "halteres",
+      "quadriceps",
+      "fessiers",
+      "banc",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "2 haltères",
+      "Banc ou box (40 à 50 cm)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Ischio-jambiers",
+      "Mollets",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en montant, inspire en redescendant.",
+    "niveau_1": "Place un pied entièrement sur un box bas. Pousse dans ce pied pour monter, puis redescends lentement avec contrôle. 8 à 10 répétitions par jambe.",
+    "niveau_2": "Box à 40 cm, haltères modérés, monte en poussant avec la jambe haute uniquement, redescends en 3 s. 8 à 10 par jambe.",
+    "niveau_3": "Box haut (50 cm), haltères lourds, ou montée explosive avec genou haut. Variante : Step-Up latéral.",
+    "coach_tip": "Le box est une marche, pas un tremplin : monte en poussant avec la jambe posée dessus et évite de te propulser avec la jambe au sol."
+  },
+  {
+    "id": "FF-109",
+    "nom_fr": "Soulevé de terre roumain à une jambe au kettlebell",
+    "nom_en": "Kettlebell Single-Leg RDL",
+    "mots_cles": [
+      "single_leg_rdl",
+      "unilateral",
+      "kettlebell",
+      "ischios",
+      "fessiers",
+      "equilibre",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "Kettlebell ou haltère"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Extension de hanche",
+      "Stabilisateurs de la cheville"
+    ],
+    "muscles_secondaires": [
+      "Moyen fessier",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Une main peut s'appuyer sur un support. Tiens le kettlebell dans la main opposée à la jambe qui reste au sol, recule l'autre jambe et incline le buste en gardant le dos long. 8 répétitions par côté.",
+    "niveau_2": "Sans appui, kettlebell modéré (12 à 20 kg) dans la main opposée à la jambe d'appui, hanches face au sol. 8 par côté.",
+    "niveau_3": "Kettlebell lourd (20 à 28 kg), ou deux kettlebells, ou tempo 4-1-3. Variante : sur un coussin d'équilibre.",
+    "coach_tip": "Imagine que ta tête et ton talon arrière s'éloignent l'un de l'autre : garde le bassin face au sol et la colonne longue."
+  },
+  {
+    "id": "FF-110",
+    "nom_fr": "Squat cosaque au kettlebell",
+    "nom_en": "Cossack Squat",
+    "mots_cles": [
+      "cossack_squat",
+      "plan_frontal",
+      "adducteurs",
+      "mobilite",
+      "unilateral",
+      "kettlebell",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "Kettlebell (contrepoids)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Adducteurs",
+      "Hanche (abduction)"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Mollets",
+      "Abdominaux",
+      "Cheville (mobilité)"
+    ],
+    "respiration": "Inspire en descendant d'un côté, expire en remontant.",
+    "niveau_1": "Écarte largement les pieds. Plie un genou et descends de ce côté en gardant l'autre jambe allongée, puis reviens au centre. Reste dans une amplitude confortable. 6 par côté.",
+    "niveau_2": "Kettlebell en Goblet (léger à modéré), squat latéral profond, jambe opposée tendue (pied à plat ou orteils vers le haut). 6 à 8 par côté.",
+    "niveau_3": "Kettlebell lourd, ou Cossack Squat avec rotation de la jambe tendue (orteils vers le plafond), ou tempo lent. Variante : barre sur le dos.",
+    "coach_tip": "Pense à explorer une position confortable, pas à forcer l'amplitude. Le talon de la jambe pliée reste lourd au sol."
+  },
+  {
+    "id": "FF-111",
+    "nom_fr": "Fente arrière en position rack au kettlebell",
+    "nom_en": "Kettlebell Rack Reverse Lunge",
+    "mots_cles": [
+      "reverse_lunge",
+      "kettlebell",
+      "rack",
+      "unilateral",
+      "quadriceps",
+      "fessiers",
+      "salle"
+    ],
+    "categorie": "salle_unilateral",
+    "materiel": [
+      "1 ou 2 kettlebells"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Hanche et genou"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Abdominaux",
+      "Deltoïde (stabilisation de la charge)"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Tiens le kettlebell contre l'avant de l'épaule, coude près du corps. Fais un pas en arrière et descends en fente, puis pousse dans le pied avant pour revenir. 8 répétitions par côté.",
+    "niveau_2": "Un kettlebell en position rack (poing sous le menton) du côté opposé de la jambe qui recule, buste droit. 8 à 10 par côté.",
+    "niveau_3": "Deux kettlebells en position rack (Double Rack), ou fente arrière avec kettlebell au-dessus de la tête (Overhead). Variante : tempo 3-1-1.",
+    "coach_tip": "Le kettlebell doit reposer contre toi, pas être tenu par ton poignet. Garde le coude proche du corps et le buste stable pendant la fente."
+  },
+  {
+    "id": "FF-112",
+    "nom_fr": "Poussée de hanche à la barre",
+    "nom_en": "Barbell Hip Thrust",
+    "mots_cles": [
+      "hip_thrust",
+      "fessiers",
+      "barre",
+      "banc",
+      "extension_hanche",
+      "salle"
+    ],
+    "categorie": "salle_ischio_fessiers",
+    "materiel": [
+      "Barre olympique avec housse de protection",
+      "Banc",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Quadriceps",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en bas, expire en poussant les hanches vers le plafond.",
+    "niveau_1": "Dos contre le bord d'un banc, pieds au sol et poids posé sur le bassin. Pousse dans les pieds pour monter le bassin jusqu'à aligner épaules, hanches et genoux, puis redescends. 12 répétitions.",
+    "niveau_2": "Barre chargée (RPE 7), menton rentré, tibias verticaux en haut, bassin en légère rétroversion. 8 à 12 répétitions.",
+    "niveau_3": "Barre lourde (RPE 8 à 9), pause de 3 s en haut, ou Hip Thrust à une jambe, ou tempo 4-1-1. Variante : élastique autour des genoux.",
+    "coach_tip": "Imagine que tu serres une pièce entre les fesses en haut : termine par l'extension de hanche, pas par une cambrure lombaire."
+  },
+  {
+    "id": "FF-113",
+    "nom_fr": "Curl ischio-jambiers à la machine",
+    "nom_en": "Lying Leg Curl",
+    "mots_cles": [
+      "leg_curl",
+      "ischios",
+      "machine",
+      "isolation",
+      "salle"
+    ],
+    "categorie": "salle_ischio_fessiers",
+    "materiel": [
+      "Machine de leg curl allongé ou assis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Flexion du genou"
+    ],
+    "muscles_secondaires": [
+      "Mollets (gastrocnémiens)",
+      "Fessiers"
+    ],
+    "respiration": "Expire en fléchissant le genou, inspire en revenant lentement.",
+    "niveau_1": "Allongé ou assis selon la machine, place les jambes correctement sous le rouleau. Plie les genoux pour rapprocher les talons, puis laisse-les revenir lentement. 12 à 15 répétitions.",
+    "niveau_2": "Charge modérée, amplitude complète, tempo 2-1-3 (descente lente). 10 à 15 répétitions.",
+    "niveau_3": "Charge lourde, curl unilatéral (une jambe), ou tempo 4-1-1. Variante : pause de 2 s en contraction maximale.",
+    "coach_tip": "Le retour compte autant que la montée : imagine que tu poses lentement les talons sur une pente, sans laisser la charge te tirer brutalement."
+  },
+  {
+    "id": "FF-114",
+    "nom_fr": "Bonjour à la barre",
+    "nom_en": "Barbell Good Morning",
+    "mots_cles": [
+      "good_morning",
+      "ischios",
+      "lombaires",
+      "barre",
+      "charniere_hanche",
+      "salle"
+    ],
+    "categorie": "salle_ischio_fessiers",
+    "materiel": [
+      "Barre olympique",
+      "Rack",
+      "Disques et pinces"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Grand fessier",
+      "Érecteurs du rachis"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Adducteurs",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire en reculant les hanches, expire en poussant les hanches vers l'avant.",
+    "niveau_1": "Barre légère sur le haut du dos. Recule les fesses et incline le buste en gardant le dos neutre, puis reviens debout en poussant les hanches vers l'avant. 8 à 10 répétitions.",
+    "niveau_2": "Charge modérée (RPE 6 à 7), buste incliné jusqu'à la parallèle, dos plat, barre sur les trapèzes. 8 à 10 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8), tempo 4-1-1, ou Good Morning assis (Seated). Variante : prise étroite pour le gainage.",
+    "coach_tip": "Le dos reste long comme une planche. Si tu dois arrondir ou aller plus bas pour gagner de l'amplitude, tu es allé trop loin ou trop lourd."
+  },
+  {
+    "id": "FF-115",
+    "nom_fr": "Extension de hanche à la poulie",
+    "nom_en": "Cable Glute Kickback",
+    "mots_cles": [
+      "cable_kickback",
+      "fessiers",
+      "poulie",
+      "hanche",
+      "isolation",
+      "salle"
+    ],
+    "categorie": "salle_ischio_fessiers",
+    "materiel": [
+      "Poulie basse avec sangle de cheville"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Moyen fessier",
+      "Érecteurs du rachis",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en poussant la jambe vers l'arrière, inspire en revenant.",
+    "niveau_1": "Debout face ou dos à la poulie selon le réglage, une main en appui. Recule une jambe sans tourner le bassin ni cambrer, puis ramène-la lentement. 12 à 15 répétitions par jambe.",
+    "niveau_2": "Charge modérée, extension jusqu'à l'alignement avec le dos, serre le fessier 1 s. 12 à 15 par jambe.",
+    "niveau_3": "Charge lourde, tempo 3-2-1, ou position penchée en avant (focus fessier). Variante : Kickback avec pulsations en fin de course.",
+    "coach_tip": "Imagine que ton pied recule sur des rails : le bassin reste face à toi et le bas du dos ne se cambre pas pour voler de l'amplitude."
+  },
+  {
+    "id": "FF-116",
+    "nom_fr": "Extension lombaire à 45°",
+    "nom_en": "45-Degree Back Extension",
+    "mots_cles": [
+      "back_extension",
+      "hyperextension",
+      "lombaires",
+      "ischios",
+      "fessiers",
+      "banc",
+      "salle"
+    ],
+    "categorie": "salle_ischio_fessiers",
+    "materiel": [
+      "Banc à hyperextension (45°) ou banc romain",
+      "Disque ou haltère (Niveau 3)"
+    ],
+    "muscles_principaux": [
+      "Érecteurs du rachis",
+      "Grand fessier",
+      "Ischio-jambiers"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Trapèzes inférieurs"
+    ],
+    "respiration": "Inspire en descendant, expire en remontant.",
+    "niveau_1": "Place le bassin sur le coussin de la machine, pieds fixés. Descends légèrement puis remonte jusqu'à former une ligne droite avec les jambes et le buste. 10 à 12 répétitions.",
+    "niveau_2": "Au poids de corps, mains derrière la tête, descends jusqu'à sentir l'étirement des ischios, remonte jusqu'à l'alignement. 12 à 15 répétitions.",
+    "niveau_3": "Disque de 5 à 20 kg tenu contre la poitrine, tempo 3-1-1, ou extension à une jambe. Variante : version fessiers (dos arrondi).",
+    "coach_tip": "Arrête-toi quand le corps forme une ligne droite. Plus haut n'est pas mieux : l'hyperextension ajoute surtout du stress aux lombaires."
+  },
+  {
+    "id": "FF-117",
+    "nom_fr": "Pallof Press",
+    "nom_en": "Pallof Press",
+    "mots_cles": [
+      "pallof_press",
+      "anti_rotation",
+      "core",
+      "poulie",
+      "elastique",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Poulie à hauteur de poitrine ou élastique ancré"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Transverse de l'abdomen",
+      "Stabilité anti-rotation"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Grand dentelé",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "respiration": "Expire en poussant les mains devant, inspire en revenant à la poitrine.",
+    "niveau_1": "Debout de côté par rapport à la poulie, poignée près de la poitrine. Tends les mains devant toi sans laisser le câble faire tourner ton buste, puis ramène-les. 10 répétitions par côté.",
+    "niveau_2": "Charge modérée, debout, pieds largeur d'épaules, extension complète des bras, pause de 2 s. 10 à 12 par côté.",
+    "niveau_3": "Charge lourde, position semi-agenouillée ou sur une jambe, ou Pallof Press avec élévation des bras au-dessus de la tête. Variante : tenue isométrique de 30 s.",
+    "coach_tip": "Imagine que quelqu'un essaie de te faire pivoter : ton travail est de rester face devant. Rapproche les mains du corps si tu perds l'alignement."
+  },
+  {
+    "id": "FF-118",
+    "nom_fr": "Bûcheron à la poulie",
+    "nom_en": "Cable Woodchop",
+    "mots_cles": [
+      "woodchop",
+      "rotation",
+      "obliques",
+      "poulie",
+      "core",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Poulie haute ou basse avec poignée"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Rotation du tronc",
+      "Transverse de l'abdomen"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Fessiers",
+      "Quadriceps",
+      "Grand dorsal"
+    ],
+    "respiration": "Expire en tirant en diagonale, inspire en revenant.",
+    "niveau_1": "Debout de côté à la poulie, bras tendus mais souples. Tire la poignée en diagonale vers la hanche opposée en laissant les pieds et les hanches accompagner la rotation. 10 répétitions par côté.",
+    "niveau_2": "Charge modérée, poulie haute puis basse (Low-to-High), rotation contrôlée du tronc, bras tendus. 10 à 12 par côté.",
+    "niveau_3": "Charge lourde, position semi-agenouillée, ou Woodchop à une jambe. Variante : tempo 2-1-3.",
+    "coach_tip": "Laisse les pieds et les hanches accompagner la rotation : ce n'est pas un tirage de bras déguisé. La charge reste proche du corps."
+  },
+  {
+    "id": "FF-119",
+    "nom_fr": "Marche valise au kettlebell",
+    "nom_en": "Suitcase Carry",
+    "mots_cles": [
+      "suitcase_carry",
+      "portage",
+      "anti_flexion_laterale",
+      "core",
+      "kettlebell",
+      "grip",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Kettlebell ou haltère lourd (un seul)"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Carré des lombes",
+      "Stabilité anti-flexion latérale",
+      "Avant-bras (grip)"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Fessiers",
+      "Moyen fessier",
+      "Abdominaux"
+    ],
+    "respiration": "Respiration calme et régulière (inspire 2 pas, expire 2 pas), sans bloquer l'air.",
+    "niveau_1": "Tiens un seul kettlebell dans une main. Marche lentement en restant droit, sans te pencher vers le poids. 10 m dans chaque direction, puis change de main.",
+    "niveau_2": "Kettlebell modéré à lourd (20 à 32 kg), marche sur 15 à 20 m sans pencher du côté lesté. 2 à 3 allers par côté.",
+    "niveau_3": "Kettlebell très lourd (32 kg et plus), ou Suitcase Carry sur un banc/obstacle (montée de marche), ou en Overhead Carry. Variante : portage avec deux charges inégales.",
+    "coach_tip": "Imagine que tu portes un verre plein sur la tête : épaules horizontales, pas de déhanchement. Si tu te penches vers le poids, allège."
+  },
+  {
+    "id": "FF-120",
+    "nom_fr": "Roue abdominale",
+    "nom_en": "Ab Wheel Rollout",
+    "mots_cles": [
+      "ab_wheel",
+      "rollout",
+      "anti_extension",
+      "abdominaux",
+      "core",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Roue abdominale ou barre avec disques",
+      "Tapis pour les genoux"
+    ],
+    "muscles_principaux": [
+      "Grand droit",
+      "Transverse de l'abdomen",
+      "Stabilité anti-extension"
+    ],
+    "muscles_secondaires": [
+      "Grand dorsal",
+      "Deltoïdes",
+      "Fléchisseurs de hanche",
+      "Triceps"
+    ],
+    "respiration": "Inspire en revenant, expire en roulant en avant.",
+    "niveau_1": "À genoux, mains sur la roue sous les épaules. Fais-la avancer sur une petite distance en gardant le ventre serré et le bassin légèrement rentré, puis ramène-la avant que le dos ne se creuse. 6 à 8 répétitions.",
+    "niveau_2": "À genoux, roulement presque complet (bras alignés avec le corps), bas du dos neutre. 8 à 10 répétitions.",
+    "niveau_3": "Debout (pieds écartés), ou à genoux avec pause de 3 s en extension maximale, ou Rollout sur un plan incliné. Variante : un seul bras.",
+    "coach_tip": "La roue avance seulement aussi loin que ton tronc peut rester solide. Dès que les côtes s'ouvrent ou le bas du dos se creuse, fais demi-tour."
+  },
+  {
+    "id": "FF-121",
+    "nom_fr": "Relevé de jambes suspendu",
+    "nom_en": "Hanging Leg Raise",
+    "mots_cles": [
+      "hanging_leg_raise",
+      "abdominaux_bas",
+      "flechisseurs_hanche",
+      "barre_de_traction",
+      "core",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Barre de traction",
+      "Sangles de suspension (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand droit (portion basse)",
+      "Fléchisseurs de hanche (psoas)",
+      "Obliques"
+    ],
+    "muscles_secondaires": [
+      "Transverse",
+      "Avant-bras (grip)",
+      "Grand dorsal"
+    ],
+    "respiration": "Expire en levant les jambes, inspire en descendant sans balancier.",
+    "niveau_1": "Suspendu avec les épaules stables, commence par plier les genoux et ramène-les vers le bassin sans balancer le corps. Redescends lentement. 8 à 10 répétitions.",
+    "niveau_2": "Jambes tendues jusqu'à l'horizontale, bassin légèrement basculé en haut (rétroversion), descente contrôlée. 8 à 12 répétitions.",
+    "niveau_3": "Jambes tendues jusqu'à toucher la barre (Toes-to-Bar), ou relevé avec lest (haltère entre les pieds). Variante : relevé latéral (obliques).",
+    "coach_tip": "Cherche à enrouler doucement le bassin plutôt qu'à lancer les genoux. Si tu balances, fais moins haut et plus lentement."
+  },
+  {
+    "id": "FF-122",
+    "nom_fr": "Planche lestée",
+    "nom_en": "Weighted Plank",
+    "mots_cles": [
+      "weighted_plank",
+      "gainage",
+      "core",
+      "isometrique",
+      "disque",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Disque de 5 à 20 kg",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Obliques",
+      "Stabilité anti-extension"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Fessiers",
+      "Quadriceps",
+      "Grand dentelé"
+    ],
+    "respiration": "Respiration courte et régulière, ventre rentré.",
+    "niveau_1": "Commence en planche sur les avant-bras, corps aligné et ventre serré, sans charge. Tiens 30 à 45 secondes en respirant normalement avant d'ajouter un petit disque.",
+    "niveau_2": "Planche avec disque de 10 à 15 kg posé sur le haut du dos (aide d'un partenaire), alignement parfait. 30 à 45 s.",
+    "niveau_3": "Disque de 20 kg ou plus, ou planche avec mouvement (rowing, levée de bras), ou planche sur surface instable. Variante : RKC Plank.",
+    "coach_tip": "Ton corps doit former une planche : serre les fessiers et les abdos, respire, et arrête avant que les lombaires ne prennent le relais."
+  },
+  {
+    "id": "FF-123",
+    "nom_fr": "Rotation russe lestée",
+    "nom_en": "Weighted Russian Twist",
+    "mots_cles": [
+      "russian_twist",
+      "rotation",
+      "obliques",
+      "core",
+      "kettlebell",
+      "disque",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Kettlebell, disque ou médecine-ball"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Rotation du tronc",
+      "Grand droit"
+    ],
+    "muscles_secondaires": [
+      "Transverse",
+      "Fléchisseurs de hanche",
+      "Deltoïdes"
+    ],
+    "respiration": "Expire à chaque rotation, inspire au centre.",
+    "niveau_1": "Assis, genoux pliés et pieds au sol. Tiens une petite charge devant toi et tourne doucement le buste à droite puis à gauche sans chercher une grande amplitude. 10 par côté.",
+    "niveau_2": "Pieds décollés, charge modérée (6 à 10 kg), rotation complète, buste incliné à 45°. 10 à 15 par côté.",
+    "niveau_3": "Charge lourde (12 kg et plus), rotation avec kettlebell sur le sol à chaque côté, ou rotation avec jambes tendues. Variante : sur un banc incliné.",
+    "coach_tip": "Imagine que ton sternum tourne à droite puis à gauche. Les bras accompagnent la rotation au lieu de faire tout le mouvement."
+  },
+  {
+    "id": "FF-124",
+    "nom_fr": "Relevé turc",
+    "nom_en": "Turkish Get-Up",
+    "mots_cles": [
+      "turkish_get_up",
+      "kettlebell",
+      "stabilite",
+      "epaule",
+      "core",
+      "corps_entier",
+      "salle"
+    ],
+    "categorie": "salle_core_charge",
+    "materiel": [
+      "Kettlebell",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Stabilisateurs de l'épaule",
+      "Obliques",
+      "Grand dentelé",
+      "Transverse de l'abdomen"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Mollets",
+      "Avant-bras"
+    ],
+    "respiration": "Respiration régulière, expire pendant chaque transition, jamais de blocage prolongé.",
+    "niveau_1": "Allongé sur le dos, commence sans charge avec le poing vers le plafond. Passe une étape à la fois : coude, main, pont si prévu, puis retour au sol. 3 par côté.",
+    "niveau_2": "Kettlebell léger à modéré (8 à 16 kg), mouvement complet en 7 étapes, regard sur le poids. 3 par côté.",
+    "niveau_3": "Kettlebell lourd (20 kg et plus), ou Get-Up avec pause de 2 s à chaque étape, ou deux kettlebells. Variante : Get-Up avec Press ou Squat à la fin.",
+    "coach_tip": "Le kettlebell est un phare : garde le bras vertical et les yeux sur lui. Si tu perds l'alignement, repose la charge et reprends sans poids."
+  },
+  {
+    "id": "FF-125",
+    "nom_fr": "Étirement des ischio-jambiers à la sangle",
+    "nom_en": "Strap Hamstring Stretch",
+    "mots_cles": [
+      "hamstring_stretch",
+      "ischios",
+      "sangle",
+      "elastique",
+      "assiste",
+      "etirement"
+    ],
+    "categorie": "salle_cooldown_etirements",
+    "materiel": [
+      "Sangle, élastique ou serviette",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Ischio-jambiers",
+      "Flexion de hanche"
+    ],
+    "muscles_secondaires": [
+      "Mollets",
+      "Grand fessier",
+      "Nerf sciatique"
+    ],
+    "respiration": "Expire en tirant doucement la jambe vers soi, inspire en relâchant légèrement.",
+    "niveau_1": "Allongé sur le dos, une jambe reste pliée et l'autre est tenue par une sangle. Monte doucement la jambe jusqu'à sentir un étirement confortable derrière la cuisse. 30 s par côté.",
+    "niveau_2": "Jambe tendue à la verticale, sangle serrée, contraction de 5 s du quadriceps puis relâche (technique PNF). 45 à 60 s par côté.",
+    "niveau_3": "Sangle plus courte, étirement passif en contraction-relâchement (PNF) : pousse 5 s contre la sangle, relâche, puis étire plus loin. 3 cycles par côté.",
+    "coach_tip": "Cherche une tension douce derrière la cuisse, jamais une sensation électrique ou un engourdissement : dans ce cas, relâche immédiatement l'amplitude."
+  },
+  {
+    "id": "FF-126",
+    "nom_fr": "Étirement des pectoraux au rack",
+    "nom_en": "Rack Chest Stretch",
+    "mots_cles": [
+      "chest_stretch",
+      "pectoraux",
+      "epaules",
+      "rack",
+      "assiste",
+      "etirement"
+    ],
+    "categorie": "salle_cooldown_etirements",
+    "materiel": [
+      "Montant du rack ou encadrement de porte"
+    ],
+    "muscles_principaux": [
+      "Grand pectoral",
+      "Petit pectoral",
+      "Deltoïde antérieur"
+    ],
+    "muscles_secondaires": [
+      "Biceps (portion longue)",
+      "Muscles antérieurs du cou"
+    ],
+    "respiration": "Inspire en gonflant la poitrine, expire en avançant légèrement.",
+    "niveau_1": "Place l'avant-bras contre le montant du rack, coude plié. Avance légèrement le pied du même côté jusqu'à sentir un étirement doux dans la poitrine. 30 s par côté.",
+    "niveau_2": "Bras à 90° d'abduction contre le montant, buste qui avance, dos neutre. 45 s par côté.",
+    "niveau_3": "Bras plus haut (fibres inférieures) puis plus bas (fibres supérieures), ou étirement avec contraction-relâchement. 60 s par position.",
+    "coach_tip": "Avance d'un petit pas seulement : l'étirement doit ouvrir la poitrine, pas tirer l'épaule vers l'avant ni provoquer de pincement."
+  },
+  {
+    "id": "FF-127",
+    "nom_fr": "Étirement des fléchisseurs de hanche à l'élastique",
+    "nom_en": "Banded Hip Flexor Stretch",
+    "mots_cles": [
+      "hip_flexor_stretch",
+      "psoas",
+      "flechisseurs_hanche",
+      "elastique",
+      "fente",
+      "etirement"
+    ],
+    "categorie": "salle_cooldown_etirements",
+    "materiel": [
+      "Élastique fort ancré bas",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Psoas-iliaque",
+      "Quadriceps (droit fémoral)",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Grand fessier",
+      "Abdominaux",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire dans la position, expire en serrant le fessier de la jambe arrière.",
+    "niveau_1": "En fente basse, genou arrière au sol et élastique autour de la hanche. Serre la fesse arrière et avance très légèrement le bassin sans cambrer. 30 s par côté.",
+    "niveau_2": "Élastique moyen, buste vertical, rétroversion du bassin (ventre rentré, fessier serré), 45 à 60 s par côté.",
+    "niveau_3": "Élastique fort, pied arrière surélevé sur un banc (Couch Stretch), ou étirement avec rotation du buste. 60 s par côté.",
+    "coach_tip": "Imagine que tu rentres la fermeture éclair de ton pantalon : fessier serré, bassin légèrement rentré, puis seulement une petite avancée."
+  },
+  {
+    "id": "FF-128",
+    "nom_fr": "Étirement du grand dorsal à la barre",
+    "nom_en": "Rack Lat Stretch",
+    "mots_cles": [
+      "lat_stretch",
+      "grand_dorsal",
+      "rack",
+      "barre",
+      "suspension",
+      "etirement"
+    ],
+    "categorie": "salle_cooldown_etirements",
+    "materiel": [
+      "Barre de rack ou montant",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand rond",
+      "Flexion de l'épaule"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Intercostaux",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire en grandissant, expire en reculant les hanches pour approfondir.",
+    "niveau_1": "Tiens la barre à hauteur des hanches, recule les fesses et garde le dos long. Laisse la poitrine descendre légèrement jusqu'à sentir l'étirement sous l'aisselle et sur le côté du dos. 30 s.",
+    "niveau_2": "Mains sur la barre, recule les hanches en gardant les bras tendus, tête entre les bras. 45 à 60 s.",
+    "niveau_3": "Étirement à une main avec rotation du buste, ou suspension avec poids du corps (Dead Hang). 60 s par côté.",
+    "coach_tip": "Cherche l'étirement sous l'aisselle, pas dans les lombaires. Si tu dois cambrer pour aller plus loin, réduis l'amplitude."
+  },
+  {
+    "id": "FF-129",
+    "nom_fr": "Suspension passive à la barre",
+    "nom_en": "Passive Dead Hang",
+    "mots_cles": [
+      "dead_hang",
+      "suspension",
+      "decompression",
+      "epaules",
+      "grip",
+      "barre_de_traction"
+    ],
+    "categorie": "salle_cooldown_decompression",
+    "materiel": [
+      "Barre de traction"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal (étirement)",
+      "Muscles de l'avant-bras (grip)",
+      "Colonne vertébrale (décompression)"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Pectoraux",
+      "Coiffe des rotateurs"
+    ],
+    "respiration": "Respiration lente et profonde : expire en relâchant les épaules vers le haut.",
+    "niveau_1": "Tiens la barre avec les pieds au sol ou sur un support pour ne porter qu'une partie du poids. Laisse le corps s'allonger progressivement sans douleur. 15 à 20 s.",
+    "niveau_2": "Suspension complète, bras tendus, épaules relâchées (non engagées), corps immobile. 20 à 40 s.",
+    "niveau_3": "Suspension de 45 à 60 s, ou suspension à une main (assistée du pied), ou ajoute un léger balancier doux. Variante : suspension avec lest léger.",
+    "coach_tip": "Laisse progressivement le poids s'installer au lieu de te jeter en suspension. Une douleur d'épaule, de coude ou de doigts est un signal pour arrêter."
+  },
+  {
+    "id": "FF-130",
+    "nom_fr": "Suspension active",
+    "nom_en": "Active Hang (Scapular Pull)",
+    "mots_cles": [
+      "active_hang",
+      "suspension",
+      "omoplates",
+      "scapulaire",
+      "grip",
+      "barre_de_traction"
+    ],
+    "categorie": "salle_cooldown_decompression",
+    "materiel": [
+      "Barre de traction"
+    ],
+    "muscles_principaux": [
+      "Trapèzes inférieurs",
+      "Grand dorsal",
+      "Dentelé antérieur",
+      "Articulation scapulo-thoracique"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Avant-bras",
+      "Abdominaux"
+    ],
+    "respiration": "Expire en abaissant les omoplates, inspire en relâchant.",
+    "niveau_1": "Suspends-toi avec les pieds encore en appui si nécessaire. Sans plier les coudes, abaisse puis relève légèrement le corps en bougeant seulement les omoplates. 6 à 8 répétitions.",
+    "niveau_2": "Suspension complète, abaisse les omoplates (corps qui monte de 2 à 3 cm), bras tendus. 8 à 10 répétitions ou tenue de 10 s.",
+    "niveau_3": "Tenue de 20 à 30 s en position active, ou Scapular Pull avec pause de 3 s. Variante : à une main.",
+    "coach_tip": "Pense à éloigner les épaules des oreilles sans plier les coudes. Le mouvement est petit : les omoplates font le travail, pas un mini-traction."
+  },
+  {
+    "id": "FF-131",
+    "nom_fr": "Extension thoracique sur banc",
+    "nom_en": "Bench Thoracic Extension",
+    "mots_cles": [
+      "thoracic_extension",
+      "dos_haut",
+      "mobilite",
+      "banc",
+      "decompression"
+    ],
+    "categorie": "salle_cooldown_decompression",
+    "materiel": [
+      "Banc ou rouleau"
+    ],
+    "muscles_principaux": [
+      "Colonne thoracique (extension)",
+      "Grand pectoral (étirement)",
+      "Muscles intercostaux"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Deltoïdes",
+      "Grand dorsal"
+    ],
+    "respiration": "Inspire en laissant le dos se cambrer sur le banc, expire en revenant.",
+    "niveau_1": "À genoux devant le banc, pose les coudes dessus et les mains derrière la tête. Laisse doucement la poitrine descendre entre les bras en gardant le ventre légèrement actif. 30 s.",
+    "niveau_2": "Même position, bras tendus au-dessus de la tête, tenue de 45 à 60 s. Respire dans le dos.",
+    "niveau_3": "Haltère léger (2 à 4 kg) tenu dans les mains pour approfondir, ou position debout avec rouleau. Variante : balancement doux.",
+    "coach_tip": "Imagine que tu fais passer ta poitrine entre tes bras. Garde les côtes contrôlées pour éviter de transformer l'ouverture thoracique en grande cambrure lombaire."
+  },
+  {
+    "id": "FF-132",
+    "nom_fr": "Auto-massage au rouleau",
+    "nom_en": "Foam Rolling",
+    "mots_cles": [
+      "foam_roller",
+      "auto_massage",
+      "recuperation",
+      "fascia",
+      "mobilite"
+    ],
+    "categorie": "salle_cooldown_decompression",
+    "materiel": [
+      "Rouleau de massage (mousse ou ferme)",
+      "Tapis"
+    ],
+    "muscles_principaux": [
+      "Fascia",
+      "Quadriceps",
+      "Mollets",
+      "Muscles du dos"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Ischio-jambiers",
+      "Bandelette ilio-tibiale"
+    ],
+    "respiration": "Respiration lente et régulière : expire quand tu passes sur un point sensible.",
+    "niveau_1": "Place le rouleau sur une zone musculaire, pas sur une articulation. Fais des passages lents avec une pression confortable pendant environ 30 s par zone.",
+    "niveau_2": "Rouleau plus ferme, pression modérée, 45 à 60 s par zone, immobilise-toi 20 s sur un point sensible.",
+    "niveau_3": "Rouleau dur ou balle de massage, pression sur un seul membre (une jambe), ou massage avec mouvement de flexion/extension. 60 à 90 s par zone.",
+    "coach_tip": "Le rouleau doit créer une pression tolérable, jamais une douleur vive. Passe sur les muscles et contourne les articulations et les zones osseuses."
+  },
+  {
+    "id": "FF-133",
+    "nom_fr": "Maintien du squat goblet",
+    "nom_en": "Goblet Squat Hold",
+    "mots_cles": [
+      "goblet_squat_hold",
+      "mobilite",
+      "hanches",
+      "chevilles",
+      "kettlebell",
+      "decompression"
+    ],
+    "categorie": "salle_cooldown_mobilite",
+    "materiel": [
+      "Kettlebell ou haltère léger"
+    ],
+    "muscles_principaux": [
+      "Hanche (flexion profonde)",
+      "Cheville (dorsiflexion)",
+      "Adducteurs"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Quadriceps",
+      "Fessiers"
+    ],
+    "respiration": "Respiration lente, expire en relâchant le bassin vers le sol.",
+    "niveau_1": "Tiens un petit poids contre la poitrine et descends dans un squat profond confortable. Garde les talons au sol, respire lentement et reste 20 à 30 s sans forcer sur les genoux.",
+    "niveau_2": "Contrepoids de 8 à 12 kg, squat profond, tenue de 30 à 60 s, balancement doux d'un côté à l'autre.",
+    "niveau_3": "Contrepoids de 12 à 16 kg, tenue de 60 à 90 s, ou ajoute une rotation du buste. Variante : sans appui, pieds rapprochés.",
+    "coach_tip": "Utilise le poids comme contrepoids et respire comme si tu étais assis sur une chaise basse. Ne force jamais les genoux ou les hanches dans une amplitude douloureuse."
+  },
+  {
+    "id": "FF-134",
+    "nom_fr": "Rotation de hanches 90/90",
+    "nom_en": "90/90 Hip Switch",
+    "mots_cles": [
+      "hip_90_90",
+      "rotation_hanche",
+      "mobilite",
+      "tapis",
+      "banc"
+    ],
+    "categorie": "salle_cooldown_mobilite",
+    "materiel": [
+      "Tapis",
+      "Banc (appui facultatif)"
+    ],
+    "muscles_principaux": [
+      "Rotateurs internes et externes de hanche",
+      "Piriforme",
+      "Grand fessier"
+    ],
+    "muscles_secondaires": [
+      "Adducteurs",
+      "Fléchisseurs de hanche",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Expire en passant d'un côté à l'autre, inspire dans la position.",
+    "niveau_1": "Assis au sol, place une jambe devant et l'autre sur le côté, genoux fléchis. Garde le bassin aussi stable que possible et tiens la position 20 s avant de changer de côté.",
+    "niveau_2": "Bascule d'un côté à l'autre sans les mains, buste droit, 8 à 10 transitions lentes.",
+    "niveau_3": "Bascule sans appui avec décollage du genou arrière (Lift-Off), ou 90/90 avec flexion du buste vers l'avant. Variante : contraction-relâchement.",
+    "coach_tip": "Imagine que ton bassin est collé au sol. Si une fesse se décolle pour aller plus loin, rapproche-toi de la position confortable ou ajoute un support sous la fesse."
+  }
+]

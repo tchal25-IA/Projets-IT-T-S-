@@ -1,0 +1,324 @@
+[
+  {
+    "id": "WOD-001",
+    "nom": "Cindy",
+    "type_wod": "AMRAP",
+    "duree_indicative": "20 min",
+    "description_format": "Enchaîne le plus de tours possible en 20 minutes d'un circuit de 5 tractions, 10 pompes et 15 squats. Pas de repos imposé : tu comptes les tours complets.",
+    "mouvements_inclus": [
+      "Tractions (Pull-Ups)",
+      "Pompes (Push-Ups)",
+      "Squats au poids de corps (Air Squats)"
+    ],
+    "scaling_niveau_1": "Rings Rows ou tractions assistées à l'élastique (5), pompes inclinées ou sur les genoux (10), squats (15). Durée réduite à 12 à 15 min si besoin.",
+    "scaling_niveau_2": "Tractions à l'élastique ou Jumping Pull-Ups (5), pompes standard (10), squats (15). 20 min, objectif de 10 à 15 tours.",
+    "rx_niveau_3": "5 tractions (strictes ou kippées), 10 pompes poitrine au sol, 15 squats. 20 min, objectif de 15 à 25 tours selon le niveau.",
+    "coach_tip": "Installe un rythme soutenable dès le premier tour : Cindy récompense la régularité, pas le sprint. Fractionne avant l’échec (par exemple 3+2 tractions) et utilise les squats comme respiration active. Garde des épaules contrôlées sur les tractions et des pompes propres ; si l’amplitude ou la technique se dégrade, réduis la série plutôt que de forcer."
+  },
+  {
+    "id": "WOD-002",
+    "nom": "Fran",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 10 min",
+    "description_format": "Deux tours dégressifs de 21-15-9 répétitions : Thrusters puis Tractions. Tu enchaînes 21 Thrusters, 21 tractions, 15 Thrusters, 15 tractions, 9 Thrusters, 9 tractions. Le chrono s'arrête à la dernière traction.",
+    "mouvements_inclus": [
+      "Thrusters à la barre (Barbell Thrusters)",
+      "Tractions (Pull-Ups)"
+    ],
+    "scaling_niveau_1": "Barre légère (20 à 30 kg), tractions assistées à l'élastique ou Ring Rows. Schéma réduit 15-12-9 si besoin.",
+    "scaling_niveau_2": "Barre à 35 à 40 kg (30 kg pour les femmes), tractions kippées ou à l'élastique. Schéma complet 21-15-9.",
+    "rx_niveau_3": "Barre à 43 kg (hommes) et 30 kg (femmes), tractions kippées ou strictes. Schéma complet 21-15-9, cap 10 min.",
+    "coach_tip": "Fran est court mais très intense : évite de partir à fond sur les 21 premières répétitions. Fractionne tôt les thrusters et les tractions (par exemple 7-7-7 puis 5-5-5) avec des pauses très brèves. En thruster, profite des jambes et garde la barre proche ; en traction, protège le grip et arrête la série avant l’échec technique."
+  },
+  {
+    "id": "WOD-003",
+    "nom": "Helen",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 15 min",
+    "description_format": "3 tours pour le temps : 400 m de course, 21 Kettlebell Swings, 12 tractions. Le chrono s'arrête à la dernière traction du troisième tour.",
+    "mouvements_inclus": [
+      "Course 400 m (Run)",
+      "Kettlebell Swings",
+      "Tractions (Pull-Ups)"
+    ],
+    "scaling_niveau_1": "Course 200 m ou 250 m de rameur, kettlebell de 8 à 12 kg (21 swings), Ring Rows (12). 2 à 3 tours.",
+    "scaling_niveau_2": "Course 400 m (ou rameur 500 m), kettlebell de 16 kg (12 kg pour les femmes), tractions assistées (12). 3 tours.",
+    "rx_niveau_3": "Course 400 m, kettlebell de 24 kg (hommes) et 16 kg (femmes), 12 tractions strictes ou kippées. 3 tours.",
+    "coach_tip": "Construis les 400 m à une allure que tu peux répéter sur les trois passages : trop vite au premier tour coûte cher ensuite. Sur les swings, laisse les hanches produire la puissance et fractionne avant que le grip ne lâche ; sur les tractions, privilégie des petites séries régulières. Utilise les transitions pour respirer et repartir proprement."
+  },
+  {
+    "id": "WOD-004",
+    "nom": "Annie",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 12 min",
+    "description_format": "Deux tours dégressifs de 50-40-30-20-10 répétitions : Double Unders puis Sit-Ups. Tu fais 50 DU, 50 sit-ups, 40 DU, 40 sit-ups, et ainsi de suite jusqu'à 10 et 10.",
+    "mouvements_inclus": [
+      "Double Unders (DU)",
+      "Sit-Ups (abdominaux sur AbMat)"
+    ],
+    "scaling_niveau_1": "Single Unders (2 SU par DU : 100-80-60-40-20) ou 25-20-15-10-5 DU, sit-ups avec AbMat (50-40-30-20-10).",
+    "scaling_niveau_2": "Double Unders partiels (schéma 30-24-18-12-6 DU + single unders de compensation), sit-ups complets.",
+    "rx_niveau_3": "Double Unders 50-40-30-20-10 et sit-ups 50-40-30-20-10. Cap 12 min.",
+    "coach_tip": "Le piège est de vouloir tenir 50 Double Unders d’un seul bloc à tout prix. Choisis une série que tu peux répéter sans faute et relance rapidement après chaque coupure. Sur les sit-ups, garde une cadence régulière plutôt que de te crisper ; avec les Double Unders, reste relâché dans les épaules et les poignets."
+  },
+  {
+    "id": "WOD-005",
+    "nom": "Grace",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 10 min",
+    "description_format": "30 Clean & Jerk le plus vite possible avec la même barre. Tu peux découper les séries librement, le chrono s'arrête à la 30e répétition.",
+    "mouvements_inclus": [
+      "Épaulé-jeté (Clean & Jerk)"
+    ],
+    "scaling_niveau_1": "Barre de 20 à 30 kg ou haltères, 20 à 30 répétitions, avec Push Press au lieu du jeté si la technique n'est pas acquise.",
+    "scaling_niveau_2": "Barre de 43 kg (hommes) et 30 kg (femmes), 30 répétitions avec Power Clean + Push Jerk.",
+    "rx_niveau_3": "Barre de 61 kg (hommes) et 43 kg (femmes), 30 Clean & Jerk (Squat Clean ou Power Clean + Jerk).",
+    "coach_tip": "Grace est un sprint contrôlé : démarre légèrement sous ton maximum et conserve une mécanique identique jusqu’à la fin. Un découpage en petites séries avec des pauses très courtes peut être plus rapide qu’un bloc mené à l’échec. Garde la barre proche du corps, utilise les jambes et les hanches pour l’épaulé-jeté et ne sacrifie jamais la réception pour gagner quelques secondes."
+  },
+  {
+    "id": "WOD-006",
+    "nom": "Murph (Hero WOD)",
+    "type_wod": "For Time",
+    "duree_indicative": "40 à 60 min, Cap 60 min",
+    "description_format": "En l'honneur du Lt Michael Murphy : 1 mile de course, puis 100 tractions, 200 pompes et 300 squats (découpage libre), puis 1 mile de course. Optionnel : gilet lesté de 9 kg (hommes) ou 6 kg (femmes).",
+    "mouvements_inclus": [
+      "Course 1,6 km (Run)",
+      "Tractions (Pull-Ups)",
+      "Pompes (Push-Ups)",
+      "Squats au poids de corps (Air Squats)"
+    ],
+    "scaling_niveau_1": "Half Murph : 800 m de course, 50 tractions, 100 pompes, 150 squats, 800 m. Sans gilet. Tractions assistées ou Ring Rows.",
+    "scaling_niveau_2": "Murph complet sans gilet ou gilet léger (3 à 6 kg), tractions à l'élastique, découpage 20 tours de 5-10-15 (façon Cindy).",
+    "rx_niveau_3": "Murph complet avec gilet lesté (9 kg ou 6 kg), 100 tractions, 200 pompes, 300 squats, 1 mile avant et après. Découpage libre.",
+    "coach_tip": "Le Murph se gagne à la gestion : pars prudemment sur les deux miles et évite l’échec musculaire dès les premiers tours. Le format 5-10-15 est un repère classique pour les 20 tours, mais adapte-le à ton niveau et à ton équipement. Le bloc gymnastique totalise 600 répétitions (100 tractions, 200 pompes, 300 squats) ; fractionne avant la saturation et surveille particulièrement épaules, mains et respiration. En chaleur ou sur une longue durée, prévois hydratation et stratégie de récupération adaptées."
+  },
+  {
+    "id": "WOD-007",
+    "nom": "Jackie",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 15 min",
+    "description_format": "1 000 m de rameur, 50 Thrusters (barre de 20 kg ou 15 kg), puis 30 tractions. Le chrono s'arrête à la dernière traction.",
+    "mouvements_inclus": [
+      "Rameur 1 000 m (Row)",
+      "Thrusters à la barre (Thrusters)",
+      "Tractions (Pull-Ups)"
+    ],
+    "scaling_niveau_1": "Rameur 500 m, barre à vide (20 kg ou 15 kg) ou haltères légers, 30 Thrusters, 15 à 20 Ring Rows.",
+    "scaling_niveau_2": "Rameur 750 à 1 000 m, barre de 20 kg ou 15 kg, 40 Thrusters, 20 à 30 tractions assistées.",
+    "rx_niveau_3": "Rameur 1 000 m, barre de 20 kg (hommes) et 15 kg (femmes), 50 Thrusters, 30 tractions kippées ou strictes.",
+    "coach_tip": "Ne transforme pas les 1 000 m de rameur en test maximal : vise une allure forte mais maîtrisée pour garder de la marge sur les thrusters et les tractions. Sur les thrusters, fractionne avant que les épaules ne saturent ; sur les tractions, évite l’échec. Au rameur, pousse avec les jambes et garde un retour contrôlé ; sur la barre, conserve une trajectoire proche du corps."
+  },
+  {
+    "id": "WOD-008",
+    "nom": "Karen",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 12 min",
+    "description_format": "150 Wall Ball Shots le plus vite possible, avec un médecine-ball de 9 kg (6 kg pour les femmes) à une cible à 3 m (2,70 m pour les femmes).",
+    "mouvements_inclus": [
+      "Wall Ball Shots (Wall Balls)"
+    ],
+    "scaling_niveau_1": "Médecine-ball de 4 à 6 kg, cible à 2,40 m, 100 à 120 répétitions.",
+    "scaling_niveau_2": "Médecine-ball de 6 à 9 kg, cible à 2,70 m, 150 répétitions en séries de 15 à 20.",
+    "rx_niveau_3": "Médecine-ball de 9 kg (hommes) et 6 kg (femmes), cible à 3 m (hommes) et 2,70 m (femmes), 150 répétitions.",
+    "coach_tip": "Karen est un test de cadence : trouve dès les premières répétitions un rythme que tu peux maintenir sur les 150 wall balls. Fractionne avant la brûlure excessive, avec des pauses courtes et planifiées. Utilise les jambes pour envoyer la balle, garde le tronc stable et vérifie à chaque répétition la profondeur du squat et la cible demandée par le format choisi."
+  },
+  {
+    "id": "WOD-009",
+    "nom": "DT (Hero WOD)",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 15 min",
+    "description_format": "5 tours pour le temps : 12 Deadlifts, 9 Hang Power Cleans, 6 Push Jerks, avec la même barre sans la reposer entre les mouvements si possible.",
+    "mouvements_inclus": [
+      "Soulevé de terre (Deadlift)",
+      "Épaulé de puissance (Hang Power Clean)",
+      "Push Jerk"
+    ],
+    "scaling_niveau_1": "Barre de 30 à 40 kg (ou 20 à 30 kg pour les femmes), 3 à 4 tours, Push Press au lieu du Jerk.",
+    "scaling_niveau_2": "Barre de 50 à 60 kg (hommes) et 35 à 40 kg (femmes), 5 tours.",
+    "rx_niveau_3": "Barre de 70 kg (hommes) et 47,5 kg (femmes), 5 tours, barre qui ne touche le sol qu'en fin de tour.",
+    "coach_tip": "DT récompense les transitions efficaces et le grip intelligent. Si la charge le permet, limite les repos inutiles et garde la barre proche ; si elle est lourde, fractionne sans aller à l’échec. Sur les deadlifts et les tirages, protège le dos avec une position solide et une barre proche ; sur les mouvements au-dessus de la tête, verrouille proprement avant de repartir."
+  },
+  {
+    "id": "WOD-010",
+    "nom": "Corps Entier 12",
+    "type_wod": "AMRAP",
+    "duree_indicative": "12 min",
+    "description_format": "Enchaîne le maximum de tours en 12 minutes : 6 Burpees, 12 Squats au poids de corps, 18 Mountain Climbers (9 par jambe), 8 Pompes.",
+    "mouvements_inclus": [
+      "Burpees",
+      "Squats au poids de corps (Air Squats)",
+      "Mountain Climbers",
+      "Pompes (Push-Ups)"
+    ],
+    "scaling_niveau_1": "Burpees sans pompe, squats, Mountain Climbers lents, pompes inclinées. 10 min, tour de 4-8-12-6.",
+    "scaling_niveau_2": "Burpees complets, squats, Mountain Climbers, pompes standard. 12 min.",
+    "rx_niveau_3": "6 Burpees, 12 squats, 18 Mountain Climbers, 8 pompes. 12 min, objectif de 6 à 10 tours.",
+    "coach_tip": "Sur 12 minutes, cherche une allure que tu peux tenir sans rupture. Les burpees font monter le coût cardio : ralentis légèrement pour rester fluide et utilise les squats pour reprendre ton souffle. Évite les réceptions lourdes, garde le tronc stable en planche et réduis l’amplitude ou le volume si la technique se dégrade."
+  },
+  {
+    "id": "WOD-011",
+    "nom": "Haltères 15",
+    "type_wod": "AMRAP",
+    "duree_indicative": "15 min",
+    "description_format": "En 15 minutes, enchaîne : 8 Thrusters aux haltères, 10 Rowings penchés aux haltères, 12 Fentes marchées (6 par jambe).",
+    "mouvements_inclus": [
+      "Thrusters aux haltères (DB Thrusters)",
+      "Rowings penchés aux haltères (DB Rows)",
+      "Fentes marchées (Walking Lunges)"
+    ],
+    "scaling_niveau_1": "Haltères de 4 à 8 kg, tour de 6-8-10, 12 min.",
+    "scaling_niveau_2": "Haltères de 8 à 12 kg (hommes) et 6 à 8 kg (femmes), 15 min.",
+    "rx_niveau_3": "Haltères de 15 kg (hommes) et 10 kg (femmes), 8-10-12, 15 min, objectif de 5 à 8 tours.",
+    "coach_tip": "Gère les thrusters avec les jambes plutôt qu’avec les seuls épaules, puis profite des transitions pour reprendre ton souffle. Sur le rowing, garde le dos stable et tire le coude vers l’arrière sans tourner le buste ; sur les fentes, contrôle la descente et garde le genou dans l’axe du pied. Fractionne avant que la prise et les épaules ne deviennent le facteur limitant."
+  },
+  {
+    "id": "WOD-012",
+    "nom": "Kettlebell 15",
+    "type_wod": "AMRAP",
+    "duree_indicative": "15 min",
+    "description_format": "En 15 minutes, enchaîne : 10 Kettlebell Swings, 8 Goblet Squats, 5 Kettlebell Push Press par bras.",
+    "mouvements_inclus": [
+      "Kettlebell Swings",
+      "Goblet Squats",
+      "Kettlebell Push Press"
+    ],
+    "scaling_niveau_1": "Kettlebell de 8 à 12 kg, tour de 8-6-4 par bras, 12 min.",
+    "scaling_niveau_2": "Kettlebell de 16 kg (hommes) et 12 kg (femmes), 15 min.",
+    "rx_niveau_3": "Kettlebell de 24 kg (hommes) et 16 kg (femmes), 10-8-5 par bras, 15 min, objectif de 6 à 10 tours.",
+    "coach_tip": "L’objectif est de faire travailler les hanches, pas de tirer le kettlebell avec les bras. Sur les swings, garde une charnière de hanche solide et laisse le KB monter grâce à l’extension ; sur le push press, utilise les jambes pour lancer la charge. Fractionne avant la perte de posture, garde les poignets neutres et pose ou lâche le KB de façon contrôlée si l’équilibre devient incertain."
+  },
+  {
+    "id": "WOD-013",
+    "nom": "EMOM 10 Corps Entier",
+    "type_wod": "EMOM",
+    "duree_indicative": "10 min",
+    "description_format": "Toutes les minutes : minutes impaires = 15 Squats au poids de corps ; minutes paires = 10 Pompes. 10 minutes, soit 5 tours. Le temps restant dans la minute est ton repos.",
+    "mouvements_inclus": [
+      "Squats au poids de corps (Air Squats)",
+      "Pompes (Push-Ups)"
+    ],
+    "scaling_niveau_1": "Squats 10, pompes inclinées 6 à 8. Si tu rates une minute, passe à la suivante sans rattraper.",
+    "scaling_niveau_2": "Squats 15, pompes standard 10 à 12.",
+    "rx_niveau_3": "Squats 20 à 25, pompes 15 à 20 (si tu finis en moins de 30 s, ajoute des répétitions).",
+    "coach_tip": "Un EMOM se prépare avant la première minute : choisis un volume qui te laisse régulièrement du temps de récupération. Si une tâche te prend 50-55 secondes, le format devient vite intenable ; mieux vaut réduire les répétitions ou la charge. Respire sans bloquer inutilement, conserve une technique identique et utilise les dernières secondes comme récupération active."
+  },
+  {
+    "id": "WOD-014",
+    "nom": "EMOM 16 Barre",
+    "type_wod": "EMOM",
+    "duree_indicative": "16 min",
+    "description_format": "Toutes les minutes, enchaîne 4 mouvements en rotation avec une barre de 40 kg (30 kg pour les femmes) : minute 1 = 8 Deadlifts, minute 2 = 8 Hang Power Cleans, minute 3 = 8 Front Squats, minute 4 = 8 Push Press. 4 tours.",
+    "mouvements_inclus": [
+      "Soulevé de terre (Deadlift)",
+      "Épaulé de puissance (Hang Power Clean)",
+      "Squat avant (Front Squat)",
+      "Développé poussé (Push Press)"
+    ],
+    "scaling_niveau_1": "Barre de 20 à 30 kg, 6 répétitions par minute. Rack pour les Front Squats.",
+    "scaling_niveau_2": "Barre de 30 à 40 kg (hommes) et 20 à 30 kg (femmes), 8 répétitions par minute.",
+    "rx_niveau_3": "Barre de 50 kg (hommes) et 35 kg (femmes), 8 à 10 répétitions par minute, enchaîné sans repos.",
+    "coach_tip": "Le bon objectif est de terminer chaque minute avec une marge confortable, pas de battre le chrono de la minute précédente. Prépare ta barre et ton espace avant le départ, puis garde des séries faciles à répéter. Sur le deadlift, protège le dos et garde la barre proche ; sur les mouvements en rack, maintiens les coudes suffisamment hauts et allège dès que la technique se dégrade."
+  },
+  {
+    "id": "WOD-015",
+    "nom": "EMOM 20 Rameur et Kettlebell",
+    "type_wod": "EMOM",
+    "duree_indicative": "20 min",
+    "description_format": "Cycle de 4 minutes répété 5 fois : minute 1 = 12 calories au rameur (10 pour les femmes), minute 2 = 12 Kettlebell Swings, minute 3 = 10 Goblet Squats, minute 4 = 15 Sit-Ups.",
+    "mouvements_inclus": [
+      "Rameur (Row)",
+      "Kettlebell Swings",
+      "Goblet Squats",
+      "Sit-Ups"
+    ],
+    "scaling_niveau_1": "Rameur 8 à 10 calories, kettlebell de 8 à 12 kg, 8 Goblet Squats, 10 sit-ups.",
+    "scaling_niveau_2": "Rameur 10 à 12 calories, kettlebell de 12 à 16 kg, 10 Goblet Squats, 15 sit-ups.",
+    "rx_niveau_3": "Rameur 12 calories (hommes) et 10 (femmes), kettlebell de 24 kg et 16 kg, 10 Goblet Squats, 15 sit-ups.",
+    "coach_tip": "Au rameur, reste volontairement sous ton maximum pour préserver les minutes suivantes. Cherche une puissance régulière plutôt qu’un sprint suivi d’une chute de rythme ; sur les swings, laisse les hanches faire le travail. Utilise la minute de récupération comme une vraie fenêtre pour faire redescendre le souffle, préparer le matériel et repartir proprement."
+  },
+  {
+    "id": "WOD-016",
+    "nom": "Chipper Corps Entier",
+    "type_wod": "Chipper",
+    "duree_indicative": "Cap 20 min",
+    "description_format": "Enchaîne une seule fois dans l'ordre : 50 Jumping Jacks, 40 Squats au poids de corps, 30 Sit-Ups, 20 Pompes, 10 Burpees. Le chrono s'arrête au dernier burpee.",
+    "mouvements_inclus": [
+      "Jumping Jacks",
+      "Squats au poids de corps (Air Squats)",
+      "Sit-Ups",
+      "Pompes (Push-Ups)",
+      "Burpees"
+    ],
+    "scaling_niveau_1": "Jumping Jacks 40, squats 30, sit-ups 20, pompes inclinées 10, burpees sans pompe 5.",
+    "scaling_niveau_2": "Jumping Jacks 50, squats 40, sit-ups 30, pompes 15, burpees 8.",
+    "rx_niveau_3": "50 Jumping Jacks, 40 squats, 30 sit-ups, 20 pompes, 10 burpees. Cap 20 min.",
+    "coach_tip": "Un chipper se gère comme un effort long : ne gaspille pas tes ressources sur les premiers mouvements. Fractionne les gros volumes avec des pauses très courtes et régulières, puis accélère seulement si tu as encore de la marge dans le dernier tiers. Garde les genoux alignés sur les squats et les fentes, et un tronc solide sur les mouvements au sol."
+  },
+  {
+    "id": "WOD-017",
+    "nom": "Chipper Matériel",
+    "type_wod": "Chipper",
+    "duree_indicative": "Cap 25 min",
+    "description_format": "Une seule fois dans l'ordre : 500 m de rameur, 40 Kettlebell Swings, 30 Thrusters (barre de 30 kg ou 20 kg), 20 Box Jump Overs, 10 Chest-to-Bar Pull-Ups. Le chrono s'arrête à la dernière traction.",
+    "mouvements_inclus": [
+      "Rameur 500 m (Row)",
+      "Kettlebell Swings",
+      "Thrusters à la barre (Thrusters)",
+      "Box Jump Overs",
+      "Chest-to-Bar Pull-Ups (C2B)"
+    ],
+    "scaling_niveau_1": "Rameur 300 m, kettlebell de 8 à 12 kg (30 swings), barre à vide (20 swings), Step-Ups sur box (15), tractions assistées (8).",
+    "scaling_niveau_2": "Rameur 500 m, kettlebell de 16 kg, barre de 25 kg (hommes) et 20 kg (femmes), Box Jump Over 50 cm (15), tractions kippées (8).",
+    "rx_niveau_3": "Rameur 500 m, kettlebell de 24 kg et 16 kg, barre de 30 kg (hommes) et 20 kg (femmes), 20 Box Jump Overs 60 cm, 10 C2B.",
+    "coach_tip": "Évite de gagner 20 secondes au début pour en perdre plusieurs minutes à la fin. Gère le rameur et les swings à une intensité contrôlée, puis fractionne les thrusters et les C2B avant l’échec. Vérifie la stabilité de la box, descends en contrôlant et protège les épaules sur les mouvements de tirage ; la transition doit être courte mais jamais précipitée."
+  },
+  {
+    "id": "WOD-018",
+    "nom": "Tabata Corps Entier",
+    "type_wod": "Tabata",
+    "duree_indicative": "20 min",
+    "description_format": "4 Tabatas de 4 minutes (8 tours de 20 s d'effort et 10 s de repos), avec 1 minute de repos entre chacun : Squats, Pompes, Sit-Ups, Mountain Climbers. Le score est le nombre de répétitions du pire tour de chaque Tabata.",
+    "mouvements_inclus": [
+      "Squats au poids de corps (Air Squats)",
+      "Pompes (Push-Ups)",
+      "Sit-Ups",
+      "Mountain Climbers"
+    ],
+    "scaling_niveau_1": "Squats, pompes inclinées, sit-ups, Mountain Climbers lents. Réduis l'effort à 15 s si besoin.",
+    "scaling_niveau_2": "Squats, pompes standard, sit-ups, Mountain Climbers. 20 s d'effort et 10 s de repos.",
+    "rx_niveau_3": "Squats, pompes, sit-ups, Mountain Climbers, tous au maximum de répétitions. Score = nombre de répétitions du pire tour.",
+    "coach_tip": "En Tabata, la constance est plus rentable qu’un départ héroïque : vise un nombre de répétitions réaliste que tu peux maintenir sur les 8 intervalles. Profite des 10 secondes de repos pour respirer et te repositionner immédiatement. Si l’amplitude ou la posture se dégrade, réduis le nombre de répétitions plutôt que de transformer les dernières séries en mouvements approximatifs."
+  },
+  {
+    "id": "WOD-019",
+    "nom": "Tabata Matériel",
+    "type_wod": "Tabata",
+    "duree_indicative": "20 min",
+    "description_format": "4 Tabatas de 4 minutes (8 tours de 20 s d'effort et 10 s de repos), avec 1 minute de repos entre chacun : Kettlebell Swings, Wall Ball Shots, Rameur (calories), Burpees.",
+    "mouvements_inclus": [
+      "Kettlebell Swings",
+      "Wall Ball Shots",
+      "Rameur (Row)",
+      "Burpees"
+    ],
+    "scaling_niveau_1": "Kettlebell de 8 à 12 kg, médecine-ball de 4 kg, rameur à 70 %, burpees sans pompe.",
+    "scaling_niveau_2": "Kettlebell de 16 kg, médecine-ball de 6 kg, rameur à 85 %, burpees complets.",
+    "rx_niveau_3": "Kettlebell de 24 kg (hommes) et 16 kg (femmes), médecine-ball de 9 kg et 6 kg, rameur à 100 %, burpees complets. Score = pire tour.",
+    "coach_tip": "Cherche des scores homogènes d’un intervalle à l’autre plutôt qu’un premier tour maximal. Au rameur, fixe une cible de calories réaliste et essaie de la reproduire ; sur les swings et les burpees, garde une cadence mécanique. Utilise les 10 secondes pour préparer la position suivante, reste gainé et contrôle les transitions pour éviter les mouvements parasites."
+  },
+  {
+    "id": "WOD-020",
+    "nom": "Duo Barre 21-15-9",
+    "type_wod": "For Time",
+    "duree_indicative": "Cap 12 min",
+    "description_format": "Deux tours dégressifs de 21-15-9 : Deadlifts puis Push Press, avec la même barre. Le chrono s'arrête à la dernière répétition de Push Press.",
+    "mouvements_inclus": [
+      "Soulevé de terre (Deadlift)",
+      "Développé poussé (Push Press)"
+    ],
+    "scaling_niveau_1": "Barre de 30 à 40 kg (hommes) et 20 à 30 kg (femmes), schéma 15-12-9.",
+    "scaling_niveau_2": "Barre de 50 à 60 kg (hommes) et 35 à 40 kg (femmes), schéma 21-15-9.",
+    "rx_niveau_3": "Barre de 70 kg (hommes) et 47,5 kg (femmes), schéma 21-15-9, cap 12 min.",
+    "coach_tip": "Le 21-15-9 peut devenir très coûteux pour les épaules si tu pars trop vite. Fractionne la barre dès le début avec des séries que tu peux répéter, puis utilise les jambes et les hanches pour le push press au lieu de tout faire avec les bras. Garde la barre proche du corps, une position solide au deadlift et des transitions rapides mais contrôlées ; si la technique casse, ralentis immédiatement."
+  }
+]

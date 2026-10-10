@@ -1,0 +1,447 @@
+[
+  {
+    "id": "CYC-001",
+    "nom_fr": "Pédalage en vélocité (cadence haute)",
+    "nom_en": "High-Cadence Pedaling (Spin-Ups)",
+    "mots_cles": [
+      "velocite",
+      "cadence_haute",
+      "spin_ups",
+      "rpm",
+      "home_trainer",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer",
+      "Capteur de cadence ou compteur",
+      "Ventilateur"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Fléchisseurs de hanche",
+      "Mollets",
+      "Fessiers"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Stabilisateurs du bassin"
+    ],
+    "respiration": "Respire de façon régulière et continue, en laissant la fréquence respiratoire suivre l'intensité. Évite de synchroniser artificiellement chaque inspiration avec un nombre fixe de coups de pédale si cela perturbe le rythme.",
+    "niveau_1": "6 x 30 s à 90 à 95 rpm avec résistance légère (Z1), 1 min de récupération facile entre chaque.",
+    "niveau_2": "6 x 1 min à 100 à 105 rpm sans rebond du bassin (Z1 à Z2), 1 min 30 de récupération.",
+    "niveau_3": "6 x 2 min à 110 à 120 rpm, ou pyramide 30 s - 1 min - 2 min - 1 min - 30 s à cadence maximale sans rebond. Variante : vélocité à intensité tempo (Z3).",
+    "coach_tip": "Vélocité : augmente progressivement la cadence et cherche un pédalage fluide, sans rebond du bassin. Si le bassin bouge, réduis immédiatement la cadence ou augmente très légèrement la résistance. Position : épaules et mains relâchées, bassin stable, regard loin devant. Respiration : reste fluide et évite toute apnée ; l'objectif est une cadence élevée techniquement maîtrisée, pas un chiffre maximal."
+  },
+  {
+    "id": "CYC-002",
+    "nom_fr": "Pédalage en force (cadence basse)",
+    "nom_en": "Low-Cadence Strength Intervals",
+    "mots_cles": [
+      "force",
+      "cadence_basse",
+      "rpm",
+      "home_trainer",
+      "muscu_velo",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer",
+      "Capteur de cadence ou compteur",
+      "Ventilateur"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Mollets",
+      "Stabilisateurs du bassin"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Triceps"
+    ],
+    "respiration": "Respire profondément mais sans forcer : inspire régulièrement et expire complètement pendant l'effort. Ne bloque pas la respiration pour produire davantage de force.",
+    "niveau_1": "6 x 2 min à 70 à 80 rpm avec résistance modérée (Z2), assis, 2 min de récupération. Genoux alignés avec les pieds.",
+    "niveau_2": "6 x 3 min à 60 à 65 rpm avec résistance plus élevée (Z3), assis, 3 min de récupération facile.",
+    "niveau_3": "6 x 4 min à 50 à 60 rpm avec résistance élevée (zone seuil bas), assis, ou 4 x 6 min à 55 rpm. Variante : montées simulées avec résistance progressive.",
+    "coach_tip": "Force à vélo : garde le bassin stable et pousse avec une pression progressive sur la pédale, sans écraser le braquet. La résistance doit permettre de conserver un geste propre et une cadence régulière. Garde les genoux dans l'axe des pieds et évite de tirer excessivement sur le guidon. Sécurité : si une douleur articulaire apparaît, allège immédiatement la résistance ; la séance ne doit pas devenir un test de force maximale."
+  },
+  {
+    "id": "CYC-003",
+    "nom_fr": "Alternance vélocité et force",
+    "nom_en": "Cadence Variation (Spin / Strength Alternation)",
+    "mots_cles": [
+      "alternance",
+      "velocite",
+      "force",
+      "cadence",
+      "variation",
+      "home_trainer",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer",
+      "Capteur de cadence",
+      "Ventilateur"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Fléchisseurs de hanche",
+      "Mollets"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Fessiers"
+    ],
+    "respiration": "Respire de façon régulière pendant les deux phases ; accélère naturellement la fréquence respiratoire lorsque la cadence ou l'intensité augmente, sans bloquer l'air.",
+    "niveau_1": "Alternance de 2 min à 90 rpm et 2 min à 70 rpm, intensité facile (Z1 à Z2), 5 cycles.",
+    "niveau_2": "Alternance de 3 min à 100 rpm et 3 min à 60 rpm, intensité Z2 à Z3, 4 cycles.",
+    "niveau_3": "Alternance de 5 min à 110 rpm et 5 min à 55 rpm à intensité Z3, ou séries courtes 1 min à >110 rpm / 1 min à <55 rpm. Variante : alternance à puissance constante (la cadence change, la puissance reste la même).",
+    "coach_tip": "Transition de cadence : change progressivement de braquet pour éviter un à-coup. À haute cadence, recherche la fluidité ; à basse cadence, conserve un pédalage rond sans tirer brutalement sur le guidon. Garde le même niveau de posture et de contrôle du bassin afin que seule la cadence change réellement. Si la technique se dégrade, réduis l'amplitude de la variation."
+  },
+  {
+    "id": "CYC-004",
+    "nom_fr": "Danseuse (relance en côte)",
+    "nom_en": "Standing Climb (Out of the Saddle)",
+    "mots_cles": [
+      "danseuse",
+      "relance",
+      "cote",
+      "standing_climb",
+      "montee",
+      "gainage",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer ou côte",
+      "Capteur de puissance ou de cadence"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Grand dorsal",
+      "Érecteurs du rachis",
+      "Ischio-jambiers"
+    ],
+    "respiration": "Respire profondément et régulièrement pendant la relance, avec une expiration active sur les phases de poussée. Ne bloque pas l'air lorsque tu te mets en danseuse.",
+    "niveau_1": "6 x 10 s debout sur le vélo, résistance légère à modérée, retour assis. Récupération de 1 min.",
+    "niveau_2": "6 x 30 s en relance : passe 1 à 2 vitesses plus lourd avant de te lever, cadence 55 à 70 rpm. Récupération de 1 min 30.",
+    "niveau_3": "Danseuse de 1 à 2 min sur montée simulée, ou alternance 30 s debout / 1 min assis sur 10 min. Variante : relance en danseuse à puissance seuil.",
+    "coach_tip": "Danseuse : lève-toi en transférant progressivement le poids sur les pédales, sans tirer fort sur le guidon ni balancer excessivement le vélo. Garde le bassin au-dessus du pédalier et le tronc stable. Reviens assis dès que la relance est terminée pour limiter le coût énergétique. Sur home-trainer, applique la même technique mais reste attentif à la stabilité du vélo et du matériel."
+  },
+  {
+    "id": "CYC-005",
+    "nom_fr": "Position aéro et prolongateurs",
+    "nom_en": "Aero Position (Aerobars)",
+    "mots_cles": [
+      "position_aero",
+      "prolongateurs",
+      "aerobars",
+      "aerodynamisme",
+      "triathlon",
+      "contre_la_montre",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo de contre-la-montre ou vélo de route avec prolongateurs",
+      "Home-trainer",
+      "Réglage de position (bike fit)"
+    ],
+    "muscles_principaux": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Fléchisseurs de hanche",
+      "Quadriceps",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Fléchisseurs cervicaux",
+      "Avant-bras",
+      "Fessiers"
+    ],
+    "respiration": "Respire librement et régulièrement dans la position aéro. La position est correcte uniquement si elle permet de maintenir une respiration efficace et une puissance stable.",
+    "niveau_1": "5 à 10 min en position aéro progressive à intensité facile (Z1 à Z2), puis retour en position haute. 3 blocs avec 3 min de récupération.",
+    "niveau_2": "2 x 10 min en position aéro à intensité tempo (Z3), respiration contrôlée, tête dans l'axe. Récupération de 5 min.",
+    "niveau_3": "2 à 3 x 15 à 20 min en position aéro à allure spécifique (Z3 à Z4), ou 40 à 60 min en continu pour la longue distance. Variante : alternance position aéro et position haute toutes les 10 min.",
+    "coach_tip": "Position aéro : cherche le meilleur compromis entre réduction de la traînée, confort respiratoire et production de puissance. Garde les coudes soutenus, les épaules relâchées et la tête dans le prolongement du dos sans relever inutilement le menton. Augmente progressivement le temps passé en position. Sur route, n'utilise pas les prolongateurs dans une situation où le contrôle du trafic ou du groupe est insuffisant ; le réglage doit être validé avec un bike-fit si nécessaire."
+  },
+  {
+    "id": "CYC-006",
+    "nom_fr": "Pédalage unilatéral",
+    "nom_en": "Single-Leg Pedaling Drill",
+    "mots_cles": [
+      "pedalage_unilateral",
+      "single_leg",
+      "efficience",
+      "coup_de_pedale",
+      "home_trainer",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer",
+      "Pédales débrayables ou appui pour le pied libre"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Fléchisseurs de hanche",
+      "Fessiers",
+      "Mollets"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Fessiers",
+      "Tibial antérieur"
+    ],
+    "respiration": "Respire calmement et continûment, sans chercher un rythme fixe si celui-ci perturbe le geste. Ne bloque jamais l'air pendant le travail unilatéral.",
+    "niveau_1": "6 x 10 s par jambe à 60 à 70 rpm avec résistance très légère, l'autre pied posé sur un support. Récupération de 20 s entre chaque.",
+    "niveau_2": "6 x 20 à 30 s par jambe à 70 à 80 rpm, résistance légère, en cherchant à supprimer les points morts (haut et bas du coup de pédale). Récupération de 30 s.",
+    "niveau_3": "6 x 45 s à 1 min par jambe à 80 à 90 rpm, ou alternance 30 s d'une jambe / 30 s des deux. Variante : pédalage unilatéral à cadence progressive.",
+    "coach_tip": "Pédalage unilatéral : utilise une résistance très légère à modérée pour apprendre à produire un mouvement fluide, pas pour travailler la force maximale. Garde le bassin stable et évite toute rotation du tronc. Le pied libre doit être sécurisé hors de la trajectoire de la pédale. Si le pédalage devient saccadé ou que le genou tire, raccourcis l'intervalle et reviens au pédalage à deux jambes."
+  },
+  {
+    "id": "CYC-007",
+    "nom_fr": "Séance de rythme au home-trainer (tempo)",
+    "nom_en": "Steady Tempo Session (Indoor Trainer)",
+    "mots_cles": [
+      "rythme",
+      "tempo",
+      "pacing",
+      "sweet_spot",
+      "puissance_constante",
+      "home_trainer",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_home_trainer",
+    "materiel": [
+      "Vélo",
+      "Home-trainer",
+      "Capteur de puissance ou cardiofréquencemètre",
+      "Ventilateur",
+      "Boisson d'effort"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Mollets",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Stabilisateurs du bassin"
+    ],
+    "respiration": "Respiration régulière et contrôlée, qui s'accélère progressivement avec l'intensité. Évite de fixer une fréquence respiratoire si elle devient inconfortable ou perturbe le pédalage.",
+    "niveau_1": "2 x 10 min en Z2 haute à cadence 85 à 90 rpm, 5 min de récupération facile. Boisson toutes les 15 min.",
+    "niveau_2": "3 x 12 min à allure tempo (Z3), cadence 85 à 95 rpm, puissance ou fréquence cardiaque constante, 4 min de récupération.",
+    "niveau_3": "2 x 20 min à allure sweet spot ou seuil bas (Z3 haute à Z4 basse), position aéro, cadence 85 à 95 rpm. Variante : 3 x 15 min avec les 5 dernières minutes légèrement plus soutenues.",
+    "coach_tip": "Pacing : pars légèrement sous la cible pendant les premières minutes, puis stabilise l'effort. Cherche une puissance ou une perception d'effort homogène, sans accélération prématurée. Position : conserve une posture stable et efficace pendant tout le bloc. Respiration : utilise-la comme indicateur de contrôle ; une dérive respiratoire excessive peut signaler une intensité trop élevée ou un besoin de récupération."
+  },
+  {
+    "id": "CYC-008",
+    "nom_fr": "Gainage spécifique du cycliste (hors vélo)",
+    "nom_en": "Core Work for Cyclists (Off the Bike)",
+    "mots_cles": [
+      "gainage",
+      "core",
+      "planche",
+      "bird_dog",
+      "stabilite",
+      "posture",
+      "cyclisme"
+    ],
+    "categorie": "cyclisme_gainage",
+    "materiel": [
+      "Tapis",
+      "Banc ou chaise (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Grand droit",
+      "Obliques",
+      "Érecteurs du rachis",
+      "Fessiers"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Grand dentelé",
+      "Fléchisseurs de hanche",
+      "Quadriceps"
+    ],
+    "respiration": "Respire lentement et continûment pendant les exercices de gainage : inspire sans relâcher le contrôle du tronc, puis expire sans pousser le ventre vers l'intérieur de façon excessive.",
+    "niveau_1": "Planche sur genoux 3 x 20 à 30 s, Bird-Dog 2 x 8 par côté, pont fessier 2 x 12. 45 s de repos entre les séries.",
+    "niveau_2": "Planche sur avant-bras 3 x 30 à 45 s, Bird-Dog avec tenue de 3 s 3 x 8 par côté, planche latérale 3 x 20 à 30 s par côté.",
+    "niveau_3": "Planche avec levée alternée d'un bras ou d'une jambe 3 x 10 par côté, planche latérale avec levée de jambe 3 x 30 s, Dead Bug lent 3 x 10 par côté. Variante : gainage en position penchée comme sur le vélo (buste incliné à 45°, appui sur une chaise).",
+    "coach_tip": "Gainage : cherche une colonne neutre et une tension abdominale suffisante pour stabiliser le bassin, pas un ventre constamment rentré au maximum. Progresse d'abord en qualité et en durée, puis augmente la difficulté. Pour le transfert au vélo, privilégie les exercices qui résistent à l'extension et à la rotation. Arrête une série si tu dois cambrer, retenir l'air ou compenser avec les épaules."
+  },
+  {
+    "id": "TRI-001",
+    "nom_fr": "Enchaînement vélo-course (brick workout)",
+    "nom_en": "Brick Workout (Bike-to-Run)",
+    "mots_cles": [
+      "brick",
+      "enchainement",
+      "velo_course",
+      "transition",
+      "triathlon",
+      "endurance"
+    ],
+    "categorie": "triathlon_transitions",
+    "materiel": [
+      "Vélo",
+      "Home-trainer ou route",
+      "Chaussures de course",
+      "Casque et équipement de transition"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Fessiers",
+      "Mollets",
+      "Système cardio-vasculaire"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Fléchisseurs de hanche",
+      "Tibial antérieur"
+    ],
+    "respiration": "Au début de la course, respire librement et progressivement jusqu'à retrouver un rythme confortable ; la fréquence respiratoire doit suivre l'allure plutôt qu'un schéma imposé.",
+    "niveau_1": "20 à 30 min de vélo facile (Z2) puis 5 à 10 min de course facile, transition lente et calme. 1 série.",
+    "niveau_2": "40 à 60 min de vélo en Z2 à Z3 puis 10 à 15 min de course à allure d'endurance, avec transition chronométrée (moins de 90 s). 1 à 2 séries.",
+    "niveau_3": "60 à 90 min de vélo à allure spécifique (Z3 à Z4) puis 20 à 30 min de course à allure de compétition, transition en moins de 60 s. Variante : brick court répété (3 x [10 min vélo + 3 min course]).",
+    "coach_tip": "Brick : termine le vélo avec une cadence légèrement plus élevée et une intensité maîtrisée afin de préparer la transition, puis pars volontairement plus lentement à pied. Les premières minutes servent à laisser la foulée se réorganiser. En triathlon, garde le casque sur la tête jusqu'à ce que le vélo soit correctement déposé et que tu sois autorisé à le retirer. Répète la transition dans un espace sécurisé avant de la chronométrer."
+  },
+  {
+    "id": "TRI-002",
+    "nom_fr": "Courir après le vélo (foulée raccourcie au départ)",
+    "nom_en": "Running Off the Bike",
+    "mots_cles": [
+      "courir_apres_velo",
+      "run_off_bike",
+      "foulee_raccourcie",
+      "cadence",
+      "triathlon",
+      "transition"
+    ],
+    "categorie": "triathlon_transitions",
+    "materiel": [
+      "Chaussures de course",
+      "Vélo (séance combinée)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Ischio-jambiers",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Tibial antérieur",
+      "Système cardio-vasculaire"
+    ],
+    "respiration": "Respire calmement et régulièrement sur les premières minutes de course, puis laisse la fréquence respiratoire augmenter avec l'allure. Ne force pas un rythme 3/2 s'il n'est pas naturel.",
+    "niveau_1": "Après 20 à 30 min de vélo facile, 5 min de course très facile avec une foulée naturellement courte et légère. Cherche une cadence stable sans imposer un chiffre précis.",
+    "niveau_2": "Après 40 à 60 min de vélo, 10 min de course : foulée légèrement raccourcie les 3 premières minutes, puis allure d'endurance confortable. Laisse la cadence se stabiliser naturellement.",
+    "niveau_3": "Après 60 à 90 min de vélo à allure spécifique, 20 à 30 min de course avec montée progressive en allure après 5 min. Variante : enchaînement vélo-course répété en séries courtes, avec récupération suffisante.",
+    "coach_tip": "Les premières minutes peuvent donner une sensation de jambes lourdes : n'essaie pas de la corriger en accélérant. Garde une foulée courte, légère et progressive jusqu'à retrouver un geste naturel. Le tronc reste stable, le regard loin devant et les épaules relâchées. Respiration : laisse-la se caler sur l'effort. Si une douleur mécanique apparaît ou s'aggrave, réduis l'allure ou arrête la séance."
+  },
+  {
+    "id": "TRI-003",
+    "nom_fr": "Gestion de l'effort continu",
+    "nom_en": "Continuous Effort Pacing (Triathlon)",
+    "mots_cles": [
+      "gestion_effort",
+      "pacing",
+      "effort_continu",
+      "rythme",
+      "endurance",
+      "strategie",
+      "triathlon"
+    ],
+    "categorie": "triathlon_pacing",
+    "materiel": [
+      "Montre ou compteur",
+      "Cardiofréquencemètre ou capteur de puissance",
+      "Vélo et chaussures de course",
+      "Boisson et nutrition d'effort"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Mollets",
+      "Fessiers",
+      "Ischio-jambiers"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux (gainage)",
+      "Érecteurs du rachis",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Respiration régulière et contrôlée, adaptée à l'intensité et au mode de locomotion. Utilise un rythme respiratoire stable comme repère, sans le considérer comme une obligation.",
+    "niveau_1": "Séances de 45 à 60 min continues en Z2 avec nutrition d'effort (boisson, gel), pour apprendre à tenir un rythme constant.",
+    "niveau_2": "Séances de 90 à 120 min en Z2 avec phases d'allure spécifique (par exemple 3 x 15 min en Z3), en régulant l'effort au ressenti.",
+    "niveau_3": "Séances de 2 à 3 h en enchaînement (vélo puis course), avec allure de course sur la dernière partie. Variante : simulation complète d'un format (S, M ou L) à intensité de course.",
+    "coach_tip": "Pacing : commence légèrement sous l'allure cible, puis stabilise l'effort plutôt que de compenser plus tard. Utilise puissance, fréquence cardiaque et perception de l'effort comme indicateurs complémentaires. Nutrition et hydratation doivent être testées à l'entraînement et adaptées à la durée, à l'intensité et à la tolérance digestive. Sur les longues séances, surveille la technique : si la posture s'effondre, ajuste l'allure avant que la fatigue ne devienne excessive."
+  },
+  {
+    "id": "TRI-004",
+    "nom_fr": "Routine de transition T2 (vélo vers course)",
+    "nom_en": "T2 Transition Routine",
+    "mots_cles": [
+      "t2",
+      "transition",
+      "routine",
+      "descente_velo",
+      "parc_a_velos",
+      "triathlon"
+    ],
+    "categorie": "triathlon_transitions",
+    "materiel": [
+      "Vélo",
+      "Zone de transition ou espace dédié",
+      "Chaussures de course",
+      "Casque",
+      "Serviette (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fessiers",
+      "Mollets",
+      "Système cardio-vasculaire"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Muscles fibulaires",
+      "Tibial antérieur"
+    ],
+    "respiration": "Respire profondément mais sans forcer pendant la transition ; une expiration longue peut aider à relâcher la tension, mais ne cherche pas à faire chuter artificiellement la fréquence cardiaque avant de courir.",
+    "niveau_1": "Travaille la séquence à l'arrêt : poser le vélo, enlever le casque, enfiler les chaussures, partir au pas. Prends 2 à 3 min pour chaque répétition.",
+    "niveau_2": "Séquence complète en 60 à 90 s : approche de la ligne de descente, descente du vélo selon les règles et les conditions de sécurité, pose du vélo, retrait du casque une fois le vélo correctement déposé, chaussures puis départ en trottinant. 5 répétitions.",
+    "niveau_3": "Séquence en moins de 45 à 60 s, enchaînée avec 5 à 10 min de course après un effort vélo. Variante : T2 après 20 min d'effort soutenu pour reproduire la fatigue de course, sans sacrifier la sécurité.",
+    "coach_tip": "Transition : prépare les gestes avant d'entrer dans la zone pour éviter les arrêts et hésitations. Si tu pratiques une sortie des chaussures sur le vélo, fais-le uniquement dans un environnement adapté et après maîtrise du geste. En compétition, respecte la ligne de descente et garde le casque attaché jusqu'à ce que le vélo soit posé à l'emplacement prévu. Ensuite seulement, retire le casque et pars progressivement à pied. La vitesse de transition ne doit jamais prendre le pas sur la sécurité."
+  }
+]

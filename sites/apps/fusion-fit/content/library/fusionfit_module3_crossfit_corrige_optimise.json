@@ -1,0 +1,890 @@
+[
+  {
+    "id": "FF-135",
+    "nom_fr": "Arraché",
+    "nom_en": "Snatch",
+    "mots_cles": [
+      "snatch",
+      "arrache",
+      "halterophilie",
+      "barre",
+      "olympique",
+      "explosif",
+      "overhead"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Disques bumpers",
+      "Plateforme ou sol protégé",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Trapèzes",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Grand dorsal",
+      "Triceps",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Inspire et crée une pression abdominale avant le tirage ; maintiens le gainage pendant l’accélération. Expire progressivement après la réception stabilisée au-dessus de la tête, sans relâcher le tronc avant d’avoir contrôlé la barre.",
+    "niveau_1": "Bâton ou barre à vide : travail du muscle snatch puis Hang Power Snatch depuis au-dessus du genou, réception en quart de squat. 3 à 5 répétitions, priorité absolue à la trajectoire et au verrouillage stable.",
+    "niveau_2": "Snatch complet depuis le sol avec charge légère à modérée permettant une technique irréprochable, réception en squat profond et barre stable au-dessus du milieu du pied. 2 à 3 répétitions par série.",
+    "niveau_3": "Snatch lourd technique à faible volume, ou complexe Snatch Pull + Snatch + Overhead Squat, ou Snatch avec pause de 2 s en réception. Variante : Snatch Balance pour renforcer vitesse et précision de la réception.",
+    "coach_tip": "Garde la barre très proche du corps : elle monte verticalement au-dessus du milieu du pied, puis tu passes rapidement dessous. Pense « pousser le sol » et finir l’extension des hanches, genoux et chevilles avant de tirer sous la barre ; les bras ne doivent pas arracher la charge dès le départ. En réception, verrouille les coudes, pousse activement les épaules vers le haut et stabilise avant de te relever. Si la réception est incertaine, laisse la barre tomber devant toi en contrôlant sa trajectoire et utilise des disques bumper avec un espace dégagé."
+  },
+  {
+    "id": "FF-136",
+    "nom_fr": "Épaulé-jeté",
+    "nom_en": "Clean & Jerk",
+    "mots_cles": [
+      "clean_and_jerk",
+      "epaule_jete",
+      "halterophilie",
+      "barre",
+      "olympique",
+      "explosif"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Disques bumpers",
+      "Plateforme ou sol protégé",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Quadriceps",
+      "Ischio-jambiers",
+      "Trapèzes",
+      "Deltoïdes",
+      "Triceps"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Grand dorsal",
+      "Mollets",
+      "Abdominaux",
+      "Avant-bras"
+    ],
+    "respiration": "Inspire et crée une pression abdominale avant le premier tirage ; maintiens le gainage pendant l’épaulé. Expire une fois la réception stable, puis reprends une inspiration et un gainage avant le jeté ; expire pendant la poussée et le verrouillage.",
+    "niveau_1": "Power Clean depuis la hauteur du genou, puis Push Press (sans fente), charge très légère. 3 à 5 répétitions de chaque, dissociées.",
+    "niveau_2": "Épaulé en squat (Squat Clean) depuis le sol, puis jeté en fente (Split Jerk) ou Push Jerk, charge modérée (60 à 75 %). 2 à 3 répétitions par série.",
+    "niveau_3": "Charge lourde (80 à 95 %), ou complexe Clean + Front Squat + Jerk, ou Clean & Jerk enchaînés sans lâcher la barre (touch and go). Variante : Clean Pull lourd pour renforcer le tirage.",
+    "coach_tip": "Sur le clean, garde la barre proche des jambes et termine l’extension avant de passer rapidement sous la barre ; reçois-la sur les épaules avec les coudes hauts. Sur le jerk, effectue un dip court, vertical et contrôlé, puis pousse le sol avant de te placer sous la barre. Verrouille les coudes et garde la tête neutre une fois la barre au-dessus. Si l’équilibre est perdu, laisse tomber la barre devant toi ; ne tente jamais de la rattraper en avançant sous une charge instable."
+  },
+  {
+    "id": "FF-137",
+    "nom_fr": "Épaulé de puissance depuis la suspension",
+    "nom_en": "Hang Power Clean",
+    "mots_cles": [
+      "hang_power_clean",
+      "epaule",
+      "halterophilie",
+      "barre",
+      "explosif",
+      "suspension"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Disques bumpers",
+      "Plateforme ou sol protégé",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Quadriceps",
+      "Trapèzes",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Érecteurs du rachis",
+      "Deltoïdes",
+      "Biceps",
+      "Avant-bras",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire avant le départ et verrouille le tronc pendant le tirage. Expire après la réception stable en rack avant ; sur les séries continues, reprends une respiration complète avant chaque nouvelle répétition si le gainage se dégrade.",
+    "niveau_1": "Barre à vide, départ à la hauteur du genou (barre au niveau du pli), épaulé en réception haute (quart de squat), coudes hauts. 5 répétitions.",
+    "niveau_2": "Charge modérée, départ au-dessus du genou, extension explosive des hanches, réception en rack avant à la parallèle. 3 à 5 répétitions.",
+    "niveau_3": "Charge lourde, départ au sol (Power Clean complet), ou Hang Power Clean + Front Squat enchaînés. Variante : Hang Clean avec réception en squat complet.",
+    "coach_tip": "Depuis la suspension, pousse le sol et ouvre les hanches sans lancer la barre vers l’avant. Garde-la proche des cuisses, puis accélère à l’extension avant de faire passer rapidement les coudes sous la barre. Reçois-la sur les deltoïdes en rack avant, avec les genoux légèrement fléchis pour absorber la charge. Ne transforme pas le mouvement en curl : les bras guident la barre, ils ne la soulèvent pas avant l’extension."
+  },
+  {
+    "id": "FF-138",
+    "nom_fr": "Squat au-dessus de la tête",
+    "nom_en": "Overhead Squat",
+    "mots_cles": [
+      "overhead_squat",
+      "squat",
+      "halterophilie",
+      "barre",
+      "stabilite",
+      "mobilite"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique ou bâton",
+      "Disques bumpers",
+      "Rack (en option)",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Deltoïdes",
+      "Trapèzes",
+      "Grand dentelé"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Abdominaux",
+      "Érecteurs du rachis",
+      "Mollets"
+    ],
+    "respiration": "Inspire et crée une pression abdominale avant la descente ; conserve le gainage pendant tout le squat. Expire en remontant après avoir franchi le point le plus difficile, sans perdre la position de la barre.",
+    "niveau_1": "Bâton ou barre à vide, prise très large, squat à la parallèle, bras verrouillés. 5 répétitions, tempo lent.",
+    "niveau_2": "Barre chargée à 40 à 60 % de ton Back Squat, prise d'arraché (Snatch Grip), squat profond avec talons au sol. 5 répétitions.",
+    "niveau_3": "Charge lourde (70 à 90 % de ta meilleure réception), ou Overhead Squat avec pause de 3 s en bas, ou Snatch Balance. Variante : à une jambe.",
+    "coach_tip": "Garde la barre empilée au-dessus du milieu du pied, avec les épaules activement poussées vers le plafond et les coudes verrouillés. Descends en laissant les genoux avancer naturellement et en gardant les pieds ancrés au sol ; ne cherche pas à forcer les hanches exagérément vers l’arrière. Si la barre dérive nettement devant ou derrière le pied, abandonne la répétition en relâchant la barre dans une zone dégagée plutôt que de lutter pour la retenir."
+  },
+  {
+    "id": "FF-139",
+    "nom_fr": "Thruster à la barre",
+    "nom_en": "Barbell Thruster",
+    "mots_cles": [
+      "thruster",
+      "squat",
+      "developpe",
+      "barre",
+      "crossfit",
+      "metcon",
+      "corps_entier"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Rack ou sol",
+      "Disques",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Deltoïdes",
+      "Triceps",
+      "Trapèzes"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Trapèzes",
+      "Érecteurs du rachis"
+    ],
+    "respiration": "Inspire et brace en bas du front squat ; conserve la pression pendant la transition squat-poussée. Expire lorsque les jambes terminent l’extension et que les bras verrouillent la barre au-dessus de la tête.",
+    "niveau_1": "Barre à vide, squat avant puis développé en deux temps (pause de 1 s en haut du squat). 8 répétitions.",
+    "niveau_2": "Charge modérée (par exemple 43 kg chez l'homme, 30 kg chez la femme), enchaînement fluide squat-développé sans pause. 10 à 15 répétitions.",
+    "niveau_3": "Charge lourde (60 kg et plus), ou Thruster en AMRAP (Fran : 21-15-9), ou Thruster avec cluster. Variante : Thruster à une main avec kettlebell.",
+    "coach_tip": "Pars d’un front rack stable : coudes hauts et barre posée sur les épaules. Utilise la remontée du squat pour transmettre la force aux bras ; évite de presser la barre depuis un arrêt complet. En haut, termine avec hanches, genoux et coudes verrouillés, puis ramène la barre au rack avant la répétition suivante. Si la technique se dégrade, réduis la charge plutôt que de compenser avec le bas du dos."
+  },
+  {
+    "id": "FF-140",
+    "nom_fr": "Développé poussé",
+    "nom_en": "Push Press",
+    "mots_cles": [
+      "push_press",
+      "developpe",
+      "epaules",
+      "barre",
+      "explosif",
+      "crossfit"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Rack",
+      "Disques",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Deltoïde antérieur et moyen",
+      "Triceps",
+      "Quadriceps (impulsion)",
+      "Grand fessier"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Grand dentelé",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Inspire et crée une pression abdominale avant le dip ; garde le tronc gainé pendant l’impulsion. Expire pendant la poussée de la barre et le verrouillage au-dessus de la tête.",
+    "niveau_1": "Barre à vide ou charge légère, flexion de jambes de 10 cm, poussée verticale. 8 à 10 répétitions.",
+    "niveau_2": "Charge modérée, flexion de 10 à 15 cm, extension explosive des jambes qui lance la barre, verrouillage complet. 5 à 8 répétitions.",
+    "niveau_3": "Charge lourde (RPE 8 à 9), ou Push Press + Push Jerk (second dip pour passer sous la barre), ou Push Press sans rack. Variante : Behind-the-Neck (avec mobilité suffisante).",
+    "coach_tip": "Effectue un dip court, vertical et symétrique : genoux et hanches fléchissent légèrement sans transformer le mouvement en squat. Pousse ensuite le sol pour transférer l’impulsion à la barre, puis termine avec les bras. La barre doit monter sur une trajectoire quasi verticale ; laisse la tête reculer juste assez pour son passage, puis replace-la sous la barre. Si le dip devient profond ou si le tronc se cambre, baisse la charge."
+  },
+  {
+    "id": "FF-141",
+    "nom_fr": "Soulevé de terre athlétique",
+    "nom_en": "Athletic Deadlift",
+    "mots_cles": [
+      "deadlift",
+      "souleve_de_terre",
+      "athletique",
+      "barre",
+      "chaine_posterieure",
+      "crossfit"
+    ],
+    "categorie": "cf_halterophilie",
+    "materiel": [
+      "Barre olympique",
+      "Disques bumpers",
+      "Pinces de blocage"
+    ],
+    "muscles_principaux": [
+      "Grand fessier",
+      "Ischio-jambiers",
+      "Érecteurs du rachis",
+      "Quadriceps",
+      "Trapèzes"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Grand dorsal",
+      "Avant-bras (grip)",
+      "Abdominaux"
+    ],
+    "respiration": "Inspire profondément avant chaque répétition et crée une forte pression abdominale ; maintiens-la pendant le décollage et la phase la plus exigeante. Expire après le verrouillage, puis réinitialise ta position avant la répétition suivante.",
+    "niveau_1": "Barre surélevée (disques de 20 kg), charge légère, prise double pronation, dos plat, poussée avec les jambes. 8 répétitions.",
+    "niveau_2": "Barre au sol, charge modérée à lourde (RPE 7 à 8), prise mixte ou crochet, dos plat, barre contre les jambes. 3 à 5 répétitions.",
+    "niveau_3": "Charge très lourde (RPE 9), ou Deadlift à haute vitesse (Speed Deadlift à 60 %), ou Sumo Deadlift. Variante : Deficit Deadlift (debout sur un disque).",
+    "coach_tip": "Place la barre au-dessus du milieu du pied, approche les tibias et verrouille le tronc avant de tirer. Pousse le sol tout en gardant la barre au contact des jambes ; les hanches et les épaules montent ensemble au départ, puis les hanches terminent le verrouillage sans hyperextension lombaire. Garde la barre sous contrôle jusqu’au sol. Si le dos perd sa position ou si la barre s’éloigne des jambes, arrête la série et réduis la charge."
+  },
+  {
+    "id": "FF-142",
+    "nom_fr": "Muscle-up aux anneaux",
+    "nom_en": "Ring Muscle-Up",
+    "mots_cles": [
+      "ring_muscle_up",
+      "muscle_up",
+      "anneaux",
+      "gymnastique",
+      "traction",
+      "dips",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Anneaux de gymnastique (sangles réglables)",
+      "Magnésie (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Pectoraux",
+      "Triceps",
+      "Biceps",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes inférieurs",
+      "Abdominaux",
+      "Avant-bras",
+      "Grand rond"
+    ],
+    "respiration": "Respire régulièrement pendant le kip ; expire pendant la traction et la transition, puis inspire en position basse contrôlée. Évite de bloquer longtemps la respiration, surtout sur les séries enchaînées.",
+    "niveau_1": "Tractions aux anneaux avec pieds au sol, Dips aux anneaux, puis transition sur banc avec élastique d'assistance. Maîtrise 10 tractions et 10 dips avant de continuer.",
+    "niveau_2": "Muscle-up complet aux anneaux avec léger kip (balancier), transition rapide, verrouillage en haut. 1 à 3 répétitions par série.",
+    "niveau_3": "Muscle-up strict (sans balancier), ou 5 à 10 muscle-ups enchaînés, ou Muscle-up lesté. Variante : Ring Muscle-Up sans fausse prise (False Grip) pour les experts.",
+    "coach_tip": "Commence par une suspension active et maîtrise le false grip avant de chercher la vitesse. Utilise le kip pour amener les hanches vers les anneaux, puis tire les anneaux vers les hanches et rapproche rapidement le buste pour passer au-dessus. Une fois en appui, verrouille les coudes avant de redescendre sous contrôle. La transition ne doit pas être forcée avec les épaules ; si tu perds le false grip ou si la trajectoire devient asymétrique, arrête la série."
+  },
+  {
+    "id": "FF-143",
+    "nom_fr": "Muscle-up à la barre",
+    "nom_en": "Bar Muscle-Up",
+    "mots_cles": [
+      "bar_muscle_up",
+      "muscle_up",
+      "barre",
+      "gymnastique",
+      "traction",
+      "kipping",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Barre de traction haute",
+      "Magnésie ou sangles de grip (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Triceps",
+      "Biceps",
+      "Pectoraux",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Abdominaux",
+      "Fléchisseurs de hanche",
+      "Avant-bras"
+    ],
+    "respiration": "Respire de façon rythmée avec le kip ; expire pendant la traction et la transition au-dessus de la barre, puis inspire pendant la descente contrôlée.",
+    "niveau_1": "Chest-to-Bar Pull-Up solide (10 répétitions), Dips sur barre ou banc, puis transition avec élastique ou saut. Pas de muscle-up sans 5 tractions strictes.",
+    "niveau_2": "Bar Muscle-Up avec kipping : balancier arrière-avant, traction explosive jusqu'à la poitrine, transition rapide, poussée jusqu'au verrouillage. 1 à 3 répétitions.",
+    "niveau_3": "Séries de 5 à 10 muscle-ups enchaînés, ou Muscle-up strict, ou Muscle-up lesté. Variante : Bar Muscle-Up avec lest léger.",
+    "coach_tip": "Construis le mouvement à partir d’un kip swing maîtrisé : passe de la position hollow à arch, puis utilise l’extension des hanches pour rapprocher le bassin de la barre. Tire en gardant la barre proche et projette le buste au-dessus avant de pousser jusqu’au verrouillage. Redescends avec contrôle et évite de relâcher brutalement les épaules. Si le kip devient désordonné ou que les épaules perdent leur position active, réduis le volume."
+  },
+  {
+    "id": "FF-144",
+    "nom_fr": "Orteils à la barre",
+    "nom_en": "Toes-to-Bar (T2B)",
+    "mots_cles": [
+      "toes_to_bar",
+      "t2b",
+      "abdominaux",
+      "kipping",
+      "barre",
+      "gymnastique",
+      "crossfit",
+      "core"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Barre de traction",
+      "Magnésie ou sangles (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand droit (portion basse)",
+      "Fléchisseurs de hanche",
+      "Grand dorsal",
+      "Obliques"
+    ],
+    "muscles_secondaires": [
+      "Avant-bras (grip)",
+      "Transverse",
+      "Épaules"
+    ],
+    "respiration": "Expire pendant la montée des jambes et inspire pendant le retour vers la position hollow ; sur les séries longues, garde une respiration rythmée plutôt que de bloquer l’air.",
+    "niveau_1": "Relevé de genoux suspendu (Knee Raise), ou Hanging Leg Raise jusqu'à l'horizontale, sans balancier. 8 à 10 répétitions.",
+    "niveau_2": "Toes-to-Bar kippé : léger balancier (Kip), jambes tendues, orteils qui touchent la barre, descente contrôlée. 5 à 10 répétitions.",
+    "niveau_3": "Séries de 15 à 20 T2B enchaînés, ou T2B strict (sans balancier), ou T2B avec lest. Variante : Windshield Wipers.",
+    "coach_tip": "Commence en suspension active et utilise un kip contrôlé, en alternant hollow et arch. Amène les orteils jusqu’à la barre entre les mains, puis redescends en gardant le tronc actif pour préparer la répétition suivante. Le mouvement vient de la coordination épaules-hanches, pas d’un simple balancement des jambes. Si le grip glisse ou si les épaules deviennent douloureuses, interromps la série."
+  },
+  {
+    "id": "FF-145",
+    "nom_fr": "Pompe en équilibre strict",
+    "nom_en": "Strict Handstand Push-Up (HSPU)",
+    "mots_cles": [
+      "hspu",
+      "strict",
+      "handstand_push_up",
+      "gymnastique",
+      "epaules",
+      "mur",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Mur",
+      "Tapis ou abmat (surface de réception)",
+      "Magnésie (en option)"
+    ],
+    "muscles_principaux": [
+      "Deltoïde antérieur et moyen",
+      "Triceps",
+      "Trapèzes supérieurs",
+      "Épaule"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Pectoraux (partie haute)",
+      "Abdominaux",
+      "Fessiers"
+    ],
+    "respiration": "Inspire pendant la descente en maintenant le tronc gainé ; expire pendant la poussée jusqu’au verrouillage. Réinitialise la respiration en position haute avant la répétition suivante si nécessaire.",
+    "niveau_1": "Pike Push-Up avec pieds sur box (hauteur 40 cm), ou HSPU avec tête sur abmat et amplitude réduite. 5 à 8 répétitions.",
+    "niveau_2": "HSPU strict face au mur, tête sur abmat, descente jusqu'à toucher le tapis, poussée jusqu'au verrouillage. 3 à 6 répétitions.",
+    "niveau_3": "Deficit HSPU (mains sur disques), ou HSPU strict lesté, ou HSPU avec pause de 2 s en bas. Variante : HSPU sans mur (Freestanding) pour les experts.",
+    "coach_tip": "Installe les mains à une largeur qui permet aux avant-bras de rester proches de la verticale et pousse activement le sol. Descends en contrôlant la tête vers un point légèrement en avant des mains, puis pousse fort sans perdre la ligne du tronc. Garde le regard neutre et les coudes sous contrôle. Utilise un abmat ou une surface de protection adaptée ; si l’amplitude ou la stabilité ne sont pas maîtrisées, réduis l’amplitude ou passe sur une progression en pike."
+  },
+  {
+    "id": "FF-146",
+    "nom_fr": "Pompe en équilibre kippée",
+    "nom_en": "Kipping Handstand Push-Up (HSPU)",
+    "mots_cles": [
+      "hspu",
+      "kipping",
+      "handstand_push_up",
+      "gymnastique",
+      "epaules",
+      "mur",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Mur",
+      "Abmat ou tapis épais",
+      "Magnésie (en option)"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Triceps",
+      "Quadriceps (impulsion)",
+      "Extension de hanche"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes supérieurs",
+      "Grand dentelé",
+      "Abdominaux",
+      "Mollets"
+    ],
+    "respiration": "Inspire pendant la descente et prépare le gainage ; expire pendant le dip-drive, la poussée et le verrouillage. Évite de bloquer la respiration sur les séries rapides.",
+    "niveau_1": "Maîtrise le HSPU strict (au moins 3 répétitions) avant d'apprendre le kip. Entraîne le Dip des jambes (dip-drive) pieds au sol.",
+    "niveau_2": "HSPU kippé face au mur : descente tête sur abmat, impulsion des jambes (dip puis extension), poussée jusqu'au verrouillage. 5 à 10 répétitions.",
+    "niveau_3": "Séries de 15 à 20 HSPU kippés, ou Deficit HSPU kippé, ou HSPU libre (Freestanding). Variante : HSPU kippé lesté.",
+    "coach_tip": "Descends sous contrôle, puis réalise un dip-drive coordonné : genoux fléchis, hanches proches du mur, extension dynamique des jambes avant la poussée des bras. Garde la tête neutre et laisse-la passer légèrement en avant des mains pour créer une trajectoire efficace. Le kip doit aider la poussée, pas provoquer un choc répété sur les épaules. Si le contact avec l’abmat devient violent ou si la ligne se désorganise, réduis l’amplitude ou reviens au HSPU strict assisté."
+  },
+  {
+    "id": "FF-147",
+    "nom_fr": "Marche sur les mains",
+    "nom_en": "Handstand Walk",
+    "mots_cles": [
+      "handstand_walk",
+      "equilibre",
+      "gymnastique",
+      "epaules",
+      "poignets",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Mur",
+      "Tapis ou sol libre de 8 à 10 m",
+      "Un partenaire (en option)"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Trapèzes",
+      "Triceps",
+      "Avant-bras",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Grand dentelé",
+      "Abdominaux",
+      "Fessiers",
+      "Avant-bras"
+    ],
+    "respiration": "Respire calmement et régulièrement ; évite l’apnée. Inspire en stabilisant l’appui puis expire progressivement pendant le transfert de poids vers la main opposée.",
+    "niveau_1": "Tenue face au mur (Wall Walk) : pieds sur le mur, marche vers le mur en gardant le corps gainé. 3 à 5 passages.",
+    "niveau_2": "Tenue en équilibre libre 10 à 20 s, puis petits pas sur les mains (Shoulder Taps, déplacements de 3 à 5 mètres). Pas sans mur : préviens un partenaire.",
+    "niveau_3": "Marche libre sur 10 à 20 mètres, ou Handstand Walk avec rotation, ou obstacle (parcours). Variante : Handstand Walk en reculant.",
+    "coach_tip": "Pousse activement le sol pour éloigner les épaules des oreilles et garde les côtes et le bassin contrôlés. Pour avancer, transfère légèrement le poids sur une main puis soulève l’autre avec un petit pas, plutôt que de déplacer brutalement tout le corps. Travaille d’abord sur une surface dégagée, avec une zone de sortie latérale ou une roulade maîtrisée. Évite les tentatives si les poignets, épaules ou l’équilibre ne sont pas préparés."
+  },
+  {
+    "id": "FF-148",
+    "nom_fr": "Traction kippée",
+    "nom_en": "Kipping Pull-Up",
+    "mots_cles": [
+      "kipping_pull_up",
+      "traction",
+      "kip",
+      "barre",
+      "gymnastique",
+      "crossfit",
+      "dos"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Barre de traction"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Biceps",
+      "Trapèzes",
+      "Abdominaux",
+      "Fléchisseurs de hanche"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Rhomboïdes",
+      "Avant-bras",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Respire de manière rythmée avec le balancier ; expire pendant la phase de traction et inspire lors du retour vers la suspension active. Ne bloque pas la respiration sur les séries longues.",
+    "niveau_1": "Tractions strictes (5 à 8 répétitions) et apprentissage du balancier (Kip Swings) : balancier avant-arrière en suspension. 10 balanciers.",
+    "niveau_2": "Traction kippée : balancier (Hollow vers l'arrière, Arch vers l'avant), tirage de la barre vers soi, menton au-dessus de la barre. 5 à 10 répétitions.",
+    "niveau_3": "Séries de 15 à 25 tractions kippées, ou Butterfly Pull-Up (kip circulaire), ou tractions lestées kippées. Variante : Chest-to-Bar.",
+    "coach_tip": "Maîtrise d’abord le kip swing : hollow puis arch, sans casser la position des épaules. Utilise ensuite l’extension des hanches pour créer le déplacement, puis tire la barre vers toi jusqu’à passer le menton au-dessus. Évite de « tirer avec les bras » depuis une suspension passive. Redescends vers une suspension active et arrête la série si tu ressens une douleur d’épaule ou si le balancier devient incontrôlé."
+  },
+  {
+    "id": "FF-149",
+    "nom_fr": "Traction poitrine à la barre",
+    "nom_en": "Chest-to-Bar Pull-Up (C2B)",
+    "mots_cles": [
+      "chest_to_bar",
+      "c2b",
+      "traction",
+      "kipping",
+      "barre",
+      "gymnastique",
+      "crossfit",
+      "dos"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Barre de traction",
+      "Magnésie (en option)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Biceps",
+      "Trapèzes",
+      "Rhomboïdes",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Avant-bras",
+      "Deltoïde postérieur"
+    ],
+    "respiration": "Expire pendant la traction vers la barre et inspire pendant la descente ; garde une respiration rythmée sur les séries kippées.",
+    "niveau_1": "Traction kippée classique (menton au-dessus de la barre), puis tire plus haut en maintenant le balancier. 5 à 8 répétitions.",
+    "niveau_2": "Chest-to-Bar kippé : la poitrine (sternum) touche la barre, balancier contrôlé, descente en contrôle. 5 à 10 répétitions.",
+    "niveau_3": "Séries de 15 à 20 C2B enchaînés, ou C2B strict (sans balancier), ou C2B lesté. Variante : Butterfly Chest-to-Bar.",
+    "coach_tip": "Utilise un kip ample et maîtrisé pour amener la poitrine vers la barre, puis tire la barre vers le bas du sternum plutôt que de chercher uniquement à monter le menton. Les épaules restent actives pendant toute la suspension. Redescends en contrôle et évite de relâcher brutalement les épaules en bas. Si le contact poitrine-barre n’est obtenu qu’en cassant la technique, réduis l’amplitude ou reviens à une traction kippée classique."
+  },
+  {
+    "id": "FF-150",
+    "nom_fr": "Grimpé de corde",
+    "nom_en": "Rope Climb",
+    "mots_cles": [
+      "rope_climb",
+      "grimpe_corde",
+      "corde",
+      "gymnastique",
+      "grip",
+      "dos",
+      "crossfit"
+    ],
+    "categorie": "cf_gymnastique",
+    "materiel": [
+      "Corde de 4 à 5 m",
+      "Tapis de réception",
+      "Chaussures ou chaussettes antidérapantes"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Biceps",
+      "Avant-bras",
+      "Fléchisseurs de hanche",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Trapèzes",
+      "Quadriceps (pincement de la corde)",
+      "Deltoïdes"
+    ],
+    "respiration": "Respire régulièrement pendant les cycles de montée ; expire pendant le tirage et inspire pendant la remontée des jambes. En descente, garde le contrôle plutôt que de retenir brutalement la respiration.",
+    "niveau_1": "Montée en J-Hook : 3 à 4 m de corde, apprends à bloquer la corde avec les pieds (J-Hook), tire et pousse avec les jambes. Descente sous contrôle.",
+    "niveau_2": "Grimpé complet avec technique de verrouillage des pieds (Foot Lock), 5 m de hauteur, montée en 3 à 4 cycles (tire, remonte les jambes, verrouille, pousse). 1 à 3 montées.",
+    "niveau_3": "Grimpé sans les jambes (Legless Rope Climb), ou en un nombre de cycles réduit, ou à contre-la-montre. Variante : montée avec lest.",
+    "coach_tip": "Utilise les jambes pour pincer et verrouiller la corde, puis pousse fort avec les pieds pendant que les mains remontent. Cherche des cycles courts et efficaces plutôt que de tirer uniquement avec les bras. Descends toujours en contrôlant la vitesse et en utilisant la technique de pied apprise à la montée ; ne glisse jamais rapidement le long de la corde. Vérifie la hauteur disponible, la stabilité de la corde et la présence d’un tapis adapté."
+  },
+  {
+    "id": "FF-151",
+    "nom_fr": "Saut à la corde simple",
+    "nom_en": "Single Unders (SU)",
+    "mots_cles": [
+      "single_unders",
+      "saut_a_la_corde",
+      "corde",
+      "cardio",
+      "coordination",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Corde à sauter (vitesse ou speed rope)"
+    ],
+    "muscles_principaux": [
+      "Mollets",
+      "Soléaire",
+      "Quadriceps",
+      "Avant-bras",
+      "Deltoïdes"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Avant-bras",
+      "Épaules",
+      "Abdominaux"
+    ],
+    "respiration": "Respire naturellement et régulièrement ; privilégie un rythme qui te permet de parler par courtes phrases sur les séries d’endurance plutôt que de synchroniser artificiellement une expiration sur un nombre fixe de sauts.",
+    "niveau_1": "Saut sans corde (Mime), puis saut à la corde à rythme lent, 30 s. Sauts bas (2 à 3 cm), réception sur l'avant du pied.",
+    "niveau_2": "Rythme moyen (120 sauts/minute), poignets qui tournent (pas les bras), coudes près du corps. 1 à 2 minutes.",
+    "niveau_3": "Rythme rapide (150 à 180 sauts/minute), ou sauts alternés (pied gauche, pied droit), ou 3 à 5 minutes sans erreur. Variante : sauts avec rotation ou avec 'High Knees'.",
+    "coach_tip": "Fais tourner la corde principalement avec les poignets, les coudes proches du corps, et garde un saut bas et vertical. Atterris silencieusement sur l’avant-pied puis laisse le talon se rapprocher du sol sans rigidifier la cheville. Garde les genoux légèrement souples et le regard à l’horizon. Une douleur persistante aux mollets ou aux tibias est un signal pour réduire le volume, ralentir ou changer de surface."
+  },
+  {
+    "id": "FF-152",
+    "nom_fr": "Double saut à la corde",
+    "nom_en": "Double Unders (DU)",
+    "mots_cles": [
+      "double_unders",
+      "saut_a_la_corde",
+      "corde",
+      "cardio",
+      "coordination",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Corde à sauter rapide (speed rope)"
+    ],
+    "muscles_principaux": [
+      "Mollets",
+      "Soléaire",
+      "Avant-bras",
+      "Deltoïdes",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Abdominaux",
+      "Coordination"
+    ],
+    "respiration": "Respire de façon régulière et évite l’apnée pendant les doubles sauts. Expire naturellement pendant le passage de la corde et profite des phases de récupération entre les séries pour reprendre un rythme ample.",
+    "niveau_1": "Single Unders solide (1 minute sans faute), puis Double Unders avec saut plus haut, un DU toutes les 3 à 5 SU (Single-Single-Double). 5 répétitions.",
+    "niveau_2": "Double Unders consécutifs : saut vertical un peu plus haut, poignets qui tournent vite, corde qui passe deux fois sous les pieds. 10 à 30 répétitions.",
+    "niveau_3": "Séries de 50 à 100 DU sans faute, ou Triple Unders (3 passages), ou DU avec variantes (Crossover DU, DU avec un pied). Variante : DU en AMRAP.",
+    "coach_tip": "Le double under vient d’un saut légèrement plus haut associé à une accélération des poignets, pas d’un battement excessif des bras. Garde le corps gainé, les coudes proches des côtes et les sauts verticaux. Atterris souplement sur l’avant-pied et laisse les genoux absorber l’impact. Si les contacts de corde deviennent fréquents ou si les mollets/tibias sont douloureux, reviens aux single unders et réduis le volume."
+  },
+  {
+    "id": "FF-153",
+    "nom_fr": "Croisé à la corde",
+    "nom_en": "Crossover (Rope)",
+    "mots_cles": [
+      "crossover",
+      "saut_a_la_corde",
+      "corde",
+      "cardio",
+      "coordination",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Corde à sauter rapide (speed rope)"
+    ],
+    "muscles_principaux": [
+      "Mollets",
+      "Deltoïdes",
+      "Avant-bras",
+      "Pectoraux",
+      "Quadriceps"
+    ],
+    "muscles_secondaires": [
+      "Quadriceps",
+      "Pectoraux",
+      "Coordination bilatérale"
+    ],
+    "respiration": "Respire régulièrement et ne bloque pas l’air pendant le croisement. Expire naturellement pendant le saut et conserve un rythme constant pour ne pas accélérer les bras sous l’effet de la fatigue.",
+    "niveau_1": "Single Unders avec croisement : une fois sur deux, croise les bras devant le corps. 10 croisements, rythme lent.",
+    "niveau_2": "Crossover consécutifs : croise les bras à chaque saut, corde qui passe sous les pieds, mains qui s'écartent vers l'extérieur. 15 à 30 répétitions.",
+    "niveau_3": "Crossover Double Unders (croisement lors d'un double saut), ou alternance Crossover/Single, ou série de 20 à 30 sans faute. Variante : Crossover avec saut à un pied.",
+    "coach_tip": "Le crossover demande surtout une rotation rapide des poignets et un croisement précis des avant-bras devant le bassin. Garde le saut vertical et bas ; la corde doit passer sous les pieds sans que tu lèves excessivement les genoux. Évite de croiser haut devant la poitrine, ce qui perturbe la trajectoire et augmente la tension aux épaules. Si les avant-bras se crispent, ralentis et reprends des single unders avec croisement."
+  },
+  {
+    "id": "FF-154",
+    "nom_fr": "Battle Rope en vagues alternées",
+    "nom_en": "Battle Rope Alternating Waves",
+    "mots_cles": [
+      "battle_rope",
+      "vagues_alternees",
+      "cardio",
+      "epaules",
+      "corde_ondulatoire",
+      "conditionnement",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Battle Rope (9 à 15 m, 38 à 50 mm)",
+      "Point d'ancrage"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Trapèzes",
+      "Biceps",
+      "Triceps",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Grand dorsal",
+      "Quadriceps",
+      "Avant-bras",
+      "Système cardiovasculaire"
+    ],
+    "respiration": "Expire de façon régulière sur les vagues et inspire entre les cycles ; adapte le rythme respiratoire à l’intensité plutôt que de forcer un schéma fixe.",
+    "niveau_1": "Position demi-squat, cordes de 9 m, vagues alternées lentes (amplitude petite), 20 s. Repos 40 s.",
+    "niveau_2": "Demi-squat, vagues alternées rapides à amplitude moyenne, hanches stables, 30 s. Repos 30 s.",
+    "niveau_3": "Vagues alternées à haute intensité 40 s, ou vagues avec saut ou squat, ou cordes plus lourdes (12 à 15 m). Variante : vagues en marchant.",
+    "coach_tip": "Tiens les poignées fermement sans écraser la prise et crée des vagues alternées avec un mouvement principalement rythmé par les bras et les épaules, tandis que le tronc reste stable. Garde les genoux et les hanches légèrement fléchis pour absorber les oscillations et évite de cambrer le bas du dos. La vague doit se propager jusqu’au point d’ancrage ; si elle s’éteint, rapproche-toi légèrement ou réduis l’amplitude. Arrête en cas de douleur d’épaule ou de perte de contrôle des poignées."
+  },
+  {
+    "id": "FF-155",
+    "nom_fr": "Battle Rope en frappes au sol",
+    "nom_en": "Battle Rope Slams",
+    "mots_cles": [
+      "battle_rope",
+      "slams",
+      "frappes",
+      "cardio",
+      "explosif",
+      "corde_ondulatoire",
+      "conditionnement",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Battle Rope",
+      "Point d'ancrage"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Grand dorsal",
+      "Grand pectoral",
+      "Triceps",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Fessiers",
+      "Quadriceps",
+      "Avant-bras",
+      "Trapèzes"
+    ],
+    "respiration": "Inspire pendant la remontée des cordes et expire fortement pendant la frappe au sol. Sur les séries longues, conserve un rythme respiratoire régulier plutôt que de rechercher une expiration maximale à chaque répétition.",
+    "niveau_1": "Debout, genoux légèrement fléchis, lève les cordes à hauteur de poitrine et frappe au sol sans élan. 10 frappes, rythme lent.",
+    "niveau_2": "Frappes explosives au sol, avec flexion des hanches et des genoux (comme un squat), les deux bras ensemble. 15 à 20 frappes.",
+    "niveau_3": "Slams avec squat complet, ou Slams en AMRAP 30 s, ou cordes plus lourdes. Variante : Slams latéraux.",
+    "coach_tip": "Lance la corde vers le haut en utilisant les hanches et les épaules, puis accompagne sa descente avec une flexion contrôlée des hanches et des genoux. Garde le rachis neutre et évite de tirer uniquement avec les bras. Les poignées doivent revenir sous contrôle avant la répétition suivante. Vérifie l’espace autour du point d’ancrage et arrête si la fatigue provoque une perte de posture ou une douleur lombaire."
+  },
+  {
+    "id": "FF-156",
+    "nom_fr": "Battle Rope en cercles",
+    "nom_en": "Battle Rope Circles",
+    "mots_cles": [
+      "battle_rope",
+      "cercles",
+      "epaules",
+      "cardio",
+      "corde_ondulatoire",
+      "conditionnement",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Battle Rope",
+      "Point d'ancrage"
+    ],
+    "muscles_principaux": [
+      "Deltoïdes",
+      "Trapèzes",
+      "Triceps",
+      "Biceps",
+      "Abdominaux"
+    ],
+    "muscles_secondaires": [
+      "Biceps",
+      "Grand dorsal",
+      "Avant-bras",
+      "Fessiers"
+    ],
+    "respiration": "Respire régulièrement et évite de bloquer l’air pendant les rotations. Expire naturellement pendant la phase d’effort puis reprends une inspiration ample avant de poursuivre la série.",
+    "niveau_1": "Cercles lents, petits, avec une seule corde à la fois, amplitude réduite, 15 s par bras.",
+    "niveau_2": "Cercles larges avec les deux cordes (sens opposé ou même sens), demi-squat, 30 s par sens.",
+    "niveau_3": "Cercles rapides, ou cercles avec déplacement latéral, ou cercles lourds avec corde plus épaisse. Variante : Cercles + Slams enchaînés.",
+    "coach_tip": "Décris des cercles continus avec les cordes en gardant les coudes légèrement fléchis et les épaules sous contrôle. Le mouvement doit rester fluide, sans hausser les épaules ni verrouiller les articulations. Stabilise le tronc et garde une base de jambes légèrement fléchies pour absorber les forces. Commence par une petite amplitude ; n’augmente la vitesse ou la taille des cercles que si les épaules restent confortables et symétriques."
+  },
+  {
+    "id": "FF-157",
+    "nom_fr": "Lancer de médecine-ball au mur",
+    "nom_en": "Wall Ball Shots",
+    "mots_cles": [
+      "wall_ball",
+      "medecine_ball",
+      "squat",
+      "lancer",
+      "metcon",
+      "cible",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Médecine-ball (6 à 9 kg homme, 4 à 6 kg femme)",
+      "Mur avec cible (3 m, 3 m 10)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Deltoïdes",
+      "Triceps",
+      "Triple extension"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Trapèzes",
+      "Avant-bras"
+    ],
+    "respiration": "Inspire en descendant dans le squat ; expire pendant l’extension des jambes et le lancer. Reprends une respiration dès que le ballon est capté afin de préparer la répétition suivante.",
+    "niveau_1": "Médecine-ball de 4 à 6 kg, cible à 2,40 m, squat jusqu'à la parallèle, lancer sans élan. 10 répétitions.",
+    "niveau_2": "Médecine-ball de 6 à 9 kg, cible à 3 m, squat profond (cuisses sous la parallèle), lancer fluide avec extension de hanche. 15 à 25 répétitions.",
+    "niveau_3": "Médecine-ball de 9 kg et plus, cible à 3 m 10, ou séries de 50 à 100 répétitions (Karen : 150 Wall Balls). Variante : Wall Ball avec pause en bas.",
+    "coach_tip": "Commence chaque répétition avec le ballon proche de la poitrine et un squat suffisamment profond selon le standard visé. Utilise l’extension des jambes et des hanches pour donner l’impulsion, puis termine avec les bras vers la cible ; ne lance pas uniquement avec les épaules. Reçois le ballon avec les mains prêtes devant le visage et absorbe sa charge en descendant. Pour un travail de type CrossFit, définis la hauteur de cible et la profondeur de squat avant la série afin que chaque répétition soit reproductible."
+  },
+  {
+    "id": "FF-158",
+    "nom_fr": "Saut sur box par-dessus",
+    "nom_en": "Box Jump Over",
+    "mots_cles": [
+      "box_jump_over",
+      "saut",
+      "box",
+      "pliometrie",
+      "cardio",
+      "metcon",
+      "crossfit"
+    ],
+    "categorie": "cf_conditionnement",
+    "materiel": [
+      "Box pliométrique (50 à 60 cm)",
+      "Sol antidérapant"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Grand fessier",
+      "Mollets",
+      "Triple extension"
+    ],
+    "muscles_secondaires": [
+      "Ischio-jambiers",
+      "Abdominaux",
+      "Fléchisseurs de hanche"
+    ],
+    "respiration": "Inspire pendant la préparation et la flexion ; expire pendant l’impulsion et le franchissement de la box. Reprends une respiration contrôlée à la réception et avant le saut suivant.",
+    "niveau_1": "Box bas (30 à 40 cm), saut à deux pieds sur la box, descente en marchant (pas de saut en arrière). 8 répétitions.",
+    "niveau_2": "Box à 50 cm, saut à deux pieds de l'autre côté de la box (par-dessus), réception souple, retour au saut suivant. 10 à 15 répétitions.",
+    "niveau_3": "Box à 60 cm, saut avec un pied par-dessus (Single-Leg), ou Burpee Box Jump Over, ou sauts consécutifs sans pause. Variante : saut avec ballon (Wall Ball Box Jump).",
+    "coach_tip": "Saute avec les deux pieds et cherche une trajectoire suffisamment haute pour franchir la box sans la toucher. Réceptionne avec les genoux et les hanches souples, stabilise brièvement si nécessaire, puis descends par l’autre côté avec la méthode prévue par le format de travail. Pour réduire le risque de chute, utilise une box stable, une surface antidérapante et une hauteur adaptée au niveau. La descente en marchant est la progression de sécurité par défaut ; n’ajoute pas de variante unilatérale ou de saut continu tant que la réception bilatérale est maîtrisée."
+  }
+]

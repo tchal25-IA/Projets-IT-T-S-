@@ -1,0 +1,354 @@
+[
+  {
+    "id": "NAT-001",
+    "nom_fr": "Crawl : alignement du corps",
+    "nom_en": "Freestyle: Body Position (Alignment)",
+    "mots_cles": [
+      "crawl",
+      "alignement",
+      "position_corps",
+      "hydrodynamisme",
+      "gainage",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine",
+      "Lignes d'eau"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Érecteurs du rachis",
+      "Fessiers",
+      "Grand dorsal"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Quadriceps",
+      "Mollets"
+    ],
+    "respiration": "Expire progressivement dans l'eau par le nez et/ou la bouche, puis inspirer brièvement sur le côté pendant la rotation du corps. Ne pas lever la tête ni prolonger volontairement l'apnée.",
+    "niveau_1": "Glisse ventrale poussée depuis le mur (2 à 3 m), bras tendus, tête dans l'axe, regard vers le fond. 6 répétitions.",
+    "niveau_2": "Crawl sur 25 m en gardant la tête alignée, les hanches proches de la surface et des battements légers. 4 x 25 m, repos 15 s.",
+    "niveau_3": "Crawl continu sur 100 à 200 m en corrigeant l'alignement (hanches hautes, jambes qui ne coulent pas), puis 400 m sans pull-buoy ni plaquettes. Variante : séries de 50 m avec contrôle de la position à chaque longueur.",
+    "coach_tip": "Alignement : garde le sommet du crâne dans l'axe de la colonne et les hanches proches de la surface ; un regard trop vers l'avant fait descendre les jambes. Gainage : tonique mais sans rigidité, avec une légère tension abdominale et fessière. Respiration : termine l'expiration sous l'eau avant de tourner la tête, puis prends une inspiration courte sans interrompre la rotation."
+  },
+  {
+    "id": "NAT-002",
+    "nom_fr": "Crawl : roulis du corps",
+    "nom_en": "Freestyle: Body Rotation (Roll)",
+    "mots_cles": [
+      "crawl",
+      "roulis",
+      "rotation",
+      "hydrodynamisme",
+      "obliques",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine"
+    ],
+    "muscles_principaux": [
+      "Obliques",
+      "Transverse de l'abdomen",
+      "Grand dorsal",
+      "Grand pectoral"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Fessiers",
+      "Rotateurs du tronc"
+    ],
+    "respiration": "Expire continûment sous l'eau pendant la rotation, puis inspire lorsque la bouche arrive juste au-dessus de la surface, sans redresser la tête.",
+    "niveau_1": "Glisse sur le côté (battements de jambes), bras du dessous tendu, bras du dessus le long du corps, 3 à 5 s par côté. 6 x 15 m.",
+    "niveau_2": "Crawl avec rotation active des hanches et des épaules (environ 45° de chaque côté), bras tendus à l'entrée. 4 x 25 m, repos 15 s.",
+    "niveau_3": "Crawl avec roulis rapide déclenché par les hanches, ou nage avec pause d'une seconde de chaque côté. Variante : 200 m en se concentrant sur la rotation.",
+    "coach_tip": "Rotation : laisse les hanches initier le roulis et accompagne avec les épaules ; le corps tourne comme un ensemble, sans rotation forcée du cou. Appui : garde le bras opposé allongé assez longtemps pour conserver l'équilibre. Respiration : tourne la tête avec le corps, jamais indépendamment ; une seule joue peut rester proche de l'eau."
+  },
+  {
+    "id": "NAT-003",
+    "nom_fr": "Crawl : phase d'appui (catch)",
+    "nom_en": "Freestyle: Catch (Early Vertical Forearm)",
+    "mots_cles": [
+      "crawl",
+      "catch",
+      "appui",
+      "avant_bras_vertical",
+      "propulsion",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine",
+      "Plaquettes (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand pectoral",
+      "Triceps",
+      "Deltoïde postérieur"
+    ],
+    "muscles_secondaires": [
+      "Fléchisseurs et extenseurs du poignet",
+      "Grand dentelé",
+      "Trapèzes",
+      "Abdominaux (stabilité du tronc)"
+    ],
+    "respiration": "Expire régulièrement pendant la prise d'appui et la traction, puis inspire lors de la rotation latérale en fin de traction, sans relever la tête.",
+    "niveau_1": "Glisse un bras tendu devant, fléchis le poignet puis le coude pour amener l'avant-bras à la verticale, en sentant l'appui. 4 x 25 m.",
+    "niveau_2": "Crawl avec coude haut à l'appui (avant-bras vertical, paume et avant-bras qui poussent l'eau vers l'arrière). 4 x 50 m, repos 20 s.",
+    "niveau_3": "Crawl avec petites plaquettes pour accentuer la sensation d'appui, ou nage à fréquence lente avec appui prolongé. Variante : séries de 100 m en accélérant la main pendant la traction.",
+    "coach_tip": "Catch : place progressivement l'avant-bras en position verticale sous le coude, sans chercher à forcer l'amplitude de l'épaule. Appui : maintiens le coude haut et pousse l'eau vers l'arrière avec l'avant-bras et la main ; évite de laisser tomber le coude. Gainage : garde le tronc stable pour transmettre la force à la propulsion. Avec des plaquettes, commence petit et réduis immédiatement le volume en cas de douleur d'épaule."
+  },
+  {
+    "id": "NAT-004",
+    "nom_fr": "Crawl : battements de jambes",
+    "nom_en": "Freestyle: Flutter Kick",
+    "mots_cles": [
+      "crawl",
+      "battements",
+      "jambes",
+      "flutter_kick",
+      "planche",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine",
+      "Planche (kickboard)",
+      "Palmes courtes (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Fléchisseurs de hanche",
+      "Fessiers",
+      "Mollets"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Tibial antérieur",
+      "Fléchisseurs plantaires"
+    ],
+    "respiration": "Expire dans l'eau de façon continue et inspire latéralement lorsque nécessaire ; garde un rythme respiratoire régulier plutôt que de bloquer l'air.",
+    "niveau_1": "Battements avec planche tenue devant sur 15 à 25 m, depuis la hanche, chevilles relâchées. 6 x 25 m, repos 20 s.",
+    "niveau_2": "Battements sur le dos ou sur le côté, ou avec bras devant en glisse, petits et rapides (amplitude de 30 à 40 cm). 6 x 25 m, repos 15 s.",
+    "niveau_3": "Battements avec palmes courtes pour travailler la cheville, ou séries de battements verticaux à faible durée. Variante : alternance courte de battements rapides et récupération facile, sans apnée volontaire.",
+    "coach_tip": "Battements : initie le mouvement depuis la hanche avec une faible flexion du genou, puis laisse la cheville souple transmettre le mouvement. Amplitude : reste petite et régulière ; des battements trop larges ou des genoux qui remontent fortement augmentent la traînée. Gainage : stabilise le bassin sans le verrouiller. Sécurité : les éducatifs avec apnée ne sont pas nécessaires ici ; évite toute apnée volontaire prolongée, surtout sans surveillance."
+  },
+  {
+    "id": "NAT-005",
+    "nom_fr": "Dos crawlé",
+    "nom_en": "Backstroke",
+    "mots_cles": [
+      "dos_crawle",
+      "dos",
+      "backstroke",
+      "alignement",
+      "rotation",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine",
+      "Lignes d'eau avec fanions (repère de mur)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand pectoral",
+      "Deltoïdes",
+      "Quadriceps",
+      "Fessiers"
+    ],
+    "muscles_secondaires": [
+      "Triceps",
+      "Abdominaux",
+      "Érecteurs du rachis",
+      "Obliques"
+    ],
+    "respiration": "Respire naturellement selon le cycle des bras, sans chercher à synchroniser artificiellement l'inspiration et l'expiration avec un bras précis. Évite l'apnée.",
+    "niveau_1": "Glisse sur le dos avec battements de jambes seuls, bras le long du corps, tête immobile, hanches proches de la surface. 6 x 25 m.",
+    "niveau_2": "Dos crawlé complet : bras alternés, rotation des épaules, entrée de la main dans l'axe de l'épaule (petit doigt en premier), battements réguliers. 4 x 50 m, repos 20 s.",
+    "niveau_3": "Dos crawlé avec rotation prononcée et appui avec le coude haut, ou séries de 100 m avec virage au repère. Variante : dos crawlé à un bras.",
+    "coach_tip": "Position : garde la tête immobile, le regard vers le plafond et les hanches proches de la surface. Rotation : accompagne le roulis du tronc avec les hanches et les épaules, sans faire rouler la tête. Entrée de main : vise l'axe de l'épaule et évite de croiser la ligne médiane. Sécurité : repère les fanions et le mur en amont pour ne pas arriver en rotation ou trop vite sans repère visuel."
+  },
+  {
+    "id": "NAT-006",
+    "nom_fr": "Brasse athlétique",
+    "nom_en": "Athletic Breaststroke",
+    "mots_cles": [
+      "brasse",
+      "athletique",
+      "coordination",
+      "glisse",
+      "jambes",
+      "natation"
+    ],
+    "categorie": "natation_technique",
+    "materiel": [
+      "Piscine",
+      "Pull-buoy ou planche (éducatifs)"
+    ],
+    "muscles_principaux": [
+      "Quadriceps",
+      "Adducteurs",
+      "Grand pectoral",
+      "Grand dorsal",
+      "Fessiers"
+    ],
+    "muscles_secondaires": [
+      "Abdominaux",
+      "Triceps",
+      "Deltoïdes",
+      "Mollets"
+    ],
+    "respiration": "Inspire lorsque les bras terminent leur traction et que la bouche sort de l'eau, puis expire sous l'eau pendant le retour des bras et la glisse. Évite de retenir l'air entre les cycles.",
+    "niveau_1": "Éducatif jambes seules avec planche (ciseau compact), puis bras seuls avec pull-buoy. 4 x 25 m de chaque.",
+    "niveau_2": "Brasse complète : traction, respiration, coup de jambes, glisse d'une seconde. 4 x 50 m, repos 20 s.",
+    "niveau_3": "Brasse athlétique avec glisse maîtrisée et rythme régulier, ou séries de 25 m soutenues en conservant la technique. Variante : éducatifs jambes/bras séparés avant la nage complète.",
+    "coach_tip": "Coordination : termine la traction des bras avant de lancer le coup de jambes, puis allonge immédiatement le corps pour profiter de la glisse. Jambes : ramène les talons vers les fesses sans écarter excessivement les genoux, puis pousse l'eau vers l'arrière et vers l'extérieur avant de refermer les jambes. Gainage : garde le bassin stable pendant la propulsion. La brasse athlétique n'exige pas une ondulation marquée ; si tu l'utilises, elle doit rester faible et maîtrisée."
+  },
+  {
+    "id": "NAT-007",
+    "nom_fr": "Éducatifs rattrapé et à un bras",
+    "nom_en": "Catch-Up Drill & Single-Arm Drill",
+    "mots_cles": [
+      "rattrape",
+      "catch_up",
+      "un_bras",
+      "single_arm",
+      "educatif",
+      "coordination",
+      "natation"
+    ],
+    "categorie": "natation_educatifs",
+    "materiel": [
+      "Piscine",
+      "Planche (facultatif)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand pectoral",
+      "Triceps",
+      "Obliques"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Abdominaux",
+      "Fessiers",
+      "Quadriceps"
+    ],
+    "respiration": "Expire progressivement sous l'eau pendant la glisse et la traction, puis inspire sur la rotation latérale du corps, sans relever la tête.",
+    "niveau_1": "Rattrapé : un bras tendu devant attend que l'autre le rejoigne, battements réguliers. 4 x 25 m, repos 20 s.",
+    "niveau_2": "Rattrapé avec touche des mains avant la reprise, rotation active ; puis nage à un bras (l'autre le long du corps ou tendu devant). 4 x 50 m, repos 20 s.",
+    "niveau_3": "Nage à un bras avec 3 à 6 battements entre chaque traction, ou rattrapé sans pause fusionnant vers le crawl. Variante : à un bras avec petite plaquette ou avec tuba frontal.",
+    "coach_tip": "Rattrapé : conserve un bras allongé devant sans verrouiller brutalement le coude et garde les hanches hautes. Un bras : stabilise le tronc et laisse la rotation accompagner la traction plutôt que de lutter contre elle. Respiration : tourne le corps avec la tête et garde une expiration continue sous l'eau. Progression : retire progressivement les pauses du rattrapé pour retrouver un crawl fluide."
+  },
+  {
+    "id": "NAT-008",
+    "nom_fr": "Éducatifs pull-buoy et plaquettes",
+    "nom_en": "Pull Buoy & Paddles Drills",
+    "mots_cles": [
+      "pull_buoy",
+      "plaquettes",
+      "paddles",
+      "educatif",
+      "appui",
+      "epaule",
+      "natation"
+    ],
+    "categorie": "natation_educatifs",
+    "materiel": [
+      "Piscine",
+      "Pull-buoy (flotteur de cuisses)",
+      "Plaquettes de natation (taille adaptée)"
+    ],
+    "muscles_principaux": [
+      "Grand dorsal",
+      "Grand pectoral",
+      "Triceps",
+      "Deltoïde postérieur"
+    ],
+    "muscles_secondaires": [
+      "Avant-bras",
+      "Coiffe des rotateurs",
+      "Abdominaux",
+      "Fessiers"
+    ],
+    "respiration": "Respire régulièrement, en bilatéral si cela reste confortable, ou tous les 2 temps selon l'allure. Expire sous l'eau sans bloquer l'air.",
+    "niveau_1": "Crawl avec pull-buoy entre les cuisses sur 25 à 50 m, rythme lent. 4 x 50 m, repos 20 s.",
+    "niveau_2": "Pull-buoy et petites plaquettes, 100 m à rythme soutenu, en se concentrant sur l'appui et la rotation. 4 x 100 m, repos 20 s.",
+    "niveau_3": "Plaquettes adaptées avec pull-buoy sur 100 à 200 m, ou plaquettes sans pull-buoy pour conserver le gainage. Variante : séries courtes avec contrôle de l'appui ; évite les grandes plaquettes si la technique ou l'épaule se dégrade.",
+    "coach_tip": "Le pull-buoy modifie la position du bassin : reste actif au niveau du tronc sans accentuer la cambrure. Plaquettes : utilise une taille adaptée à ta force et à ta technique ; privilégie la qualité de l'appui plutôt qu'une grande surface. Commence par de courtes séries et retire les plaquettes si le coude ou l'épaule devient douloureux. N'utilise pas cet éducatif pour masquer une perte d'alignement sans matériel."
+  },
+  {
+    "id": "NAT-009",
+    "nom_fr": "Éducatif tuba frontal",
+    "nom_en": "Front Snorkel Drill",
+    "mots_cles": [
+      "tuba_frontal",
+      "snorkel",
+      "educatif",
+      "alignement",
+      "tete",
+      "crawl",
+      "natation"
+    ],
+    "categorie": "natation_educatifs",
+    "materiel": [
+      "Piscine",
+      "Tuba frontal"
+    ],
+    "muscles_principaux": [
+      "Transverse de l'abdomen",
+      "Érecteurs du rachis",
+      "Fessiers",
+      "Grand dorsal"
+    ],
+    "muscles_secondaires": [
+      "Deltoïdes",
+      "Quadriceps",
+      "Mollets"
+    ],
+    "respiration": "Inspire et expire calmement par la bouche dans le tuba frontal, avec un débit régulier. Le tuba facilite la respiration mais ne doit pas conduire à retenir l'air.",
+    "niveau_1": "Battements de jambes avec tuba frontal et planche sur 25 m, pour sentir l'alignement sans gérer la respiration. 4 x 25 m.",
+    "niveau_2": "Crawl avec tuba frontal sur 50 m, sans rotation de tête, en travaillant alignement et coordination bras-jambes. 4 x 50 m, repos 20 s.",
+    "niveau_3": "Crawl avec tuba frontal sur 100 à 200 m à allure d'entraînement, avec changements de rythme. Variante : tuba avec pull-buoy.",
+    "coach_tip": "Le tuba sert à isoler la technique : garde la tête neutre, le regard vers le fond et les hanches proches de la surface. Utilise-le pour vérifier l'alignement, la rotation et la trajectoire des bras sans compensation cervicale. Ensuite, retire-le progressivement afin de réintégrer la respiration latérale du crawl. Vérifie l'ajustement du tuba avant la série pour éviter les fuites ou une gêne respiratoire."
+  },
+  {
+    "id": "NAT-010",
+    "nom_fr": "Virage culbute",
+    "nom_en": "Flip Turn",
+    "mots_cles": [
+      "virage_culbute",
+      "flip_turn",
+      "virage",
+      "mur",
+      "poussee",
+      "crawl",
+      "natation"
+    ],
+    "categorie": "natation_educatifs",
+    "materiel": [
+      "Piscine avec mur",
+      "Ligne d'eau"
+    ],
+    "muscles_principaux": [
+      "Abdominaux",
+      "Quadriceps",
+      "Fessiers",
+      "Grand dorsal"
+    ],
+    "muscles_secondaires": [
+      "Obliques",
+      "Mollets",
+      "Deltoïdes"
+    ],
+    "respiration": "Expire progressivement pendant la culbute, idéalement par le nez pour limiter l'entrée d'eau, puis reprends une respiration normale dès la reprise de nage. Ne cherche pas à prolonger l'apnée.",
+    "niveau_1": "Culbute isolée à 3 à 5 m du mur, sans appui, pour apprendre la rotation. 6 répétitions.",
+    "niveau_2": "Virage culbute complet : approche, rotation, appui des pieds au mur, poussée profilée sur le côté, reprise du crawl. 8 virages.",
+    "niveau_3": "Virage culbute à vitesse de course, avec poussée profilée de 5 à 7 m et battements immédiats. Variante : virage culbute enchaîné à des longueurs de 25 m.",
+    "coach_tip": "Approche : compte tes coups de bras pour trouver une distance de départ reproductible, puis engage la culbute sans te rapprocher dangereusement du mur. Rotation : rentre légèrement le menton et garde le tronc compact. Après l'appui, place les pieds à largeur confortable et pousse en position profilée avant de reprendre les battements. Sécurité : apprends la culbute sous surveillance, avec un mur dégagé et un repère de distance adapté à ta taille et à ta vitesse ; ne fixe pas une distance universelle pour tous les nageurs."
+  }
+]

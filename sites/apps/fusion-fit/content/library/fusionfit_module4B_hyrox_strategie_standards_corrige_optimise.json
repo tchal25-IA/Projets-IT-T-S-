@@ -1,0 +1,318 @@
+[
+  {
+    "id": "HYX-STD-001",
+    "titre": "Structure de l'épreuve Hyrox",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "Une course Hyrox enchaîne 8 blocs identiques : 1 km de course puis une station fonctionnelle. Les 8 stations se font dans le même ordre : SkiErg 1 000 m, Sled Push 50 m, Sled Pull 50 m, Burpee Broad Jumps 80 m, Rameur 1 000 m, Farmers Carry 200 m, Sandbag Lunges 100 m, Wall Balls 100 répétitions. Les catégories courantes sont Open, Pro, Doubles et Relais, avec des charges différentes selon la catégorie et le sexe. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Comprendre la structure permet de répartir l'effort sur 8 km de course et 8 stations. Le temps total mêle endurance, force-endurance et capacité à enchaîner : un point faible isolé coûte souvent plusieurs minutes.",
+    "erreurs_courantes": [
+      "Aborder la course comme un 10 km avec stations (au lieu d'un effort mixte)",
+      "Ignorer l'ordre des stations et les points faibles personnels",
+      "Ne pas connaître sa catégorie et ses charges avant le jour J"
+    ],
+    "coach_tip": "Mémorise l’ordre des 8 blocs avant le départ : 1 km, puis station, huit fois. Connais aussi ta division et les charges associées ; ne découvre aucun standard le jour J."
+  },
+  {
+    "id": "HYX-STD-002",
+    "titre": "Répartition globale de l'effort",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "La course à pied représente à elle seule environ la moitié du temps total d'un finisher (8 km), le reste étant réparti entre les 8 stations et les transitions. La stratégie consiste à fixer un rythme global tenable, puis à répartir les efforts de façon que les 4 derniers blocs (Rameur, Farmers Carry, Sandbag Lunges, Wall Balls) ne s'effondrent pas.",
+    "impact_performance": "Un départ trop rapide se paie toujours sur la seconde moitié : les 4 dernières stations sont celles où la fatigue accumulée pèse le plus lourd sur le chrono.",
+    "erreurs_courantes": [
+      "Courir trop vite sur les 3 premiers kilomètres",
+      "Mettre toute son énergie dans les stations lourdes au début (Sled Push et Pull)",
+      "Ne pas prévoir de réserve pour les Wall Balls"
+    ],
+    "coach_tip": "Pense « course durable, stations propres ». Les quatre premiers blocs doivent laisser une réserve pour les lunges et les Wall Balls : mieux vaut perdre quelques secondes tôt que plusieurs minutes en fin de course."
+  },
+  {
+    "id": "HYX-STD-003",
+    "titre": "Départ de course et maîtrise du premier kilomètre",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "Le premier kilomètre se fait dans la foule, avec l'adrénaline du départ. La stratégie consiste à partir 10 à 20 secondes plus lentement par kilomètre que ton allure cible, puis à te caler. Le chrono se gagne ensuite sur la régularité plutôt que sur la vitesse initiale.",
+    "impact_performance": "Un départ trop rapide augmente l'acidose avant même la première station et dégrade les performances de tous les blocs suivants.",
+    "erreurs_courantes": [
+      "Suivre le rythme des autres athlètes dans les 500 premiers mètres",
+      "Accélérer pour 'prendre de l'avance' sur la foule",
+      "Ne pas échauffer le corps avant le départ"
+    ],
+    "coach_tip": "Sur le premier kilomètre, laisse passer l’adrénaline : pars légèrement sous ton allure cible et stabilise ta respiration. Ton objectif est d’arriver au SkiErg déjà en contrôle, pas de gagner le premier kilomètre."
+  },
+  {
+    "id": "HYX-STD-004",
+    "titre": "Régularité des allures (pacing)",
+    "categorie": "Gestion de Course",
+    "description_detaillee": "La régularité consiste à garder la même allure de course sur les 8 kilomètres, avec un écart acceptable de 10 à 15 secondes entre le plus rapide et le plus lent. La fatigue des stations fait mécaniquement ralentir la course après les stations lourdes : il faut l'anticiper et accepter une allure légèrement plus basse en sortie de ces stations.",
+    "impact_performance": "Une course régulière évite les ruptures de rythme. Le temps perdu à cause d'un sur-régime en début de course se retrouve, en pire, sur les derniers kilomètres.",
+    "erreurs_courantes": [
+      "Courir les premiers kilomètres à allure de 10 km",
+      "Chercher à rattraper le temps perdu après une station difficile",
+      "Ne pas ajuster l'allure en fonction de la station précédente"
+    ],
+    "coach_tip": "Définis une allure de référence et juge-la surtout sur ton effort, pas uniquement sur la montre. Après une station lourde, accepte quelques secondes de dérive puis reconstruis progressivement ton allure sans faire d’accélération brutale."
+  },
+  {
+    "id": "HYX-STD-005",
+    "titre": "Course sous fatigue (Compromised Running)",
+    "categorie": "Gestion de Course",
+    "description_detaillee": "Le Compromised Running désigne le fait de courir juste après un effort musculaire lourd (Sled Push, Sled Pull, Burpee Broad Jumps, Sandbag Lunges). Les jambes sont lourdes, la foulée est raccourcie et la fréquence cardiaque est élevée. Le but est de maintenir une allure stable malgré ces conditions.",
+    "impact_performance": "La course représente environ la moitié du temps total : un athlète qui perd 30 s par kilomètre sur 8 kilomètres perd 4 minutes au total.",
+    "erreurs_courantes": [
+      "Vouloir retrouver son allure normale dès les premiers mètres",
+      "Allonger la foulée au lieu d'augmenter la cadence",
+      "Ne pas s'entraîner à enchaîner station et course"
+    ],
+    "coach_tip": "Après une station, raccourcis légèrement la foulée et augmente progressivement la cadence pendant les 100 à 200 premiers mètres. Cherche d’abord à retrouver une respiration contrôlée ; la vitesse revient ensuite."
+  },
+  {
+    "id": "HYX-STD-006",
+    "titre": "Gestion des transitions entre course et station",
+    "categorie": "Gestion de Course",
+    "description_detaillee": "La transition est le moment où tu passes de la course à la station (et inversement). Elle comprend le ralentissement, l'entrée dans la zone de la station, la prise de position et le départ. Une transition efficace est fluide, sans temps mort ni geste inutile.",
+    "impact_performance": "Dix secondes perdues à chaque transition représentent 80 secondes sur toute la course. La fluidité des transitions fait la différence entre deux athlètes de niveau égal.",
+    "erreurs_courantes": [
+      "Ralentir trop tôt avant la station",
+      "Perdre du temps à régler la machine ou à chercher le matériel",
+      "Repartir en course trop lentement après la station"
+    ],
+    "coach_tip": "Décide ton plan avant d’entrer : couloir, machine, première action et rythme de départ. En sortie, ne transforme pas les premiers mètres en sprint : relance progressivement pour retrouver ton allure de course."
+  },
+  {
+    "id": "HYX-STD-007",
+    "titre": "Points forts et points faibles : allocation de l'effort",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "Chaque athlète a des stations où il excelle et d'autres où il perd du temps. La stratégie consiste à garder de l'énergie sur les stations fortes pour y gagner du temps, et à limiter les pertes sur les stations faibles en choisissant une technique et un rythme adaptés.",
+    "impact_performance": "Un point faible mal géré peut coûter plusieurs minutes. Un point fort bien exploité compense en partie la perte sur les autres stations.",
+    "erreurs_courantes": [
+      "Pousser trop fort sur sa station préférée au détriment des suivantes",
+      "Ignorer ses points faibles à l'entraînement",
+      "Adopter la stratégie d'un autre athlète sans l'adapter à son profil"
+    ],
+    "coach_tip": "Construis ta stratégie à partir de tes propres splits. Sur une station forte, gagne du temps sans dépasser ton niveau de contrôle ; sur une station faible, vise surtout zéro no-rep, des pauses prévues et une exécution régulière."
+  },
+  {
+    "id": "HYX-STD-008",
+    "titre": "Hydratation et nutrition avant et pendant la course",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "Une épreuve Hyrox dure généralement entre 60 et 120 minutes. L'hydratation et l'apport en glucides avant le départ (repas 2 à 3 heures avant) et pendant la course (boisson d'effort, gel selon la tolérance) permettent de maintenir l'énergie. Selon l'organisation de l'événement, des points d'eau sont disponibles dans la zone de course.",
+    "impact_performance": "Une déshydratation ou un déficit énergétique dégrade nettement la performance en fin de course, et se paie surtout sur les Wall Balls.",
+    "erreurs_courantes": [
+      "Découvrir un gel ou une boisson le jour de la course",
+      "Boire trop d'un coup avant une station lourde",
+      "Attendre d'avoir soif pour s'hydrater"
+    ],
+    "coach_tip": "Ne teste rien de nouveau le jour J. Répète à l’entraînement la quantité et le timing de boisson ou de glucides qui te conviennent, et utilise les points d’eau prévus par l’organisation sans créer un arrêt inutile."
+  },
+  {
+    "id": "HYX-STD-009",
+    "titre": "Stratégie en Doubles et en Relais",
+    "categorie": "Stratégie d'Épreuve",
+    "description_detaillee": "En Doubles, deux athlètes partagent les stations et les kilomètres, avec des règles de répartition propres à la catégorie. En Relais, chaque athlète prend en charge un ou plusieurs blocs. La stratégie consiste à répartir les stations selon les forces de chacun et à synchroniser les transitions. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Une bonne répartition peut faire gagner plusieurs minutes. Des transitions mal synchronisées (attente du partenaire) font perdre du temps en continu.",
+    "erreurs_courantes": [
+      "Répartir les stations au hasard",
+      "Ne pas répéter les passages de relais",
+      "Ignorer le niveau de fatigue du partenaire"
+    ],
+    "coach_tip": "En Doubles ou Relais, répétez exactement les passages de relais et les consignes de transition. Chaque partenaire doit savoir qui travaille, où attendre et quel signal déclenche le changement ; vérifiez les règles de votre division avant la course."
+  },
+  {
+    "id": "HYX-STD-010",
+    "titre": "Roxzone : définition et franchissement",
+    "categorie": "Roxzone",
+    "description_detaillee": "La Roxzone est la zone de transition qui relie la course à chaque station. Le temps passé dans cette zone compte dans le chrono total. Elle est balisée : tu dois suivre le parcours indiqué et rester dans les limites de la zone. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Le temps cumulé dans la Roxzone peut représenter plusieurs minutes sur toute la course. Les athlètes qui la gèrent bien gagnent du temps sans effort supplémentaire.",
+    "erreurs_courantes": [
+      "Marcher inutilement dans la zone",
+      "Couper le parcours balisé",
+      "S'arrêter pour boire ou ajuster son équipement au milieu du passage"
+    ],
+    "coach_tip": "Traite la Roxzone comme une partie chronométrée de la course : suis strictement le chemin indiqué, garde une trajectoire fluide et ne coupe jamais. Repère son entrée et sa sortie pendant le briefing ou la reconnaissance."
+  },
+  {
+    "id": "HYX-STD-011",
+    "titre": "Hydratation dans la Roxzone",
+    "categorie": "Roxzone",
+    "description_detaillee": "Lorsqu'elle est proposée par l'organisation, l'hydratation se prend sur des points dédiés en bordure de la zone de transition. Il vaut mieux boire en marchant ou en trottant plutôt que de s'arrêter. Prends deux ou trois gorgées d'eau et jette le gobelet à l'endroit prévu.",
+    "impact_performance": "Des arrêts répétés s'additionnent sur 8 stations. Une hydratation régulière permet de maintenir l'allure sur les derniers blocs.",
+    "erreurs_courantes": [
+      "S'arrêter complètement pour boire",
+      "Boire trop (nausées et inconfort pendant la station suivante)",
+      "Jeter le gobelet sur la trajectoire des autres athlètes"
+    ],
+    "coach_tip": "Si un point d’eau est disponible, bois selon un plan déjà testé : quelques gorgées plutôt qu’un grand volume d’un coup. Les boissons doivent rester destinées à l’hydratation ; le règlement sanctionne l’utilisation des liquides pour se refroidir activement. citeturn1search11"
+  },
+  {
+    "id": "HYX-STD-012",
+    "titre": "Vêtements et équipement : pas d'arrêt inutile",
+    "categorie": "Roxzone",
+    "description_detaillee": "Ta tenue et ton équipement doivent être prêts avant le départ : chaussures de course adaptées aux surfaces variées (sol de salle, gazon synthétique), vêtements ajustés qui ne gênent pas les mouvements, ceinture ou poches pour le matériel nécessaire. Tout changement en cours de course fait perdre du temps.",
+    "impact_performance": "Un lacet défait, un vêtement qui gêne ou un équipement mal réglé coûte du temps et perturbe le rythme global.",
+    "erreurs_courantes": [
+      "Courir avec des chaussures neuves ou jamais testées",
+      "Porter un vêtement trop large qui gêne sur le Sled Pull ou les Burpee Broad Jumps",
+      "S'arrêter pour ajuster son équipement en cours de zone"
+    ],
+    "coach_tip": "Fais une répétition générale avec ta tenue, tes chaussures et ton équipement. Rien ne doit nécessiter un réglage pendant la course ; sécurise notamment les lacets et vérifie que ta tenue ne gêne ni les mouvements au sol ni les stations chargées."
+  },
+  {
+    "id": "HYX-STD-013",
+    "titre": "Entrée et sortie de station",
+    "categorie": "Roxzone",
+    "description_detaillee": "L'entrée dans la station et la sortie vers la course sont des points clés. À l'entrée : repère ta zone ou ta machine, prends position et démarre sans hésiter. À la sortie : franchis la ligne d'arrivée de la station, puis reprends la course sans temps mort.",
+    "impact_performance": "Les hésitations d'entrée ou de sortie font perdre quelques secondes à chaque station. Sur 8 stations, ces pertes s'additionnent.",
+    "erreurs_courantes": [
+      "Hésiter à l'entrée de la zone (chercher sa machine ou son couloir)",
+      "Ralentir trop tôt avant la fin de la station",
+      "Oublier de franchir complètement la ligne d'arrivée"
+    ],
+    "coach_tip": "Avant chaque station, visualise ton entrée et ta première action. À la fin, assure-toi d’avoir réellement terminé le standard et la distance avant de repartir : une seconde de vérification vaut mieux qu’une distance ou une répétition manquante."
+  },
+  {
+    "id": "HYX-STD-014",
+    "titre": "Déplacement efficace dans la Roxzone",
+    "categorie": "Roxzone",
+    "description_detaillee": "La Roxzone se franchit en trottinant léger et en économisant ses gestes. Évite de zigzaguer, d'éviter les autres athlètes brusquement ou de changer de rythme. Garde ta respiration régulière et utilise ce moment pour relâcher les épaules et les mains.",
+    "impact_performance": "Une Roxzone bien parcourue permet de récupérer un peu tout en continuant à avancer. Un déplacement désordonné coûte de l'énergie et du temps.",
+    "erreurs_courantes": [
+      "Marcher au lieu de trotter sans raison",
+      "Zigzaguer ou freiner brusquement",
+      "Se crisper et ne pas respirer calmement"
+    ],
+    "coach_tip": "Utilise la Roxzone pour avancer et récupérer activement : respiration régulière, épaules relâchées, trajectoire directe. Ne marche pas par automatisme ; ralentis seulement si cela fait partie de ton plan de course ou si la sécurité l’impose."
+  },
+  {
+    "id": "HYX-STD-015",
+    "titre": "Standards SkiErg",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Le SkiErg se fait sur 1 000 m. Les poignées doivent rester tenues dans les deux mains pendant toute la distance, et la distance est validée sur l'écran de la machine. La machine est préparée par l'organisation ; le réglage du levier de résistance (damper) est en général laissé à l'athlète, dans le cadre du règlement. Le mouvement doit être complet : bras levés puis tirage complet. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "La station donne le ton du début de course. Un SkiErg trop violent consomme les réserves nécessaires aux stations suivantes. Un réglage de résistance adapté (damper 4 à 6) donne un meilleur rapport puissance/fatigue.",
+    "erreurs_courantes": [
+      "Utiliser un damper trop élevé (10) et se fatiguer inutilement",
+      "Tirer avec les bras seuls sans hanches",
+      "Partir à une allure insoutenable sur les 250 premiers mètres"
+    ],
+    "coach_tip": "Pour le SkiErg, privilégie une puissance régulière plutôt qu’un départ maximal. Le réglage officiel de formation des juges est damper 6 ; entraîne-toi avec ce réglage et concentre-toi sur la coordination jambes-hanches-bras et sur la distance affichée. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-016",
+    "titre": "Standards Rameur",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Le rameur se fait sur 1 000 m. Les pieds doivent être sanglés dans les cale-pieds pendant tout l'effort, et la distance est validée sur l'écran de la machine. Le réglage du levier de résistance (damper) est en général libre pour l'athlète. Le mouvement doit rester complet : jambes puis buste puis bras à l'aller, bras puis buste puis jambes au retour. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Un rameur bien géré permet de récupérer légèrement après les stations lourdes. Un effort maximal dès les premiers coups épuise les cuisses avant les Farmers Carry et les Sandbag Lunges.",
+    "erreurs_courantes": [
+      "Régler le damper trop haut (10)",
+      "Tirer avec les bras avant que les jambes soient tendues",
+      "Ramer à 100 % dès le départ"
+    ],
+    "coach_tip": "Sur le rameur, garde une séquence jambes → buste → bras puis retour bras → buste → jambes. Le réglage officiel indiqué par HYROX pour les juges est damper 6 ; entraîne-toi avec ce repère et découpe ton 1 000 m en blocs réguliers plutôt qu’en sprint initial. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-017",
+    "titre": "Standards Sled Push",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Le Sled Push se fait sur 50 m (en 4 longueurs de 12,5 m). Le traîneau doit être poussé avec les mains sur les montants (et non tiré), à l'intérieur du couloir, et il doit franchir intégralement les lignes de départ et d'arrivée de chaque longueur. Il est interdit de marcher sur les lignes de délimitation du couloir. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Le Sled Push est l'une des stations les plus coûteuses musculairement. Une longueur invalidée ou un traîneau mal positionné doit être refait et fait perdre du temps et de l'énergie.",
+    "erreurs_courantes": [
+      "Pénalité de distance : traîneau qui ne franchit pas complètement la ligne",
+      "Marcher ou poser le pied sur la ligne du couloir",
+      "Pousser ailleurs que sur les montants",
+      "S'arrêter en cours de longueur"
+    ],
+    "coach_tip": "Sur chaque longueur de Sled Push, garde le traîneau dans ton couloir et franchis complètement la ligne avant de considérer la longueur terminée. Le règlement de formation prévoit un avertissement puis 15 s par infraction, et 3 min pour chaque longueur de 12,5 m manquante : la précision est donc une priorité. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-018",
+    "titre": "Standards Sled Pull",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Le Sled Pull se fait sur 50 m. Le traîneau est tiré à l'aide de la corde, depuis la zone de tirage délimitée, jusqu'à la ligne d'arrivée. Il est interdit de marcher sur les lignes de délimitation de la zone, et le traîneau doit franchir intégralement la ligne. La technique autorisée (recul ou main sur main sur place) dépend du règlement. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Le Sled Pull sollicite fortement les avant-bras et le dos. Une technique inefficace ou une pénalité de zone fait perdre du temps et épuise le grip avant les stations suivantes.",
+    "erreurs_courantes": [
+      "Marcher ou poser le pied sur la ligne de la zone",
+      "Lâcher la corde ou la laisser mollir",
+      "Tirer avec les bras seuls sans utiliser les jambes",
+      "S'arrêter avant d'avoir franchi la ligne"
+    ],
+    "coach_tip": "Sur le Sled Pull, reste dans ton espace de travail et garde la corde dans ton couloir. Ne transforme pas une difficulté technique en arrêt prolongé : garde une tension constante et vérifie que le traîneau a complètement franchi la ligne avant de changer de longueur. Les infractions peuvent entraîner 15 s et une longueur manquante 3 min. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-019",
+    "titre": "Standards Burpee Broad Jumps",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Les Burpee Broad Jumps se font sur 80 m. À chaque répétition, la poitrine doit toucher le sol ; le saut en longueur se fait avec les deux pieds décollant et se posant ensemble (pas de pas). La distance doit être parcourue dans la zone prévue sans franchir ses limites. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Cette station est très coûteuse en énergie cardiaque. Une répétition non validée (poitrine non au sol ou saut sur un pied) doit être refaite, ce qui rajoute des secondes et de la fatigue.",
+    "erreurs_courantes": [
+      "Poitrine qui ne touche pas le sol (no-rep)",
+      "Sauter avec un seul pied ou faire un pas avant de sauter",
+      "Sauter trop long et s'épuiser dès les premiers mètres"
+    ],
+    "coach_tip": "Trouve une longueur de saut que tu peux répéter sans casser ton rythme. La priorité est une répétition propre à chaque fois : poitrine au sol, saut contrôlé et progression continue. Un no-rep ou une infraction peut coûter du temps ; ne cherche donc pas à gagner quelques centimètres au prix de la régularité. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-020",
+    "titre": "Standards Farmers Carry",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Le Farmers Carry se fait sur 200 m avec une charge dans chaque main (kettlebells). Les charges doivent être portées pendant toute la distance : si tu les poses, tu peux les reprendre, mais le temps continue de tourner. Le parcours est délimité et doit être respecté. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Le Farmers Carry sollicite le grip, les trapèzes et le tronc après le rameur. Des arrêts répétés font perdre plus de temps qu'une marche rapide et continue.",
+    "erreurs_courantes": [
+      "Poser les kettlebells trop souvent",
+      "Couper le parcours balisé",
+      "Se pencher sur le côté ou se balancer"
+    ],
+    "coach_tip": "Sur les 200 m, privilégie une marche rapide et stable plutôt que des poses fréquentes. Garde le tronc haut et les kettlebells contrôlées ; en fin de station, respecte aussi les consignes de remise en place du matériel, car le juge peut demander une correction et des pénalités peuvent s’appliquer. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-021",
+    "titre": "Standards Sandbag Lunges",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Les Sandbag Lunges se font sur 100 m. À chaque fente, le genou arrière doit toucher le sol. Le sac doit rester positionné sur les épaules et le haut du dos, sans appui sur la tête. Le déplacement est continu vers l'avant dans le couloir. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Les Sandbag Lunges arrivent en fin de course, quand les jambes sont déjà fatiguées. Une fente non validée (genou qui ne touche pas) doit être refaite et ajoute de la fatigue.",
+    "erreurs_courantes": [
+      "Genou arrière qui ne touche pas le sol (no-rep)",
+      "Sac qui glisse sur la tête ou le cou",
+      "Faire des pas trop longs et s'épuiser",
+      "Basculer le buste vers l'avant"
+    ],
+    "coach_tip": "Sur les lunges, garde une longueur de pas reproductible et protège ton rythme respiratoire. Le genou doit toucher selon le standard, le sac doit rester correctement positionné et la trajectoire doit rester maîtrisée. Une première infraction peut entraîner 15 s et une seconde une disqualification : mieux vaut ralentir légèrement que multiplier les erreurs. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-022",
+    "titre": "Standards Wall Balls",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Les Wall Balls se font sur 100 répétitions. À chaque répétition, le squat doit descendre sous la parallèle (le pli de la hanche sous le haut du genou) et le ballon doit toucher la cible à la hauteur officielle ou au-dessus. Charges et hauteurs usuelles : environ 3 m pour les hommes et 2,70 m pour les femmes, avec un ballon plus lourd en Pro (9 kg et 6 kg) qu'en Open (6 kg et 4 kg). Vérifie si la hauteur de cible varie selon la catégorie. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Les Wall Balls sont le finisher : 100 répétitions avec des jambes épuisées. Chaque répétition non validée (squat trop haut ou ballon sous la cible) doit être refaite et fait perdre du temps et de l'énergie.",
+    "erreurs_courantes": [
+      "Squat au-dessus de la parallèle (no-rep)",
+      "Ballon qui touche sous la cible",
+      "Partir trop vite sur les 20 premières répétitions",
+      "Ne pas découper les séries"
+    ],
+    "coach_tip": "Les Wall Balls se gagnent par séries prévues à l’avance. Choisis un découpage que tu peux tenir sous fatigue et garde exactement la même profondeur de squat et la même cible à chaque répétition. Les reps invalides ne comptent pas : la priorité absolue est donc zéro no-rep. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-023",
+    "titre": "Pénalités et répétitions non validées (no-reps)",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Les juges valident chaque répétition ou chaque distance selon les standards de la station. Une répétition non valide (no-rep) doit être refaite, et certaines fautes (distance, zone, couloir) peuvent entraîner une pénalité de temps ou une obligation de refaire une partie de la station, selon le règlement. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Une pénalité ou une répétition à refaire coûte du temps et de l'énergie, au moment même où la fatigue est la plus forte.",
+    "erreurs_courantes": [
+      "Contester un juge en cours de station",
+      "Ne pas connaître les critères de validation de chaque station",
+      "Négliger la qualité des répétitions quand on est fatigué"
+    ],
+    "coach_tip": "En compétition, applique le standard avant de chercher la vitesse. Si le juge signale un no-rep, corrige immédiatement le mouvement et poursuis ; ne discute pas pendant la station. Les conséquences varient selon la faute et le poste, donc apprends les standards spécifiques de chaque station avant le jour J. citeturn1search0"
+  },
+  {
+    "id": "HYX-STD-024",
+    "titre": "Communication avec les juges et comptage des répétitions",
+    "categorie": "Standards Officiels",
+    "description_detaillee": "Chaque station est surveillée par un juge qui compte et valide les répétitions. Tu dois respecter ses indications et corriger immédiatement un no-rep. Garde une attention visuelle sur le juge pour savoir à tout moment si ta répétition est comptée. Vérifie toujours le règlement officiel de la saison en cours : poids, distances et critères de validation peuvent évoluer.",
+    "impact_performance": "Une mauvaise communication (répétition non comptée, no-rep répété) fait perdre du temps. Une exécution conforme dès le départ limite les interruptions.",
+    "erreurs_courantes": [
+      "Ignorer les signaux du juge",
+      "Répéter la même erreur après un no-rep",
+      "Perdre le décompte des répétitions"
+    ],
+    "coach_tip": "Regarde brièvement le juge lorsque c’est utile pour confirmer que ta répétition est validée, mais reste concentré sur ton mouvement et ton décompte. Après un no-rep, identifie immédiatement la correction à faire et ne répète pas la même erreur."
+  }
+]
