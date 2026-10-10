@@ -36,10 +36,11 @@ export function useLibrarySearch(
     enabled: opts?.enabled !== false,
     staleTime: 15_000,
     queryFn: async (): Promise<LibraryHit[]> => {
+      // Types générés : params optionnels non nullables ; la RPC SQL accepte null.
       const { data, error } = await supabase.rpc("search_library_items", {
         q: deferred,
-        p_modules: modules?.length ? modules : null,
-        p_types: types?.length ? types : null,
+        p_modules: (modules?.length ? modules : null) as string[] | undefined,
+        p_types: (types?.length ? types : null) as string[] | undefined,
         p_limit: limit,
       });
       if (error) throw new Error(error.message);
