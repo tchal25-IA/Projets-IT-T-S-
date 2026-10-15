@@ -1,52 +1,71 @@
 import type { Role, Prisma } from "@/generated/prisma/client";
 import { isDirection, isFullAccess } from "@/lib/roles";
 
+/**
+ * Build Lead visibility WHERE clause combining org isolation + role-based access
+ * All leads queries MUST enforce organizationId for multi-tenant isolation
+ */
 export function leadVisibilityWhere(
   userId: string,
   role: Role,
-  options?: { productId?: string | null }
+  options?: { productId?: string | null; organizationId?: string }
 ): Prisma.LeadWhereInput {
+  const base: Prisma.LeadWhereInput = options?.organizationId
+    ? { organizationId: options.organizationId }
+    : {};
+
   switch (role) {
     case "ASSOCIE":
     case "ADMIN":
-      return {};
+      return base;
     case "DIRECTION_VF":
     case "DIRECTION_BOOKFLOW":
       return options?.productId
-        ? { productId: options.productId }
-        : { id: "__none__" };
+        ? { ...base, productId: options.productId }
+        : { ...base, id: "__none__" };
     case "COMMERCIAL":
-      return { commercialId: userId };
+      return { ...base, commercialId: userId };
     case "APPORTEUR":
-      return { apporteurId: userId };
+      return { ...base, apporteurId: userId };
     default:
-      return { id: "__none__" };
+      return { ...base, id: "__none__" };
   }
 }
 
-export function clientVisibilityWhere(
+/**
+ * Build Account visibility WHERE clause combining org isolation + role-based access
+ * All accounts queries MUST enforce organizationId for multi-tenant isolation
+ */
+export function accountVisibilityWhere(
   userId: string,
   role: Role,
-  options?: { productId?: string | null }
-): Prisma.ClientWhereInput {
-  if (isFullAccess(role)) return {};
+  options?: { productId?: string | null; organizationId?: string }
+): Prisma.AccountWhereInput {
+  const base: Prisma.AccountWhereInput = options?.organizationId
+    ? { organizationId: options.organizationId }
+    : {};
+
+  if (isFullAccess(role)) return base;
 
   if (role === "DIRECTION_VF" || role === "DIRECTION_BOOKFLOW") {
     return options?.productId
-      ? { leads: { some: { productId: options.productId } } }
-      : { id: "__none__" };
+      ? { ...base, leads: { some: { productId: options.productId } } }
+      : { ...base, id: "__none__" };
   }
 
   if (role === "COMMERCIAL") {
-    return { leads: { some: { commercialId: userId } } };
+    return { ...base, leads: { some: { commercialId: userId } } };
   }
 
   if (role === "APPORTEUR") {
-    return { leads: { some: { apporteurId: userId } } };
+    return { ...base, leads: { some: { apporteurId: userId } } };
   }
 
-  return { id: "__none__" };
+  return { ...base, id: "__none__" };
 }
+
+// Legacy alias for backward compatibility
+export const clientVisibilityWhere = accountVisibilityWhere;
 
 export function navForRole(role: Role) {
   if (role === "APPORTEUR") {

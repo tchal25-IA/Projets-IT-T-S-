@@ -7,16 +7,27 @@ export {
 } from "@/lib/actions/leads";
 
 export {
-  addDealLine,
-  updateDealLine,
-  deleteDealLine,
-  updateDealLineStatus,
-  updateClientStatus,
-  updateClientDetails,
-  deleteClient,
+  // Opportunity actions (with legacy aliases)
+  addOpportunity,
+  addDealLine, // legacy alias
+  updateOpportunity,
+  updateDealLine, // legacy alias
+  deleteOpportunity,
+  deleteDealLine, // legacy alias
+  updateOpportunityStatus,
+  updateDealLineStatus, // legacy alias
+  // Account actions (with legacy aliases)
+  updateAccountStatus,
+  updateClientStatus, // legacy alias
+  updateAccountDetails,
+  updateClientDetails, // legacy alias
+  deleteAccount,
+  deleteClient, // legacy alias
+  // Commission actions
   updateCommissionStatus,
   updateCommission,
   deleteCommission,
+  // Stripe
   startStripeCheckout,
 } from "@/lib/actions/billing";
 

@@ -2,16 +2,18 @@ import { prisma } from "@/lib/db";
 import { COMMISSION_RATES } from "@/lib/utils";
 import { parseFieldSchema } from "@/lib/fields";
 import { isProductInterested, productBlock } from "@/lib/custom-data";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export type CommissionRates = {
   APPORTEUR: number;
   COMMERCIAL: number;
 };
 
-/** Rates depuis Paramètres, fallback constantes. */
+/** Rates depuis Paramètres (scoped by org), fallback constantes. */
 export async function getCommissionRates(): Promise<CommissionRates> {
+  const orgId = await requireOrg();
   const rules = await prisma.commissionRule.findMany({
-    where: { active: true },
+    where: orgWhere(orgId, { active: true }),
   });
   const map: CommissionRates = {
     APPORTEUR: COMMISSION_RATES.APPORTEUR,
@@ -25,45 +27,23 @@ export async function getCommissionRates(): Promise<CommissionRates> {
   return map;
 }
 
-export async function ensureDefaultCommissionRules() {
-  await prisma.commissionRule.upsert({
-    where: { roleKey: "APPORTEUR" },
-    create: {
-      roleKey: "APPORTEUR",
-      label: "Apporteur d'affaires",
-      ratePercent: COMMISSION_RATES.APPORTEUR,
-      sortOrder: 0,
-    },
-    update: {},
-  });
-  await prisma.commissionRule.upsert({
-    where: { roleKey: "COMMERCIAL" },
-    create: {
-      roleKey: "COMMERCIAL",
-      label: "Commercial (close)",
-      ratePercent: COMMISSION_RATES.COMMERCIAL,
-      sortOrder: 1,
-    },
-    update: {},
-  });
-}
-
 /**
- * Crée / met à jour des DealLines à partir des formules choisies
- * dans customData (champs optionsFrom=offerings).
+ * Creates / updates Opportunities from selected offerings in customData
+ * (fields with optionsFrom=offerings).
  */
 export async function syncDealLinesFromQualification(
   leadId: string,
   customData: Record<string, unknown>
 ) {
+  const orgId = await requireOrg();
   const lead = await prisma.lead.findUnique({
     where: { id: leadId },
-    select: { clientId: true },
+    select: { accountId: true },
   });
   if (!lead) return;
 
   const products = await prisma.product.findMany({
-    where: { active: true },
+    where: orgWhere(orgId, { active: true }),
     include: {
       offerings: { where: { active: true } },
     },
@@ -90,33 +70,35 @@ export async function syncDealLinesFromQualification(
       const offering = product.offerings.find((o) => o.name === selected);
       if (!offering) continue;
 
-      const existing = await prisma.dealLine.findFirst({
-        where: { leadId, offeringId: offering.id },
+      const existing = await prisma.opportunity.findFirst({
+        where: orgWhere(orgId, { leadId, offeringId: offering.id }),
       });
 
       const isRecurring =
         offering.kind === "SUBSCRIPTION" || offering.kind === "MAINTENANCE";
-      const amountHt = offering.amountHt ?? 0;
+      const amount = offering.amountHt ?? 0;
 
       if (existing) {
-        await prisma.dealLine.update({
+        await prisma.opportunity.update({
           where: { id: existing.id },
           data: {
-            label: offering.name,
-            amountHt,
+            name: offering.name,
+            amount,
             isRecurring,
-            clientId: lead.clientId,
+            accountId: lead.accountId,
           },
         });
       } else {
-        await prisma.dealLine.create({
+        await prisma.opportunity.create({
           data: {
+            organizationId: orgId,
             leadId,
-            clientId: lead.clientId,
+            accountId: lead.accountId,
             offeringId: offering.id,
-            label: offering.name,
-            amountHt,
+            name: offering.name,
+            amount,
             billingStatus: "DEVIS",
+            stage: "QUALIFICATION",
             isRecurring,
           },
         });

@@ -23,8 +23,8 @@ export async function sendLeadEmail(
   const lead = await assertLeadAccess(user, leadId, { requireEdit: true });
   if (!lead.email) throw new Error("Lead sans email");
 
-  const lines = await prisma.dealLine.findMany({ where: { leadId } });
-  const total = lines.reduce((s, l) => s + l.amountHt, 0);
+  const lines = await prisma.opportunity.findMany({ where: { leadId } });
+  const total = lines.reduce((s: number, l) => s + l.amount, 0);
   const tpl =
     kind === "devis"
       ? templateDevis(lead.companyName, formatEuro(total))

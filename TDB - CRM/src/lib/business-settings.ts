@@ -1,15 +1,16 @@
 import { prisma } from "@/lib/db";
 import type {
   BillingStatus,
-  ClientStatus,
+  AccountStatus,
   LeadStatus,
   Prisma,
 } from "@/generated/prisma/client";
 import {
   BILLING_LABELS,
-  CLIENT_STATUS_LABELS,
+  ACCOUNT_STATUS_LABELS,
   STATUS_LABELS,
 } from "@/lib/utils";
+import { requireOrg } from "@/lib/tenant";
 
 export type CompanySettings = {
   name: string;
@@ -47,16 +48,20 @@ export const DEFAULT_LEAD_SOURCES = [
 ];
 
 export async function getSetting<T>(key: string, fallback: T): Promise<T> {
-  const row = await prisma.crmSetting.findUnique({ where: { key } });
+  const orgId = await requireOrg();
+  const row = await prisma.crmSetting.findUnique({
+    where: { organizationId_key: { organizationId: orgId, key } },
+  });
   if (!row) return fallback;
   return row.value as T;
 }
 
 export async function setSetting(key: string, value: unknown) {
+  const orgId = await requireOrg();
   const json = value as Prisma.InputJsonValue;
   await prisma.crmSetting.upsert({
-    where: { key },
-    create: { key, value: json },
+    where: { organizationId_key: { organizationId: orgId, key } },
+    create: { organizationId: orgId, key, value: json },
     update: { value: json },
   });
 }
@@ -86,15 +91,18 @@ export async function getLeadStatusLabels(): Promise<
   return { ...STATUS_LABELS, ...raw };
 }
 
-export async function getClientStatusLabels(): Promise<
-  Record<ClientStatus, string>
+export async function getAccountStatusLabels(): Promise<
+  Record<AccountStatus, string>
 > {
-  const raw = await getSetting<Partial<Record<ClientStatus, string>>>(
-    "labels.clientStatus",
+  const raw = await getSetting<Partial<Record<AccountStatus, string>>>(
+    "labels.accountStatus",
     {}
   );
-  return { ...CLIENT_STATUS_LABELS, ...raw };
+  return { ...ACCOUNT_STATUS_LABELS, ...raw };
 }
+
+// Legacy alias for backward compatibility
+export const getClientStatusLabels = getAccountStatusLabels;
 
 export async function getBillingStatusLabels(): Promise<
   Record<BillingStatus, string>
@@ -107,30 +115,32 @@ export async function getBillingStatusLabels(): Promise<
 }
 
 export async function ensureDefaultBusinessSettings() {
+  const orgId = await requireOrg();
+
   const company = await prisma.crmSetting.findUnique({
-    where: { key: "company" },
+    where: { organizationId_key: { organizationId: orgId, key: "company" } },
   });
   if (!company) await setSetting("company", DEFAULT_COMPANY);
 
   const sources = await prisma.crmSetting.findUnique({
-    where: { key: "lead.sources" },
+    where: { organizationId_key: { organizationId: orgId, key: "lead.sources" } },
   });
   if (!sources) await setSetting("lead.sources", DEFAULT_LEAD_SOURCES);
 
   const leadLabels = await prisma.crmSetting.findUnique({
-    where: { key: "labels.leadStatus" },
+    where: { organizationId_key: { organizationId: orgId, key: "labels.leadStatus" } },
   });
   if (!leadLabels) await setSetting("labels.leadStatus", STATUS_LABELS);
 
-  const clientLabels = await prisma.crmSetting.findUnique({
-    where: { key: "labels.clientStatus" },
+  const accountLabels = await prisma.crmSetting.findUnique({
+    where: { organizationId_key: { organizationId: orgId, key: "labels.accountStatus" } },
   });
-  if (!clientLabels) {
-    await setSetting("labels.clientStatus", CLIENT_STATUS_LABELS);
+  if (!accountLabels) {
+    await setSetting("labels.accountStatus", ACCOUNT_STATUS_LABELS);
   }
 
   const billingLabels = await prisma.crmSetting.findUnique({
-    where: { key: "labels.billingStatus" },
+    where: { organizationId_key: { organizationId: orgId, key: "labels.billingStatus" } },
   });
   if (!billingLabels) await setSetting("labels.billingStatus", BILLING_LABELS);
 }

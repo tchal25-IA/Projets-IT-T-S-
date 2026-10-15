@@ -4,7 +4,7 @@ import type {
   LeadStatus,
   Role,
   BillingStatus,
-  ClientStatus,
+  AccountStatus,
   CommissionStatus,
 } from "@/generated/prisma/client";
 
@@ -78,11 +78,14 @@ export const BILLING_LABELS: Record<BillingStatus, string> = {
   PAYE: "Payé",
 };
 
-export const CLIENT_STATUS_LABELS: Record<ClientStatus, string> = {
+export const ACCOUNT_STATUS_LABELS: Record<AccountStatus, string> = {
   EN_LIVRAISON: "En livraison",
   ACTIF: "Actif",
   MAINTENANCE: "Maintenance",
 };
+
+// Legacy alias
+export const CLIENT_STATUS_LABELS = ACCOUNT_STATUS_LABELS;
 
 export const COMMISSION_STATUS_LABELS: Record<CommissionStatus, string> = {
   CALCULEE: "Calculée",

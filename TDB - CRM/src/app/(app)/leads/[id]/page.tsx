@@ -7,9 +7,9 @@ import { getScopedProductId } from "@/lib/scope";
 import { visibleTabsForRole } from "@/lib/visible-tabs";
 import {
   addActivity,
-  addDealLine,
+  addOpportunity,
   updateLeadDetails,
-  updateClientStatus,
+  updateAccountStatus,
   deleteLead,
 } from "@/lib/actions";
 import {
@@ -40,7 +40,7 @@ import { computeLeadScore } from "@/lib/scoring";
 import { getLeadSources } from "@/lib/business-settings";
 import { getLeadStatusLabels } from "@/lib/business-settings";
 import {
-  CLIENT_STATUS_LABELS,
+  ACCOUNT_STATUS_LABELS,
   STATUS_LABELS,
   canSeeBilling,
   canSeeCommissions,
@@ -62,7 +62,7 @@ import {
   isProductInterested,
   productBlock,
 } from "@/lib/custom-data";
-import type { ClientStatus } from "@/generated/prisma/client";
+import type { AccountStatus } from "@/generated/prisma/client";
 
 export default async function LeadDetailPage({
   params,
@@ -84,14 +84,14 @@ export default async function LeadDetailPage({
       commercial: true,
       apporteur: true,
       interests: true,
-      client: {
+      account: {
         include: {
-          dealLines: true,
+          opportunities: true,
           commissions: { include: { user: true } },
         },
       },
       activities: { include: { user: true }, orderBy: { createdAt: "desc" } },
-      dealLines: { orderBy: { createdAt: "asc" } },
+      opportunities: { orderBy: { createdAt: "asc" } },
       commissions: { include: { user: true } },
       tasks: {
         where: { doneAt: null },
@@ -162,17 +162,22 @@ export default async function LeadDetailPage({
     .filter((p) => p.show);
 
   const hideMoney = readOnly;
-  const hasClient = Boolean(lead.clientId);
-  const dealLines = lead.client?.dealLines?.length
-    ? lead.client.dealLines
-    : lead.dealLines;
-  const commissions = lead.client?.commissions?.length
-    ? lead.client.commissions
+  const hasAccount = Boolean(lead.accountId);
+  const opportunities = lead.account?.opportunities?.length
+    ? lead.account.opportunities
+    : lead.opportunities;
+  const commissions = lead.account?.commissions?.length
+    ? lead.account.commissions
     : lead.commissions;
-  const upcoming =
-    lead.nextCallAt && lead.nextCallAt.getTime() >= Date.now() - 60_000
+  // Server component: Date.now() called once per request, stable for this render
+  /* eslint-disable react-hooks/purity */
+  const upcoming = (function computeUpcoming() {
+    const nowMs = Date.now();
+    return lead.nextCallAt && lead.nextCallAt.getTime() >= nowMs - 60_000
       ? lead.nextCallAt
       : null;
+  })();
+  /* eslint-enable react-hooks/purity */
   const score = computeLeadScore(lead);
   const interestLabels = lead.interests.map((i) => {
     const p = catalogProducts.find((x) => x.slug === i.productSlug);
@@ -189,7 +194,7 @@ export default async function LeadDetailPage({
   }
   async function saveDeal(formData: FormData) {
     "use server";
-    await addDealLine(id, formData);
+    await addOpportunity(id, formData);
   }
   async function removeLead() {
     "use server";
@@ -236,8 +241,8 @@ export default async function LeadDetailPage({
         subtitle={`${lead.product.name} · fiche Lead → Client`}
         actions={
           <div className="flex flex-wrap gap-2">
-            {lead.clientId ? (
-              <Link href={`/clients/${lead.clientId}`}>
+            {lead.accountId ? (
+              <Link href={`/clients/${lead.accountId}`}>
                 <Button variant="secondary">Fiche client</Button>
               </Link>
             ) : null}
@@ -270,9 +275,9 @@ export default async function LeadDetailPage({
         {interestLabels.length > 0 ? (
           <Badge tone="neutral">{interestLabels.join(" + ")}</Badge>
         ) : null}
-        {lead.client ? (
+        {lead.account ? (
           <Badge tone="success">
-            Client · {CLIENT_STATUS_LABELS[lead.client.status]}
+            Client · {ACCOUNT_STATUS_LABELS[lead.account.status]}
           </Badge>
         ) : null}
         {upcoming ? (
@@ -293,7 +298,7 @@ export default async function LeadDetailPage({
       <div className="grid gap-6 xl:grid-cols-[1fr_280px]">
         <RecordTabs
           leadStatus={lead.status}
-          hasClient={hasClient}
+          hasClient={hasAccount}
           visibleTabs={visibleTabsForRole(session.user.role)}
           panels={{
             resume: (
@@ -544,7 +549,7 @@ export default async function LeadDetailPage({
               !hideMoney && canSeeBilling(session.user.role) ? (
                 <div className="space-y-4">
                   <DealLinesList
-                    lines={dealLines}
+                    lines={opportunities}
                     canEdit={canSeeBilling(session.user.role)}
                   />
                   <AddDealLineForm
@@ -567,7 +572,7 @@ export default async function LeadDetailPage({
               ),
             facturation: canSeeBilling(session.user.role) ? (
               <BillingPanel
-                lines={dealLines}
+                lines={opportunities}
                 canEdit={canSeeBilling(session.user.role)}
               />
             ) : (
@@ -587,25 +592,25 @@ export default async function LeadDetailPage({
             ) : (
               <p className="text-sm text-stone-500">Accès restreint.</p>
             ),
-            livraison: lead.client ? (
+            livraison: lead.account ? (
               <LivraisonPanel
-                status={lead.client.status}
-                notes={lead.client.notes}
-                createdAt={lead.client.createdAt}
+                status={lead.account.status}
+                notes={lead.account.notes}
+                createdAt={lead.account.createdAt}
                 canEdit={canSeeBilling(session.user.role)}
                 onStatusAction={
                   canSeeBilling(session.user.role)
                     ? async (fd) => {
                         "use server";
-                        await updateClientStatus(
-                          lead.clientId!,
-                          String(fd.get("status")) as ClientStatus
+                        await updateAccountStatus(
+                          lead.accountId!,
+                          String(fd.get("status")) as AccountStatus
                         );
                       }
                     : undefined
                 }
                 leadLink={
-                  <Link href={`/clients/${lead.client.id}`}>
+                  <Link href={`/clients/${lead.account.id}`}>
                     <Button variant="secondary">Ouvrir la fiche client</Button>
                   </Link>
                 }
@@ -641,7 +646,7 @@ export default async function LeadDetailPage({
         />
 
         <RelatedRail
-          dealLines={dealLines}
+          dealLines={opportunities}
           commissions={commissions}
           tasks={lead.tasks}
           nextCallAt={lead.nextCallAt}

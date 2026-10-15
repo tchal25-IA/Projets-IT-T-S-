@@ -5,6 +5,7 @@ import { createTask, toggleTaskDone, deleteTask } from "@/lib/actions";
 import { PageHeader, Card, Button, Input, Select, Badge } from "@/components/ui";
 import { formatDateTime, isDirection } from "@/lib/utils";
 import { isFullAccess } from "@/lib/roles";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function TachesPage({
   searchParams,
@@ -15,6 +16,7 @@ export default async function TachesPage({
   if (!session?.user) return null;
   const sp = await searchParams;
   const tab = sp.tab ?? "today";
+  const orgId = await requireOrg();
 
   const now = new Date();
   const start = new Date(now);
@@ -32,7 +34,7 @@ export default async function TachesPage({
         : { userId: session.user.id };
 
   const tasks = await prisma.task.findMany({
-    where: {
+    where: orgWhere(orgId, {
       ...scope,
       doneAt: null,
       ...(tab === "today"
@@ -42,10 +44,10 @@ export default async function TachesPage({
           : tab === "overdue"
             ? { dueAt: { lt: start } }
             : {}),
-    },
+    }),
     include: {
       lead: true,
-      client: true,
+      account: true,
       user: true,
     },
     orderBy: [{ dueAt: "asc" }, { priority: "desc" }],
@@ -54,10 +56,10 @@ export default async function TachesPage({
   const users =
     isFullAccess(session.user.role) || isDirection(session.user.role)
       ? await prisma.user.findMany({
-          where: {
+          where: orgWhere(orgId, {
             active: true,
-            role: { in: ["COMMERCIAL", "ASSOCIE", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] },
-          },
+            role: { in: ["COMMERCIAL", "ASSOCIE", "DIRECTION_VF", "DIRECTION_BOOKFLOW"] as Array<"COMMERCIAL" | "ASSOCIE" | "DIRECTION_VF" | "DIRECTION_BOOKFLOW"> },
+          }),
           orderBy: { fullName: "asc" },
         })
       : [];

@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
 import { requireUser } from "@/lib/actions/helpers";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export async function saveLeadView(formData: FormData) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   const name = String(formData.get("name") || "").trim();
   if (!name) throw new Error("Nom requis");
 
@@ -19,6 +21,7 @@ export async function saveLeadView(formData: FormData) {
 
   await prisma.savedView.create({
     data: {
+      organizationId: orgId,
       name,
       entity: "LEAD",
       userId: user.id,
@@ -32,8 +35,9 @@ export async function saveLeadView(formData: FormData) {
 
 export async function deleteSavedView(id: string) {
   const user = await requireUser();
+  const orgId = await requireOrg();
   await prisma.savedView.deleteMany({
-    where: { id, userId: user.id },
+    where: orgWhere(orgId, { id, userId: user.id }),
   });
   revalidatePath("/leads");
 }

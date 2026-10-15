@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { updateLeadStatus } from "@/lib/actions";
@@ -31,10 +31,6 @@ export function PipelineBoard({
   const [dragging, setDragging] = useState<string | null>(null);
   const [localLeads, setLocalLeads] = useState(leads);
   const labelMap = { ...STATUS_LABELS, ...labels };
-
-  useEffect(() => {
-    setLocalLeads(leads);
-  }, [leads]);
 
   const columns = useMemo(() => {
     const map: Record<string, KanbanLead[]> = {};

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 const LEGACY_INTEREST: Record<string, string> = {
   interested_vf: "vitrineflash",
@@ -10,6 +11,7 @@ export async function syncLeadInterests(
   customData: Record<string, unknown>,
   primarySlug?: string | null
 ) {
+  const orgId = await requireOrg();
   const slugs = new Set<string>();
   if (primarySlug) slugs.add(primarySlug);
 
@@ -23,7 +25,7 @@ export async function syncLeadInterests(
 
   // Blocs produit non vides
   const products = await prisma.product.findMany({
-    where: { active: true },
+    where: orgWhere(orgId, { active: true }),
     select: { slug: true },
   });
   for (const p of products) {
@@ -33,9 +35,15 @@ export async function syncLeadInterests(
     }
   }
 
-  await prisma.leadInterest.deleteMany({ where: { leadId } });
+  await prisma.leadInterest.deleteMany({ 
+    where: orgWhere(orgId, { leadId })
+  });
   if (slugs.size === 0) return;
   await prisma.leadInterest.createMany({
-    data: [...slugs].map((productSlug) => ({ leadId, productSlug })),
+    data: [...slugs].map((productSlug) => ({ 
+      organizationId: orgId,
+      leadId, 
+      productSlug 
+    })),
   });
 }

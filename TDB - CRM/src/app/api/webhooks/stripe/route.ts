@@ -73,11 +73,11 @@ export async function POST(req: Request) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const dealLineId = event.data?.object?.metadata?.dealLineId;
+    const opportunityId = event.data?.object?.metadata?.dealLineId;
     const sessionId = event.data?.object?.id;
-    if (dealLineId) {
-      const line = await prisma.dealLine.update({
-        where: { id: dealLineId },
+    if (opportunityId) {
+      const line = await prisma.opportunity.update({
+        where: { id: opportunityId },
         data: {
           billingStatus: "PAYE",
           paidAt: new Date(),
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
       revalidatePath("/facturation");
       revalidatePath("/dashboard");
       if (line.leadId) revalidatePath(`/leads/${line.leadId}`);
-      if (line.clientId) revalidatePath(`/clients/${line.clientId}`);
+      if (line.accountId) revalidatePath(`/clients/${line.accountId}`);
     }
   }
 

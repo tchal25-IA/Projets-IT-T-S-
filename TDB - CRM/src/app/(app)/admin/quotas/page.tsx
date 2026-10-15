@@ -23,7 +23,7 @@ export default async function QuotasPage() {
             gte: new Date(`${yearMonth}-01T00:00:00`),
           },
         },
-        include: { dealLines: true },
+        include: { opportunities: true },
       },
     },
     orderBy: { fullName: "asc" },
@@ -41,7 +41,7 @@ export default async function QuotasPage() {
           const q = c.quotas[0];
           const closes = c.leadsCommerciaux.length;
           const ca = c.leadsCommerciaux.reduce(
-            (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+            (s: number, l) => s + l.opportunities.reduce((a: number, d) => a + d.amount, 0),
             0
           );
           return (

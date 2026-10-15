@@ -80,19 +80,28 @@ export function RecordTabs({
     tabs.find((t) => t.unlocked && panels[t.id])?.id ?? defaultTab;
   const [active, setActive] = useState<RecordTabId>(firstUnlocked);
 
-  useEffect(() => {
-    const stillOk = tabs.some((t) => t.id === active && t.unlocked && panels[t.id]);
-    if (!stillOk) setActive(firstUnlocked);
-  }, [leadStatus, hasClient, tabs, active, firstUnlocked, panels]);
+  const currentTabValid = useMemo(() => {
+    return tabs.some((t) => t.id === active && t.unlocked && panels[t.id]);
+  }, [tabs, active, panels]);
 
-  const current = tabs.find((t) => t.id === active) ?? tabs[0];
+  const effectiveActive = currentTabValid ? active : firstUnlocked;
+
+  // Sync active tab when it becomes invalid (async to avoid cascading renders)
+  useEffect(() => {
+    if (!currentTabValid) {
+      const timer = setTimeout(() => setActive(firstUnlocked), 0);
+      return () => clearTimeout(timer);
+    }
+  }, [currentTabValid, firstUnlocked]);
+
+  const current = tabs.find((t) => t.id === effectiveActive) ?? tabs[0];
   const panel = current?.unlocked ? panels[current.id] : null;
 
   return (
     <div className="overflow-hidden rounded-xl border border-stone-200 bg-white">
       <div className="flex gap-1 overflow-x-auto border-b border-stone-200 bg-stone-50 px-2 pt-2">
         {tabs.map((tab) => {
-          const isActive = tab.id === active;
+          const isActive = tab.id === effectiveActive;
           return (
             <button
               key={tab.id}

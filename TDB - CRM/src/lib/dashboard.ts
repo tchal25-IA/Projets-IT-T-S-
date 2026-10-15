@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import type { Role } from "@/generated/prisma/client";
-import { leadVisibilityWhere, clientVisibilityWhere } from "@/lib/permissions";
+import { leadVisibilityWhere, accountVisibilityWhere } from "@/lib/permissions";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export type DashboardMetrics = {
   leadsTotal: number;
@@ -68,8 +69,9 @@ export async function computeDashboardMetrics(
   role: Role,
   productId: string | null
 ): Promise<DashboardMetrics> {
-  const where = leadVisibilityWhere(userId, role, { productId });
-  const clientWhere = clientVisibilityWhere(userId, role, { productId });
+  const orgId = await requireOrg();
+  const where = leadVisibilityWhere(userId, role, { productId, organizationId: orgId });
+  const accountWhere = accountVisibilityWhere(userId, role, { productId, organizationId: orgId });
 
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
@@ -79,7 +81,7 @@ export async function computeDashboardMetrics(
 
   const [
     leads,
-    clients,
+    accounts,
     commissions,
     callsToday,
     rdvToday,
@@ -91,21 +93,22 @@ export async function computeDashboardMetrics(
       include: {
         product: true,
         commercial: true,
-        dealLines: true,
+        opportunities: true,
       },
       orderBy: { updatedAt: "desc" },
     }),
-    prisma.client.findMany({ where: clientWhere }),
+    prisma.account.findMany({ where: accountWhere }),
     prisma.commission.findMany({
-      where:
+      where: orgWhere(orgId,
         role === "APPORTEUR" || role === "COMMERCIAL"
           ? { userId }
           : productId
             ? { lead: { productId } }
-            : {},
+            : {}
+      ),
       include: {
         user: true,
-        client: true,
+        account: true,
       },
       orderBy: { createdAt: "desc" },
     }),
@@ -173,7 +176,7 @@ export async function computeDashboardMetrics(
   const closedCa = leads
     .filter((l) => l.status === "CLOSE")
     .reduce(
-      (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+      (s: number, l) => s + l.opportunities.reduce((a: number, d) => a + d.amount, 0),
       0
     );
 
@@ -185,7 +188,7 @@ export async function computeDashboardMetrics(
   );
   const signaturesMonth = closedThisMonth.length;
   const caMonth = closedThisMonth.reduce(
-    (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+    (s: number, l) => s + l.opportunities.reduce((a: number, d) => a + d.amount, 0),
     0
   );
 
@@ -244,17 +247,17 @@ export async function computeDashboardMetrics(
     callsToday,
     rdvToday,
     overdueCalls,
-    clientsTotal: clients.length,
-    clientsEnLivraison: clients.filter((c) => c.status === "EN_LIVRAISON")
+    clientsTotal: accounts.length,
+    clientsEnLivraison: accounts.filter((c) => c.status === "EN_LIVRAISON")
       .length,
-    clientsActifs: clients.filter((c) => c.status === "ACTIF").length,
-    commissionsTotal: commissions.reduce((s, c) => s + c.amountHt, 0),
+    clientsActifs: accounts.filter((c) => c.status === "ACTIF").length,
+    commissionsTotal: commissions.reduce((s: number, c) => s + c.amountHt, 0),
     commissionsAVerser: commissions
       .filter((c) => c.status === "A_VERSER" || c.status === "CALCULEE")
-      .reduce((s, c) => s + c.amountHt, 0),
+      .reduce((s: number, c) => s + c.amountHt, 0),
     commissionsVersees: commissions
       .filter((c) => c.status === "VERSEE")
-      .reduce((s, c) => s + c.amountHt, 0),
+      .reduce((s: number, c) => s + c.amountHt, 0),
     byStatus,
     byProduct,
     recentLeads: leads.slice(0, 8).map((l) => ({
@@ -297,7 +300,7 @@ export async function computeDashboardMetrics(
         amountHt: c.amountHt,
         status: c.status,
         userName: c.user.fullName,
-        companyName: c.client.companyName,
+        companyName: c.account.companyName,
       })),
     openTasks,
   };

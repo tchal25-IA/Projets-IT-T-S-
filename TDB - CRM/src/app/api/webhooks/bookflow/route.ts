@@ -53,6 +53,7 @@ export async function POST(req: Request) {
 
   await prisma.activity.create({
     data: {
+      organizationId: lead.organizationId,
       leadId: lead.id,
       type: "RDV",
       note: `${title} — ${when.toLocaleString("fr-FR")} (webhook Bookflow)`,

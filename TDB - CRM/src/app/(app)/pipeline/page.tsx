@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/ui";
 import { PipelineBoard } from "@/components/pipeline-board";
 import { isDirection } from "@/lib/utils";
+import { requireOrg } from "@/lib/tenant";
 
 export default async function PipelinePage() {
   const session = await auth();
@@ -15,11 +16,13 @@ export default async function PipelinePage() {
     redirect("/dashboard");
   }
 
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
   const [leads, statusLabels] = await Promise.all([
     prisma.lead.findMany({
       where: leadVisibilityWhere(session.user.id, session.user.role, {
         productId,
+        organizationId: orgId,
       }),
       include: {
         product: { select: { name: true, slug: true } },

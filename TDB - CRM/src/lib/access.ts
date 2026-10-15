@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { leadVisibilityWhere, clientVisibilityWhere } from "@/lib/permissions";
+import { leadVisibilityWhere, accountVisibilityWhere } from "@/lib/permissions";
 import { getScopedProductId } from "@/lib/scope";
 import {
   canEditLead,
@@ -8,6 +8,7 @@ import {
 } from "@/lib/roles";
 import type { Role } from "@/generated/prisma/client";
 import { timingSafeEqual } from "crypto";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export type AuthUser = {
   id: string;
@@ -28,12 +29,13 @@ export async function assertLeadAccess(
   leadId: string,
   opts?: { requireEdit?: boolean; requireClose?: boolean }
 ) {
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(user.role);
   const lead = await prisma.lead.findFirst({
-    where: {
+    where: orgWhere(orgId, {
       id: leadId,
       ...leadVisibilityWhere(user.id, user.role, { productId }),
-    },
+    }),
     include: { product: true },
   });
   if (!lead) throw new Error("Accès refusé");
@@ -46,41 +48,47 @@ export async function assertLeadAccess(
   return lead;
 }
 
-export async function assertClientAccess(user: AuthUser, clientId: string) {
+export async function assertAccountAccess(user: AuthUser, accountId: string) {
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(user.role);
-  const client = await prisma.client.findFirst({
-    where: {
-      id: clientId,
-      ...clientVisibilityWhere(user.id, user.role, { productId }),
-    },
+  const account = await prisma.account.findFirst({
+    where: orgWhere(orgId, {
+      id: accountId,
+      ...accountVisibilityWhere(user.id, user.role, { productId }),
+    }),
   });
-  if (!client) throw new Error("Accès refusé");
+  if (!account) throw new Error("Accès refusé");
   if (!canSeeBilling(user.role) && user.role !== "APPORTEUR") {
-    // apporteur peut voir client lié ; mutations billing déjà gated ailleurs
+    // apporteur peut voir account lié ; mutations billing déjà gated ailleurs
   }
-  return client;
+  return account;
 }
 
-export async function assertDealLineAccess(user: AuthUser, dealLineId: string) {
+export async function assertOpportunityAccess(user: AuthUser, opportunityId: string) {
   if (!canSeeBilling(user.role)) throw new Error("Accès refusé");
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(user.role);
-  const line = await prisma.dealLine.findFirst({
-    where: {
-      id: dealLineId,
+  const opp = await prisma.opportunity.findFirst({
+    where: orgWhere(orgId, {
+      id: opportunityId,
       OR: [
         {
           lead: leadVisibilityWhere(user.id, user.role, { productId }),
         },
         {
-          client: clientVisibilityWhere(user.id, user.role, { productId }),
+          account: accountVisibilityWhere(user.id, user.role, { productId }),
         },
       ],
-    },
-    include: { lead: true, client: true },
+    }),
+    include: { lead: true, account: true },
   });
-  if (!line) throw new Error("Accès refusé");
-  return line;
+  if (!opp) throw new Error("Accès refusé");
+  return opp;
 }
+
+// Legacy aliases for backward compatibility
+export const assertClientAccess = assertAccountAccess;
+export const assertDealLineAccess = assertOpportunityAccess;
 
 export function escapeHtml(input: string): string {
   return input

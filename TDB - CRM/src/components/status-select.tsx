@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { updateLeadStatus } from "@/lib/actions";
 import type { LeadStatus } from "@/generated/prisma/client";
@@ -23,10 +23,6 @@ export function StatusSelect({
   const [local, setLocal] = useState(value);
   const [flash, setFlash] = useState(false);
   const labelMap = { ...STATUS_LABELS, ...labels };
-
-  useEffect(() => {
-    setLocal(value);
-  }, [value]);
 
   return (
     <div className="relative">

@@ -5,6 +5,7 @@ import { PageHeader, Card, Badge, Stat } from "@/components/ui";
 import { BILLING_LABELS, formatEuro, canSeeBilling } from "@/lib/utils";
 import { BillingActions } from "@/components/billing-actions";
 import { getScopedProductId } from "@/lib/scope";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function FacturationPage() {
   const session = await auth();
@@ -12,29 +13,31 @@ export default async function FacturationPage() {
   if (!canSeeBilling(session.user.role)) {
     redirect("/dashboard");
   }
+  const orgId = await requireOrg();
   const productId = await getScopedProductId(session.user.role);
 
-  const where =
+  const where = orgWhere(orgId,
     session.user.role === "COMMERCIAL"
       ? { lead: { commercialId: session.user.id } }
       : productId
         ? { lead: { productId } }
-        : {};
+        : {}
+  );
 
-  const lines = await prisma.dealLine.findMany({
+  const opportunities = await prisma.opportunity.findMany({
     where,
     include: {
       lead: { select: { companyName: true, id: true } },
-      client: { select: { companyName: true, id: true } },
+      account: { select: { companyName: true, id: true } },
     },
     orderBy: { updatedAt: "desc" },
   });
 
   const totals = {
-    devis: lines.filter((l) => l.billingStatus === "DEVIS").reduce((s, l) => s + l.amountHt, 0),
-    aFacturer: lines.filter((l) => l.billingStatus === "A_FACTURER").reduce((s, l) => s + l.amountHt, 0),
-    facture: lines.filter((l) => l.billingStatus === "FACTURE").reduce((s, l) => s + l.amountHt, 0),
-    paye: lines.filter((l) => l.billingStatus === "PAYE").reduce((s, l) => s + l.amountHt, 0),
+    devis: opportunities.filter((l) => l.billingStatus === "DEVIS").reduce((s: number, l) => s + l.amount, 0),
+    aFacturer: opportunities.filter((l) => l.billingStatus === "A_FACTURER").reduce((s: number, l) => s + l.amount, 0),
+    facture: opportunities.filter((l) => l.billingStatus === "FACTURE").reduce((s: number, l) => s + l.amount, 0),
+    paye: opportunities.filter((l) => l.billingStatus === "PAYE").reduce((s: number, l) => s + l.amount, 0),
   };
 
   return (
@@ -62,18 +65,18 @@ export default async function FacturationPage() {
             </tr>
           </thead>
           <tbody>
-            {lines.map((l) => (
+            {opportunities.map((l) => (
               <tr key={l.id} className="border-b border-stone-100">
                 <td className="px-4 py-3">
-                  <p className="font-medium">{l.label}</p>
+                  <p className="font-medium">{l.name}</p>
                   {l.isRecurring ? (
                     <Badge tone="info">Récurrent</Badge>
                   ) : null}
                 </td>
                 <td className="px-4 py-3 text-stone-600">
-                  {l.client?.companyName ?? l.lead?.companyName ?? "—"}
+                  {l.account?.companyName ?? l.lead?.companyName ?? "—"}
                 </td>
-                <td className="px-4 py-3">{formatEuro(l.amountHt)}</td>
+                <td className="px-4 py-3">{formatEuro(l.amount)}</td>
                 <td className="px-4 py-3">
                   <Badge
                     tone={
@@ -84,11 +87,11 @@ export default async function FacturationPage() {
                           : "neutral"
                     }
                   >
-                    {BILLING_LABELS[l.billingStatus]}
+                    {BILLING_LABELS[l.billingStatus!]}
                   </Badge>
                 </td>
                 <td className="px-4 py-3">
-                  <BillingActions id={l.id} status={l.billingStatus} showPay />
+                  <BillingActions id={l.id} status={l.billingStatus!} showPay />
                 </td>
               </tr>
             ))}

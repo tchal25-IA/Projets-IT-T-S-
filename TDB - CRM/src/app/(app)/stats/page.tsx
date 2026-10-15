@@ -5,6 +5,7 @@ import { PageHeader, Card, Stat } from "@/components/ui";
 import { formatEuro, STATUS_LABELS, isDirection } from "@/lib/utils";
 import { StatsCharts } from "@/components/stats-charts";
 import { getScopedProductId } from "@/lib/scope";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 export default async function StatsPage({
   searchParams,
@@ -16,6 +17,7 @@ export default async function StatsPage({
   if (!isDirection(session.user.role)) {
     redirect("/dashboard");
   }
+  const orgId = await requireOrg();
   const scopedProductId = await getScopedProductId(session.user.role);
 
   const sp = await searchParams;
@@ -25,21 +27,21 @@ export default async function StatsPage({
     : new Date(to.getTime() - 30 * 24 * 60 * 60 * 1000);
 
   const leads = await prisma.lead.findMany({
-    where: {
+    where: orgWhere(orgId, {
       createdAt: { gte: from, lte: to },
       ...(scopedProductId ? { productId: scopedProductId } : {}),
-    },
+    }),
     include: {
       product: true,
       commercial: true,
       apporteur: true,
-      dealLines: true,
+      opportunities: true,
     },
   });
 
   const closed = leads.filter((l) => l.status === "CLOSE");
   const ca = closed.reduce(
-    (s, l) => s + l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+    (s: number, l) => s + l.opportunities.reduce((a: number, d) => a + d.amount, 0),
     0
   );
 
@@ -62,7 +64,7 @@ export default async function StatsPage({
     const name = l.commercial?.fullName ?? "Non assigné";
     const prev = commercialMap.get(name) ?? { closes: 0, ca: 0 };
     prev.closes += 1;
-    prev.ca += l.dealLines.reduce((a, d) => a + d.amountHt, 0);
+    prev.ca += l.opportunities.reduce((a: number, d) => a + d.amount, 0);
     commercialMap.set(name, prev);
   }
   const byCommercial = [...commercialMap.entries()].map(([name, v]) => ({
@@ -94,7 +96,7 @@ export default async function StatsPage({
         STATUS_LABELS[l.status],
         `"${l.commercial?.fullName ?? ""}"`,
         `"${l.apporteur?.fullName ?? ""}"`,
-        l.dealLines.reduce((a, d) => a + d.amountHt, 0),
+        l.opportunities.reduce((a: number, d) => a + d.amount, 0),
       ].join(",")
     ),
   ].join("\n");

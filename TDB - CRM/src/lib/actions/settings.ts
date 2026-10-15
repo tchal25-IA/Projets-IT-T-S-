@@ -6,6 +6,7 @@ import { isFullAccess } from "@/lib/roles";
 import { requireUser, revalidateCrm } from "@/lib/actions/helpers";
 import { parseFieldSchema, type FieldDef } from "@/lib/fields";
 import type { BillingPeriod, OfferingKind, Prisma } from "@/generated/prisma/client";
+import { requireOrg, orgWhere } from "@/lib/tenant";
 
 async function requireSetup() {
   const user = await requireUser();
@@ -31,6 +32,7 @@ function slugify(raw: string) {
 
 export async function upsertProduct(formData: FormData) {
   await requireSetup();
+  const orgId = await requireOrg();
   const id = String(formData.get("id") || "");
   const name = String(formData.get("name") || "").trim();
   let slug = String(formData.get("slug") || "").trim().toLowerCase();
@@ -44,10 +46,12 @@ export async function upsertProduct(formData: FormData) {
   if (!/^[a-z0-9_-]+$/.test(slug)) throw new Error("Slug invalide");
 
   if (id) {
-    const existing = await prisma.product.findUnique({ where: { id } });
+    const existing = await prisma.product.findFirst({ 
+      where: orgWhere(orgId, { id })
+    });
     if (!existing) throw new Error("Produit introuvable");
     const slugTaken = await prisma.product.findFirst({
-      where: { slug, NOT: { id } },
+      where: orgWhere(orgId, { slug, NOT: { id } }),
     });
     if (slugTaken) throw new Error("Slug déjà utilisé");
     await prisma.product.update({
@@ -63,6 +67,7 @@ export async function upsertProduct(formData: FormData) {
   } else {
     await prisma.product.create({
       data: {
+        organizationId: orgId,
         name,
         slug,
         description,
@@ -77,19 +82,26 @@ export async function upsertProduct(formData: FormData) {
 
 export async function deleteProduct(id: string) {
   await requireSetup();
-  const count = await prisma.lead.count({ where: { productId: id } });
+  const orgId = await requireOrg();
+  const count = await prisma.lead.count({ 
+    where: orgWhere(orgId, { productId: id })
+  });
   if (count > 0) {
     throw new Error(
       `Impossible de supprimer : ${count} lead(s) rattaché(s). Désactivez le produit.`
     );
   }
-  await prisma.productOffering.deleteMany({ where: { productId: id } });
+  await prisma.productOffering.deleteMany({ 
+    where: orgWhere(orgId, { productId: id })
+  });
   await prisma.product.delete({ where: { id } });
   revalidateSettings();
 }
 
 export async function updateProductFieldSchema(formData: FormData) {
   await requireSetup();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _orgId = await requireOrg();
   const productId = String(formData.get("productId") || "");
   const raw = String(formData.get("fieldSchemaJson") || "[]");
   if (!productId) throw new Error("Produit manquant");
@@ -118,6 +130,7 @@ export async function updateProductFieldSchema(formData: FormData) {
 
 export async function addProductField(formData: FormData) {
   await requireSetup();
+  const orgId = await requireOrg();
   const productId = String(formData.get("productId") || "");
   const key = String(formData.get("key") || "").trim();
   const label = String(formData.get("label") || "").trim();
@@ -127,7 +140,9 @@ export async function addProductField(formData: FormData) {
     formData.get("optionsFrom") === "offerings" ? "offerings" : null;
   if (!productId || !key || !label) throw new Error("Champs requis");
 
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const product = await prisma.product.findFirst({ 
+    where: orgWhere(orgId, { id: productId })
+  });
   if (!product) throw new Error("Produit introuvable");
   const fields = parseFieldSchema(product.fieldSchema);
   if (fields.some((f) => f.key === key)) throw new Error("Clé déjà utilisée");
@@ -152,6 +167,7 @@ export async function addProductField(formData: FormData) {
 
 export async function updateProductField(formData: FormData) {
   await requireSetup();
+  const orgId = await requireOrg();
   const productId = String(formData.get("productId") || "");
   const originalKey = String(formData.get("originalKey") || "").trim();
   const key = String(formData.get("key") || "").trim();
@@ -164,7 +180,9 @@ export async function updateProductField(formData: FormData) {
     throw new Error("Champs requis");
   }
 
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const product = await prisma.product.findFirst({ 
+    where: orgWhere(orgId, { id: productId })
+  });
   if (!product) throw new Error("Produit introuvable");
   const fields = parseFieldSchema(product.fieldSchema);
   const idx = fields.findIndex((f) => f.key === originalKey);
@@ -193,7 +211,10 @@ export async function updateProductField(formData: FormData) {
 
 export async function removeProductField(productId: string, key: string) {
   await requireSetup();
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const orgId = await requireOrg();
+  const product = await prisma.product.findFirst({ 
+    where: orgWhere(orgId, { id: productId })
+  });
   if (!product) throw new Error("Produit introuvable");
   const fields = parseFieldSchema(product.fieldSchema).filter((f) => f.key !== key);
   await prisma.product.update({
@@ -205,6 +226,7 @@ export async function removeProductField(productId: string, key: string) {
 
 export async function upsertOffering(formData: FormData) {
   await requireSetup();
+  const orgId = await requireOrg();
   const id = String(formData.get("id") || "");
   const productId = String(formData.get("productId") || "");
   const name = String(formData.get("name") || "").trim();
@@ -225,6 +247,7 @@ export async function upsertOffering(formData: FormData) {
   }
 
   const data = {
+    organizationId: orgId,
     productId,
     name,
     code,
@@ -257,6 +280,7 @@ export async function toggleOfferingActive(id: string, active: boolean) {
 
 export async function upsertCommissionRule(formData: FormData) {
   await requireSetup();
+  const orgId = await requireOrg();
   const roleKey = String(formData.get("roleKey") || "").trim().toUpperCase();
   const label = String(formData.get("label") || "").trim();
   const ratePercent = Number(formData.get("ratePercent") || 0);
@@ -271,8 +295,14 @@ export async function upsertCommissionRule(formData: FormData) {
   }
 
   await prisma.commissionRule.upsert({
-    where: { roleKey },
+    where: { 
+      organizationId_roleKey: { 
+        organizationId: orgId, 
+        roleKey 
+      } 
+    },
     create: {
+      organizationId: orgId,
       roleKey,
       label: label || roleKey,
       ratePercent,
@@ -328,7 +358,7 @@ export async function saveCrmLabels(formData: FormData) {
   const { setSetting } = await import("@/lib/business-settings");
   const {
     STATUS_LABELS,
-    CLIENT_STATUS_LABELS,
+    ACCOUNT_STATUS_LABELS,
     BILLING_LABELS,
   } = await import("@/lib/utils");
 
@@ -338,12 +368,12 @@ export async function saveCrmLabels(formData: FormData) {
     if (v) leadStatus[key] = v;
   }
 
-  const clientStatus = { ...CLIENT_STATUS_LABELS };
+  const accountStatus = { ...ACCOUNT_STATUS_LABELS };
   for (const key of Object.keys(
-    CLIENT_STATUS_LABELS
-  ) as (keyof typeof CLIENT_STATUS_LABELS)[]) {
-    const v = String(formData.get(`client.${key}`) || "").trim();
-    if (v) clientStatus[key] = v;
+    ACCOUNT_STATUS_LABELS
+  ) as (keyof typeof ACCOUNT_STATUS_LABELS)[]) {
+    const v = String(formData.get(`account.${key}`) || formData.get(`client.${key}`) || "").trim();
+    if (v) accountStatus[key] = v;
   }
 
   const billingStatus = { ...BILLING_LABELS };
@@ -355,7 +385,7 @@ export async function saveCrmLabels(formData: FormData) {
   }
 
   await setSetting("labels.leadStatus", leadStatus);
-  await setSetting("labels.clientStatus", clientStatus);
+  await setSetting("labels.accountStatus", accountStatus);
   await setSetting("labels.billingStatus", billingStatus);
   revalidateSettings();
 }

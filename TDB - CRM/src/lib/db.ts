@@ -9,15 +9,17 @@ const globalForPrisma = globalThis as unknown as {
 
 function connectionString() {
   const raw = process.env.DATABASE_URL ?? "";
-  // Limite côté URL pour les DB Prisma create-db (quota très bas)
   if (!raw) return raw;
+  
   try {
     const u = new URL(raw);
+    // Add connection limit for Prisma create-db (low quota)
     if (!u.searchParams.has("connection_limit")) {
       u.searchParams.set("connection_limit", "1");
     }
     return u.toString();
   } catch {
+    // Return raw if not a valid URL (might be socket path, etc.)
     return raw;
   }
 }
